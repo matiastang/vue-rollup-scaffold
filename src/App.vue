@@ -1,17 +1,18 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 15:54:50
- * @LastEditTime: 2021-10-18 10:45:49
+ * @LastEditTime: 2021-10-18 14:03:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/App.vue
 -->
 <template>
   <div id="nav">
-    <!-- <router-link to="/">Home</router-link> -->
+    <router-link to="/home">Home</router-link>
     <router-link to="/">About</router-link>
   </div>
-  <div>sdlfjlsjdf</div>
+  <div>Home</div>
+  <!-- 路由出口 -->
   <router-view />
 </template>
 
