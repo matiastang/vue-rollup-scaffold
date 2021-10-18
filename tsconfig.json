@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
+        // 与 Vue 的浏览器支持保持一致
       "target": "esnext",
       "module": "esnext",
+      // 这可以对 `this` 上的数据 property 进行更严格的推断
       "strict": true,
       "jsx": "preserve",
       "importHelpers": true,
@@ -25,7 +27,11 @@
         "scripthost"
       ]
     },
+    "files": [
+        "global.d.ts"
+    ],
     "include": [
+        "src/**/*.d.ts",
       "src/**/*.ts",
       "src/**/*.tsx",
       "src/**/*.vue",
