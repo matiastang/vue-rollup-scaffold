@@ -13,6 +13,7 @@ specifiers:
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-vue: ^7.19.1
   less: ^4.1.2
+  prettier: ^2.4.1
   sass: ^1.43.2
   sass-loader: ^12.2.0
   stylus: ^0.55.0
@@ -34,12 +35,13 @@ devDependencies:
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/1.9.3_vite@2.6.7
   '@vitejs/plugin-vue-jsx': registry.npmmirror.com/@vitejs/plugin-vue-jsx/1.2.0
   '@vue/cli-plugin-eslint': registry.npmmirror.com/@vue/cli-plugin-eslint/4.5.14_eslint@8.0.1
-  '@vue/eslint-config-prettier': registry.nlark.com/@vue/eslint-config-prettier/6.0.0_2e3a40c291a4cf0d7e9b7fd1d7e8d86b
+  '@vue/eslint-config-prettier': registry.nlark.com/@vue/eslint-config-prettier/6.0.0_25eba323c3088add261186b25106dbd0
   '@vue/eslint-config-typescript': registry.npmmirror.com/@vue/eslint-config-typescript/8.0.0_567c2d4be752485c4cea80a96a29945e
   eslint: registry.npmmirror.com/eslint/8.0.1
-  eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_eslint@8.0.1
+  eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_eslint@8.0.1+prettier@2.4.1
   eslint-plugin-vue: registry.npmmirror.com/eslint-plugin-vue/7.19.1_eslint@8.0.1
   less: registry.npmmirror.com/less/4.1.2
+  prettier: registry.npmmirror.com/prettier/2.4.1
   sass: registry.npmmirror.com/sass/1.43.2
   sass-loader: registry.npmmirror.com/sass-loader/12.2.0_sass@1.43.2
   stylus: registry.nlark.com/stylus/0.55.0
@@ -426,7 +428,7 @@ packages:
     version: 1.0.2
     dev: true
 
-  registry.nlark.com/@vue/eslint-config-prettier/6.0.0_2e3a40c291a4cf0d7e9b7fd1d7e8d86b:
+  registry.nlark.com/@vue/eslint-config-prettier/6.0.0_25eba323c3088add261186b25106dbd0:
     resolution: {integrity: sha1-rVkSswj0rkaEWOAqKwXbC50kZwA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@vue/eslint-config-prettier/download/@vue/eslint-config-prettier-6.0.0.tgz}
     id: registry.nlark.com/@vue/eslint-config-prettier/6.0.0
     name: '@vue/eslint-config-prettier'
@@ -438,7 +440,8 @@ packages:
     dependencies:
       eslint: registry.npmmirror.com/eslint/8.0.1
       eslint-config-prettier: registry.nlark.com/eslint-config-prettier/6.15.0_eslint@8.0.1
-      eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_eslint@8.0.1
+      eslint-plugin-prettier: registry.nlark.com/eslint-plugin-prettier/4.0.0_eslint@8.0.1+prettier@2.4.1
+      prettier: registry.npmmirror.com/prettier/2.4.1
     dev: true
 
   registry.nlark.com/@webassemblyjs/ast/1.9.0:
@@ -1835,7 +1838,7 @@ packages:
       webpack: registry.npmmirror.com/webpack/4.46.0
     dev: true
 
-  registry.nlark.com/eslint-plugin-prettier/4.0.0_eslint@8.0.1:
+  registry.nlark.com/eslint-plugin-prettier/4.0.0_eslint@8.0.1+prettier@2.4.1:
     resolution: {integrity: sha1-i5nR5LiySnYkcrRWeZICNhnLmOA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/eslint-plugin-prettier/download/eslint-plugin-prettier-4.0.0.tgz}
     id: registry.nlark.com/eslint-plugin-prettier/4.0.0
     name: eslint-plugin-prettier
@@ -1850,6 +1853,7 @@ packages:
         optional: true
     dependencies:
       eslint: registry.npmmirror.com/eslint/8.0.1
+      prettier: registry.npmmirror.com/prettier/2.4.1
       prettier-linter-helpers: registry.nlark.com/prettier-linter-helpers/1.0.0
     dev: true
 
@@ -6274,6 +6278,14 @@ packages:
       nanoid: registry.npmmirror.com/nanoid/3.1.30
       picocolors: registry.npmmirror.com/picocolors/0.2.1
       source-map-js: registry.nlark.com/source-map-js/0.6.2
+
+  registry.npmmirror.com/prettier/2.4.1:
+    resolution: {integrity: sha1-Zx4RyJwUpM/Ids5WQQbEpnJsn1w=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prettier/download/prettier-2.4.1.tgz}
+    name: prettier
+    version: 2.4.1
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
 
   registry.npmmirror.com/ripemd160/2.0.2:
     resolution: {integrity: sha1-ocGm9iR1FXe6XQeRTLyShQWFiQw=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ripemd160/download/ripemd160-2.0.2.tgz}

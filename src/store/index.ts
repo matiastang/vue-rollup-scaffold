@@ -6,11 +6,11 @@
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/store/index.ts
  */
-import Vuex from "vuex";
+import Vuex from 'vuex'
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+	state: {},
+	mutations: {},
+	actions: {},
+	modules: {},
+})
