@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-10-18 11:27:55
+ * @LastEditTime: 2021-10-19 16:57:05
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /vue-scaffold/src/router/index.ts
+ */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 

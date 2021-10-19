@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 17:15:20
- * @LastEditTime: 2021-10-19 14:11:01
+ * @LastEditTime: 2021-10-19 17:43:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/.eslintrc.js
@@ -9,7 +9,9 @@
 module.exports = {
 	root: true,
 	env: {
-		node: true,
+		es6: true, // 启用 ES6 语法支持以及新的 ES6 全局变量或类型
+		node: true, // Node.js 全局变量和 Node.js 作用域
+		browser: true, // 浏览器全局变量
 	},
 	plugins: ['prettier'],
 	extends: [
@@ -43,8 +45,17 @@ module.exports = {
 				bracketSpacing: true, // 在对象，数组括号与文字之间加空格 "{ foo: bar }"
 			},
 		],
+		'array-bracket-newline': 'warn',
 	},
 	overrides: [
+		// {
+		// 	files: ['*.{j,t}s?(x)', '*.json?(x)', '**/.vscode/*.json?(x)'],
+		// 	env: {
+		// 		es6: true,
+		// 		node: true,
+		// 		browser: true,
+		// 	},
+		// },
 		{
 			files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
 			env: {
