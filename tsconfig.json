@@ -1,44 +1,33 @@
 {
-    "compilerOptions": {
-        // 与 Vue 的浏览器支持保持一致
-      "target": "esnext",
-      "module": "esnext",
-      // 这可以对 `this` 上的数据 property 进行更严格的推断
-      "strict": true,
-      "jsx": "preserve",
-      "importHelpers": true,
-      "moduleResolution": "node",
-      "experimentalDecorators": true,
-      "skipLibCheck": true,
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "sourceMap": true,
-      "baseUrl": ".",
-      "types": [],
-      "paths": {
-        "@/*": [
-          "src/*"
-        ]
-      },
-      "lib": [
-        "esnext",
-        "dom",
-        "dom.iterable",
-        "scripthost"
-      ]
-    },
-    "files": [
-        "global.d.ts"
-    ],
-    "include": [
-        "src/**/*.d.ts",
-      "src/**/*.ts",
-      "src/**/*.tsx",
-      "src/**/*.vue",
-      "tests/**/*.ts",
-      "tests/**/*.tsx"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
-}  
+	"compilerOptions": {
+		// 与 Vue 的浏览器支持保持一致
+		"target": "esnext",
+		"module": "esnext",
+		// 这可以对 `this` 上的数据 property 进行更严格的推断
+		"strict": true,
+		"jsx": "preserve",
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"baseUrl": ".",
+		"types": [],
+		"paths": {
+			"@/*": ["src/*"]
+		},
+		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+	},
+	"files": ["global.d.ts"],
+	"include": [
+		"src/**/*.d.ts",
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"src/**/*.vue",
+		"tests/**/*.ts",
+		"tests/**/*.tsx"
+	],
+	"exclude": ["node_modules"]
+}

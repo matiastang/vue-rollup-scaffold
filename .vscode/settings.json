@@ -28,6 +28,21 @@
     "editor.formatOnSave": true,
     // 配置 prettier 插件读取项目中哪个配置文件,默认是根目录下的 .prettierrc 文件
     "prettier.configPath": ".prettierrc",
+    // Vetur 配置
+    "vetur.format.defaultFormatter.html": "prettier",
+    "vetur.format.defaultFormatter.js": "prettier",
+    "vetur.format.defaultFormatter.less": "prettier",
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "trailingComma": "es5",
+            "tabWidth": 4,
+            "useTabs": true,
+            "semi": false,
+            "singleQuote": true,
+            "endOfLine": "auto",
+            "printWidth": 100
+        }
+    },
     // 编辑器设置
     "editor.detectIndentation": false,
     "editor.tabSize": 4,
