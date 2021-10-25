@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 15:54:50
- * @LastEditTime: 2021-10-18 19:02:19
+ * @LastEditTime: 2021-10-20 10:35:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/App.vue
@@ -33,10 +33,10 @@ interface App {
 export default defineComponent({
 	data() {
 		return {
-			title: null,
+			title: undefined,
 			obj: {
 				name: 'matias',
-				age: null,
+				age: undefined,
 			},
 		} as App
 	},
