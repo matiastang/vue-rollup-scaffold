@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2021-10-19 14:02:21
+ * @LastEditTime: 2021-10-28 11:37:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/main.ts
@@ -18,3 +18,6 @@ app.use(store)
 app.use(router)
 // 挂载
 app.mount('#app')
+
+// const version = Number(app.version.split('.')[0])
+console.log(`当前Vue版本为${app.version}`)
