@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 14:16:17
- * @LastEditTime: 2021-10-18 18:22:58
+ * @LastEditTime: 2021-11-01 19:16:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/README.md
@@ -71,3 +71,11 @@
 > "@typescript-eslint/eslint-plugin": "^5.0.0"
 > "@typescript-eslint/parser": "^5.0.0",
 > "prettier": "^2.4.1"
+
+* 三方组件库
+
+> "element-plus": "^1.2.0-beta.1",
+
+* 请求
+
+> "axios": "^0.24.0",

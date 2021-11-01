@@ -14,7 +14,9 @@
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
 		"baseUrl": ".",
-		"types": [],
+		"types": [
+            "element-plus/global"
+        ],
 		"paths": {
 			"@/*": ["src/*"]
 		},

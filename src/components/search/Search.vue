@@ -1,19 +1,22 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 16:47:14
- * @LastEditTime: 2021-10-29 17:04:40
+ * @LastEditTime: 2021-11-01 19:00:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/search.vue
 -->
 <template>
     <div class="search">
-        <input class="search-input" placeholder="请输入接口名称/接口ID" />
+        <el-input class="search-input" v-model="inputValue" placeholder="请输入接口名称/接口ID" />
+        <!-- <input class="search-input" placeholder="请输入接口名称/接口ID" /> -->
         <div class="search-button"></div>
     </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
     data() {
         return {
@@ -47,7 +50,9 @@ export default {
         }
     },
     setup() {
+        let inputValue = ref('')
         return {
+            inputValue,
             phone: '18380449615',
         }
     },
