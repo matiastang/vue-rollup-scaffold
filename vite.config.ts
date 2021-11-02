@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-10-29 14:32:11
+ * @LastEditTime: 2021-11-02 19:54:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/vite.config.ts
@@ -22,7 +22,11 @@ export default defineConfig({
     plugins: [vue(), vueJsx()],
     resolve: {
         // 别名
-        alias: [{ find: '@', replacement: path.resolve(__dirname, './src') }],
+        alias: [
+            { find: 'root', replacement: path.resolve(__dirname, './') },
+            { find: '@', replacement: path.resolve(__dirname, './src') },
+            { find: 'static', replacement: path.resolve(__dirname, './static') },
+        ],
     },
     css: {
         modules: {

@@ -1,15 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-10-28 13:36:47
+ * @LastEditTime: 2021-11-02 16:59:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/views/Home.vue
 -->
 <template>
     <div class="home">
-        <div :class="{ logo: true, animation: animation }" @click="animationAction" />
-        <div :class="{ logo: true, zoom: zoom }" @click="zoomAction" />
+        <!-- <div :class="{ logo: true, animation: animation }" @click="animationAction" />
+        <div :class="{ logo: true, zoom: zoom }" @click="zoomAction" /> -->
         <!-- <img alt="Vue logo"  /> -->
         <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
     </div>
