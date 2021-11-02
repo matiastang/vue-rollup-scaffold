@@ -1,17 +1,23 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 16:47:14
- * @LastEditTime: 2021-11-01 19:00:46
+ * @LastEditTime: 2021-11-02 16:11:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/search.vue
 -->
 <template>
-    <div class="search">
-        <el-input class="search-input" v-model="inputValue" placeholder="请输入接口名称/接口ID" />
-        <!-- <input class="search-input" placeholder="请输入接口名称/接口ID" /> -->
-        <div class="search-button"></div>
-    </div>
+    <el-input
+        v-model="inputValue"
+        :class="['search-input', { 'search-input-selected': focus }]"
+        :placeholder="placeholder"
+        @blur="inputBlur"
+        @focus="inputFocus"
+    >
+        <template #suffix>
+            <div class="search-button"></div>
+        </template>
+    </el-input>
 </template>
 
 <script>
@@ -20,70 +26,68 @@ import { ref } from 'vue'
 export default {
     data() {
         return {
-            titleArr: [
-                {
-                    title: '首页',
-                    selected: true,
-                },
-                {
-                    title: '数据接口',
-                    selected: false,
-                },
-                {
-                    title: '解决方案',
-                    selected: false,
-                },
-                {
-                    title: '充值调用',
-                    selected: false,
-                },
-                {
-                    title: '优惠套餐',
-                    selected: false,
-                },
-            ],
-            // title: undefined,
-            // obj: {
-            //     name: 'matiastang',
-            //     age: undefined,
-            // },
+            focus: false,
         }
     },
     setup() {
         let inputValue = ref('')
         return {
             inputValue,
-            phone: '18380449615',
+            placeholder: '请输入接口名称/接口ID',
         }
     },
-    computed: {
-        getUserName() {
-            return '登录/注册'
+    computed: {},
+    methods: {
+        /**
+         * 在 Input 失去焦点时触发
+         */
+        inputBlur() {
+            this.focus = false
+        },
+        /**
+         * 在 Input 获得焦点时触发
+         */
+        inputFocus() {
+            this.focus = true
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.search {
+.search-input {
     width: 100%;
     height: 54px;
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    .search-input {
-        width: calc(100% - 60px);
-        height: calc(100% - 2px);
-        border: none;
-        border-radius: 8px 0px 0px 8px;
+    ::v-deep .search-button {
+        width: 60px;
+        height: 52px;
+        background: #d65928;
+        border-radius: 0px 7px 7px 0px;
+        margin: 1px;
+    }
+    ::v-deep input {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        padding-right: 0px;
+        border-radius: 8px;
+        border-radius: 8px;
         border: 1px solid #d65928;
         padding: 0px 0px 0px 5px;
     }
-    .search-button {
-        width: 60px;
-        height: 100%;
-        background: #d65928;
-        border-radius: 0px 8px 8px 0px;
+    ::v-deep .el-input__suffix {
+        right: 0px;
+    }
+}
+.search-input-selected {
+    ::v-deep .search-button {
+        height: 50px;
+        border-radius: 0px 6px 6px 0px;
+        margin: 2px;
+    }
+    ::v-deep input {
+        border: 2px solid #d65928;
     }
 }
 </style>

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2021-11-01 18:57:00
+ * @LastEditTime: 2021-11-02 15:06:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/main.ts
@@ -11,6 +11,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 const app = createApp(App)
 
