@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 15:30:38
- * @LastEditTime: 2021-11-02 15:29:15
+ * @LastEditTime: 2021-11-03 11:40:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/Header.vue
@@ -9,7 +9,7 @@
 <template>
     <div class="header">
         <div class="header-left">
-            <div class="header-left-logo"></div>
+            <img class="header-left-logo" src="static/header/logo.png" />
             <Search class="header-left-input" />
             <!-- <div class="header-left-input"></div> -->
         </div>
@@ -102,14 +102,11 @@ export default {
         .header-left-logo {
             width: 173px;
             height: 60px;
-            background: #d65928;
         }
         .header-left-input {
             min-width: 300px;
             max-width: 676px;
             height: 54px;
-            // border-radius: 8px;
-            // border: 1px solid #d65928;
             margin: 0px 80px;
             flex: 1 1 auto;
         }

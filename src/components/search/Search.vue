@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 16:47:14
- * @LastEditTime: 2021-11-02 17:55:30
+ * @LastEditTime: 2021-11-03 14:04:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/search.vue
@@ -15,7 +15,9 @@
         @focus="inputFocus"
     >
         <template #suffix>
-            <div class="search-button"></div>
+            <div class="search-button">
+                <img class="search-icon" src="static/header/search.png" />
+            </div>
         </template>
     </el-input>
 </template>
@@ -59,12 +61,20 @@ export default {
     width: 100%;
     height: 54px;
     border-radius: 8px;
-    ::v-deep .search-button {
+    .search-button {
         width: 60px;
         height: 52px;
         background: #d65928;
         border-radius: 0px 7px 7px 0px;
         margin: 1px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        .search-icon {
+            width: 29px;
+            height: 29px;
+        }
     }
     ::v-deep input {
         width: 100%;
