@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-11-02 20:07:16
+ * @LastEditTime: 2021-11-03 20:02:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/Layout.vue
@@ -10,14 +10,18 @@
     <div class="layout">
         <Header class="header" />
         <div class="content">
-            <router-view></router-view>
+            <div class="router-content">
+                <router-view></router-view>
+            </div>
+            <Footer class="footer" />
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import Header from '@/components/header/Header.vue'
+import Footer from '@/components/footer/Footer.vue'
 
 export default defineComponent({
     data() {
@@ -25,6 +29,7 @@ export default defineComponent({
     },
     components: {
         Header,
+        Footer,
     },
 })
 </script>
@@ -45,6 +50,12 @@ export default defineComponent({
         width: 100%;
         height: calc(100% - 96px);
         overflow-y: scroll;
+        .router-content {
+            min-height: 100%;
+        }
+    }
+    .footer {
+        width: 100%;
     }
 }
 </style>

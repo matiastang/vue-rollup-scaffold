@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 15:30:38
- * @LastEditTime: 2021-11-03 11:40:05
+ * @LastEditTime: 2021-11-03 18:49:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/Header.vue
@@ -33,10 +33,11 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import Search from '../search/Search.vue'
 
-export default {
+export default defineComponent({
     components: {
         Search,
     },
@@ -81,7 +82,7 @@ export default {
             return '登录/注册'
         },
     },
-}
+})
 </script>
 
 <style lang="scss" scoped>

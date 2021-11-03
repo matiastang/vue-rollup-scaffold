@@ -1,13 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-02 19:45:17
+ * @LastEditTime: 2021-11-03 19:58:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/router/index.ts
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Layout from '../views/Layout.vue'
+import Layout from '@/components/layout/Layout.vue'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
@@ -19,25 +19,19 @@ const routes: Array<RouteRecordRaw> = [
         component: Layout,
         children: [
             {
+                path: 'home',
+                component: Home,
+            },
+            {
                 path: 'login',
                 component: Login,
             },
         ],
         beforeEnter: (to, from) => {
             console.log(`路由卫士：即将从${from}跳转到${to}`)
-            // return false reject the navigation
             return true
         },
     },
-    // {
-    //     path: '/about',
-    //     name: 'About',
-    //     // route level code-splitting
-    //     // this generates a separate chunk (about.[hash].js) for this route
-    //     // which is lazy-loaded when the route is visited.
-    //     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    // },
-
     {
         // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
         path: '/:pathMatch(.*)*',
