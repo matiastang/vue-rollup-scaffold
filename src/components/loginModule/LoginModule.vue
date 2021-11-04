@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-03 17:47:46
+ * @LastEditTime: 2021-11-04 15:59:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -306,7 +306,7 @@ export default defineComponent({
         .login {
             width: 100%;
             height: 56px;
-            background: #d65928;
+            background: $themeColor;
             border-radius: 4px;
             font-size: 18px;
             font-family: PingFangSC-Regular, PingFang SC;
@@ -370,7 +370,7 @@ export default defineComponent({
             text-align: center;
         }
     }
-    ::v-deep #tab-register {
+    ::v-deep(#tab-register) {
         width: 215px;
         height: 54px;
         font-size: 30px;
@@ -383,7 +383,7 @@ export default defineComponent({
         padding: 0px;
         margin-right: 51px;
     }
-    ::v-deep #tab-login {
+    ::v-deep(#tab-login) {
         width: 132px;
         height: 54px;
         font-size: 30px;
@@ -396,15 +396,15 @@ export default defineComponent({
         padding: 0px;
         margin-left: 51px;
     }
-    ::v-deep .is-active {
+    ::v-deep(.is-active) {
         font-weight: 500 !important;
         color: #d65928 !important;
     }
-    ::v-deep .el-tabs__active-bar {
+    ::v-deep(.el-tabs__active-bar) {
         height: 6px;
         background: #d65928;
     }
-    ::v-deep .el-tabs__nav-wrap::after {
+    ::v-deep(.el-tabs__nav-wrap::after) {
         display: none !important;
     }
 }
@@ -422,7 +422,8 @@ export default defineComponent({
             font-size: 16px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
-            color: #d65928;
+            // color: #d65928;
+            color: $themeColor;
             line-height: 24px;
             letter-spacing: 1px;
         }

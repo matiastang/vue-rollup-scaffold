@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 16:47:14
- * @LastEditTime: 2021-11-03 14:04:05
+ * @LastEditTime: 2021-11-04 15:59:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/search.vue
@@ -76,7 +76,7 @@ export default {
             height: 29px;
         }
     }
-    ::v-deep input {
+    ::v-deep(input) {
         width: 100%;
         height: 100%;
         border-radius: 8px;
@@ -86,17 +86,17 @@ export default {
         border: 1px solid #d65928;
         padding: 0px 0px 0px 5px;
     }
-    ::v-deep .el-input__suffix {
+    ::v-deep(.el-input__suffix) {
         right: 0px;
     }
 }
 .search-input-selected {
-    ::v-deep .search-button {
+    ::v-deep(.search-button) {
         height: 50px;
         border-radius: 0px 6px 6px 0px;
         margin: 2px;
     }
-    ::v-deep input {
+    ::v-deep(input) {
         border: 2px solid #d65928;
     }
 }

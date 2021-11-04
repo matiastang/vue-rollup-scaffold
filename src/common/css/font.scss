@@ -1,0 +1,48 @@
+// 字体样式
+$_family: PingFangSC-Regular, PingFang SC;
+$_weight: 400;
+$_spacing: 1px;
+
+@mixin fontFamily {
+    font-family: $_family;
+}
+@mixin fontWeight {
+    font-weight: $_weight;
+}
+@mixin letterSpacing {
+    letter-spacing: $_spacing;
+}
+@mixin defaultFont {
+    @include fontFamily;
+    @include fontWeight;
+    @include letterSpacing;
+    text-align: center;
+}
+
+.defaultFont {
+    @include defaultFont;
+}
+
+/* 文本溢出 */
+.ak-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: nowrap;
+}
+.ak-ellipsis2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.ak-ellipsis3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

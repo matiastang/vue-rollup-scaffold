@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-11-02 19:54:35
+ * @LastEditTime: 2021-11-04 14:13:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/vite.config.ts
@@ -31,6 +31,15 @@ export default defineConfig({
     css: {
         modules: {
             localsConvention: 'camelCaseOnly',
+        },
+        // CSS 预处理器的选项
+        preprocessorOptions: {
+            less: {},
+            scss: {
+                // 多个使用+号连接
+                additionalData: '@import "@/common/css/index.scss";',
+            },
+            sass: {},
         },
     },
     // 开发服务配置

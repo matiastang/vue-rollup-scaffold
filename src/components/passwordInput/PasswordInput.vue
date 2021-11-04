@@ -1,15 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 14:22:27
- * @LastEditTime: 2021-11-03 17:36:47
+ * @LastEditTime: 2021-11-04 15:53:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/passwordInput/PasswordInput.vue
 -->
 <template>
-    <div class="password-input" :class="class">
+    <div class="password-input borderBox flexRowCenter defaultBorder" :class="class">
         <el-input
-            class="input"
+            class="defaultInput"
             :="$attrs"
             :show-password="passwordHide"
             type="text"
@@ -17,7 +17,7 @@
             clearable
         >
         </el-input>
-        <div class="password-button" @click="passwordClick">
+        <div class="password-button flexRowCenter cursorP" @click="passwordClick">
             <img v-if="passwordHide" class="password-icon" src="static/login/password-off.png" />
             <img v-else class="password-icon" src="static/login/password-on.png" />
         </div>
@@ -53,32 +53,10 @@ export default defineComponent({
 .password-input {
     width: 100%;
     height: 56px;
-    box-sizing: border-box;
-    border: 1px solid #bfbfbf;
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
-    .input {
-        ::v-deep input {
-            width: 100%;
-            height: 100%;
-            border: none !important;
-            padding: 0px 0px 0px 24px !important;
-        }
-        ::v-deep .el-input__suffix {
-            right: 0px !important;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
     .password-button {
         width: 76px;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
         .password-icon {
             width: 16px;
             height: 16px;

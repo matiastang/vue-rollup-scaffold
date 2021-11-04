@@ -1,0 +1,16 @@
+// scss方法
+// font-size
+@function fontSize($size) {
+    // @if $size > 10 {
+    //     @return 1px;
+    // }
+    @return $size;
+}
+// line-height
+@function lineHeight($size) {
+    @return $size * 1.5;
+}
+// 线性渐变背景
+@function backgroundLinearGradient($topColor, $bottomColor) {
+    @return linear-gradient($topColor, $bottomColor);
+}
