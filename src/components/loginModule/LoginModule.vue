@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-04 15:59:06
+ * @LastEditTime: 2021-11-04 16:17:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -271,7 +271,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-::v-deep .login {
+::v-deep(.login) {
     width: 100%;
     height: 56px;
     background: #d65928;

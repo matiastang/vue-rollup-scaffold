@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:54:19
- * @LastEditTime: 2021-11-04 15:46:51
+ * @LastEditTime: 2021-11-04 16:03:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/codeInput/CodeInput.vue
@@ -15,7 +15,7 @@
             maxlength="4"
             clearable
         />
-        <div class="code-button defaultFont flexRowCenter cursorP" @click="getCode">
+        <div class="code-button defaultFont flexRowCenter cursorP ak-ellipsis" @click="getCode">
             {{ codeText }}
         </div>
     </div>

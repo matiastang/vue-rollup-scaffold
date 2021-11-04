@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-03 19:58:01
+ * @LastEditTime: 2021-11-04 19:26:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/router/index.ts
@@ -9,7 +9,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/components/layout/Layout.vue'
 import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
+import Home from '../views/home/Home.vue'
 import NotFound from '../views/NotFound.vue'
 
 const routes: Array<RouteRecordRaw> = [

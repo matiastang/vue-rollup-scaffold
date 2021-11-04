@@ -24,25 +24,43 @@ $_spacing: 1px;
 }
 
 /* 文本溢出 */
-.ak-ellipsis {
+
+// 显示不全省略
+@mixin textEllipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+.textEllipsis {
+    @include textEllipsis;
+}
+// 显示1行
+@mixin textLine1 {
+    @include textEllipsis;
+    -webkit-line-clamp: 1;
     white-space: nowrap;
 }
-.ak-ellipsis2 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+
+.textLine1 {
+    @include textLine1;
 }
-.ak-ellipsis3 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
+// 显示2行
+@mixin textLine2 {
+    @include textEllipsis;
+    -webkit-line-clamp: 2;
+}
+
+.textLine2 {
+    @include textLine2;
+}
+// 显示3行
+@mixin textLine3 {
+    @include textEllipsis;
     -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+}
+
+.textLine3 {
+    @include textLine3;
 }
