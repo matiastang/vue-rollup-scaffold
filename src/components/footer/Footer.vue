@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-11-03 19:45:10
+ * @LastEditTime: 2021-11-05 11:11:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
@@ -261,6 +261,13 @@ export default defineComponent({
                 line-height: 17px;
                 letter-spacing: 1px;
             }
+        }
+    }
+}
+@media screen and (max-width: 1360px) {
+    .footer {
+        .footer-content {
+            width: 90%;
         }
     }
 }
