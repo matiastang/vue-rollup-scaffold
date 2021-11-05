@@ -1,15 +1,7 @@
 <!--
  * @Author: your name
- * @Date: 2021-11-05 15:26:14
- * @LastEditTime: 2021-11-05 15:26:15
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/home/components/solutionCell/dwSolutionCell.vue
--->
-<!--
- * @Author: your name
  * @Date: 2021-11-05 11:33:07
- * @LastEditTime: 2021-11-05 12:07:11
+ * @LastEditTime: 2021-11-05 15:33:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/home/components/solutionCell/solutionCell.vue

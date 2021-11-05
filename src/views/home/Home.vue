@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-05 15:28:03
+ * @LastEditTime: 2021-11-05 15:31:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/views/Home.vue
@@ -48,7 +48,7 @@
 import { defineComponent } from 'vue'
 import SwiperSlider from '@/components/swiperSlider/SwiperSlider.vue'
 import Collapse from './components/collapse/Collapse.vue'
-import SolutionCell from './components/solutionCell/DSolutionCell.vue'
+import SolutionCell from './components/solutionCell/SolutionCell.vue'
 import HomeTitle from './components/homeTitle/HomeTitle.vue'
 import Hot from './components/hot/Hot.vue'
 
