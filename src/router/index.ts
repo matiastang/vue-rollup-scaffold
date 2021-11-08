@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-04 19:26:54
+ * @LastEditTime: 2021-11-08 10:06:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/router/index.ts
@@ -20,10 +20,12 @@ const routes: Array<RouteRecordRaw> = [
         children: [
             {
                 path: 'home',
+                name: 'home',
                 component: Home,
             },
             {
                 path: 'login',
+                name: 'login',
                 component: Login,
             },
         ],

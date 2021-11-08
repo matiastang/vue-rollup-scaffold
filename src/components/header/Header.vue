@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 15:30:38
- * @LastEditTime: 2021-11-03 18:49:55
+ * @LastEditTime: 2021-11-08 10:07:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/Header.vue
@@ -11,7 +11,6 @@
         <div class="header-left">
             <img class="header-left-logo" src="static/header/logo.png" />
             <Search class="header-left-input" />
-            <!-- <div class="header-left-input"></div> -->
         </div>
         <div class="header-right">
             <div v-for="item in titleArr" :key="item.title" class="header-right-button">
@@ -20,11 +19,12 @@
                         'header-right-title',
                         { 'header-right-title-selected': item.selected },
                     ]"
+                    @click="headerSelectAction"
                 >
                     {{ item.title }}
                 </div>
             </div>
-            <div class="header-right-button">
+            <div class="header-right-button" @click="headerLoginAction">
                 <div class="header-right-title">
                     {{ getUserName }}
                 </div>
@@ -35,6 +35,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 import Search from '../search/Search.vue'
 
 export default defineComponent({
@@ -73,8 +74,21 @@ export default defineComponent({
         }
     },
     setup() {
+        const router = useRouter()
+
+        const headerSelectAction = () => {
+            router.push({
+                name: 'login',
+            })
+        }
+        const headerLoginAction = () => {
+            router.push({
+                name: 'login',
+            })
+        }
         return {
-            phone: '18380449615',
+            headerSelectAction,
+            headerLoginAction,
         }
     },
     computed: {
