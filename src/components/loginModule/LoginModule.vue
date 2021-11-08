@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-04 16:17:24
+ * @LastEditTime: 2021-11-08 18:37:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -10,7 +10,7 @@
     <div>
         <el-tabs
             v-if="!findPassword"
-            class="login-module-tabs"
+            class="login-model-tabs login-module-tabs"
             v-model="activeName"
             @tab-click="tabClick"
         >

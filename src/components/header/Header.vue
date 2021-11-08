@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 15:30:38
- * @LastEditTime: 2021-11-08 16:12:53
+ * @LastEditTime: 2021-11-08 18:45:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/Header.vue
@@ -76,6 +76,9 @@ export default defineComponent({
         ])
         const router = useRouter()
         const route = useRoute()
+        for (let index = 0; index < titleArr.length; index++) {
+            titleArr[index].selected = route.path.startsWith(`/${titleArr[index].name}`)
+        }
         // 检测路由变化时更新header选中状态
         watch(
             () => route.path,
