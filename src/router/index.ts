@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-08 16:14:51
+ * @LastEditTime: 2021-11-08 16:27:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/router/index.ts
@@ -33,8 +33,8 @@ const routes: Array<RouteRecordRaw> = [
                 component: Interface,
             },
             {
-                path: 'interface',
-                name: 'interface',
+                path: 'solution',
+                name: 'solution',
                 component: Solution,
             },
             {

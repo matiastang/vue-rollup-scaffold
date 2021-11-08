@@ -98,13 +98,17 @@
                 </div>
             </div>
         </div>
+        <WeixinModel v-model="weixinDialogVisible" />
+        <TransferModel v-model="transferDialogVisible" />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import RechargeMoney from './components/rechargeMoney/RechargeMoney.vue'
 import Payment from '@/components/payment/Payment.vue'
+import WeixinModel from '@/components/weixinModel/WeixinModel.vue'
+import TransferModel from '@/components/transferModel/TransferModel.vue'
 import { ElMessage } from 'element-plus'
 
 export default defineComponent({
@@ -154,6 +158,8 @@ export default defineComponent({
                 selected: false,
             },
         ])
+        let weixinDialogVisible = ref(false)
+        let transferDialogVisible = ref(false)
         const paymentSelectAction = (index: number) => {
             for (let i = 0; i < paymentArr.length; i++) {
                 paymentArr[i].selected = i === index
@@ -188,6 +194,17 @@ export default defineComponent({
             },
         ]
         const payAction = () => {
+            for (let i = 0; i < paymentArr.length; i++) {
+                if (paymentArr[i].selected) {
+                    if (i === 0) {
+                        weixinDialogVisible.value = true
+                    }
+                    if (i === 2) {
+                        transferDialogVisible.value = true
+                    }
+                }
+            }
+
             // TODO: - 校验
             ElMessage({
                 message: '功能开发中...',
@@ -202,11 +219,15 @@ export default defineComponent({
             serviceArr,
             courseArr,
             payAction,
+            weixinDialogVisible,
+            transferDialogVisible,
         }
     },
     components: {
         RechargeMoney,
         Payment,
+        WeixinModel,
+        TransferModel,
     },
 })
 </script>

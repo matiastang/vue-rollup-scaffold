@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:55:53
- * @LastEditTime: 2021-11-08 15:49:25
+ * @LastEditTime: 2021-11-08 17:55:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/discount/Discount.vue
@@ -113,13 +113,17 @@
                 </div>
             </div>
         </div>
+        <WeixinModel v-model="weixinDialogVisible" />
+        <TransferModel v-model="transferDialogVisible" />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import DiscountPackage from './components/discountPackage/DiscountPackage.vue'
 import Payment from '@/components/payment/Payment.vue'
+import WeixinModel from '@/components/weixinModel/WeixinModel.vue'
+import TransferModel from '@/components/transferModel/TransferModel.vue'
 import { ElMessage } from 'element-plus'
 
 export default defineComponent({
@@ -195,6 +199,8 @@ export default defineComponent({
                 selected: false,
             },
         ])
+        let weixinDialogVisible = ref(false)
+        let transferDialogVisible = ref(false)
         const paymentSelectAction = (index: number) => {
             for (let i = 0; i < paymentArr.length; i++) {
                 paymentArr[i].selected = i === index
@@ -229,6 +235,17 @@ export default defineComponent({
             },
         ]
         const payAction = () => {
+            for (let i = 0; i < paymentArr.length; i++) {
+                if (paymentArr[i].selected) {
+                    if (i === 0) {
+                        weixinDialogVisible.value = true
+                    }
+                    if (i === 2) {
+                        transferDialogVisible.value = true
+                    }
+                }
+            }
+
             // TODO: - 校验
             ElMessage({
                 message: '功能开发中...',
@@ -244,11 +261,15 @@ export default defineComponent({
             serviceArr,
             courseArr,
             payAction,
+            weixinDialogVisible,
+            transferDialogVisible,
         }
     },
     components: {
         DiscountPackage,
         Payment,
+        WeixinModel,
+        TransferModel,
     },
 })
 </script>
