@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 15:30:38
- * @LastEditTime: 2021-11-08 10:07:07
+ * @LastEditTime: 2021-11-08 16:12:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/components/header/Header.vue
@@ -19,7 +19,7 @@
                         'header-right-title',
                         { 'header-right-title-selected': item.selected },
                     ]"
-                    @click="headerSelectAction"
+                    @click="headerSelectAction(item.name)"
                 >
                     {{ item.title }}
                 </div>
@@ -34,59 +34,81 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, reactive, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import Search from '../search/Search.vue'
 
 export default defineComponent({
+    name: 'Header',
     components: {
         Search,
     },
     data() {
-        return {
-            titleArr: [
-                {
-                    title: '首页',
-                    selected: true,
-                },
-                {
-                    title: '数据接口',
-                    selected: false,
-                },
-                {
-                    title: '解决方案',
-                    selected: false,
-                },
-                {
-                    title: '充值调用',
-                    selected: false,
-                },
-                {
-                    title: '优惠套餐',
-                    selected: false,
-                },
-            ],
-            // title: undefined,
-            // obj: {
-            //     name: 'matiastang',
-            //     age: undefined,
-            // },
-        }
+        return {}
     },
     setup() {
+        let titleArr = reactive([
+            {
+                title: '首页',
+                selected: true,
+                name: 'home',
+            },
+            {
+                title: '数据接口',
+                selected: false,
+                name: 'interface',
+            },
+            {
+                title: '解决方案',
+                selected: false,
+                name: 'solution',
+            },
+            {
+                title: '充值调用',
+                selected: false,
+                name: 'recharge',
+            },
+            {
+                title: '优惠套餐',
+                selected: false,
+                name: 'discount',
+            },
+        ])
         const router = useRouter()
-
-        const headerSelectAction = () => {
+        const route = useRoute()
+        // 检测路由变化时更新header选中状态
+        watch(
+            () => route.path,
+            (newPath: string) => {
+                for (let index = 0; index < titleArr.length; index++) {
+                    titleArr[index].selected = newPath.startsWith(`/${titleArr[index].name}`)
+                }
+            }
+        )
+        /**
+         * header点击
+         */
+        const headerSelectAction = (name: string) => {
+            for (let index = 0; index < titleArr.length; index++) {
+                titleArr[index].selected = titleArr[index].name === name
+            }
             router.push({
-                name: 'login',
+                name,
             })
         }
+        /**
+         * 登录注册点击
+         */
         const headerLoginAction = () => {
+            for (let index = 0; index < titleArr.length; index++) {
+                titleArr[index].selected = false
+            }
             router.push({
                 name: 'login',
             })
         }
         return {
+            titleArr,
             headerSelectAction,
             headerLoginAction,
         }

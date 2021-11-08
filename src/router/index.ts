@@ -1,16 +1,20 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-08 10:06:42
+ * @LastEditTime: 2021-11-08 16:14:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/router/index.ts
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/components/layout/Layout.vue'
-import Login from '../views/Login.vue'
-import Home from '../views/home/Home.vue'
-import NotFound from '../views/NotFound.vue'
+import Home from '@/views/home/Home.vue'
+import Login from '@/views/Login.vue'
+import Recharge from '@/views/recharge/Recharge.vue'
+import Discount from '@/views/discount/Discount.vue'
+import Interface from '@/views/interface/Interface.vue'
+import Solution from '@/views/solution/Solution.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -22,6 +26,26 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'home',
                 name: 'home',
                 component: Home,
+            },
+            {
+                path: 'interface',
+                name: 'interface',
+                component: Interface,
+            },
+            {
+                path: 'interface',
+                name: 'interface',
+                component: Solution,
+            },
+            {
+                path: 'recharge/',
+                name: 'recharge',
+                component: Recharge,
+            },
+            {
+                path: 'discount/',
+                name: 'discount',
+                component: Discount,
             },
             {
                 path: 'login',

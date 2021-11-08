@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 15:54:50
- * @LastEditTime: 2021-11-02 19:58:05
+ * @LastEditTime: 2021-11-08 16:12:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/App.vue
@@ -42,29 +42,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-// #app {
-//     font-family: Avenir, Helvetica, Arial, sans-serif;
-//     -webkit-font-smoothing: antialiased;
-//     -moz-osx-font-smoothing: grayscale;
-//     text-align: center;
-//     color: #2c3e50;
-// }
-
-// .text {
-//     background: red;
-// }
-
-// #nav {
-//     padding: 30px;
-
-//     a {
-//         font-weight: bold;
-//         color: #2c3e50;
-
-//         &.router-link-exact-active {
-//             color: #42b983;
-//         }
-//     }
-// }
-</style>
+<style lang="scss" scoped></style>
