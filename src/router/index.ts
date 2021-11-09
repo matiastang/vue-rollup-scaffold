@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-09 10:33:14
+ * @LastEditTime: 2021-11-09 16:19:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/router/index.ts
@@ -9,7 +9,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/components/layout/Layout.vue'
 import Home from '@/views/home/Home.vue'
-import Login from '@/views/Login.vue'
+import Login from '@/views/login/Login.vue'
 import Interface from '@/views/interface/Interface.vue'
 import Solution from '@/views/solution/Solution.vue'
 import Recharge from '@/views/recharge/Recharge.vue'

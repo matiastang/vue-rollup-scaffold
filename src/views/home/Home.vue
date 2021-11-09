@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-09 15:26:56
+ * @LastEditTime: 2021-11-09 16:33:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/views/Home.vue
@@ -481,12 +481,6 @@ export default defineComponent({
         }
         .partners {
             padding: 60px calc(5% - 8px) 60px calc(5% - 8px);
-        }
-    }
-    .collapse-popover-build {
-        .collapse-popover {
-            left: calc(36.5% - 16px) !important;
-            width: calc(58.5% + 16px) !important;
         }
     }
 }

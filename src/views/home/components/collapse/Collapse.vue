@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 20:01:27
- * @LastEditTime: 2021-11-09 16:05:39
+ * @LastEditTime: 2021-11-09 16:16:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/home/components/collapse/Collapse.vue
@@ -211,6 +211,7 @@ body {
                         width: 25%;
                         align-items: flex-start;
                         .content-cell {
+                            width: 100%;
                             font-size: 14px;
                             color: $titleColor;
                             line-height: 20px;

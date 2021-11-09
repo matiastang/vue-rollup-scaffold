@@ -1,103 +1,326 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-09 09:48:35
+ * @LastEditTime: 2021-11-09 19:43:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/interface/Interface.vue
 -->
 <template>
-    <div class="about">
-        <h1>功能开发中</h1>
-        <h1 @click="showLoginModel">未登录弹窗</h1>
-        <h1 @click="showAuthenticationModel">未认证弹窗</h1>
-        <h1 @click="showBugModel">套餐过期弹窗</h1>
-        <h1 @click="showOverdueModel">已申请试用过弹窗</h1>
-        <h1 @click="showNSFModel">余额不足弹窗</h1>
-        <h1 @click="showApplyTrialModel">申请试用弹窗</h1>
-        <LoginModel v-model="loginDialogVisible" />
-        <OpenalphaModel
-            v-model="authenticationDialogVisible"
-            title="您还未实名认证，无法申请试用套餐"
-            okText="立即认证"
-            :hiddenCancel="true"
+    <div class="interface flexColumnCenter">
+        <div class="interface-hot"></div>
+        <div class="interface-bottom flexRowCenter">
+            <div class="interface-left borderBox flexRowCenter">
+                <InterfaceList
+                    :listData="interfaceData"
+                    class="interface-list"
+                    @selectAction="selectAction"
+                />
+            </div>
+            <div class="interface-right borderBox flexColumnCenter">
+                <div class="interface-right-title defaultFont">
+                    {{ `基金基本信息(${interfaceAllCount})` }}
+                </div>
+                <div v-for="dataItem in interfaceListData" :key="dataItem.title">
+                    <div v-if="Array.isArray(dataItem.data)">
+                        <div class="interface-next-content flexRowCenter">
+                            <div class="interface-next-line"></div>
+                            <div class="interface-next-title">
+                                {{ `${dataItem.title}(${dataItem.data.length})` }}
+                            </div>
+                        </div>
+
+                        <BaseInfoCell
+                            v-for="item in dataItem.data"
+                            :key="item.title"
+                            :title="item.title"
+                            :text="item.text"
+                            :id="item.id"
+                            :price="item.price"
+                            @trialAction="showApplyTrialModel"
+                            @click="infoCellAction"
+                        />
+                    </div>
+                    <BaseInfoCell
+                        v-else
+                        :key="dataItem.title"
+                        :title="dataItem.title"
+                        :text="dataItem.text"
+                        :id="dataItem.id"
+                        :price="dataItem.price"
+                        @trialAction="showApplyTrialModel"
+                        @click="infoCellAction"
+                    />
+                </div>
+            </div>
+        </div>
+        <ApplyTrialModel
+            v-model="applyTrialDialogVisible"
+            @okAction="applyTrialOkAction"
+            @cancelAction="applyTrialCancelAction"
         />
-        <OpenalphaModel
-            v-model="buyDialogVisible"
-            title="您的优惠套餐已过期，请重新购买"
-            okText="立即购买"
-            :hiddenCancel="true"
-        />
-        <OpenalphaModel
-            v-model="overdueDialogVisible"
-            title="您已经申请过试用套餐，不能再次申请"
-            okText="立即充值"
-            cancelText="购买套餐"
-        />
-        <OpenalphaModel
-            v-model="nsfDialogVisible"
-            title="您的账户余额不足，请先充值"
-            okText="立即充值"
-            cancelText="申请试用"
-            :cancelStyle="{ color: '#8C8C8C', border: '1px solid #8C8C8C', background: 'white' }"
-        />
-        <ApplyTrialModel v-model="applyTrialDialogVisible" />
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import LoginModel from '@/components/loginModel/LoginModel.vue'
-import OpenalphaModel from '@/components/openalphaModel/OpenalphaModel.vue'
+import { defineComponent, reactive, ref, computed } from 'vue'
+import { InterfaceData, InterfaceBaseInfo, InterfaceInfo } from './interface'
+import InterfaceList from './components/interfaceList/InterfaceList.vue'
+import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'Interface',
     setup() {
-        let loginDialogVisible = ref(false)
-        const showLoginModel = () => {
-            loginDialogVisible.value = true
+        let selectIndex = ref(4)
+        let interfaceData = reactive([
+            {
+                title: '基本信息',
+                count: 1,
+                selected: false,
+                data: [
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                ],
+            },
+            {
+                title: '基本信息',
+                count: 2,
+                selected: false,
+                data: [
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                ],
+            },
+            {
+                title: '基本信息',
+                count: 3,
+                selected: false,
+                data: [
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                ],
+            },
+            {
+                title: '基本信息',
+                count: 4,
+                selected: false,
+                data: [
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                    {
+                        title: '基金基本要素',
+                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                        id: '基金基本要素',
+                        price: '0.15',
+                    },
+                ],
+            },
+            {
+                title: '基本信息',
+                count: 5,
+                selected: true,
+                data: [
+                    {
+                        title: '基金资产配置',
+                        data: [
+                            {
+                                title: '基金基本要素',
+                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                                id: '基金基本要素',
+                                price: '0.15',
+                            },
+                            {
+                                title: '基金基本要素',
+                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                                id: '基金基本要素',
+                                price: '0.15',
+                            },
+                        ],
+                    },
+                    {
+                        title: '基金资产配置',
+                        data: [
+                            {
+                                title: '基金基本要素',
+                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                                id: '基金基本要素',
+                                price: '0.15',
+                            },
+                            {
+                                title: '基金基本要素',
+                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                                id: '基金基本要素',
+                                price: '0.15',
+                            },
+                            {
+                                title: '基金基本要素',
+                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
+                                id: '基金基本要素',
+                                price: '0.15',
+                            },
+                        ],
+                    },
+                ],
+            },
+        ])
+        let interfaceListData = computed(() => interfaceData[selectIndex.value].data)
+        let interfaceAllCount = computed(() => interfaceData[selectIndex.value].count)
+        const selectAction = (index: number) => {
+            selectIndex.value = index
+            for (let i = 0; i < interfaceData.length; i++) {
+                interfaceData[i].selected = i === index
+            }
         }
-        let authenticationDialogVisible = ref(false)
-        const showAuthenticationModel = () => {
-            authenticationDialogVisible.value = true
-        }
-        let buyDialogVisible = ref(false)
-        const showBugModel = () => {
-            buyDialogVisible.value = true
-        }
-        let overdueDialogVisible = ref(false)
-        const showOverdueModel = () => {
-            overdueDialogVisible.value = true
-        }
-        let nsfDialogVisible = ref(false)
-        const showNSFModel = () => {
-            nsfDialogVisible.value = true
-        }
+        // 申请接口试用
         let applyTrialDialogVisible = ref(false)
         const showApplyTrialModel = () => {
             applyTrialDialogVisible.value = true
         }
         return {
-            loginDialogVisible,
-            showLoginModel,
-            authenticationDialogVisible,
-            showAuthenticationModel,
-            buyDialogVisible,
-            showBugModel,
-            overdueDialogVisible,
-            showOverdueModel,
-            nsfDialogVisible,
-            showNSFModel,
+            selectIndex,
+            selectAction,
+            interfaceData,
+            interfaceAllCount,
+            interfaceListData,
             applyTrialDialogVisible,
             showApplyTrialModel,
         }
     },
     components: {
-        LoginModel,
-        OpenalphaModel,
+        InterfaceList,
+        BaseInfoCell,
         ApplyTrialModel,
+    },
+    methods: {
+        applyTrialOkAction() {
+            // TODO: - 校验
+            ElMessage({
+                message: '申请功能开发中...',
+                type: 'warning',
+            })
+        },
+        applyTrialCancelAction() {
+            // TODO: - 校验
+            ElMessage({
+                message: '修改信息功能开发中...',
+                type: 'warning',
+            })
+        },
+        infoCellAction() {
+            console.log('点击cell')
+        },
     },
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.interface {
+    padding: 20px 10% 60px 10%;
+    .interface-hot {
+        width: 100%;
+        height: 238px;
+        background: $themeBgColor;
+    }
+    .interface-bottom {
+        width: 100%;
+        align-items: stretch;
+        margin-top: 20px;
+        .interface-left {
+            width: 25.8%;
+            padding-right: 16px;
+            justify-content: flex-start;
+            align-items: stretch;
+            .interface-list {
+                width: 100%;
+                background: $themeBgColor;
+                justify-content: flex-start;
+            }
+        }
+        .interface-right {
+            width: 74.2%;
+            background: $themeBgColor;
+            padding: 0px 24px;
+            justify-content: flex-start;
+            .interface-right-title {
+                font-size: 18px;
+                color: $titleColor;
+                line-height: 26px;
+                width: 100%;
+                padding: 24px 0px 16px 0px;
+                text-align: left;
+                border-bottom: 1px solid #dfdfdf;
+            }
+            ::v-deep(.interface-next-content) {
+                justify-content: flex-start;
+                margin-top: 17px;
+                .interface-next-line {
+                    width: 2px;
+                    height: 18px;
+                    background: $themeColor;
+                    margin-right: 4px;
+                }
+                .interface-next-title {
+                    font-size: 18px;
+                    font-family: PingFangSC-Medium, PingFang SC;
+                    font-weight: 500;
+                    color: $themeColor;
+                    line-height: 26px;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1360px) {
+    .interface {
+        padding: 20px 5% 60px 5%;
+    }
+}
+</style>
