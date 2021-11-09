@@ -1,22 +1,22 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 18:47:23
- * @LastEditTime: 2021-11-08 19:32:20
+ * @LastEditTime: 2021-11-09 09:49:28
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/components/authenticationModel/AuthenticationModel.vue
+ * @FilePath: /datumwealth-openalpha-front/src/components/openalphaModel/OpenalphaModel.vue
 -->
 <template>
-    <div class="authentication-model">
+    <div class="openalpha-model">
         <el-dialog :="$attrs" center>
             <div class="model-title defaultFont">{{ title || '提示' }}</div>
             <div class="model-bottom flexRowCenter">
-                <div class="model-ok-button defaultFont" @click="modelOkAction">
+                <div class="model-ok-button cursorP defaultFont" @click="modelOkAction">
                     {{ okText || '确定' }}
                 </div>
                 <div
                     v-if="!hiddenCancel"
-                    class="model-cancel-button defaultFont"
+                    class="model-cancel-button cursorP defaultFont"
                     @click="modelCancelAction"
                     :style="cancelStyle"
                 >
@@ -31,7 +31,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'AuthenticationModel',
+    name: 'OpenalphaModel',
     inheritAttrs: false,
     props: {
         title: {
@@ -70,7 +70,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.authentication-model {
+.openalpha-model {
     ::v-deep(.el-dialog) {
         width: 697px;
         background: $themeBgColor;

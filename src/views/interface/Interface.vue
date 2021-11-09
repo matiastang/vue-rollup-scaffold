@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-08 19:38:16
+ * @LastEditTime: 2021-11-09 09:48:35
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/interface/Interface.vue
@@ -16,25 +16,25 @@
         <h1 @click="showNSFModel">余额不足弹窗</h1>
         <h1 @click="showApplyTrialModel">申请试用弹窗</h1>
         <LoginModel v-model="loginDialogVisible" />
-        <AuthenticationModel
+        <OpenalphaModel
             v-model="authenticationDialogVisible"
             title="您还未实名认证，无法申请试用套餐"
             okText="立即认证"
             :hiddenCancel="true"
         />
-        <AuthenticationModel
+        <OpenalphaModel
             v-model="buyDialogVisible"
             title="您的优惠套餐已过期，请重新购买"
             okText="立即购买"
             :hiddenCancel="true"
         />
-        <AuthenticationModel
+        <OpenalphaModel
             v-model="overdueDialogVisible"
             title="您已经申请过试用套餐，不能再次申请"
             okText="立即充值"
             cancelText="购买套餐"
         />
-        <AuthenticationModel
+        <OpenalphaModel
             v-model="nsfDialogVisible"
             title="您的账户余额不足，请先充值"
             okText="立即充值"
@@ -47,7 +47,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import LoginModel from '@/components/loginModel/LoginModel.vue'
-import AuthenticationModel from '@/components/authenticationModel/AuthenticationModel.vue'
+import OpenalphaModel from '@/components/openalphaModel/OpenalphaModel.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 
 export default defineComponent({
@@ -94,7 +94,7 @@ export default defineComponent({
     },
     components: {
         LoginModel,
-        AuthenticationModel,
+        OpenalphaModel,
         ApplyTrialModel,
     },
 })

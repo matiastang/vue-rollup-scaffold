@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:55:53
- * @LastEditTime: 2021-11-08 17:55:57
+ * @LastEditTime: 2021-11-09 10:27:41
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/discount/Discount.vue
@@ -114,12 +114,13 @@
             </div>
         </div>
         <WeixinModel v-model="weixinDialogVisible" />
-        <TransferModel v-model="transferDialogVisible" />
+        <TransferModel v-model="transferDialogVisible" @post="transferAction" />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import DiscountPackage from './components/discountPackage/DiscountPackage.vue'
 import Payment from '@/components/payment/Payment.vue'
 import WeixinModel from '@/components/weixinModel/WeixinModel.vue'
@@ -129,6 +130,7 @@ import { ElMessage } from 'element-plus'
 export default defineComponent({
     name: 'Discount',
     setup() {
+        const router = useRouter()
         const timeArr = reactive([
             {
                 title: '1年',
@@ -252,6 +254,11 @@ export default defineComponent({
                 type: 'warning',
             })
         }
+        const transferAction = () => {
+            router.push({
+                path: '/discount/companyTransfer',
+            })
+        }
         return {
             timeArr,
             moneyArr,
@@ -263,6 +270,7 @@ export default defineComponent({
             payAction,
             weixinDialogVisible,
             transferDialogVisible,
+            transferAction,
         }
     },
     components: {
