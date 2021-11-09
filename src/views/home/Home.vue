@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-05 15:31:31
+ * @LastEditTime: 2021-11-09 15:26:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/views/Home.vue
 -->
 <template>
     <div class="home">
-        <div class="home-top borderBox flexRowCenter">
+        <div class="collapse-popover-bound home-top borderBox flexRowCenter">
             <div class="borderBox home-top-left">
                 <Collapse class="dw-collapse" :data="collapseData" />
             </div>
@@ -414,7 +414,9 @@ export default defineComponent({
         align-items: stretch;
         .home-top-left {
             width: 30%;
-            margin-right: 16px;
+            padding-right: 16px;
+            box-sizing: border-box;
+            // margin-right: 16px;
         }
         .home-top-right {
             width: 70%;
@@ -468,7 +470,7 @@ export default defineComponent({
                 width: 35%;
             }
             .home-top-right {
-                width: 75%;
+                width: 65%;
             }
         }
         .solution {
@@ -479,6 +481,12 @@ export default defineComponent({
         }
         .partners {
             padding: 60px calc(5% - 8px) 60px calc(5% - 8px);
+        }
+    }
+    .collapse-popover-build {
+        .collapse-popover {
+            left: calc(36.5% - 16px) !important;
+            width: calc(58.5% + 16px) !important;
         }
     }
 }
