@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-09 19:43:49
+ * @LastEditTime: 2021-11-09 20:15:22
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/interface/Interface.vue
@@ -54,6 +54,10 @@
                 </div>
             </div>
         </div>
+        <div class="apply-trial-affix cursorP flexColumnCenter" @click="showApplyTrialModel">
+            <img class="apply-trial-img" />
+            <div class="apply-trial-title defaultFont">申请试用</div>
+        </div>
         <ApplyTrialModel
             v-model="applyTrialDialogVisible"
             @okAction="applyTrialOkAction"
@@ -82,7 +86,7 @@ export default defineComponent({
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                 ],
@@ -95,13 +99,13 @@ export default defineComponent({
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                 ],
@@ -114,19 +118,19 @@ export default defineComponent({
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                 ],
@@ -139,25 +143,25 @@ export default defineComponent({
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                     {
                         title: '基金基本要素',
                         text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '基金基本要素',
+                        id: '1314',
                         price: '0.15',
                     },
                 ],
@@ -173,13 +177,13 @@ export default defineComponent({
                             {
                                 title: '基金基本要素',
                                 text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '基金基本要素',
+                                id: '1314',
                                 price: '0.15',
                             },
                             {
                                 title: '基金基本要素',
                                 text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '基金基本要素',
+                                id: '1314',
                                 price: '0.15',
                             },
                         ],
@@ -190,19 +194,19 @@ export default defineComponent({
                             {
                                 title: '基金基本要素',
                                 text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '基金基本要素',
+                                id: '1314',
                                 price: '0.15',
                             },
                             {
                                 title: '基金基本要素',
                                 text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '基金基本要素',
+                                id: '1314',
                                 price: '0.15',
                             },
                             {
                                 title: '基金基本要素',
                                 text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '基金基本要素',
+                                id: '1314',
                                 price: '0.15',
                             },
                         ],
@@ -262,6 +266,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .interface {
+    position: relative;
     padding: 20px 10% 60px 10%;
     .interface-hot {
         width: 100%;
@@ -315,6 +320,27 @@ export default defineComponent({
                     letter-spacing: 1px;
                 }
             }
+        }
+    }
+    .apply-trial-affix {
+        position: fixed;
+        width: 76px;
+        height: 109px;
+        background: $themeColor;
+        border-radius: 2px;
+        right: 17px !important;
+        bottom: 298px !important;
+        .apply-trial-img {
+            width: 40px;
+            height: 40px;
+            color: $themeBgColor;
+            margin-bottom: 5px;
+        }
+        .apply-trial-title {
+            font-size: 18px;
+            color: $themeBgColor;
+            line-height: 26px;
+            width: 40px;
         }
     }
 }
