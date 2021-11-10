@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-09 16:33:21
+ * @LastEditTime: 2021-11-10 20:06:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/views/Home.vue
@@ -13,7 +13,11 @@
                 <Collapse class="dw-collapse" :data="collapseData" />
             </div>
             <div class="home-top-right">
-                <SwiperSlider style="height: 100%" />
+                <SwiperSlider style="height: 100%">
+                    <swiper-slide class="swiper-slide"> Slide 1 </swiper-slide>
+                    <swiper-slide class="swiper-slide"> Slide 2 </swiper-slide>
+                    <swiper-slide class="swiper-slide"> Slide 3 </swiper-slide>
+                </SwiperSlider>
             </div>
         </div>
         <div class="solution borderBox flexColumnCenter">

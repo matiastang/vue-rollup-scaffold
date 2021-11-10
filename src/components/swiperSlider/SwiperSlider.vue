@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 17:15:04
- * @LastEditTime: 2021-11-04 19:22:04
+ * @LastEditTime: 2021-11-10 20:11:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/swiperSlider/SwiperSlider.vue
@@ -16,6 +16,7 @@
         :autoplay="autoplay"
         @slideChange="onSlideChange"
     >
+        <slot></slot>
         <swiper-slide class="swiper-slide"> Slide 1 </swiper-slide>
         <swiper-slide class="swiper-slide"> Slide 2 </swiper-slide>
         <swiper-slide class="swiper-slide"> Slide 3 </swiper-slide>

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:50:34
- * @LastEditTime: 2021-11-10 14:37:57
+ * @LastEditTime: 2021-11-10 17:19:34
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/interfaceInfo/components/infoCell/InfoCell.vue
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="cell-button cursorP defaultFont" @click.stop="cellButtonAction(id)">
+        <div class="cell-button cursorP defaultFont" @click.stop="cellButtonAction(data.id)">
             试用接口
         </div>
     </div>

@@ -1,14 +1,26 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-10 10:44:04
+ * @LastEditTime: 2021-11-10 20:08:29
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/interface/Interface.vue
 -->
 <template>
     <div class="interface flexColumnCenter">
-        <div class="interface-hot"></div>
+        <div class="interface-hot">
+            <SwiperSlider style="height: 100%">
+                <swiper-slide class="swiper-slide">
+                    <InterfaceHot title="热榜一" />
+                </swiper-slide>
+                <swiper-slide class="swiper-slide">
+                    <InterfaceHot title="热榜二" />
+                </swiper-slide>
+                <swiper-slide class="swiper-slide">
+                    <InterfaceHot title="热榜三" />
+                </swiper-slide>
+            </SwiperSlider>
+        </div>
         <div class="interface-bottom flexRowCenter">
             <div class="interface-left borderBox flexRowCenter">
                 <InterfaceList
@@ -61,6 +73,8 @@ import { defineComponent, reactive, ref, computed } from 'vue'
 import { InterfaceData, InterfaceBaseInfo, InterfaceInfo } from './interface'
 import InterfaceList from './components/interfaceList/InterfaceList.vue'
 import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
+import InterfaceHot from './components/interfaceHot/InterfaceHot.vue'
+import SwiperSlider from '@/components/swiperSlider/SwiperSlider.vue'
 import { ElMessage } from 'element-plus'
 
 export default defineComponent({
@@ -223,6 +237,8 @@ export default defineComponent({
     components: {
         InterfaceList,
         BaseInfoCell,
+        InterfaceHot,
+        SwiperSlider,
     },
     methods: {
         /**
@@ -251,7 +267,6 @@ export default defineComponent({
     padding: 20px 10% 60px 10%;
     .interface-hot {
         width: 100%;
-        height: 238px;
         background: $themeBgColor;
     }
     .interface-bottom {
