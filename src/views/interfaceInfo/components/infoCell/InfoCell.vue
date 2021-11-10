@@ -1,55 +1,50 @@
 <!--
  * @Author: your name
- * @Date: 2021-11-09 17:16:04
- * @LastEditTime: 2021-11-10 10:37:10
+ * @Date: 2021-11-10 10:50:34
+ * @LastEditTime: 2021-11-10 14:37:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interface/components/baseInfoCell/BaseInfoCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/interfaceInfo/components/infoCell/InfoCell.vue
 -->
 <template>
-    <div class="base-info-cell borderBox cursorP flexRowCenter">
+    <div class="info-cell borderBox flexRowCenter">
         <div class="cell-left flexRowCenter">
             <div class="cell-icon"></div>
             <div class="cell-title-content flexColumnCenter">
-                <div class="cell-title defaultFont">{{ title }}</div>
+                <div class="cell-title defaultFont">{{ data.title }}</div>
                 <div class="cell-item flexRowCenter">
                     <div class="cell-item-title defaultFont">描述:</div>
-                    <div class="cell-text defaultFont">{{ text }}</div>
+                    <div class="cell-text defaultFont">{{ data.text }}</div>
                 </div>
-                <div class="cell-item flexRowCenter">
-                    <div class="cell-item-title defaultFont">接口ID:</div>
-                    <div class="cell-id defaultFont">{{ id }}</div>
-                </div>
-                <div class="cell-item cell-item-last flexRowCenter">
-                    <div class="cell-item-title defaultFont">价格:</div>
-                    <div class="cell-price defaultFont">{{ `${price}元` }}</div>
+                <div class="cell-last flexRowCenter">
+                    <div class="cell-last-item flexRowCenter">
+                        <div class="cell-item-title defaultFont">接口ID:</div>
+                        <div class="cell-id defaultFont">{{ data.id }}</div>
+                    </div>
+                    <div class="cell-last-item flexRowCenter" style="margin-left: 30px">
+                        <div class="cell-item-title defaultFont">价格:</div>
+                        <div class="cell-price defaultFont">{{ `${data.price}元` }}</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="cell-button defaultFont" @click.stop="cellButtonAction(id)">试用接口</div>
+        <div class="cell-button cursorP defaultFont" @click.stop="cellButtonAction(id)">
+            试用接口
+        </div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { InterfaceInfo } from '../../interfaceInfo'
 
 export default defineComponent({
-    name: 'BaseInfoCell',
+    name: 'InfoCell',
     props: {
-        title: {
-            type: String,
-            default: '名称',
-        },
-        text: {
-            type: String,
-            default: '描述',
-        },
-        id: {
-            type: String,
-            default: 'id',
-        },
-        price: {
-            type: String,
-            default: '0.15',
+        data: {
+            type: Object as PropType<InterfaceInfo>,
+            default: () => {
+                return {}
+            },
         },
     },
     emits: ['trialAction'],
@@ -62,14 +57,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.base-info-cell {
+.info-cell {
     width: 100%;
-    padding: 24px 0px;
+    padding: 24px;
     justify-content: space-between !important;
     background: $themeBgColor;
-    border-bottom: 1px dashed #dfdfdf;
     .cell-left {
-        align-items: stretch;
+        align-items: center;
         .cell-icon {
             width: 132px;
             height: 132px;
@@ -117,8 +111,32 @@ export default defineComponent({
                     line-height: 20px;
                 }
             }
-            .cell-item-last {
-                margin-bottom: 0px;
+            .cell-last {
+                .cell-last-item {
+                    align-items: flex-start;
+                    .cell-item-title {
+                        font-size: 14px;
+                        font-family: PingFangSC-Medium, PingFang SC;
+                        font-weight: 500;
+                        color: $titleColor;
+                        line-height: 20px;
+                        letter-spacing: 1px;
+                        flex-shrink: 0;
+                        margin-right: 8px;
+                    }
+                    .cell-text,
+                    .cell-id {
+                        font-size: 14px;
+                        color: #595959;
+                        line-height: 20px;
+                        text-align: left;
+                    }
+                    .cell-price {
+                        font-size: 14px;
+                        color: #e62412;
+                        line-height: 20px;
+                    }
+                }
             }
         }
         .cell-title {

@@ -1,71 +1,42 @@
 <!--
  * @Author: your name
- * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-10 10:44:04
+ * @Date: 2021-11-10 10:19:32
+ * @LastEditTime: 2021-11-10 10:42:28
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interface/Interface.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/interfaceCall/InterfaceCall.vue
 -->
 <template>
     <div class="interface flexColumnCenter">
         <div class="interface-hot"></div>
         <div class="interface-bottom flexRowCenter">
-            <div class="interface-left borderBox flexRowCenter">
-                <InterfaceList
-                    :listData="interfaceData"
-                    class="interface-list"
-                    @selectAction="selectAction"
-                />
-            </div>
+            <div class="interface-left borderBox flexRowCenter"></div>
             <div class="interface-right borderBox flexColumnCenter">
                 <div class="interface-right-title defaultFont">
                     {{ `基金基本信息(${interfaceAllCount})` }}
                 </div>
-                <div v-for="dataItem in interfaceListData" :key="dataItem.title">
-                    <div v-if="Array.isArray(dataItem.data)">
-                        <div class="interface-next-content flexRowCenter">
-                            <div class="interface-next-line"></div>
-                            <div class="interface-next-title">
-                                {{ `${dataItem.title}(${dataItem.data.length})` }}
-                            </div>
-                        </div>
-
-                        <BaseInfoCell
-                            v-for="item in dataItem.data"
-                            :key="item.title"
-                            :title="item.title"
-                            :text="item.text"
-                            :id="item.id"
-                            :price="item.price"
-                            @trialAction="applyTrialAction"
-                            @click="infoCellAction(item.id)"
-                        />
-                    </div>
-                    <BaseInfoCell
-                        v-else
-                        :key="dataItem.title"
-                        :title="dataItem.title"
-                        :text="dataItem.text"
-                        :id="dataItem.id"
-                        :price="dataItem.price"
-                        @trialAction="applyTrialAction"
-                        @click="infoCellAction(dataItem.id)"
-                    />
-                </div>
+                <div v-for="dataItem in interfaceListData" :key="dataItem.title"></div>
             </div>
         </div>
+        <InterfaceAffix @click="showApplyTrialModel" />
+        <ApplyTrialModel
+            v-model="applyTrialDialogVisible"
+            @okAction="applyTrialOkAction"
+            @cancelAction="applyTrialCancelAction"
+        />
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref, computed } from 'vue'
-import { InterfaceData, InterfaceBaseInfo, InterfaceInfo } from './interface'
-import InterfaceList from './components/interfaceList/InterfaceList.vue'
-import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
+import { useRouter } from 'vue-router'
+import InterfaceAffix from '@/components/interfaceAffix/InterfaceAffix.vue'
+import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import { ElMessage } from 'element-plus'
 
 export default defineComponent({
-    name: 'Interface',
+    name: 'InterfaceCall',
     setup() {
+        const router = useRouter()
         let selectIndex = ref(4)
         let interfaceData = reactive([
             {
@@ -212,34 +183,42 @@ export default defineComponent({
                 interfaceData[i].selected = i === index
             }
         }
+        // 申请接口试用
+        let applyTrialDialogVisible = ref(false)
+        const showApplyTrialModel = () => {
+            applyTrialDialogVisible.value = true
+        }
         return {
             selectIndex,
             selectAction,
             interfaceData,
             interfaceAllCount,
             interfaceListData,
+            applyTrialDialogVisible,
+            showApplyTrialModel,
         }
     },
     components: {
-        InterfaceList,
-        BaseInfoCell,
+        InterfaceAffix,
+        ApplyTrialModel,
     },
     methods: {
-        /**
-         * 跳转到接口试用界面
-         */
-        applyTrialAction(interfaceId: string) {
-            this.$router.push({
-                path: `/interface/call/${interfaceId}`,
+        applyTrialOkAction() {
+            // TODO: - 校验
+            ElMessage({
+                message: '申请功能开发中...',
+                type: 'warning',
             })
         },
-        /**
-         * 跳转到接口详情界面
-         */
-        infoCellAction(interfaceId: string) {
-            this.$router.push({
-                path: `/interface/info/${interfaceId}`,
+        applyTrialCancelAction() {
+            // TODO: - 校验
+            ElMessage({
+                message: '修改信息功能开发中...',
+                type: 'warning',
             })
+        },
+        infoCellAction() {
+            console.log('点击cell')
         },
     },
 })
@@ -301,27 +280,6 @@ export default defineComponent({
                     letter-spacing: 1px;
                 }
             }
-        }
-    }
-    .apply-trial-affix {
-        position: fixed;
-        width: 76px;
-        height: 109px;
-        background: $themeColor;
-        border-radius: 2px;
-        right: 17px !important;
-        bottom: 298px !important;
-        .apply-trial-img {
-            width: 40px;
-            height: 40px;
-            color: $themeBgColor;
-            margin-bottom: 5px;
-        }
-        .apply-trial-title {
-            font-size: 18px;
-            color: $themeBgColor;
-            line-height: 26px;
-            width: 40px;
         }
     }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-09 16:19:59
+ * @LastEditTime: 2021-11-10 10:43:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-scaffold/src/router/index.ts
@@ -11,6 +11,8 @@ import Layout from '@/components/layout/Layout.vue'
 import Home from '@/views/home/Home.vue'
 import Login from '@/views/login/Login.vue'
 import Interface from '@/views/interface/Interface.vue'
+import InterfaceCall from '@/views/interfaceCall/InterfaceCall.vue'
+import InterfaceInfo from '@/views/interfaceInfo/InterfaceInfo.vue'
 import Solution from '@/views/solution/Solution.vue'
 import Recharge from '@/views/recharge/Recharge.vue'
 import Discount from '@/views/discount/Discount.vue'
@@ -32,6 +34,16 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'interface',
                 name: 'interface',
                 component: Interface,
+            },
+            {
+                path: 'interface/call/:id',
+                name: 'InterfaceCall',
+                component: InterfaceCall,
+            },
+            {
+                path: 'interface/info/:id',
+                name: 'InterfaceInfo',
+                component: InterfaceInfo,
             },
             {
                 path: 'solution',
