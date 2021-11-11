@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-11-04 14:13:41
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-11 14:46:48
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/vite.config.ts
+ * @FilePath: /datumwealth-openalpha-front/vite.config.ts
  */
 // vite配置文件vite.config.js
 
@@ -26,6 +26,7 @@ export default defineConfig({
             { find: 'root', replacement: path.resolve(__dirname, './') },
             { find: '@', replacement: path.resolve(__dirname, './src') },
             { find: 'static', replacement: path.resolve(__dirname, './static') },
+            { find: 'utils', replacement: path.resolve(__dirname, './src/common/utils') },
         ],
     },
     css: {

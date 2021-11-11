@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-10 20:08:29
+ * @LastEditTime: 2021-11-11 13:49:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/interface/Interface.vue
@@ -9,7 +9,8 @@
 <template>
     <div class="interface flexColumnCenter">
         <div class="interface-hot">
-            <SwiperSlider style="height: 100%">
+            <InterfaceHot title="热榜一" />
+            <!-- <SwiperSlider style="height: 100%">
                 <swiper-slide class="swiper-slide">
                     <InterfaceHot title="热榜一" />
                 </swiper-slide>
@@ -19,7 +20,7 @@
                 <swiper-slide class="swiper-slide">
                     <InterfaceHot title="热榜三" />
                 </swiper-slide>
-            </SwiperSlider>
+            </SwiperSlider> -->
         </div>
         <div class="interface-bottom flexRowCenter">
             <div class="interface-left borderBox flexRowCenter">

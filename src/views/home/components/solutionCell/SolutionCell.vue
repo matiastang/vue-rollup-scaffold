@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-05 11:33:07
- * @LastEditTime: 2021-11-05 15:33:13
+ * @LastEditTime: 2021-11-11 10:43:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/home/components/solutionCell/solutionCell.vue
@@ -9,10 +9,7 @@
 <template>
     <div class="borderBox solution-cell">
         <div class="solution-cell-top-content">
-            <div class="solution-cell-top flexRowCenter">
-                <div class="solution-cell-top-line"></div>
-                <div class="solution-cell-title defaultFont">{{ data.title }}</div>
-            </div>
+            <OpenalphaTitle class="solution-cell-top" :title="data.title" :fontSize="18" />
             <div v-for="item in data.data" :key="item.text" class="solution-cell-text defaultFont">
                 {{ item.text }}
             </div>
@@ -23,12 +20,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import OpenalphaTitle from '@/components/openalphaTitle/OpenalphaTitle.vue'
 
 export default defineComponent({
     name: 'SolutionCell',
     props: ['data'],
     data() {
         return {}
+    },
+    components: {
+        OpenalphaTitle,
     },
 })
 </script>
@@ -49,22 +50,7 @@ export default defineComponent({
         justify-content: flex-start;
         align-items: flex-start;
         .solution-cell-top {
-            justify-content: flex-start;
             margin-bottom: 34px;
-            .solution-cell-top-line {
-                width: 4px;
-                height: 18px;
-                background: $themeColor;
-                margin-right: 4px;
-            }
-            .solution-cell-title {
-                font-size: 18px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
-                color: $titleColor;
-                line-height: 26px;
-                letter-spacing: 1px;
-            }
         }
         .solution-cell-text {
             margin-bottom: 20px;

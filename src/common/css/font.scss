@@ -40,7 +40,7 @@ $_spacing: 1px;
 @mixin textLine1 {
     @include textEllipsis;
     -webkit-line-clamp: 1;
-    white-space: nowrap;
+    // white-space: nowrap;
 }
 
 .textLine1 {

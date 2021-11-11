@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-11-05 11:11:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-11 14:52:16
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
 -->
@@ -205,7 +205,6 @@ export default defineComponent({
             .footer-help-center,
             .footer-about-us,
             .footer-contact {
-                flex-grow: 1;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
