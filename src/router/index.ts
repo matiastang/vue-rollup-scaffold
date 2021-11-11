@@ -1,22 +1,33 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-11 15:48:14
+ * @LastEditTime: 2021-11-11 17:42:51
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+// layout
 import Layout from '@/components/layout/Layout.vue'
-import Home from '@/views/home/Home.vue'
-import Login from '@/views/login/Login.vue'
-import Interface from '@/views/interface/Interface.vue'
-import InterfaceCall from '@/views/interfaceCall/InterfaceCall.vue'
-import InterfaceInfo from '@/views/interfaceInfo/InterfaceInfo.vue'
-import Solution from '@/views/solution/Solution.vue'
-import Recharge from '@/views/recharge/Recharge.vue'
-import Discount from '@/views/discount/Discount.vue'
-import CompanyTransfer from '../views/companyTransfer/CompanyTransfer.vue'
+import UserLayout from '@/components/userLayout/UserLayout.vue'
+// web
+import Home from '@/views/web/home/Home.vue'
+import Interface from '@/views/web/interface/Interface.vue'
+import InterfaceCall from '@/views/web/interfaceCall/InterfaceCall.vue'
+import InterfaceInfo from '@/views/web/interfaceInfo/InterfaceInfo.vue'
+import Solution from '@/views/web/solution/Solution.vue'
+import Recharge from '@/views/web/recharge/Recharge.vue'
+import Discount from '@/views/web/discount/Discount.vue'
+import CompanyTransfer from '@/views/web/companyTransfer/CompanyTransfer.vue'
+// user
+import Login from '@/views/user/login/Login.vue'
+import InterfaceStatement from '@/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue'
+import DataStatistics from '@/views/user/dataCenter/dataStatistics/DataStatistics.vue'
+import Order from '@/views/user/dealManagement/order/Order.vue'
+import Invoice from '@/views/user/dealManagement/invoice/Invoice.vue'
+import Setting from '@/views/user/accountManagement/setting/Setting.vue'
+import Certification from '@/views/user/accountManagement/certification/Certification.vue'
+// NotFound
 import NotFound from '@/views/NotFound.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -77,7 +88,48 @@ const routes: Array<RouteRecordRaw> = [
             },
         ],
         beforeEnter: (to, from) => {
-            console.log(`路由卫士：即将从${from}跳转到${to}`)
+            console.log(`web路由卫士：即将从${from.path}跳转到${to.path}`)
+            return true
+        },
+    },
+    {
+        path: '/user',
+        name: '/user',
+        component: UserLayout,
+        children: [
+            {
+                path: 'data/statement',
+                name: 'interfaceStatement',
+                component: InterfaceStatement,
+            },
+            {
+                path: 'data/statistics',
+                name: 'dataStatistics',
+                component: DataStatistics,
+            },
+            {
+                path: 'deal/order',
+                name: 'dealOrder',
+                component: Order,
+            },
+            {
+                path: 'deal/invoice',
+                name: 'dealInvoice',
+                component: Invoice,
+            },
+            {
+                path: 'account/setting',
+                name: 'accountSetting',
+                component: Setting,
+            },
+            {
+                path: 'account/certification',
+                name: 'accountCertification',
+                component: Certification,
+            },
+        ],
+        beforeEnter: (to, from) => {
+            console.log(`user路由卫士：即将从${from.path}跳转到${to.path}`)
             return true
         },
     },

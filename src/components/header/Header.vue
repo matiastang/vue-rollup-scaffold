@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-11 15:13:01
+ * @LastEditTime: 2021-11-11 15:59:01
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -159,6 +159,16 @@ export default defineComponent({
             }
             .header-right-title-selected {
                 color: $themeColor;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1500px) {
+    .header {
+        padding: 0px 4%;
+        .header-left {
+            .header-left-input {
+                margin: 0px 60px;
             }
         }
     }
