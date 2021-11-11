@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:42:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-11 17:55:27
+ * @LastEditTime: 2021-11-11 18:04:38
  * @FilePath: /datumwealth-openalpha-front/src/components/menu/Menu.vue
  * @Description: 个人中心-折叠导航
 -->
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, watch } from 'vue'
+import { defineComponent, reactive, watch } from 'vue'
 import menuData from './menu'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -41,7 +41,8 @@ export default defineComponent({
         let router = useRouter()
         let route = useRoute()
         let menuList = reactive(menuData)
-        let activeName = ref('')
+        let activeList = new Array<string>()
+        let activeName = reactive(activeList)
         // 设置选择项
         const initSeleced = (path: string) => {
             for (let i = 0; i < menuList.length; i++) {
@@ -49,7 +50,9 @@ export default defineComponent({
                 for (let j = 0; j < children.length; j++) {
                     if (children[j].path === path) {
                         children[j].selected = true
-                        activeName.value = menuList[i].name
+                        if (!activeName.includes(menuList[i].name)) {
+                            activeName.push(menuList[i].name)
+                        }
                     } else {
                         children[j].selected = false
                     }
