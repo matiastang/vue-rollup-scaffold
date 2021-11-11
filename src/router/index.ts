@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-10 10:43:29
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-11 15:48:14
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/src/router/index.ts
+ * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Layout from '@/components/layout/Layout.vue'
@@ -31,17 +31,17 @@ const routes: Array<RouteRecordRaw> = [
                 component: Home,
             },
             {
-                path: 'interface',
+                path: 'interface/:id*',
                 name: 'interface',
                 component: Interface,
             },
             {
-                path: 'interface/call/:id',
+                path: 'interface/call/:id(\\d+)',
                 name: 'InterfaceCall',
                 component: InterfaceCall,
             },
             {
-                path: 'interface/info/:id',
+                path: 'interface/info/:id(\\d+)',
                 name: 'InterfaceInfo',
                 component: InterfaceInfo,
             },

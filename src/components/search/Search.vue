@@ -1,59 +1,83 @@
 <!--
- * @Author: your name
- * @Date: 2021-10-29 16:47:14
- * @LastEditTime: 2021-11-04 15:59:39
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/src/components/header/search.vue
+ * @Author: matiastang
+ * @Date: 2021-11-01 17:46:01
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-11 15:45:13
+ * @FilePath: /datumwealth-openalpha-front/src/components/search/Search.vue
+ * @Description: 搜索输入框
 -->
 <template>
     <el-input
         v-model="inputValue"
-        :class="['search-input', { 'search-input-selected': focus }]"
-        :placeholder="placeholder"
+        :class="['search-input', { 'search-input-selected': inputFocusStatus }]"
+        placeholder="请输入接口名称/接口ID"
         @blur="inputBlur"
         @focus="inputFocus"
+        @keyup.enter="inputEnter"
     >
         <template #suffix>
-            <div class="search-button">
+            <div class="search-button cursorP flexRowCenter" @click="searchAction">
                 <img class="search-icon" src="static/header/search.png" />
             </div>
         </template>
     </el-input>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default {
-    data() {
-        return {
-            focus: false,
-        }
+export default defineComponent({
+    name: 'Search',
+    props: {
+        value: {
+            type: String,
+            default: '',
+        },
     },
-    setup() {
-        let inputValue = ref('')
-        return {
-            inputValue,
-            placeholder: '请输入接口名称/接口ID',
-        }
-    },
-    computed: {},
-    methods: {
+    setup(props) {
+        let router = useRouter()
+        let inputValue = ref(props.value)
+        let inputFocusStatus = ref(false)
         /**
          * 在 Input 失去焦点时触发
          */
-        inputBlur() {
-            this.focus = false
-        },
+        const inputBlur = () => {
+            console.log('blur')
+            inputFocusStatus.value = false
+        }
         /**
          * 在 Input 获得焦点时触发
          */
-        inputFocus() {
-            this.focus = true
-        },
+        const inputFocus = () => {
+            inputFocusStatus.value = true
+        }
+        /**
+         * 仅在输入框失去焦点或用户按下回车时触发
+         */
+        const inputEnter = () => {
+            router.push({
+                path: `/interface/${inputValue.value}`,
+            })
+        }
+        /**
+         * 搜索
+         */
+        const searchAction = () => {
+            router.push({
+                path: `/interface/${inputValue.value}`,
+            })
+        }
+        return {
+            inputValue,
+            inputFocusStatus,
+            inputBlur,
+            inputFocus,
+            inputEnter,
+            searchAction,
+        }
     },
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -64,13 +88,9 @@ export default {
     .search-button {
         width: 60px;
         height: 52px;
-        background: #d65928;
+        background: $themeColor;
         border-radius: 0px 7px 7px 0px;
         margin: 1px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
         .search-icon {
             width: 29px;
             height: 29px;
@@ -83,7 +103,7 @@ export default {
         padding-right: 0px;
         border-radius: 8px;
         border-radius: 8px;
-        border: 1px solid #d65928;
+        border: 1px solid $themeColor;
         padding: 0px 0px 0px 5px;
     }
     ::v-deep(.el-input__suffix) {
@@ -92,12 +112,13 @@ export default {
 }
 .search-input-selected {
     ::v-deep(.search-button) {
+        width: 58px;
         height: 50px;
         border-radius: 0px 6px 6px 0px;
         margin: 2px;
     }
     ::v-deep(input) {
-        border: 2px solid #d65928;
+        border: 2px solid $themeColor;
     }
 }
 </style>

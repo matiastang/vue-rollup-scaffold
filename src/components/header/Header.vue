@@ -1,19 +1,19 @@
 <!--
- * @Author: your name
- * @Date: 2021-10-29 15:30:38
- * @LastEditTime: 2021-11-08 18:45:27
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/src/components/header/Header.vue
+ * @Author: matiastang
+ * @Date: 2021-11-01 17:46:01
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-11 15:13:01
+ * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
+ * @Description: header
 -->
 <template>
-    <div class="header">
-        <div class="header-left">
+    <div class="header borderBox flexRowCenter">
+        <div class="header-left flexRowCenter">
             <img class="header-left-logo" src="static/header/logo.png" />
             <Search class="header-left-input" />
         </div>
-        <div class="header-right">
-            <div v-for="item in titleArr" :key="item.title" class="header-right-button">
+        <div class="header-right flexRowCenter">
+            <div v-for="item in titleArr" :key="item.title" class="header-right-button cursorP">
                 <div
                     :class="[
                         'header-right-title',
@@ -24,7 +24,7 @@
                     {{ item.title }}
                 </div>
             </div>
-            <div class="header-right-button" @click="headerLoginAction">
+            <div class="header-right-button cursorP" @click="headerLoginAction">
                 <div class="header-right-title">
                     {{ getUserName }}
                 </div>
@@ -43,10 +43,9 @@ export default defineComponent({
     components: {
         Search,
     },
-    data() {
-        return {}
-    },
     setup() {
+        const router = useRouter()
+        const route = useRoute()
         let titleArr = reactive([
             {
                 title: '首页',
@@ -74,8 +73,6 @@ export default defineComponent({
                 name: 'discount',
             },
         ])
-        const router = useRouter()
-        const route = useRoute()
         for (let index = 0; index < titleArr.length; index++) {
             titleArr[index].selected = route.path.startsWith(`/${titleArr[index].name}`)
         }
@@ -128,23 +125,20 @@ export default defineComponent({
 .header {
     width: 100%;
     height: 96px;
-    background: #ffffff;
+    padding: 0px 5%;
+    background: $themeBgColor;
     box-shadow: 0px 4px 4px -4px rgba(218, 218, 218, 0.5);
-    display: flex;
     justify-content: space-between;
-    align-items: center;
     .header-left {
-        display: flex;
         justify-content: flex-start;
-        align-items: center;
         flex: 1 1 auto;
-        margin-left: 80px;
         .header-left-logo {
             width: 173px;
             height: 60px;
+            flex-shrink: 0;
         }
         .header-left-input {
-            min-width: 300px;
+            min-width: 210px;
             max-width: 676px;
             height: 54px;
             margin: 0px 80px;
@@ -152,24 +146,64 @@ export default defineComponent({
         }
     }
     .header-right {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 80px;
         .header-right-button {
             margin: 16px;
-            cursor: pointer;
             .header-right-title {
                 font-size: 16px;
                 font-family: PingFangSC-Medium, PingFang SC;
                 font-weight: 500;
-                color: #262626;
+                color: $titleColor;
                 line-height: 24px;
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
             .header-right-title-selected {
-                color: #d65928;
+                color: $themeColor;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1360px) {
+    .header {
+        padding: 0px 3%;
+        .header-left {
+            .header-left-input {
+                margin: 0px 40px;
+            }
+        }
+        .header-right {
+            .header-right-button {
+                margin: 16px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1200px) {
+    .header {
+        padding: 0px 2%;
+        .header-left {
+            .header-left-input {
+                margin: 0px 20px;
+            }
+        }
+        .header-right {
+            .header-right-button {
+                margin: 16px 8px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1000px) {
+    .header {
+        padding: 0px 1%;
+        .header-left {
+            .header-left-input {
+                margin: 0px 10px;
+            }
+        }
+        .header-right {
+            .header-right-button {
+                margin: 16px 6px;
             }
         }
     }
