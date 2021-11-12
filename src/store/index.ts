@@ -1,16 +1,34 @@
 /*
- * @Author: your name
- * @Date: 2021-10-18 11:27:59
- * @LastEditTime: 2021-10-28 14:08:13
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/src/store/index.ts
+ * @Author: matiastang
+ * @Date: 2021-11-01 17:46:01
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-12 17:14:46
+ * @FilePath: /datumwealth-openalpha-front/src/store/index.ts
+ * @Description: 全局状态管理
  */
-import Vuex from 'vuex'
+import { InjectionKey } from 'vue'
+import { createStore, useStore as baseUseStore, Store } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+import { RootStateTypes, AllStateTypes } from './indexInterface'
+// 用户信息
+import userModule from './modules/userModule/userModule'
 
-export default new Vuex.Store({
-    state: {},
+// key
+export const key: InjectionKey<Store<RootStateTypes>> = Symbol()
+
+export const store = createStore<RootStateTypes>({
+    state: {
+        name: 'store root state',
+    },
     mutations: {},
     actions: {},
-    modules: {},
+    modules: {
+        userModule,
+    },
+    plugins: [createPersistedState()],
 })
+
+// 定义自己的 `useStore` 组合式函数
+export function useStore() {
+    return baseUseStore<AllStateTypes>(key)
+}

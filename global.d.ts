@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:23:18
- * @LastEditTime: 2021-10-19 17:17:04
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-12 10:55:43
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/global.d.ts
+ * @FilePath: /datumwealth-openalpha-front/global.d.ts
  */
 /* eslint-disable */
 declare module '*.vue' {
-	import type { DefineComponent } from 'vue'
-	const component: DefineComponent<{}, {}, any>
-	export default component
+    import type { DefineComponent } from 'vue'
+    const component: DefineComponent<{}, {}, any>
+    export default component
 }

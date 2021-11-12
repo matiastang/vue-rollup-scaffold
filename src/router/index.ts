@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-11 17:42:51
+ * @LastEditTime: 2021-11-12 17:51:07
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -29,6 +29,9 @@ import Setting from '@/views/user/accountManagement/setting/Setting.vue'
 import Certification from '@/views/user/accountManagement/certification/Certification.vue'
 // NotFound
 import NotFound from '@/views/NotFound.vue'
+// 校验登录列表
+import { checkLoginPath } from './loginInterceptor'
+import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -152,8 +155,42 @@ const router = createRouter({
  * 全局前置守卫
  */
 router.beforeEach((to, from, next) => {
-    console.log(`即将从${from}跳转到${to}`)
-    // TODO: - 权限页面登录校验
+    console.log(`即将从${from.path}跳转到${to.path}`)
+    // 登录校验
+    const toPath = to.path
+    const findItem = checkLoginPath.find(({ path }) => {
+        return path === toPath
+    })
+    if (findItem) {
+        // 用户token
+        const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
+        if (userToken && userToken.trim() !== '') {
+            // 已登录
+            if (findItem.mustLogin) {
+                next()
+            } else {
+                console.info(
+                    `访问${findItem.path}页面要求必须未登录，但已登录，重定向到登录${findItem.redirectPath}页面`
+                )
+                next({
+                    path: findItem.redirectPath,
+                })
+            }
+        } else {
+            // 未登录
+            if (findItem.mustLogin) {
+                console.info(
+                    `访问${findItem.path}页面要求必须登录，但未登录，重定向到登录${findItem.redirectPath}页面`
+                )
+                next({
+                    path: findItem.redirectPath,
+                })
+            } else {
+                next()
+            }
+        }
+        return
+    }
     next()
 })
 
@@ -161,14 +198,14 @@ router.beforeEach((to, from, next) => {
  * 全局解析守卫
  */
 router.beforeResolve((to) => {
-    console.log(`将要跳转到${to}`)
+    console.log(`将要跳转到${to.path}`)
 })
 
 /**
  * 全局后置钩子
  */
 router.beforeEach((to, from) => {
-    console.log(`从${from}跳转到${to}`)
+    console.log(`从${from.path}跳转到${to.path}`)
 })
 
 export default router

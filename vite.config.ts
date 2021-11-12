@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-11-11 14:46:48
+ * @LastEditTime: 2021-11-12 14:25:12
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/vite.config.ts
@@ -26,6 +26,7 @@ export default defineConfig({
             { find: 'root', replacement: path.resolve(__dirname, './') },
             { find: '@', replacement: path.resolve(__dirname, './src') },
             { find: 'static', replacement: path.resolve(__dirname, './static') },
+            { find: 'store', replacement: path.resolve(__dirname, './src/store') },
             { find: 'utils', replacement: path.resolve(__dirname, './src/common/utils') },
         ],
     },

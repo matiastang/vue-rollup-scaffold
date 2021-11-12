@@ -19,6 +19,7 @@
         ],
 		"paths": {
             "utils/*": ["src/common/utils/*"],
+            "store/*": ["src/store/*"],
 			"@/*": ["src/*"],
             "static/*": ["static/*"],
             "root/*": ["*"],

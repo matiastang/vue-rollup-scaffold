@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-11 15:59:01
+ * @LastEditTime: 2021-11-12 18:09:42
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -24,9 +24,37 @@
                     {{ item.title }}
                 </div>
             </div>
-            <div class="header-right-button cursorP" @click="headerLoginAction">
-                <div class="header-right-title">
-                    {{ getUserName }}
+            <div
+                v-if="!userToken"
+                class="header-name-button cursorP flexRowCenter"
+                @click="headerLoginAction"
+            >
+                <div class="header-name textLine1">
+                    {{ '登录/注册' }}
+                </div>
+            </div>
+            <div v-if="userToken" class="header-name-button flexRowCenter">
+                <div class="header-name textLine1">
+                    {{ userName }}
+                </div>
+                <div class="header-name-icon"></div>
+                <div class="name-dropdown">
+                    <div
+                        v-for="(item, index) in dropdownData"
+                        :key="item.title"
+                        :class="[
+                            'name-dropdown-item',
+                            'defaultFont',
+                            'flexRowCenter',
+                            {
+                                cursorP: !item.selected,
+                                'name-dropdown-selected-item': item.selected,
+                            },
+                        ]"
+                        @click="dropdownItemAction(index)"
+                    >
+                        {{ item.title }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -34,9 +62,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch } from 'vue'
+import { defineComponent, reactive, watch, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from '../search/Search.vue'
+import { useStore } from 'store/index'
+import { checkLoginPath } from '@/router/loginInterceptor'
 
 export default defineComponent({
     name: 'Header',
@@ -44,8 +74,31 @@ export default defineComponent({
         Search,
     },
     setup() {
+        /**
+         * 全局路由
+         */
         const router = useRouter()
+        /**
+         * 当前路由
+         */
         const route = useRoute()
+        /**
+         * 状态
+         */
+        const store = useStore()
+        /**
+         * 用户信息
+         */
+        const userInfo = computed(() => store.state.userModule.userLoginInfo.member)
+        /**
+         * 用户名称
+         */
+        const userName = computed(() => userInfo.value.userName)
+        /**
+         * 用户token
+         */
+        const userToken = computed(() => store.state.userModule.userLoginInfo.token)
+
         let titleArr = reactive([
             {
                 title: '首页',
@@ -85,6 +138,7 @@ export default defineComponent({
                 }
             }
         )
+
         /**
          * header点击
          */
@@ -103,20 +157,67 @@ export default defineComponent({
             for (let index = 0; index < titleArr.length; index++) {
                 titleArr[index].selected = false
             }
+            if (userToken.value) {
+                // 已经登录
+                router.push({
+                    path: '/user/data/statement',
+                })
+                return
+            }
+            // 未登录
             router.push({
-                name: 'login',
+                path: '/login',
             })
+        }
+        /**
+         * 登录后下拉选项
+         */
+        let dropdownData = reactive([
+            {
+                title: '个人中心',
+                selected: false,
+            },
+            {
+                title: '帮助中心',
+                selected: false,
+            },
+            {
+                title: '退出登录',
+                selected: false,
+            },
+        ])
+        /**
+         * 下拉选项点击
+         */
+        const dropdownItemAction = (index: number) => {
+            console.log(index)
+            for (let i = 0; i < dropdownData.length; i++) {
+                dropdownData[i].selected = i === index
+            }
+            if (index === 2) {
+                // TODO: - 请求接口退出
+                store.commit('setUserLoginInfo', null)
+                store.commit('setToken', null)
+                const findItem = checkLoginPath.find(({ path }) => {
+                    return path === route.path
+                })
+                if (findItem && findItem.mustLogin) {
+                    // 在需要登录的页面退出登录，这时更新页面为登录页面
+                    router.replace({
+                        path: findItem.redirectPath,
+                    })
+                }
+            }
         }
         return {
             titleArr,
+            userToken,
+            userName,
             headerSelectAction,
             headerLoginAction,
+            dropdownData,
+            dropdownItemAction,
         }
-    },
-    computed: {
-        getUserName() {
-            return '登录/注册'
-        },
     },
 })
 </script>
@@ -161,13 +262,68 @@ export default defineComponent({
                 color: $themeColor;
             }
         }
+        .header-name-button {
+            position: relative;
+            height: 96px;
+            margin: 0px 16px;
+            .header-name {
+                display: block;
+                max-width: 80px;
+                font-size: 16px;
+                font-family: PingFangSC-Medium, PingFang SC;
+                font-weight: 500;
+                color: $titleColor;
+                line-height: 24px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .header-name-icon {
+                margin-left: 5px;
+                width: 14px;
+                height: 8px;
+                background: #595959;
+            }
+            .name-dropdown {
+                display: none;
+                position: absolute;
+                width: 160px;
+                top: 96px;
+                z-index: 99;
+                background: $themeBgColor;
+                box-shadow: 0px 2px 6px 0px rgba(218, 218, 218, 0.5);
+                .name-dropdown-item {
+                    width: 100%;
+                    height: 48px;
+                    background: $themeBgColor;
+                    font-size: 16px;
+                    color: $titleColor;
+                    line-height: 24px;
+                }
+                .name-dropdown-item:hover {
+                    color: $themeColor;
+                }
+                .name-dropdown-selected-item {
+                    color: $themeColor;
+                    background: rgba(246, 160, 129, 0.4);
+                }
+            }
+        }
+        .header-name-button:hover {
+            .name-dropdown {
+                display: block;
+            }
+            .header-name-icon {
+                background: $themeColor;
+            }
+        }
     }
 }
 @media screen and (max-width: 1500px) {
     .header {
         padding: 0px 4%;
         .header-left {
-            .header-left-input {
+            .header-left-input,
+            .header-name-button {
                 margin: 0px 60px;
             }
         }
@@ -182,7 +338,8 @@ export default defineComponent({
             }
         }
         .header-right {
-            .header-right-button {
+            .header-right-button,
+            .header-name-button {
                 margin: 16px;
             }
         }
@@ -197,7 +354,8 @@ export default defineComponent({
             }
         }
         .header-right {
-            .header-right-button {
+            .header-right-button,
+            .header-name-button {
                 margin: 16px 8px;
             }
         }
@@ -212,7 +370,8 @@ export default defineComponent({
             }
         }
         .header-right {
-            .header-right-button {
+            .header-right-button,
+            .header-name-button {
                 margin: 16px 6px;
             }
         }

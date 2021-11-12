@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-08 18:37:05
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-12 15:29:15
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
 -->
@@ -12,7 +12,6 @@
             v-if="!findPassword"
             class="login-model-tabs login-module-tabs"
             v-model="activeName"
-            @tab-click="tabClick"
         >
             <el-tab-pane class="login-module-register" label="短信登录/注册" name="register">
                 <PhoneInput
@@ -21,10 +20,10 @@
                     placeholder="请输入手机号码"
                 />
                 <CodeInput
-                    class="login-code-input"
+                    codeInputClass="login-code-input"
                     v-model="fegisterCode"
                     placeholder="请输入4位验证码"
-                    @getCode="getRegisterCode"
+                    @CodeInputGetCode="getPhoneCode"
                 />
                 <div class="login" @click="registerAction">登录/注册</div>
                 <div class="text">
@@ -58,10 +57,10 @@
                 placeholder="请输入手机号码"
             />
             <CodeInput
-                class="find-password-code-input"
+                codeInputClass="find-password-code-input"
                 v-model="findInputCode"
                 placeholder="请输入4位验证码"
-                @getCode="getCode"
+                @CodeInputGetCode="getPhoneCode"
             />
             <PasswordInput
                 class="find-password-input"
@@ -80,18 +79,27 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
 import CodeInput from '@/components/codeInput/CodeInput.vue'
+import { sendSMS, forget } from '@/common/request/modules/user'
+import { phone_check, code_check, password_check } from 'utils/check/index'
+import { useStore } from 'store/index'
 
 export default defineComponent({
+    name: 'LoginModule',
     data() {
         return {
             activeName: 'login',
         }
     },
     setup() {
+        const router = useRouter()
+        const store = useStore()
+        console.log(store.state.name)
+        console.log(store.state.userModule)
         let inputPhone = ref('')
         let findPassword = ref(false)
 
@@ -100,44 +108,83 @@ export default defineComponent({
         /**
          * 获取验证码
          */
-        const getRegisterCode = () => {
-            if (inputPhone.value.trim() == '') {
+        const getPhoneCode = () => {
+            // 手机校验
+            let phone = inputPhone.value
+            let phoneError = phone_check(phone)
+            if (phoneError) {
                 ElMessage({
-                    message: '请输入手机号',
+                    message: phoneError,
                     type: 'warning',
                 })
                 return
             }
-            // TODO: - 手机号校验
-            ElMessage({
-                message: '功能开发中...',
-                type: 'warning',
-            })
+            // 发送验证码
+            sendSMS(phone)
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '发送验证码错误',
+                        type: 'error',
+                    })
+                })
         }
         /**
-         * 找回密码
+         * 注册登录
          */
         const registerAction = () => {
-            if (inputPhone.value.trim() == '') {
+            // 手机校验
+            let phone = inputPhone.value
+            let phoneError = phone_check(phone)
+            if (phoneError) {
                 ElMessage({
-                    message: '请输入手机号',
+                    message: phoneError,
                     type: 'warning',
                 })
                 return
             }
-            if (fegisterCode.value.trim() == '') {
+            // 验证码校验
+            let code = fegisterCode.value
+            let codeError = code_check(code)
+            if (codeError) {
                 ElMessage({
-                    message: '请输入验证码',
+                    message: codeError,
                     type: 'warning',
                 })
                 return
             }
-            ElMessage({
-                message: '功能开发中...',
-                type: 'warning',
-            })
+            // 注册登录
+            dwLogin('code', phone, code)
         }
-
+        // 登录
+        const dwLogin = (loginType: string, username: string, password: string) => {
+            store
+                .dispatch('userLogin', {
+                    loginType,
+                    username,
+                    password,
+                })
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                    router.push({
+                        path: '/user/data/statement',
+                    })
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '登录错误',
+                        type: 'error',
+                    })
+                })
+        }
         // 密码登录
         let inputPassword = ref('')
         /**
@@ -150,24 +197,28 @@ export default defineComponent({
          * 密码登录
          */
         const loginAction = () => {
-            if (inputPhone.value.trim() == '') {
+            // 手机校验
+            let phone = inputPhone.value
+            let phoneError = phone_check(phone)
+            if (phoneError) {
                 ElMessage({
-                    message: '请输入手机号',
+                    message: phoneError,
                     type: 'warning',
                 })
                 return
             }
-            if (inputPassword.value.trim() == '') {
+            // 密码校验
+            let password = inputPassword.value
+            let passwordError = password_check(password)
+            if (passwordError) {
                 ElMessage({
-                    message: '请输入密码',
+                    message: passwordError,
                     type: 'warning',
                 })
                 return
             }
-            ElMessage({
-                message: '功能开发中...',
-                type: 'warning',
-            })
+            // 密码登录
+            dwLogin('pwd', phone, password)
         }
 
         // 找回密码
@@ -180,74 +231,75 @@ export default defineComponent({
         const backLogin = () => {
             findPassword.value = false
         }
-
-        /**
-         * 获取验证码
-         */
-        const getFindCode = () => {
-            if (inputPhone.value.trim() == '') {
-                ElMessage({
-                    message: '请输入手机号',
-                    type: 'warning',
-                })
-                return
-            }
-            // TODO: - 手机号校验
-            ElMessage({
-                message: '功能开发中...',
-                type: 'warning',
-            })
-        }
         /**
          * 找回密码
          */
         const findPasswordAction = () => {
-            if (inputPhone.value.trim() == '') {
+            // 手机校验
+            let phone = inputPhone.value
+            let phoneError = phone_check(phone)
+            if (phoneError) {
                 ElMessage({
-                    message: '请输入手机号',
+                    message: phoneError,
                     type: 'warning',
                 })
                 return
             }
-            if (findInputCode.value.trim() == '') {
+            // 验证码校验
+            let code = findInputCode.value
+            let codeError = code_check(code)
+            if (codeError) {
                 ElMessage({
-                    message: '请输入验证码',
+                    message: codeError,
                     type: 'warning',
                 })
                 return
             }
-            if (findInputPassword.value.trim() == '') {
-                ElMessage({
-                    message: '请输入密码',
-                    type: 'warning',
-                })
-                return
-            }
-            if (findInputAffirmPassword.value.trim() == '') {
-                ElMessage({
-                    message: '请确认密码',
-                    type: 'warning',
-                })
-                return
-            }
-            if (findInputPassword.value !== findInputAffirmPassword.value) {
+            // 确认密码校验
+            let password = findInputPassword.value
+            let affirmPassword = findInputAffirmPassword.value
+            if (password !== affirmPassword) {
                 ElMessage({
                     message: '两次密码不一致',
                     type: 'warning',
                 })
                 return
             }
-            ElMessage({
-                message: '功能开发中...',
-                type: 'warning',
+            // 密码校验
+            let passwordError = password_check(password)
+            if (passwordError) {
+                ElMessage({
+                    message: passwordError,
+                    type: 'warning',
+                })
+                return
+            }
+            // 忘记密码
+            forget({
+                mobile: phone,
+                verifyCode: code,
+                password,
             })
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                    backLogin()
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '重置错误',
+                        type: 'error',
+                    })
+                })
         }
 
         return {
             inputPhone,
             findPassword,
             fegisterCode,
-            getRegisterCode,
+            getPhoneCode,
             registerAction,
             inputPassword,
             gotoFindPassword,
@@ -256,7 +308,6 @@ export default defineComponent({
             findInputPassword,
             findInputAffirmPassword,
             backLogin,
-            getFindCode,
             findPasswordAction,
         }
     },
