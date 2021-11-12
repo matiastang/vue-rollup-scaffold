@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-12 15:29:15
+ * @LastEditTime: 2021-11-12 18:35:53
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -47,7 +47,8 @@
             </el-tab-pane>
         </el-tabs>
         <div v-if="findPassword" class="find-password-content">
-            <div class="back-content" @click="backLogin">
+            <div class="back-content flexRowCenter" @click="backLogin">
+                <img class="back-icon" src="static/login/login-back.svg" />
                 <div class="back-text">返回登录</div>
             </div>
             <div class="find-password-title">找回密码</div>
@@ -469,11 +470,15 @@ export default defineComponent({
     .back-content {
         align-self: flex-start;
         cursor: pointer;
+        .back-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+        }
         .back-text {
             font-size: 16px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
-            // color: #d65928;
             color: $themeColor;
             line-height: 24px;
             letter-spacing: 1px;

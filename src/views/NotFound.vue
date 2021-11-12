@@ -1,22 +1,23 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:04:28
- * @LastEditTime: 2021-11-11 10:13:51
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-12 18:38:37
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/NotFound.vue
 -->
 <template>
     <div class="about">
-        <div class="content">
+        <div class="content flexColumnCenter">
             <div class="text">Not Found</div>
+            <h1 @click="showLoginModel">未登录弹窗</h1>
+            <h1 @click="showAuthenticationModel">未认证弹窗</h1>
+            <h1 @click="showBugModel">套餐过期弹窗</h1>
+            <h1 @click="showOverdueModel">已申请试用过弹窗</h1>
+            <h1 @click="showNSFModel">余额不足弹窗</h1>
+            <h1 @click="showApplyTrialModel">申请试用弹窗</h1>
         </div>
-        <h1 @click="showLoginModel">未登录弹窗</h1>
-        <h1 @click="showAuthenticationModel">未认证弹窗</h1>
-        <h1 @click="showBugModel">套餐过期弹窗</h1>
-        <h1 @click="showOverdueModel">已申请试用过弹窗</h1>
-        <h1 @click="showNSFModel">余额不足弹窗</h1>
-        <h1 @click="showApplyTrialModel">申请试用弹窗</h1>
+
         <LoginModel v-model="loginDialogVisible" />
         <OpenalphaModel
             v-model="authenticationDialogVisible"

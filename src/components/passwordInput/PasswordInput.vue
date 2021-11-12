@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 14:22:27
- * @LastEditTime: 2021-11-04 15:53:39
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-12 18:32:55
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/passwordInput/PasswordInput.vue
 -->
@@ -18,8 +18,8 @@
         >
         </el-input>
         <div class="password-button flexRowCenter cursorP" @click="passwordClick">
-            <img v-if="passwordHide" class="password-icon" src="static/login/password-off.png" />
-            <img v-else class="password-icon" src="static/login/password-on.png" />
+            <img v-if="passwordHide" class="password-icon" src="static/login/password-off.svg" />
+            <img v-else class="password-icon" src="static/login/password-on.svg" />
         </div>
     </div>
 </template>

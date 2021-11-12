@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-11 15:45:13
+ * @LastEditTime: 2021-11-12 18:31:01
  * @FilePath: /datumwealth-openalpha-front/src/components/search/Search.vue
  * @Description: 搜索输入框
 -->
@@ -17,7 +17,7 @@
     >
         <template #suffix>
             <div class="search-button cursorP flexRowCenter" @click="searchAction">
-                <img class="search-icon" src="static/header/search.png" />
+                <img class="search-icon" src="static/header/search.svg" />
             </div>
         </template>
     </el-input>
