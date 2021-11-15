@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:09:26
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 15:48:51
+ * @LastEditTime: 2021-11-15 16:03:37
  * @FilePath: /datumwealth-openalpha-front/src/components/menu/menu.ts
  * @Description:
  */
@@ -24,12 +24,12 @@ const menuData = [
                     },
                 ],
             },
-            {
-                title: '数据统计',
-                path: '/user/data/statistics',
-                selected: false,
-                children: [],
-            },
+            // {
+            //     title: '数据统计',
+            //     path: '/user/data/statistics',
+            //     selected: false,
+            //     children: [],
+            // },
         ],
     },
     {

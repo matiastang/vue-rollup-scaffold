@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:00:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-11 16:48:46
+ * @LastEditTime: 2021-11-15 15:57:11
  * @FilePath: /datumwealth-openalpha-front/src/components/userLayout/UserLayout.vue
  * @Description: 
 -->

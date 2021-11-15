@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 14:22:27
- * @LastEditTime: 2021-11-15 09:51:33
+ * @LastEditTime: 2021-11-15 16:56:05
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/passwordInput/PasswordInput.vue
@@ -25,27 +25,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
     name: 'PasswordInput',
     inheritAttrs: false,
-    props: ['passwordClass'],
-    data() {
-        return {
-            passwordHide: true,
-        }
+    props: {
+        passwordClass: {
+            type: String,
+            default: '',
+        },
+        hide: {
+            type: Boolean,
+            default: true,
+        },
     },
-    setup() {
-        return {}
-    },
-    methods: {
+    setup(props) {
+        let passwordHide = ref(props.hide)
         /**
          * 是否显示
          */
-        passwordClick() {
-            this.passwordHide = !this.passwordHide
-        },
+        const passwordClick = () => {
+            passwordHide.value = !passwordHide.value
+        }
+        return {
+            passwordHide,
+            passwordClick,
+        }
     },
 })
 </script>
