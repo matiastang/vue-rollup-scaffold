@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-12 17:51:07
+ * @LastEditTime: 2021-11-15 15:34:14
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -22,11 +22,14 @@ import CompanyTransfer from '@/views/web/companyTransfer/CompanyTransfer.vue'
 // user
 import Login from '@/views/user/login/Login.vue'
 import InterfaceStatement from '@/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue'
+import DiscountInfo from '@/views/user/dataCenter/discountInfo/DiscountInfo.vue'
+import RechargeInfo from '@/views/user/dataCenter/rechargeInfo/RechargeInfo.vue'
 import DataStatistics from '@/views/user/dataCenter/dataStatistics/DataStatistics.vue'
 import Order from '@/views/user/dealManagement/order/Order.vue'
 import Invoice from '@/views/user/dealManagement/invoice/Invoice.vue'
 import Setting from '@/views/user/accountManagement/setting/Setting.vue'
 import Certification from '@/views/user/accountManagement/certification/Certification.vue'
+
 // NotFound
 import NotFound from '@/views/NotFound.vue'
 // 校验登录列表
@@ -104,6 +107,16 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'data/statement',
                 name: 'interfaceStatement',
                 component: InterfaceStatement,
+            },
+            {
+                path: 'data/discount/info/:id(\\d+)',
+                name: 'discountInfo',
+                component: DiscountInfo,
+            },
+            {
+                path: 'data/recharge/info/:id(\\d+)',
+                name: 'rechargeInfo',
+                component: RechargeInfo,
             },
             {
                 path: 'data/statistics',
