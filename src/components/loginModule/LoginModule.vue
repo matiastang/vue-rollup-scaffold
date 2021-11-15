@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-12 18:35:53
+ * @LastEditTime: 2021-11-15 10:05:04
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -15,7 +15,7 @@
         >
             <el-tab-pane class="login-module-register" label="短信登录/注册" name="register">
                 <PhoneInput
-                    class="login-phone-input"
+                    phoneClass="login-phone-input"
                     v-model="inputPhone"
                     placeholder="请输入手机号码"
                 />
@@ -32,12 +32,12 @@
             </el-tab-pane>
             <el-tab-pane class="login-module-login" label="密码登录" name="login">
                 <PhoneInput
-                    class="login-phone-input"
+                    phoneClass="login-phone-input"
                     v-model="inputPhone"
                     placeholder="请输入手机号码"
                 />
                 <PasswordInput
-                    class="login-password-input"
+                    passwordClass="login-password-input"
                     v-model="inputPassword"
                     placeholder="请输入密码"
                 />
@@ -53,7 +53,7 @@
             </div>
             <div class="find-password-title">找回密码</div>
             <PhoneInput
-                class="find-password-phone-input"
+                phoneClass="find-password-phone-input"
                 v-model="inputPhone"
                 placeholder="请输入手机号码"
             />
@@ -64,12 +64,12 @@
                 @CodeInputGetCode="getPhoneCode"
             />
             <PasswordInput
-                class="find-password-input"
+                passwordClass="find-password-input"
                 v-model="findInputPassword"
                 placeholder="请输入新密码(8-20位数字和字母组合)"
             />
             <PasswordInput
-                class="find-affirm-password-input"
+                passwordClass="find-affirm-password-input"
                 v-model="findInputAffirmPassword"
                 placeholder="再次确认密码"
             />
@@ -504,6 +504,36 @@ export default defineComponent({
     }
     .find-password-ok {
         margin-top: 30px;
+    }
+}
+@media screen and (max-width: 1450px) {
+    .login-module-tabs {
+        padding: 40px 40px 30px 40px;
+        .login-module-register {
+            .login-phone-input {
+                margin-top: 40px;
+            }
+            .login-code-input {
+                margin-top: 20px;
+            }
+            .text {
+                margin-top: 20px;
+            }
+        }
+        .login-module-login {
+            .login-phone-input {
+                margin-top: 40px;
+            }
+            .login-password-input {
+                margin-top: 20px;
+            }
+            .text {
+                margin-top: 20px;
+            }
+        }
+    }
+    .find-password-content {
+        padding: 24px 40px;
     }
 }
 </style>

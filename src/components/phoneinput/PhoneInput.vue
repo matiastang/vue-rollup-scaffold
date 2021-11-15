@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:12:34
- * @LastEditTime: 2021-11-04 15:50:20
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-15 09:52:20
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/phoneinput/PhoneInput.vue
 -->
 <template>
-    <div class="phone-input defaultBorder flexRowCenter borderBox" :class="class">
+    <div class="phone-input defaultBorder flexRowCenter borderBox" :class="phoneClass">
         <el-input
             class="inputNumber defaultInput"
             :="$attrs"
@@ -23,8 +23,9 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+    name: 'PhoneInput',
     inheritAttrs: false,
-    props: ['class'],
+    props: ['phoneClass'],
     data() {
         return {}
     },

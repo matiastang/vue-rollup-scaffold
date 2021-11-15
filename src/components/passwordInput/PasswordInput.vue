@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 14:22:27
- * @LastEditTime: 2021-11-12 18:32:55
+ * @LastEditTime: 2021-11-15 09:51:33
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/passwordInput/PasswordInput.vue
 -->
 <template>
-    <div class="password-input borderBox flexRowCenter defaultBorder" :class="class">
+    <div class="password-input borderBox flexRowCenter defaultBorder" :class="passwordClass">
         <el-input
             class="defaultInput"
             :="$attrs"
@@ -28,8 +28,9 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+    name: 'PasswordInput',
     inheritAttrs: false,
-    props: ['class'],
+    props: ['passwordClass'],
     data() {
         return {
             passwordHide: true,

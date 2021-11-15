@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-11-04 10:34:05
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-15 10:11:30
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/Login.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/user/login/Login.vue
 -->
 <template>
-    <div class="login">
-        <div class="login-content">
+    <div class="login flexRowCenter">
+        <div class="login-content flexRowCenter">
             <div class="login-left">
                 <div class="login-title">研究驱动的财富管理基础设施供应商</div>
                 <div class="login-text">全面、深度、专业、有趣的基金数据产品</div>
@@ -37,17 +37,10 @@ export default defineComponent({
 .login {
     width: 100%;
     height: calc(100vh - 96px);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     background-image: url('static/login/login-bg.png');
     background-size: cover;
     .login-content {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: flex-start;
+        width: 100%;
         margin: 0px 80px;
         .login-left {
             display: flex;
@@ -60,7 +53,7 @@ export default defineComponent({
                 font-size: 48px;
                 font-family: PingFangSC-Medium, PingFang SC;
                 font-weight: 500;
-                color: #ffffff;
+                color: $themeBgColor;
                 line-height: 67px;
                 letter-spacing: 4px;
                 margin-top: 68px;
@@ -69,16 +62,18 @@ export default defineComponent({
                 font-size: 30px;
                 font-family: PingFangSC-Medium, PingFang SC;
                 font-weight: 500;
-                color: #ffffff;
+                color: $themeBgColor;
                 line-height: 42px;
                 letter-spacing: 2px;
                 margin-top: 48px;
             }
         }
         .login-module {
-            flex: 0 0 697px;
-            width: 697px;
-            background: #ffffff;
+            flex: 0 0 50%;
+            width: 50%;
+            max-width: 697px;
+            min-width: 570px;
+            background: $themeBgColor;
             border-radius: 8px;
         }
     }
