@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:04:28
- * @LastEditTime: 2021-11-12 18:38:37
+ * @LastEditTime: 2021-11-16 12:22:25
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/NotFound.vue
@@ -9,6 +9,10 @@
 <template>
     <div class="about">
         <div class="content flexColumnCenter">
+            <!-- <el-icon></el-icon> -->
+            <el-icon :size="size" :color="color">
+                <edit></edit>
+            </el-icon>
             <div class="text">Not Found</div>
             <h1 @click="showLoginModel">未登录弹窗</h1>
             <h1 @click="showAuthenticationModel">未认证弹窗</h1>

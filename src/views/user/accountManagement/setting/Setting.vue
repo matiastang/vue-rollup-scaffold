@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 11:02:15
+ * @LastEditTime: 2021-11-16 11:30:40
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -90,22 +90,28 @@
                     <div class="setting-info-text defaultFont">
                         {{
                             userInfo.phone
-                                ? `您已绑定手机187****7975`
+                                ? `您已绑定手机${desensitizationPhone}`
                                 : '您未绑定手机，请绑定提升账号安全性'
                         }}
                     </div>
                 </div>
                 <div class="setting-info-right cursorP defaultFont" @click="changePhoneAction">
-                    修改手机
+                    {{ userInfo.phone ? '修改手机' : '绑定手机' }}
                 </div>
             </div>
             <div class="setting-info-content flexRowCenter">
                 <div class="setting-info-left flexColumnCenter">
                     <div class="setting-info-title defaultFont">绑定邮箱</div>
-                    <div class="setting-info-text defaultFont">您已绑定邮箱liu****@123.com</div>
+                    <div class="setting-info-text defaultFont">
+                        {{
+                            userInfo.email
+                                ? `您已绑定邮箱${desensitizationEmail}`
+                                : '您未绑定邮箱，请绑定提升账号安全性'
+                        }}
+                    </div>
                 </div>
                 <div class="setting-info-right cursorP defaultFont" @click="mailAction">
-                    绑定邮箱
+                    {{ userInfo.email ? '修改邮箱' : '绑定邮箱' }}
                 </div>
             </div>
         </div>
@@ -128,13 +134,17 @@ import ChangePasswordModel from '@/components/changePasswordModel/ChangePassword
 import ChangePhoneModel from '@/components/changePhoneModel/ChangePhoneModel.vue'
 import ChangeMailModel from '@/components/changeMailModel/ChangeMailModel.vue'
 import { useStore } from 'store/index'
-
+import { phoneDesensitization } from 'utils/index'
 export default defineComponent({
     name: 'Setting',
     setup() {
         let store = useStore()
         // 用户信息
         let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
+        // 脱敏phone
+        let desensitizationPhone = computed(() => phoneDesensitization(userInfo.value.phone))
+        // 脱敏email
+        let desensitizationEmail = computed(() => phoneDesensitization(userInfo.value.email))
         // 修改密码
         let changePasswordVisible = ref(false)
         const changePasswordAction = () => {
@@ -162,6 +172,8 @@ export default defineComponent({
         }
         return {
             userInfo,
+            desensitizationPhone,
+            desensitizationEmail,
             changePasswordVisible,
             changePasswordAction,
             changePasswordCancelAction,

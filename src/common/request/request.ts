@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-12 10:12:10
+ * @LastEditTime: 2021-11-16 11:45:40
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
@@ -26,6 +26,7 @@ const http = {
      * @returns
      */
     request(options: AxiosRequestConfig) {
+        // Authorization:Bearer 74e0a1c883ac981b3f8f60fe96b2b6de
         const requestConfig = {
             ...config,
             ...options,
