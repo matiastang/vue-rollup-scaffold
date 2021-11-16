@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-12 18:09:42
+ * @LastEditTime: 2021-11-16 15:09:57
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -193,6 +193,11 @@ export default defineComponent({
             console.log(index)
             for (let i = 0; i < dropdownData.length; i++) {
                 dropdownData[i].selected = i === index
+            }
+            if (index === 0) {
+                router.push({
+                    path: '/user/data/statement',
+                })
             }
             if (index === 2) {
                 // TODO: - 请求接口退出

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:54:19
- * @LastEditTime: 2021-11-12 09:46:56
+ * @LastEditTime: 2021-11-16 17:16:39
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/codeInput/CodeInput.vue
@@ -17,6 +17,7 @@
             :="$attrs"
             type="number"
             maxlength="4"
+            placeholder="请输入6位验证码"
             clearable
         />
         <div class="code-button defaultFont flexRowCenter cursorP ak-ellipsis" @click="getCode">
@@ -27,6 +28,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+
+interface CodeInputRefTypes {
+    runCountDown: (num?: number) => void
+}
+
+export { CodeInputRefTypes }
 
 export default defineComponent({
     name: 'CodeInput',
@@ -43,7 +50,11 @@ export default defineComponent({
             },
         },
     },
-    emits: ['CodeInputGetCode'],
+    emits: {
+        CodeInputGetCode: (): boolean => {
+            return true
+        },
+    },
     setup(props, content) {
         let codeText = ref('获取验证码')
         /**
@@ -51,7 +62,10 @@ export default defineComponent({
          */
         const getCode = () => {
             content.emit('CodeInputGetCode')
-            let number = 60
+        }
+        // 倒计时
+        const runCountDown = (num = 60) => {
+            let number = num
             codeText.value = `${number}s重新发送`
             let intervalId = setInterval(() => {
                 number -= 1
@@ -66,6 +80,7 @@ export default defineComponent({
         return {
             codeText,
             getCode,
+            runCountDown,
         }
     },
 })

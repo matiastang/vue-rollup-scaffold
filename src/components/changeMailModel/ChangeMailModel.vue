@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:22:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 10:34:12
+ * @LastEditTime: 2021-11-16 17:09:19
  * @FilePath: /datumwealth-openalpha-front/src/components/changeMailModel/ChangeMailModel.vue
  * @Description: 修改有效
 -->
@@ -16,7 +16,7 @@
                 <div class="model-old-phone-title defaultFont">原邮箱地址:</div>
                 <div class="model-old-phone defaultFont">{{ userInfo.email }}</div>
             </div>
-            <PhoneInput
+            <EmailInput
                 v-model="inputEmail"
                 phoneClass="model-phone-input"
                 placeholder="请输入新邮箱地址"
@@ -25,7 +25,8 @@
                 v-model="inputCode"
                 codeInputClass="model-code-input"
                 placeholder="请输入邮箱验证码"
-                @getCode="getCodeAction"
+                @CodeInputGetCode="getCodeAction"
+                ref="codeRef"
             />
             <div class="model-bottom flexRowCenter">
                 <div class="model-cancel-button cursorP defaultFont" @click="modelCancelAction">
@@ -38,13 +39,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
-import CodeInput from '@/components/codeInput/CodeInput.vue'
+import { defineComponent, ref, computed, Ref } from 'vue'
+import EmailInput from '@/components/emailInput/EmailInput.vue'
+import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'store/index'
 import { code_check, email_check } from 'utils/check/index'
-import { changeEmail } from '@/common/request/modules/user'
+import { sendEmail, changeEmail } from '@/common/request/modules/user'
 
 export default defineComponent({
     name: 'ChangeMailModel',
@@ -64,7 +65,7 @@ export default defineComponent({
         let inputEmail = ref('')
         let inputCode = ref('')
         const modelOkAction = () => {
-            // 手机号校验
+            // 邮箱校验
             let email = inputEmail.value
             let emailError = email_check(email)
             if (emailError) {
@@ -84,8 +85,18 @@ export default defineComponent({
                 })
                 return
             }
+            // 获取id
+            let userId = store.state.userModule.userLoginInfo.member.id
+            if (!userId) {
+                ElMessage({
+                    message: '用户信息错误',
+                    type: 'warning',
+                })
+                return
+            }
             // 修改/绑定邮箱
             changeEmail({
+                id: userId,
                 email,
                 code,
             })
@@ -107,9 +118,37 @@ export default defineComponent({
         const modelCancelAction = () => {
             context.emit('cancelAction')
         }
+        let codeRef: Ref<CodeInputRefTypes | null> = ref(null)
         // 获取验证码
         const getCodeAction = () => {
-            console.log('获取验证码')
+            // 邮箱校验
+            let email = inputEmail.value
+            let emailError = email_check(email)
+            if (emailError) {
+                ElMessage({
+                    message: emailError,
+                    type: 'warning',
+                })
+                return
+            }
+            // 启动到计时
+            if (codeRef.value) {
+                codeRef.value.runCountDown()
+            }
+            // 获取邮箱验证码
+            sendEmail(email)
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '邮箱验证码发送失败',
+                        type: 'error',
+                    })
+                })
         }
         return {
             userInfo,
@@ -118,10 +157,11 @@ export default defineComponent({
             modelCancelAction,
             modelOkAction,
             getCodeAction,
+            codeRef,
         }
     },
     components: {
-        PhoneInput,
+        EmailInput,
         CodeInput,
     },
 })

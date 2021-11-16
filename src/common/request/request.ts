@@ -2,12 +2,15 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 11:45:40
+ * @LastEditTime: 2021-11-16 15:01:59
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 import config from './config'
+import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
+import { useRouter } from 'vue-router'
+import initInstance from './axiosInterceptors'
 // import { requestDebounce } from './requestDebounce.js'
 
 /**
@@ -26,13 +29,12 @@ const http = {
      * @returns
      */
     request(options: AxiosRequestConfig) {
-        // Authorization:Bearer 74e0a1c883ac981b3f8f60fe96b2b6de
+        const httpAxios = initInstance()
         const requestConfig = {
-            ...config,
             ...options,
         }
         return new Promise<ResolveObj>((resolve, reject) => {
-            axios
+            httpAxios
                 .request(requestConfig)
                 .then((response) => {
                     const status = response.status

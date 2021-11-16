@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 10:28:44
+ * @LastEditTime: 2021-11-16 15:29:54
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */

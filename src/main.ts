@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2021-11-12 14:09:37
+ * @LastEditTime: 2021-11-16 14:42:00
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/main.ts

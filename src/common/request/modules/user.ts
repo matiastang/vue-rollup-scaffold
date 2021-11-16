@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 10:18:47
+ * @LastEditTime: 2021-11-16 16:13:28
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
@@ -15,8 +15,12 @@ import {
     ChangePasswordParameters,
     ChangeEmailParameters,
 } from './userInterface'
-// import { UserLoginInfo } from '@/user'
-// import { localStorageKey, localStorageWrite } from '@/common/utils/storage/localStorage'
+import { localStorageRemoveAll } from '@/common/utils/storage/localStorage'
+
+/**
+ * 前缀
+ */
+const _prefix = 'member'
 
 /**
  * 用户登录/注册
@@ -26,11 +30,27 @@ import {
  * @returns
  */
 function login(parameters: LoginParameters) {
-    return http.post('/member/login', {
+    return http.post(`/${_prefix}/login`, {
         loginType: parameters.loginType,
         username: parameters.username,
         password:
             parameters.loginType === 'pwd' ? Md5.hashStr(parameters.password) : parameters.password,
+    })
+}
+
+/**
+ * 退出登录
+ * @returns
+ */
+function logout() {
+    return new Promise<string>((resolve, reject) => {
+        http.get(`/${_prefix}/logout`)
+            .then((res) => {
+                localStorageRemoveAll()
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '退出成功')
+            })
+            .catch(reject)
     })
 }
 
@@ -51,6 +71,22 @@ function sendSMS(mobile: string) {
 }
 
 /**
+ * 邮箱验证码发送
+ * @param email
+ * @returns
+ */
+function sendEmail(email: string) {
+    return new Promise<string>((resolve, reject) => {
+        http.get(`/member/send/email/${email}`)
+            .then((res) => {
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '发送成功')
+            })
+            .catch(reject)
+    })
+}
+
+/**
  * 忘记密码/找回密码
  * @param mobile 手机号
  * @param verifyCode 验证码
@@ -59,7 +95,7 @@ function sendSMS(mobile: string) {
  */
 function forget(parameters: FotgetParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post('/member/forget', {
+        http.post(`/${_prefix}/forget`, {
             mobile: parameters.mobile,
             verifyCode: parameters.verifyCode,
             password: Md5.hashStr(parameters.password),
@@ -79,7 +115,7 @@ function forget(parameters: FotgetParameters) {
  */
 function changeMobile(parameters: ChangeMobileParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post('/member/change/mobile', parameters)
+        http.post(`/${_prefix}/change/mobile`, parameters)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
@@ -95,7 +131,11 @@ function changeMobile(parameters: ChangeMobileParameters) {
  */
 function changePassword(parameters: ChangePasswordParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post('/member/change/password', parameters)
+        http.post(`/${_prefix}/change/password`, {
+            id: parameters.id,
+            oldPassword: Md5.hashStr(parameters.oldPassword),
+            password: Md5.hashStr(parameters.password),
+        })
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
@@ -111,7 +151,7 @@ function changePassword(parameters: ChangePasswordParameters) {
  */
 function changeEmail(parameters: ChangeEmailParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post('/member/change/email', parameters)
+        http.post(`/${_prefix}/change/email`, parameters)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
@@ -120,4 +160,4 @@ function changeEmail(parameters: ChangeEmailParameters) {
     })
 }
 
-export { login, sendSMS, forget, changeMobile, changePassword, changeEmail }
+export { login, logout, sendSMS, sendEmail, forget, changeMobile, changePassword, changeEmail }

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 16:31:59
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 10:16:24
+ * @LastEditTime: 2021-11-16 15:29:59
  * @FilePath: /datumwealth-openalpha-front/src/components/changePasswordModel/ChangePasswordModel.vue
  * @Description: 修改密码弹窗
 -->
@@ -50,6 +50,7 @@ import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
 import { ElMessage } from 'element-plus'
 import { password_check } from 'utils/check/index'
 import { changePassword } from '@/common/request/modules/user'
+import { useStore } from 'store/index'
 
 export default defineComponent({
     name: 'ChangePasswordModel',
@@ -63,6 +64,7 @@ export default defineComponent({
         },
     },
     setup(props, context) {
+        let store = useStore()
         let oldInputPassword = ref('')
         let newInputPassword = ref('')
         let affirmNewInputPassword = ref('')
@@ -96,7 +98,18 @@ export default defineComponent({
                 })
                 return
             }
+            // 获取id
+            let userId = store.state.userModule.userLoginInfo.member.id
+            if (!userId) {
+                ElMessage({
+                    message: '用户信息错误',
+                    type: 'warning',
+                })
+                return
+            }
+            // 修改密码
             changePassword({
+                id: userId,
                 oldPassword,
                 password: newPassword,
             })
@@ -105,6 +118,7 @@ export default defineComponent({
                         message: res,
                         type: 'success',
                     })
+
                     context.emit('cancelAction')
                 })
                 .catch((err) => {

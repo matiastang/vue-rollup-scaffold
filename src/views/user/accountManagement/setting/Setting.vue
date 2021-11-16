@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 11:30:40
+ * @LastEditTime: 2021-11-16 17:29:08
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -142,9 +142,9 @@ export default defineComponent({
         // 用户信息
         let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
         // 脱敏phone
-        let desensitizationPhone = computed(() => phoneDesensitization(userInfo.value.phone))
+        let desensitizationPhone = computed(() => phoneDesensitization(userInfo.value.phone || ''))
         // 脱敏email
-        let desensitizationEmail = computed(() => phoneDesensitization(userInfo.value.email))
+        let desensitizationEmail = computed(() => phoneDesensitization(userInfo.value.email || ''))
         // 修改密码
         let changePasswordVisible = ref(false)
         const changePasswordAction = () => {

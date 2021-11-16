@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:04:28
- * @LastEditTime: 2021-11-16 12:22:25
+ * @LastEditTime: 2021-11-16 12:31:42
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/NotFound.vue
@@ -9,7 +9,6 @@
 <template>
     <div class="about">
         <div class="content flexColumnCenter">
-            <!-- <el-icon></el-icon> -->
             <el-icon :size="size" :color="color">
                 <edit></edit>
             </el-icon>
@@ -56,6 +55,7 @@ import { defineComponent, ref } from 'vue'
 import LoginModel from '@/components/loginModel/LoginModel.vue'
 import OpenalphaModel from '@/components/openalphaModel/OpenalphaModel.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
+import { Edit } from '@element-plus/icons'
 
 export default defineComponent({
     name: 'Solution',
@@ -103,6 +103,7 @@ export default defineComponent({
         LoginModel,
         OpenalphaModel,
         ApplyTrialModel,
+        Edit,
     },
 })
 </script>

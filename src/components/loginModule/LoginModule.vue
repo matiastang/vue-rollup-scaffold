@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-15 10:05:04
+ * @LastEditTime: 2021-11-16 17:17:08
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -22,8 +22,8 @@
                 <CodeInput
                     codeInputClass="login-code-input"
                     v-model="fegisterCode"
-                    placeholder="请输入4位验证码"
-                    @CodeInputGetCode="getPhoneCode"
+                    @CodeInputGetCode="getPhoneCode(0)"
+                    ref="registerCodeRef"
                 />
                 <div class="login" @click="registerAction">登录/注册</div>
                 <div class="text">
@@ -60,8 +60,8 @@
             <CodeInput
                 codeInputClass="find-password-code-input"
                 v-model="findInputCode"
-                placeholder="请输入4位验证码"
                 @CodeInputGetCode="getPhoneCode"
+                ref="findCodeRef"
             />
             <PasswordInput
                 passwordClass="find-password-input"
@@ -79,12 +79,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
-import CodeInput from '@/components/codeInput/CodeInput.vue'
+import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
 import { sendSMS, forget } from '@/common/request/modules/user'
 import { phone_check, code_check, password_check } from 'utils/check/index'
 import { useStore } from 'store/index'
@@ -106,10 +106,12 @@ export default defineComponent({
 
         // 注册
         let fegisterCode = ref('')
+        let registerCodeRef: Ref<CodeInputRefTypes | null> = ref(null)
+        let findCodeRef: Ref<CodeInputRefTypes | null> = ref(null)
         /**
          * 获取验证码
          */
-        const getPhoneCode = () => {
+        const getPhoneCode = (type = 1) => {
             // 手机校验
             let phone = inputPhone.value
             let phoneError = phone_check(phone)
@@ -119,6 +121,16 @@ export default defineComponent({
                     type: 'warning',
                 })
                 return
+            }
+            // 启动到计时
+            if (type === 0) {
+                if (registerCodeRef.value) {
+                    registerCodeRef.value.runCountDown()
+                }
+            } else {
+                if (findCodeRef.value) {
+                    findCodeRef.value.runCountDown()
+                }
             }
             // 发送验证码
             sendSMS(phone)
@@ -170,7 +182,7 @@ export default defineComponent({
                     username,
                     password,
                 })
-                .then((res) => {
+                .then((res: string) => {
                     ElMessage({
                         message: res,
                         type: 'success',
@@ -310,6 +322,8 @@ export default defineComponent({
             findInputAffirmPassword,
             backLogin,
             findPasswordAction,
+            registerCodeRef,
+            findCodeRef,
         }
     },
     components: {
