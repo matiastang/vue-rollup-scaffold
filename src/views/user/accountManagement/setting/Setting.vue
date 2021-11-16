@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 17:29:08
+ * @LastEditTime: 2021-11-16 17:55:55
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -31,22 +31,31 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="false" class="setting-info-right-authentication flexRowCenter">
+                <div
+                    v-if="!certStatus || certStatus !== 1"
+                    class="setting-info-right-authentication flexRowCenter"
+                >
                     <img class="setting-authentication-left" />
                     <div class="setting-authentication-right flexColumnCenter">
                         <div class="setting-authentication-title defaultFont">
                             您还没有实名认证哦~
                         </div>
-                        <div class="setting-authentication-button cursorP defaultFont">
+                        <div
+                            class="setting-authentication-button cursorP defaultFont"
+                            @click="authenticationAction"
+                        >
                             立即认证
                         </div>
                     </div>
                 </div>
-                <div v-if="false" class="setting-info-right-authentication flexColumnCenter">
+                <div
+                    v-if="certStatus && certStatus === 1 && userType && userType === 2"
+                    class="setting-info-right-authentication flexColumnCenter"
+                >
                     <div class="setting-authentication-item flexRowCenter">
                         <div class="setting-authentication-title defaultFont">企业名称:</div>
                         <div class="setting-authentication-text defaultFont">
-                            成都西筹金融科技有限公司
+                            {{ userInfo.company || '-' }}
                         </div>
                         <div class="setting-authentication-status defaultFont">已认证</div>
                     </div>
@@ -55,20 +64,25 @@
                             统一社会信用代码:
                         </div>
                         <div class="setting-authentication-text defaultFont">
-                            91510100MA68DEK87Y
+                            {{ userInfo.unifiedCreditCode || '-' }}
                         </div>
                     </div>
                 </div>
-                <div class="setting-info-right-authentication flexColumnCenter">
+                <div
+                    v-if="certStatus && certStatus === 1 && userType && userType === 1"
+                    class="setting-info-right-authentication flexColumnCenter"
+                >
                     <div class="setting-authentication-item flexRowCenter">
                         <div class="setting-authentication-title defaultFont">姓名:</div>
-                        <div class="setting-authentication-text defaultFont">安琪拉</div>
+                        <div class="setting-authentication-text defaultFont">
+                            {{ userInfo.realName || '-' }}
+                        </div>
                         <div class="setting-authentication-status defaultFont">已认证</div>
                     </div>
                     <div class="setting-authentication-item flexRowCenter">
                         <div class="setting-authentication-title defaultFont">身份证号:</div>
                         <div class="setting-authentication-text defaultFont">
-                            187081123465751324
+                            {{ userInfo.idNumber || '-' }}
                         </div>
                     </div>
                 </div>
@@ -135,16 +149,23 @@ import ChangePhoneModel from '@/components/changePhoneModel/ChangePhoneModel.vue
 import ChangeMailModel from '@/components/changeMailModel/ChangeMailModel.vue'
 import { useStore } from 'store/index'
 import { phoneDesensitization } from 'utils/index'
+import { useRouter } from 'vue-router'
+
 export default defineComponent({
     name: 'Setting',
     setup() {
         let store = useStore()
+        let router = useRouter()
         // 用户信息
         let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
         // 脱敏phone
         let desensitizationPhone = computed(() => phoneDesensitization(userInfo.value.phone || ''))
         // 脱敏email
         let desensitizationEmail = computed(() => phoneDesensitization(userInfo.value.email || ''))
+        // 认证状态
+        let certStatus = computed(() => userInfo.value.certStatus)
+        // 认证类型
+        let userType = computed(() => userInfo.value.userType)
         // 修改密码
         let changePasswordVisible = ref(false)
         const changePasswordAction = () => {
@@ -170,10 +191,18 @@ export default defineComponent({
         const changeMailCancelAction = () => {
             changeMailVisible.value = false
         }
+        // 跳转认证
+        const authenticationAction = () => {
+            router.push({
+                path: '/user/account/certification',
+            })
+        }
         return {
             userInfo,
             desensitizationPhone,
             desensitizationEmail,
+            certStatus,
+            userType,
             changePasswordVisible,
             changePasswordAction,
             changePasswordCancelAction,
@@ -184,6 +213,7 @@ export default defineComponent({
             changeMailVisible,
             mailAction,
             changeMailCancelAction,
+            authenticationAction,
         }
     },
     components: {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:29:54
+ * @LastEditTime: 2021-11-16 17:49:27
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -23,28 +23,51 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
         name: 'user module',
         userLoginInfo: {
             member: {
+                // 密钥key
                 appKey: null,
+                // 密钥
                 appSecret: null,
+                // 头像
                 avatar: null,
+                // 认证状态：0-未认证 1-认证成功 2-认证不通过
                 certStatus: null,
+                // 验证码
                 code: null,
+                // 公司名称
                 company: null,
+                // 创建时间
                 createTime: null,
+                // 所在部门
                 dept: null,
+                // 邮箱
                 email: null,
+                // 认证到期时间
                 expireDate: null,
+                // 用户id
                 id: null,
+                // 身份证号
                 idNumber: null,
+                // 是否限流：0=否 1=是
                 isLimiting: null,
+                // 法人
                 legalPerson: null,
+                // 限流数量
                 linitingNumber: null,
+                // 手机号
                 phone: null,
+                // 真实姓名
                 realName: null,
+                // 备注
                 remark: null,
+                // 状态：0=正常 1=禁用
                 status: null,
+                // 统一社会征信代码
                 unifiedCreditCode: null,
+                // 修改时间
                 updateTime: null,
+                // 用户名称
                 userName: null,
+                // 用户类型: 1-个人 2-企业
                 userType: null,
             },
             token: null,
