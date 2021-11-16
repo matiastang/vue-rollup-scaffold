@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:06:17
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 17:42:16
+ * @LastEditTime: 2021-11-16 10:27:40
  * @FilePath: /datumwealth-openalpha-front/src/components/changePhoneModel/ChangePhoneModel.vue
  * @Description: 修改手机号
 -->
@@ -10,9 +10,9 @@
     <div class="change-phone-model">
         <el-dialog :="$attrs" center>
             <div class="model-title defaultFont">修改手机号</div>
-            <div class="model-old-content flexRowCenter">
+            <div v-if="oldPhone.trim() !== ''" class="model-old-content flexRowCenter">
                 <div class="model-old-phone-title defaultFont">原手机号:</div>
-                <div class="model-old-phone defaultFont">18380440000</div>
+                <div class="model-old-phone defaultFont">{{ oldPhone }}</div>
             </div>
             <PhoneInput
                 v-model="inputPhone"
@@ -40,11 +40,19 @@ import { defineComponent, ref } from 'vue'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import CodeInput from '@/components/codeInput/CodeInput.vue'
 import { ElMessage } from 'element-plus'
+import { useStore } from 'store/index'
+import { sendSMS, changeMobile } from '@/common/request/modules/user'
 import { phone_check, code_check } from 'utils/check/index'
 
 export default defineComponent({
     name: 'ChangePhoneModel',
     inheritAttrs: false,
+    props: {
+        oldPhone: {
+            type: String,
+            default: '',
+        },
+    },
     emits: {
         okAction: () => {
             return true
@@ -54,8 +62,12 @@ export default defineComponent({
         },
     },
     setup(props, context) {
+        let store = useStore()
         let inputPhone = ref('')
         let inputCode = ref('')
+        /**
+         * 确定
+         */
         const modelOkAction = () => {
             // 手机号校验
             let phone = inputPhone.value
@@ -77,14 +89,57 @@ export default defineComponent({
                 })
                 return
             }
-            context.emit('okAction')
+            changeMobile({
+                phone,
+                code,
+            })
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                    store.commit('setPhone', phone)
+                    context.emit('cancelAction')
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '修改手机号失败',
+                        type: 'error',
+                    })
+                })
         }
+        /**
+         * 取消
+         */
         const modelCancelAction = () => {
             context.emit('cancelAction')
         }
         // 获取验证码
         const getCodeAction = () => {
-            console.log('获取验证码')
+            // 手机号校验
+            let phone = inputPhone.value
+            let phoneError = phone_check(phone)
+            if (phoneError) {
+                ElMessage({
+                    message: phoneError,
+                    type: 'warning',
+                })
+                return
+            }
+            // 发送验证码
+            sendSMS(phone)
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '发送验证码错误',
+                        type: 'error',
+                    })
+                })
         }
         return {
             inputPhone,

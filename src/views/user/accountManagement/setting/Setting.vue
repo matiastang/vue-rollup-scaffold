@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 18:51:09
+ * @LastEditTime: 2021-11-16 11:02:15
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -14,15 +14,21 @@
                 <div class="setting-info-left flexColumnCenter">
                     <div class="setting-info-item flexRowCenter">
                         <div class="setting-info-item-title defaultFont">登录账号:</div>
-                        <div class="setting-info-item-text defaultFont">open18708147975</div>
+                        <div class="setting-info-item-text defaultFont">
+                            {{ userInfo.userName || '-' }}
+                        </div>
                     </div>
                     <div class="setting-info-item flexRowCenter">
                         <div class="setting-info-item-title defaultFont">手机号码:</div>
-                        <div class="setting-info-item-text defaultFont">18708147975</div>
+                        <div class="setting-info-item-text defaultFont">
+                            {{ userInfo.phone || '未设置' }}
+                        </div>
                     </div>
                     <div class="setting-info-item flexRowCenter">
                         <div class="setting-info-item-title defaultFont">邮箱地址:</div>
-                        <div class="setting-info-item-text defaultFont">liuxxxx@123.com</div>
+                        <div class="setting-info-item-text defaultFont">
+                            {{ userInfo.email || '未设置' }}
+                        </div>
                     </div>
                 </div>
                 <div v-if="false" class="setting-info-right-authentication flexRowCenter">
@@ -81,7 +87,13 @@
             <div class="setting-info-content flexRowCenter">
                 <div class="setting-info-left flexColumnCenter">
                     <div class="setting-info-title defaultFont">绑定手机号</div>
-                    <div class="setting-info-text defaultFont">您已绑定手机187****7975</div>
+                    <div class="setting-info-text defaultFont">
+                        {{
+                            userInfo.phone
+                                ? `您已绑定手机187****7975`
+                                : '您未绑定手机，请绑定提升账号安全性'
+                        }}
+                    </div>
                 </div>
                 <div class="setting-info-right cursorP defaultFont" @click="changePhoneAction">
                     修改手机
@@ -111,14 +123,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import ChangePasswordModel from '@/components/changePasswordModel/ChangePasswordModel.vue'
 import ChangePhoneModel from '@/components/changePhoneModel/ChangePhoneModel.vue'
 import ChangeMailModel from '@/components/changeMailModel/ChangeMailModel.vue'
+import { useStore } from 'store/index'
 
 export default defineComponent({
     name: 'Setting',
     setup() {
+        let store = useStore()
+        // 用户信息
+        let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
         // 修改密码
         let changePasswordVisible = ref(false)
         const changePasswordAction = () => {
@@ -145,6 +161,7 @@ export default defineComponent({
             changeMailVisible.value = false
         }
         return {
+            userInfo,
             changePasswordVisible,
             changePasswordAction,
             changePasswordCancelAction,

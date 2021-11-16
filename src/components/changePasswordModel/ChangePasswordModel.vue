@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 16:31:59
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 17:42:07
+ * @LastEditTime: 2021-11-16 10:16:24
  * @FilePath: /datumwealth-openalpha-front/src/components/changePasswordModel/ChangePasswordModel.vue
  * @Description: 修改密码弹窗
 -->
@@ -49,6 +49,7 @@ import { defineComponent, ref } from 'vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
 import { ElMessage } from 'element-plus'
 import { password_check } from 'utils/check/index'
+import { changePassword } from '@/common/request/modules/user'
 
 export default defineComponent({
     name: 'ChangePasswordModel',
@@ -95,7 +96,23 @@ export default defineComponent({
                 })
                 return
             }
-            context.emit('okAction')
+            changePassword({
+                oldPassword,
+                password: newPassword,
+            })
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                    context.emit('cancelAction')
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '修改密码失败',
+                        type: 'error',
+                    })
+                })
         }
         const modelCancelAction = () => {
             context.emit('cancelAction')

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-12 18:01:42
+ * @LastEditTime: 2021-11-16 10:28:44
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -52,6 +52,22 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
     },
     getters: {},
     mutations: {
+        /**
+         * 设置邮箱
+         * @param state
+         * @param email
+         */
+        setEmail(state, email: string) {
+            state.userLoginInfo.member.email = email
+        },
+        /**
+         * 设置phone
+         * @param state
+         * @param phone
+         */
+        setPhone(state, phone: string) {
+            state.userLoginInfo.member.phone = phone
+        },
         /**
          * 设置token
          * @param state

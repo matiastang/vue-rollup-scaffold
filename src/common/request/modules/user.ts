@@ -2,13 +2,19 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-12 15:24:26
+ * @LastEditTime: 2021-11-16 10:18:47
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
 import http from '../request'
 import { Md5 } from 'ts-md5/dist/md5'
-import { LoginParameters, FotgetParameters } from './userInterface'
+import {
+    LoginParameters,
+    FotgetParameters,
+    ChangeMobileParameters,
+    ChangePasswordParameters,
+    ChangeEmailParameters,
+} from './userInterface'
 // import { UserLoginInfo } from '@/user'
 // import { localStorageKey, localStorageWrite } from '@/common/utils/storage/localStorage'
 
@@ -26,23 +32,6 @@ function login(parameters: LoginParameters) {
         password:
             parameters.loginType === 'pwd' ? Md5.hashStr(parameters.password) : parameters.password,
     })
-    // return new Promise<string>((resolve, reject) => {
-    //     http.post('/member/login', {
-    //         loginType,
-    //         username,
-    //         password: loginType === 'pwd' ? Md5.hashStr(password) : password,
-    //     })
-    //         .then((res) => {
-    //             const data = res.data
-    //             if (typeof data === 'object') {
-    //                 const userLoginInfo = data as UserLoginInfo
-    //                 // localStorageWrite(localStorageKey.userInfoKey, userLoginInfo.member)
-    //                 // localStorageWrite(localStorageKey.userTokenKey, userLoginInfo.token)
-    //             }
-    //             resolve('登录成功')
-    //         })
-    //         .catch(reject)
-    // })
 }
 
 /**
@@ -83,4 +72,52 @@ function forget(parameters: FotgetParameters) {
     })
 }
 
-export { login, sendSMS, forget }
+/**
+ * 绑定/修改手机号
+ * @param parameters
+ * @returns
+ */
+function changeMobile(parameters: ChangeMobileParameters) {
+    return new Promise<string>((resolve, reject) => {
+        http.post('/member/change/mobile', parameters)
+            .then((res) => {
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '修改成功')
+            })
+            .catch(reject)
+    })
+}
+
+/**
+ * 绑定/修改手机号
+ * @param parameters
+ * @returns
+ */
+function changePassword(parameters: ChangePasswordParameters) {
+    return new Promise<string>((resolve, reject) => {
+        http.post('/member/change/password', parameters)
+            .then((res) => {
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '修改成功')
+            })
+            .catch(reject)
+    })
+}
+
+/**
+ * 绑定/修改邮箱
+ * @param parameters
+ * @returns
+ */
+function changeEmail(parameters: ChangeEmailParameters) {
+    return new Promise<string>((resolve, reject) => {
+        http.post('/member/change/email', parameters)
+            .then((res) => {
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '修改成功')
+            })
+            .catch(reject)
+    })
+}
+
+export { login, sendSMS, forget, changeMobile, changePassword, changeEmail }

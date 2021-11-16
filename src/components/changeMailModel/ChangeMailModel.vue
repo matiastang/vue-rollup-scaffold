@@ -2,20 +2,22 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:22:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 17:45:16
+ * @LastEditTime: 2021-11-16 10:34:12
  * @FilePath: /datumwealth-openalpha-front/src/components/changeMailModel/ChangeMailModel.vue
  * @Description: 修改有效
 -->
 <template>
     <div class="change-mail-model">
         <el-dialog :="$attrs" center>
-            <div class="model-title defaultFont">{{ isChange ? '修改邮箱' : '绑定邮箱' }}</div>
-            <div v-if="isChange" class="model-old-content flexRowCenter">
+            <div class="model-title defaultFont">
+                {{ userInfo.email ? '修改邮箱' : '绑定邮箱' }}
+            </div>
+            <div v-if="userInfo.email" class="model-old-content flexRowCenter">
                 <div class="model-old-phone-title defaultFont">原邮箱地址:</div>
-                <div class="model-old-phone defaultFont">18380440000@qq.com</div>
+                <div class="model-old-phone defaultFont">{{ userInfo.email }}</div>
             </div>
             <PhoneInput
-                v-model="inputPhone"
+                v-model="inputEmail"
                 phoneClass="model-phone-input"
                 placeholder="请输入新邮箱地址"
             />
@@ -36,21 +38,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import CodeInput from '@/components/codeInput/CodeInput.vue'
 import { ElMessage } from 'element-plus'
-import { phone_check, code_check } from 'utils/check/index'
+import { useStore } from 'store/index'
+import { code_check, email_check } from 'utils/check/index'
+import { changeEmail } from '@/common/request/modules/user'
 
 export default defineComponent({
     name: 'ChangeMailModel',
     inheritAttrs: false,
-    props: {
-        isChange: {
-            type: Boolean,
-            default: true,
-        },
-    },
     emits: {
         okAction: () => {
             return true
@@ -60,15 +58,18 @@ export default defineComponent({
         },
     },
     setup(props, context) {
-        let inputPhone = ref('')
+        let store = useStore()
+        // 用户信息
+        let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
+        let inputEmail = ref('')
         let inputCode = ref('')
         const modelOkAction = () => {
             // 手机号校验
-            let phone = inputPhone.value
-            let phoneError = phone_check(phone)
-            if (phoneError) {
+            let email = inputEmail.value
+            let emailError = email_check(email)
+            if (emailError) {
                 ElMessage({
-                    message: phoneError,
+                    message: emailError,
                     type: 'warning',
                 })
                 return
@@ -83,7 +84,25 @@ export default defineComponent({
                 })
                 return
             }
-            context.emit('okAction')
+            // 修改/绑定邮箱
+            changeEmail({
+                email,
+                code,
+            })
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                    store.commit('setEmail', email)
+                    context.emit('cancelAction')
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '修改密码失败',
+                        type: 'error',
+                    })
+                })
         }
         const modelCancelAction = () => {
             context.emit('cancelAction')
@@ -93,7 +112,8 @@ export default defineComponent({
             console.log('获取验证码')
         }
         return {
-            inputPhone,
+            userInfo,
+            inputEmail,
             inputCode,
             modelCancelAction,
             modelOkAction,
