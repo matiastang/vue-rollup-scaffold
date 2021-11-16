@@ -1,24 +1,23 @@
-<!--
- * @Author: matiastang
- * @Date: 2021-11-11 17:33:16
- * @LastEditors: matiastang
- * @LastEditTime: 2021-11-11 17:43:54
- * @FilePath: /datumwealth-openalpha-front/src/views/user/dealManagement/invoice/Invoice.vue
- * @Description: 个人中心-交易管理-我的发票
--->
 <template>
-    <div>个人中心-交易管理-我的发票</div>
+    <div class="Invoice">
+        <el-card shadow="never">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="我的发票" name="first"><MyInvoice /></el-tab-pane>
+                <el-tab-pane label="开票记录" name="second"><InvoiceRecord /></el-tab-pane>
+            </el-tabs>
+        </el-card>
+    </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-    name: 'Order',
-    setup() {
-        return {}
-    },
-})
+<script setup>
+import { ref } from 'vue'
+import MyInvoice from '@/views/user/dealManagement/invoice/myinvoice.vue'
+import InvoiceRecord from '@/views/user/dealManagement/invoice/invoicerecord.vue'
+const activeName = ref('first')
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.Invoice {
+    padding: 20px;
+}
+</style>

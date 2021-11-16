@@ -6,6 +6,7 @@
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/index.ts
  * @Description: 工具函数
  */
+import { Exact, Maybe, OrderTypeEnum, PayStatusEnum } from '@/@types'
 /**
  * 手机号脱敏
  * @param phone
@@ -53,3 +54,47 @@ const phoneDesensitization = (phone: string) => {
  */
 
 export { phoneDesensitization }
+
+// 添加日期范围
+export function addDateRange(params: Exact<{}>, dateRange: Array<String>, propName?: string) {
+    let search = { ...params, beginTime: '', endTime: '' } as Exact<{
+        beginTime: String
+        endTime: String
+    }>
+    dateRange = Array.isArray(dateRange) ? dateRange : []
+    if (typeof propName === 'undefined') {
+        search['beginTime'] = dateRange[0]
+        search['endTime'] = dateRange[1]
+    }
+    return search
+}
+/**
+ *
+ * @param type
+ * @returns
+ */
+export function orderTypeToText(type: OrderTypeEnum) {
+    const result = {
+        1: '充值',
+        2: '套餐',
+    }
+    return result[type] || ''
+}
+/**
+ *
+ * @param type
+ * @returns
+ */
+export function payStatusToText(type: PayStatusEnum) {
+    const result = {
+        0: '未支付',
+        1: '支付中',
+        2: '已支付',
+        3: '已退款',
+        4: '退款中',
+        5: '退款失败',
+        6: '已取消',
+        7: '部分退款',
+    }
+    return result[type] || ''
+}
