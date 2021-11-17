@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:42:33
- * @LastEditTime: 2021-11-12 14:57:05
+ * @LastEditTime: 2021-11-17 15:36:36
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/user.d.ts
@@ -23,7 +23,7 @@ export interface UserInfo {
     certStatus: number | null
     code: string | null
     company: string | null
-    createTime: string | null // "2021-11-11T12:12:53"
+    createTime: string | null
     dept: string | null
     email: string | null
     expireDate: string | null
@@ -32,13 +32,14 @@ export interface UserInfo {
     isLimiting: number | null
     legalPerson: string | null
     linitingNumber: number | null
-    phone: string | null // "18380449615"
+    phone: string | null
     realName: string | null
     remark: string | null
+    useScenario: string | null
     status: number | null
     unifiedCreditCode: string | null
-    updateTime: string | null // "2021-11-11T12:12:53"
-    userName: string | null // "DW9615347653"
+    updateTime: string | null
+    userName: string | null
     userType: number | null
 }
 

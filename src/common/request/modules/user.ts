@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 16:13:28
+ * @LastEditTime: 2021-11-17 14:18:35
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
@@ -14,6 +14,8 @@ import {
     ChangeMobileParameters,
     ChangePasswordParameters,
     ChangeEmailParameters,
+    PersonalParameters,
+    EnterpriseParameters,
 } from './userInterface'
 import { localStorageRemoveAll } from '@/common/utils/storage/localStorage'
 
@@ -61,7 +63,7 @@ function logout() {
  */
 function sendSMS(mobile: string) {
     return new Promise<string>((resolve, reject) => {
-        http.get(`/member/send/sms/${mobile}`)
+        http.get(`/${_prefix}/send/sms/${mobile}`)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '发送成功')
@@ -77,7 +79,7 @@ function sendSMS(mobile: string) {
  */
 function sendEmail(email: string) {
     return new Promise<string>((resolve, reject) => {
-        http.get(`/member/send/email/${email}`)
+        http.get(`/${_prefix}/send/email/${email}`)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '发送成功')
@@ -160,4 +162,45 @@ function changeEmail(parameters: ChangeEmailParameters) {
     })
 }
 
-export { login, logout, sendSMS, sendEmail, forget, changeMobile, changePassword, changeEmail }
+/**
+ * 个人实名认证接口参数类型
+ */
+function personal(parameters: PersonalParameters) {
+    return new Promise<string>((resolve, reject) => {
+        http.post(`/${_prefix}/auth/personal`, parameters)
+            .then((res) => {
+                console.log(res)
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '修改成功')
+            })
+            .catch(reject)
+    })
+}
+
+/**
+ * 企业实名认证接口参数类型
+ */
+function enterprise(parameters: EnterpriseParameters) {
+    return new Promise<string>((resolve, reject) => {
+        http.post(`/${_prefix}/auth/enterprise`, parameters)
+            .then((res) => {
+                console.log(res)
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '修改成功')
+            })
+            .catch(reject)
+    })
+}
+
+export {
+    login,
+    logout,
+    sendSMS,
+    sendEmail,
+    forget,
+    changeMobile,
+    changePassword,
+    changeEmail,
+    personal,
+    enterprise,
+}

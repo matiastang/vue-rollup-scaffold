@@ -2,13 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 17:49:27
+ * @LastEditTime: 2021-11-17 15:36:38
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
 import { Module } from 'vuex'
 import { RootStateTypes } from 'store/indexInterface'
-import { UserModuleTypes } from './userInterface'
+import { UserModuleTypes, PersonalInfoTypes, EnterpriseInfoTypes } from './userInterface'
 import { UserInfo } from '@/user'
 import { UserLoginInfo } from '@/user'
 import { LoginParameters } from '@/common/request/modules/userInterface'
@@ -59,6 +59,8 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                 realName: null,
                 // 备注
                 remark: null,
+                // 使用场景
+                useScenario: null,
                 // 状态：0=正常 1=禁用
                 status: null,
                 // 统一社会征信代码
@@ -75,6 +77,33 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
     },
     getters: {},
     mutations: {
+        /**
+         * 更新个人信息
+         * @param state
+         * @param info
+         */
+        setPersonalInfo(state, info: PersonalInfoTypes) {
+            state.userLoginInfo.member.email = info.email
+            state.userLoginInfo.member.idNumber = info.idNumber
+            state.userLoginInfo.member.realName = info.realName
+            state.userLoginInfo.member.useScenario = info.useScenario
+            state.userLoginInfo.member.certStatus = 3
+            state.userLoginInfo.member.userType = 1
+        },
+        /**
+         * 更新公司信息
+         * @param state
+         * @param info
+         */
+        setEnterpriseInfo(state, info: EnterpriseInfoTypes) {
+            state.userLoginInfo.member.company = info.company
+            state.userLoginInfo.member.dept = info.dept
+            state.userLoginInfo.member.email = info.email
+            state.userLoginInfo.member.legalPerson = info.legalPerson
+            state.userLoginInfo.member.useScenario = info.useScenario
+            state.userLoginInfo.member.certStatus = 3
+            state.userLoginInfo.member.userType = 2
+        },
         /**
          * 设置邮箱
          * @param state
@@ -132,6 +161,7 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                     phone: null,
                     realName: null,
                     remark: null,
+                    useScenario: null,
                     status: null,
                     unifiedCreditCode: null,
                     updateTime: null,

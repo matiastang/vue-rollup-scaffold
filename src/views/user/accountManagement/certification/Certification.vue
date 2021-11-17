@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 19:56:16
+ * @LastEditTime: 2021-11-17 15:26:23
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -169,7 +169,7 @@
                                 </div>
                                 <el-input
                                     class="tab-personage-item-right"
-                                    v-model="personageName"
+                                    v-model="companyName"
                                     maxlength="20"
                                     placeholder="请输入企业名称"
                                     clearable
@@ -184,7 +184,7 @@
                                 </div>
                                 <el-input
                                     class="tab-personage-item-right"
-                                    v-model="personageIdNumber"
+                                    v-model="companyUnifiedCreditCode"
                                     maxlength="18"
                                     placeholder="请输入统一社会信用代码"
                                     clearable
@@ -199,7 +199,7 @@
                                 </div>
                                 <el-input
                                     class="tab-personage-item-right"
-                                    v-model="personageEmail"
+                                    v-model="companyLegalPerson"
                                     placeholder="请输入法定代表人名字"
                                     clearable
                                 />
@@ -213,7 +213,7 @@
                                 </div>
                                 <el-input
                                     class="tab-personage-item-right"
-                                    v-model="personageEmail"
+                                    v-model="companyEmail"
                                     placeholder="请输入企业邮箱"
                                     clearable
                                 />
@@ -227,7 +227,7 @@
                                 </div>
                                 <el-input
                                     class="tab-personage-item-right"
-                                    v-model="personageEmail"
+                                    v-model="companyDept"
                                     placeholder="请输入您所在的部门名称"
                                     clearable
                                 />
@@ -241,7 +241,7 @@
                                 </div>
                                 <el-input
                                     class="tab-personage-item-right tab-personage-item-textarea"
-                                    v-model="personageNote"
+                                    v-model="companyNote"
                                     type="textarea"
                                     placeholder="请输入您使用数据的场景"
                                     clearable
@@ -254,11 +254,29 @@
                                         营业执照:
                                     </div>
                                 </div>
-                                <div class="tab-company-img"></div>
+                                <el-upload
+                                    class="tab-company-img"
+                                    :action="uploadURL"
+                                    :show-file-list="false"
+                                    :limit="1"
+                                    :multiple="false"
+                                    :on-success="companyImageAvatarSuccess"
+                                    :before-upload="companyImageBeforeAvatarUpload"
+                                >
+                                    <img
+                                        v-if="companyImageUrl"
+                                        :src="companyImageUrl"
+                                        class="avatar"
+                                    />
+                                    <div v-else class="company-img-content">
+                                        <img class="company-image-front-icon" />
+                                        <div class="company-image-title">上传</div>
+                                    </div>
+                                </el-upload>
                             </div>
                             <div class="tab-personage-text-content flexRowCenter">
                                 <el-checkbox
-                                    v-model="checked"
+                                    v-model="companyChecked"
                                     class="personage-text-checked"
                                 ></el-checkbox>
                                 <div class="personage-left-text cursorP defaultFont">
@@ -269,8 +287,13 @@
                                 </div>
                             </div>
                             <div class="tab-personage-button-content flexRowCenter">
-                                <div class="personage-ok-button cursorP defaultFont">提交认证</div>
-                                <div class="personage-cancel-button cursorP defaultFont">取消</div>
+                                <div
+                                    class="personage-ok-button cursorP defaultFont"
+                                    @click="comapnyOkAction"
+                                >
+                                    提交认证
+                                </div>
+                                <!-- <div class="personage-cancel-button cursorP defaultFont">取消</div> -->
                             </div>
                         </div>
                     </el-tab-pane>
@@ -339,13 +362,50 @@
                                     </div>
                                 </div>
                                 <div class="tab-personage-item-img-right flexRowCenter">
-                                    <div class="tab-personage-img-front"></div>
-                                    <div class="tab-personage-img-bg"></div>
+                                    <el-upload
+                                        class="tab-personage-img-front"
+                                        :action="uploadURL"
+                                        :show-file-list="false"
+                                        :limit="1"
+                                        :multiple="false"
+                                        accept=""
+                                        :on-success="personageImageFrontAvatarSuccess"
+                                        :before-upload="personageImageFrontBeforeAvatarUpload"
+                                    >
+                                        <img
+                                            v-if="personageImageFrontUrl"
+                                            :src="personageImageFrontUrl"
+                                            class="avatar"
+                                        />
+                                        <div v-else class="personage-img-content">
+                                            <img class="personage-image-front-icon" />
+                                            <div class="personage-image-title">人像面</div>
+                                        </div>
+                                    </el-upload>
+                                    <el-upload
+                                        class="tab-personage-img-bg"
+                                        :action="uploadURL"
+                                        :show-file-list="false"
+                                        :limit="1"
+                                        :multiple="false"
+                                        :on-success="personageImageBgAvatarSuccess"
+                                        :before-upload="personageImageBgBeforeAvatarUpload"
+                                    >
+                                        <img
+                                            v-if="personageImageBgUrl"
+                                            :src="personageImageBgUrl"
+                                            class="avatar"
+                                        />
+                                        <div v-else class="personage-img-content">
+                                            <img class="personage-image-bg-icon" />
+                                            <div class="personage-image-title">国徽面</div>
+                                        </div>
+                                    </el-upload>
                                 </div>
                             </div>
                             <div class="tab-personage-text-content flexRowCenter">
                                 <el-checkbox
-                                    v-model="checked"
+                                    v-model="personageChecked"
                                     class="personage-text-checked"
                                 ></el-checkbox>
                                 <div class="personage-left-text cursorP defaultFont">
@@ -356,8 +416,13 @@
                                 </div>
                             </div>
                             <div class="tab-personage-button-content flexRowCenter">
-                                <div class="personage-ok-button cursorP defaultFont">提交认证</div>
-                                <div class="personage-cancel-button cursorP defaultFont">取消</div>
+                                <div
+                                    class="personage-ok-button cursorP defaultFont"
+                                    @click="personageOkAction"
+                                >
+                                    提交认证
+                                </div>
+                                <!-- <div class="personage-cancel-button cursorP defaultFont">取消</div> -->
                             </div>
                         </div>
                     </el-tab-pane>
@@ -380,8 +445,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, Ref, computed } from 'vue'
+import { ElMessage } from 'element-plus'
 import { useStore } from 'store/index'
+import { baseURL } from '@/common/request/config'
+import { personal, enterprise } from '@/common/request/modules/user'
+import { email_check } from 'utils/check/index'
 
 export default defineComponent({
     name: 'Certification',
@@ -395,13 +464,314 @@ export default defineComponent({
         let userType = computed(() => userInfo.value.userType)
         // 类型切换
         let activeName = ref('company')
+        // 图片上传地址
+        const uploadURL = ref(`${baseURL}/member/upload`)
         // 公司认证company
+        let companyName = ref('')
+        let companyUnifiedCreditCode = ref('')
+        let companyLegalPerson = ref('')
+        let companyDept = ref('')
+        let companyEmail = ref('')
+        let companyNote = ref('')
+        const companyChecked = ref(false)
+        // 营业执照
+        const companyImageUrl: Ref<string | null> = ref(null)
+        const companyImageAvatarSuccess = (res: any, file: any) => {
+            let url = res.data
+            if (url) {
+                companyImageUrl.value = url
+            }
+        }
+        const companyImageBeforeAvatarUpload = (file: any) => {
+            const isJPG = file.type === 'image/jpeg'
+            const isLt2M = file.size / 1024 / 1024 < 2
+
+            if (!isJPG) {
+                ElMessage({
+                    message: '只能选择JPG格式的图片',
+                    type: 'error',
+                })
+                return false
+            }
+            if (!isLt2M) {
+                ElMessage({
+                    message: '图片大小不能超过2MB!',
+                    type: 'error',
+                })
+                return false
+            }
+            return isJPG && isLt2M
+        }
+        // 公司认证提交
+        const comapnyOkAction = () => {
+            // 姓名校验
+            let name = companyName.value
+            if (name.trim() === '') {
+                ElMessage({
+                    message: '请输入企业名称',
+                    type: 'warning',
+                })
+                return
+            }
+            // 社会信用校验
+            let unifiedCreditCode = companyUnifiedCreditCode.value
+            if (unifiedCreditCode.trim() === '') {
+                ElMessage({
+                    message: '请输入统一社会信用代码',
+                    type: 'warning',
+                })
+                return
+            }
+            // 法人校验
+            let legalPerson = companyLegalPerson.value
+            if (legalPerson.trim() === '') {
+                ElMessage({
+                    message: '请输入法人代表名字',
+                    type: 'warning',
+                })
+                return
+            }
+            // 邮箱账号校验
+            let email = companyEmail.value
+            let emailErr = email_check(email)
+            if (emailErr) {
+                ElMessage({
+                    message: emailErr,
+                    type: 'warning',
+                })
+                return
+            }
+            // 部门校验
+            let dept = companyDept.value
+            if (dept.trim() === '') {
+                ElMessage({
+                    message: '请输入您所在的部门',
+                    type: 'warning',
+                })
+                return
+            }
+            // 场景校验
+            let note = companyNote.value
+            if (note.trim() === '') {
+                ElMessage({
+                    message: '请输入您使用数据的场景',
+                    type: 'warning',
+                })
+                return
+            }
+            let companyUrl = companyImageUrl.value
+            if (!companyUrl) {
+                ElMessage({
+                    message: '请上传营业执照',
+                    type: 'warning',
+                })
+                return
+            }
+            // 服务协议
+            let check = companyChecked.value
+            if (!check) {
+                ElMessage({
+                    message: '请阅读并同意《西筹开放平台认证服务协议》',
+                    type: 'warning',
+                })
+                return
+            }
+            // 提交个人认证
+            let userId = computed(() => userInfo.value.id)
+            if (!userId.value) {
+                ElMessage({
+                    message: '用户信息错误',
+                    type: 'error',
+                })
+                return
+            }
+            let parameters = {
+                userId: userId.value,
+                company: name,
+                unifiedCreditCode,
+                legalPerson,
+                email,
+                dept,
+                useScenario: note,
+                certMaterials: JSON.stringify([companyUrl]),
+            }
+            enterprise(parameters)
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                    store.commit('setEnterpriseInfo', parameters)
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '修改手机号失败',
+                        type: 'error',
+                    })
+                })
+        }
         // 个人认证personage
-        let personageName = ref('')
-        let personageIdNumber = ref('')
-        let personageEmail = ref('')
-        let personageNote = ref('')
-        const checked = ref(false)
+        let personageName = ref('唐道勇')
+        let personageIdNumber = ref('123456789012345678')
+        let personageEmail = ref('18380449615@163.com')
+        let personageNote = ref('开发，测试')
+        const personageChecked = ref(true)
+        // 身份证正面
+        const personageImageFrontUrl: Ref<string | null> = ref(
+            'https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/2021-11-17/openalpha/member/7d8dc47b-74e3-4210-b338-0aa454b7bcfd.jpeg'
+        )
+        const personageImageFrontAvatarSuccess = (res: any, file: any) => {
+            let url = res.data
+            if (url) {
+                personageImageFrontUrl.value = url
+            }
+        }
+        const personageImageFrontBeforeAvatarUpload = (file: any) => {
+            const isJPG = file.type === 'image/jpeg'
+            const isLt2M = file.size / 1024 / 1024 < 2
+
+            if (!isJPG) {
+                ElMessage({
+                    message: '只能选择JPG格式的图片',
+                    type: 'error',
+                })
+                return false
+            }
+            if (!isLt2M) {
+                ElMessage({
+                    message: '图片大小不能超过2MB!',
+                    type: 'error',
+                })
+                return false
+            }
+            return isJPG && isLt2M
+        }
+        // 身份证反面
+        const personageImageBgUrl: Ref<string | null> = ref(
+            'https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/2021-11-17/openalpha/member/2710016c-3603-42be-b19f-1a8aaccfcdd3.jpeg'
+        )
+        const personageImageBgAvatarSuccess = (res: any, file: any) => {
+            let url = res.data
+            if (url) {
+                personageImageBgUrl.value = url
+            }
+        }
+        const personageImageBgBeforeAvatarUpload = (file: any) => {
+            const isJPG = file.type === 'image/jpeg'
+            const isLt2M = file.size / 1024 / 1024 < 2
+
+            if (!isJPG) {
+                ElMessage({
+                    message: '只能选择JPG格式的图片',
+                    type: 'error',
+                })
+                return false
+            }
+            if (!isLt2M) {
+                ElMessage({
+                    message: '图片大小不能超过2MB!',
+                    type: 'error',
+                })
+                return false
+            }
+            return isJPG && isLt2M
+        }
+        // 个人认证提交
+        const personageOkAction = () => {
+            // 姓名校验
+            let realName = personageName.value
+            if (realName.trim() === '') {
+                ElMessage({
+                    message: '请输入您的姓名',
+                    type: 'warning',
+                })
+                return
+            }
+            // 身份证号校验
+            let idNumber = personageIdNumber.value
+            if (idNumber.trim() === '') {
+                ElMessage({
+                    message: '请输入您的身份证号',
+                    type: 'warning',
+                })
+                return
+            }
+            // 邮箱账号校验
+            let email = personageEmail.value
+            let emailErr = email_check(email)
+            if (emailErr) {
+                ElMessage({
+                    message: emailErr,
+                    type: 'warning',
+                })
+                return
+            }
+            // 身份证号校验
+            let note = personageNote.value
+            if (note.trim() === '') {
+                ElMessage({
+                    message: '请输入您使用数据的场景',
+                    type: 'warning',
+                })
+                return
+            }
+            let frontUrl = personageImageFrontUrl.value
+            if (!frontUrl) {
+                ElMessage({
+                    message: '请上传身份证正面照',
+                    type: 'warning',
+                })
+                return
+            }
+            let bgUrl = personageImageBgUrl.value
+            if (!bgUrl) {
+                ElMessage({
+                    message: '请上传身份证反面照',
+                    type: 'warning',
+                })
+                return
+            }
+            // 服务协议
+            let check = personageChecked.value
+            if (!check) {
+                ElMessage({
+                    message: '请阅读并同意《西筹开放平台认证服务协议》',
+                    type: 'warning',
+                })
+                return
+            }
+            // 提交个人认证
+            let userId = computed(() => userInfo.value.id)
+            if (!userId.value) {
+                ElMessage({
+                    message: '用户信息错误',
+                    type: 'error',
+                })
+                return
+            }
+            let parameters = {
+                userId: userId.value,
+                email,
+                idNumber,
+                realName,
+                useScenario: note,
+                certMaterials: JSON.stringify([frontUrl, bgUrl]),
+            }
+            personal(parameters)
+                .then((res) => {
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                    store.commit('setPersonalInfo', parameters)
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '修改手机号失败',
+                        type: 'error',
+                    })
+                })
+        }
         // table数据
         let tableData = [
             {
@@ -416,11 +786,32 @@ export default defineComponent({
             certStatus,
             userType,
             activeName,
+            // 公司认证
+            companyChecked,
+            companyImageUrl,
+            companyImageAvatarSuccess,
+            companyImageBeforeAvatarUpload,
+            companyName,
+            companyUnifiedCreditCode,
+            companyLegalPerson,
+            companyDept,
+            companyEmail,
+            companyNote,
+            comapnyOkAction,
+            // 个人认证
             personageName,
             personageIdNumber,
             personageEmail,
             personageNote,
-            checked,
+            personageChecked,
+            uploadURL,
+            personageImageFrontUrl,
+            personageImageFrontAvatarSuccess,
+            personageImageFrontBeforeAvatarUpload,
+            personageImageBgUrl,
+            personageImageBgAvatarSuccess,
+            personageImageBgBeforeAvatarUpload,
+            personageOkAction,
             tableData,
         }
     },
@@ -654,19 +1045,39 @@ export default defineComponent({
                                 height: 108px !important;
                             }
                             .tab-personage-item-img-right {
-                                .tab-personage-img-front {
-                                    width: 152px;
-                                    height: 134px;
-                                    border-radius: 2px;
-                                    border: 1px solid #bfbfbf;
-                                    margin-right: 9px;
-                                }
+                                .tab-personage-img-front,
                                 .tab-personage-img-bg {
                                     width: 152px;
                                     height: 134px;
                                     border-radius: 2px;
                                     border: 1px solid #bfbfbf;
                                     margin-left: 9px;
+                                    .avatar {
+                                        width: 152px;
+                                        height: 134px;
+                                        background: $themeColor;
+                                    }
+                                    .personage-img-content {
+                                        width: 152px;
+                                        height: 134px;
+                                        padding: 11px 12px;
+                                        box-sizing: border-box;
+                                        .personage-image-front-icon,
+                                        .personage-image-bg-icon {
+                                            width: 128px;
+                                            height: 82px;
+                                            background: $themeColor;
+                                        }
+                                        .personage-image-title {
+                                            margin-top: 11px;
+                                            font-size: 14px;
+                                            color: #4e9aeb;
+                                            line-height: 20px;
+                                        }
+                                    }
+                                }
+                                .tab-personage-img-front {
+                                    margin: 0px 9px 0px 0px;
                                 }
                             }
                         }
@@ -722,8 +1133,25 @@ export default defineComponent({
                         .tab-company-img {
                             width: 120px;
                             height: 180px;
+                            padding: 11px 12px;
+                            box-sizing: border-box;
                             border-radius: 2px;
                             border: 1px solid #bfbfbf;
+                            .company-img-content {
+                                width: 100%;
+                                height: 100%;
+                                .company-image-front-icon {
+                                    width: 96px;
+                                    height: 128px;
+                                    background: #e7f3fd;
+                                }
+                                .company-image-title {
+                                    margin-top: 11px;
+                                    font-size: 14px;
+                                    color: #4e9aeb;
+                                    line-height: 20px;
+                                }
+                            }
                         }
                     }
                 }

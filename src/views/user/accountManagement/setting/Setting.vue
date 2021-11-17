@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 17:55:55
+ * @LastEditTime: 2021-11-16 20:03:37
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -21,13 +21,13 @@
                     <div class="setting-info-item flexRowCenter">
                         <div class="setting-info-item-title defaultFont">手机号码:</div>
                         <div class="setting-info-item-text defaultFont">
-                            {{ userInfo.phone || '未设置' }}
+                            {{ desensitizationPhone || '未设置' }}
                         </div>
                     </div>
                     <div class="setting-info-item flexRowCenter">
                         <div class="setting-info-item-title defaultFont">邮箱地址:</div>
                         <div class="setting-info-item-text defaultFont">
-                            {{ userInfo.email || '未设置' }}
+                            {{ desensitizationEmail || '未设置' }}
                         </div>
                     </div>
                 </div>

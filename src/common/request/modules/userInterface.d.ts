@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 15:14:50
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:21:04
+ * @LastEditTime: 2021-11-17 14:15:46
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/userInterface.d.ts
  * @Description: user 请求参数声明
  */
@@ -48,4 +48,30 @@ export interface ChangeEmailParameters {
     id: number
     email: string
     code: string
+}
+
+/**
+ * 个人实名认证接口参数类型
+ */
+export interface PersonalParameters {
+    userId: number
+    email: string
+    idNumber: string
+    realName: string
+    useScenario: string
+    certMaterials: string
+}
+
+/**
+ * 企业实名认证接口参数类型
+ */
+export interface EnterpriseParameters {
+    userId: number
+    company: string
+    dept: string
+    email: string
+    legalPerson: string
+    unifiedCreditCode: string
+    useScenario: string
+    certMaterials: string
 }
