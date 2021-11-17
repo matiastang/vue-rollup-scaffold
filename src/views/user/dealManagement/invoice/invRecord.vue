@@ -25,7 +25,7 @@
             <el-form-item label="" label-width="0">
                 <el-button @click="doQuery" type="primary" plain>查询</el-button>
                 <el-button @click="doReset" plain>重置</el-button>
-                <el-button type="text">开发说明</el-button>
+                <el-button type="text" @click="open = true">开票说明</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -77,14 +77,18 @@
             @pagination="doQuery"
         />
     </div>
+    <DialogTips :open="open" @on-close="open = false" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import DialogTips from '@/views/user/dealManagement/invoice/DialogTips.vue'
 
 const loading = ref(true)
 const list = ref([])
 const date = ref([])
+const open = ref(false)
+
 const queryParams = ref({
     orderSn: '',
     type: '',

@@ -4,9 +4,13 @@
     </div>
     <br />
     <div class="invoice-list">
-        <div class="invoice-list-add"><Plus class="icon" />&nbsp;新增开票信息</div>
+        <div class="invoice-list-add" @click="openAction = true">
+            <Plus class="icon" />&nbsp;新增开票信息
+        </div>
     </div>
-    <p class="tips">当页全选<strong>0</strong> 个订单，发票金额共计: <strong>0元</strong></p>
+    <p class="tips">
+        当页全选<strong class="order-count">0</strong>个订单，发票金额共计: <strong>0元</strong>
+    </p>
     <div>
         <el-form ref="form" :model="queryParams" inline label-width="70px">
             <el-form-item label="" label-width="0">
@@ -33,7 +37,8 @@
             <el-form-item label="" label-width="0">
                 <el-button @click="doQuery" type="primary" plain>查询</el-button>
                 <el-button @click="doReset" plain>重置</el-button>
-                <el-button type="primary">开发票</el-button>
+                <el-button @click="open = true" type="text">开票说明</el-button>
+                <el-button type="primary" @click="openAdd = true">开发票</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -85,13 +90,22 @@
             @pagination="doQuery"
         />
     </div>
+    <InvoiceTipsDialog :open="open" @on-close="open = false" />
+    <InvoiceActionDialog :open="openAction" @on-close="openAction = false" />
+    <DialogAddInvoice :open="openAdd" @on-close="openAdd = false" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { Plus } from '@element-plus/icons'
+import InvoiceTipsDialog from '@/views/user/dealManagement/invoice/DialogTips.vue'
+import InvoiceActionDialog from '@/views/user/dealManagement/invoice/DialogAction.vue'
+import DialogAddInvoice from '@/views/user/dealManagement/invoice/DialogAddInv.vue'
 
 const loading = ref(true)
+const open = ref(false)
+const openAction = ref(false)
+const openAdd = ref(false)
 const list = ref([])
 const date = ref([])
 const queryParams = ref({
@@ -114,13 +128,22 @@ const queryParams = ref({
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: all 0.2s;
         .icon {
-            width: 16px;
-            height: 16px;
+            width: 13px;
+            height: 13px;
             background: #d65928;
             color: #fff;
             border-radius: 50%;
+            padding: 3px;
+            opacity: 0.8;
         }
+    }
+    .invoice-list-add:hover {
+        background: #f3e4dd;
+    }
+    .invoice-list-add:active {
+        transform: scale(0.95);
     }
 }
 .tips {
@@ -135,6 +158,12 @@ const queryParams = ref({
         font-size: 16px;
         font-weight: 500;
         color: #d65928;
+    }
+    .order-count::before {
+        content: ' | ';
+        color: #8c8c8c;
+        font-size: 14px;
+        font-weight: 400;
     }
 }
 </style>

@@ -101,12 +101,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { Search } from '@element-plus/icons'
+import { Order } from '@/@types'
 import { ElMessageBox } from 'element-plus'
 import { addDateRange, orderTypeToText, payStatusToText } from '@/common/utils'
 import { getOrderList, getOrderCancel } from '@/api'
 
 const loading = ref(true)
-const list = ref([])
+const list = ref<Array<Order.AsObject>>([])
 const date = ref([])
 const form = ref()
 const queryParams = ref({
