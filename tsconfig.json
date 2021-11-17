@@ -1,46 +1,46 @@
 {
-	"compilerOptions": {
-		// 与 Vue 的浏览器支持保持一致
-		"target": "esnext",
-		"module": "esnext",
-		// 这可以对 `this` 上的数据 property 进行更严格的推断
-		"strict": true,
-		"jsx": "preserve",
-		"importHelpers": true,
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
-		"baseUrl": ".",
-		"types": [
-            "element-plus/global"
-        ],
-		"paths": {
+    "compilerOptions": {
+        // 与 Vue 的浏览器支持保持一致
+        "target": "esnext",
+        "module": "esnext",
+        // 这可以对 `this` 上的数据 property 进行更严格的推断
+        "strict": true,
+        "jsx": "preserve",
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "types": ["element-plus/global"],
+        "paths": {
             "utils/*": ["src/common/utils/*"],
             "store/*": ["src/store/*"],
-			"@/*": ["src/*"],
+            "@/*": ["src/*"],
             "static/*": ["static/*"],
-            "root/*": ["*"],
-		},
-		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-	},
-	"files": ["global.d.ts"],
-	"include": [
-		"src/**/*.d.ts",
-		"src/**/*.ts",
-		"src/**/*.tsx",
-		"src/**/*.vue",
-		"tests/**/*.ts",
-		"tests/**/*.tsx"
-	],
-	"exclude": ["node_modules"]
+            "root/*": ["*"]
+        },
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+        "typeRoots": ["src/global.d.ts", "node_modules/@types"]
+    },
+    "files": ["global.d.ts"],
+    "include": [
+        "src/**/*.d.ts",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "tests/**/*.ts",
+        "tests/**/*.tsx",
+        "env.d.ts"
+    ],
+    "exclude": ["node_modules"]
 }
 // "compilerOptions": {
 //     "incremental": true, // TS编译器在第一次编译之后会生成一个存储编译信息的文件，第二次编译会在第一次的基础上进行增量编译，可以提高编译的速度
 //     "tsBuildInfoFile": "./buildFile", // 增量编译文件的存储位置
-//     "diagnostics": true, // 打印诊断信息 
+//     "diagnostics": true, // 打印诊断信息
 //     "target": "ES5", // 目标语言的版本
 //     "module": "CommonJS", // 生成代码的模板标准
 //     "outFile": "./app.js", // 将多个相互依赖的文件生成一个文件，可以用在AMD模块中，即开启时应设置"module": "AMD",
@@ -57,7 +57,7 @@
 //     "declarationMap": true, // 为声明文件生成sourceMap
 //     "typeRoots": [], // 声明文件目录，默认时node_modules/@types
 //     "types": [], // 加载的声明文件包
-//     "removeComments":true, // 删除注释 
+//     "removeComments":true, // 删除注释
 //     "noEmit": true, // 不输出文件,即编译后不会生成任何js文件
 //     "noEmitOnError": true, // 发送错误时不输出任何文件
 //     "noEmitHelpers": true, // 不生成helper函数，减小体积，需要额外安装，常配合importHelpers一起使用
