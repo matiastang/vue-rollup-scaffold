@@ -2,12 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 15:36:38
+ * @LastEditTime: 2021-11-17 20:08:49
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
 import { Module } from 'vuex'
 import { RootStateTypes } from 'store/indexInterface'
+import { MbMemberAuthLogs } from '@/user'
 import { UserModuleTypes, PersonalInfoTypes, EnterpriseInfoTypes } from './userInterface'
 import { UserInfo } from '@/user'
 import { UserLoginInfo } from '@/user'
@@ -71,12 +72,26 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                 userName: null,
                 // 用户类型: 1-个人 2-企业
                 userType: null,
+                // 认证对象
+                mbMemberAuthLogs: null,
             },
             token: null,
         },
     },
     getters: {},
     mutations: {
+        /**
+         * 认证信息更新
+         * @param state
+         * @param info
+         */
+        setAuthInfo(state, info: MbMemberAuthLogs) {
+            state.userLoginInfo.member.certStatus = info.certStatus
+            if (state.userLoginInfo.member.mbMemberAuthLogs) {
+                state.userLoginInfo.member.mbMemberAuthLogs.certStatus = info.certStatus
+                state.userLoginInfo.member.mbMemberAuthLogs.certResult = info.certResult
+            }
+        },
         /**
          * 更新个人信息
          * @param state
@@ -88,6 +103,9 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
             state.userLoginInfo.member.realName = info.realName
             state.userLoginInfo.member.useScenario = info.useScenario
             state.userLoginInfo.member.certStatus = 3
+            if (state.userLoginInfo.member.mbMemberAuthLogs) {
+                state.userLoginInfo.member.mbMemberAuthLogs.certStatus = 3
+            }
             state.userLoginInfo.member.userType = 1
         },
         /**
@@ -101,7 +119,11 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
             state.userLoginInfo.member.email = info.email
             state.userLoginInfo.member.legalPerson = info.legalPerson
             state.userLoginInfo.member.useScenario = info.useScenario
+            state.userLoginInfo.member.unifiedCreditCode = info.unifiedCreditCode
             state.userLoginInfo.member.certStatus = 3
+            if (state.userLoginInfo.member.mbMemberAuthLogs) {
+                state.userLoginInfo.member.mbMemberAuthLogs.certStatus = 3
+            }
             state.userLoginInfo.member.userType = 2
         },
         /**
@@ -167,6 +189,7 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                     updateTime: null,
                     userName: null,
                     userType: null,
+                    mbMemberAuthLogs: null,
                 }
             }
         },

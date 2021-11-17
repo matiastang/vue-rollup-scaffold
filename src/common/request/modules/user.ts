@@ -2,12 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 14:18:35
+ * @LastEditTime: 2021-11-17 20:11:17
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
 import http from '../request'
 import { Md5 } from 'ts-md5/dist/md5'
+import { MbMemberAuthLogs } from '@/user'
 import {
     LoginParameters,
     FotgetParameters,
@@ -16,6 +17,7 @@ import {
     ChangeEmailParameters,
     PersonalParameters,
     EnterpriseParameters,
+    certificationAuth,
 } from './userInterface'
 import { localStorageRemoveAll } from '@/common/utils/storage/localStorage'
 
@@ -163,13 +165,12 @@ function changeEmail(parameters: ChangeEmailParameters) {
 }
 
 /**
- * 个人实名认证接口参数类型
+ * 个人实名认证
  */
 function personal(parameters: PersonalParameters) {
     return new Promise<string>((resolve, reject) => {
         http.post(`/${_prefix}/auth/personal`, parameters)
             .then((res) => {
-                console.log(res)
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
             })
@@ -178,15 +179,52 @@ function personal(parameters: PersonalParameters) {
 }
 
 /**
- * 企业实名认证接口参数类型
+ * 企业实名认证
  */
 function enterprise(parameters: EnterpriseParameters) {
     return new Promise<string>((resolve, reject) => {
         http.post(`/${_prefix}/auth/enterprise`, parameters)
             .then((res) => {
-                console.log(res)
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
+            })
+            .catch(reject)
+    })
+}
+
+/**
+ * 实名认证记录接口
+ */
+const certificationList = (userId: number) => {
+    return new Promise<certificationAuth[]>((resolve, reject) => {
+        http.get(`/${_prefix}/auth/log/${userId}`)
+            .then((res) => {
+                const data = res.data
+                if (Array.isArray(data)) {
+                    resolve(data as Array<certificationAuth>)
+                    return
+                }
+                resolve([])
+                return
+            })
+            .catch(reject)
+    })
+}
+
+/**
+ * 获得最后一次认证信息接口
+ */
+const certificationLast = (userId: number) => {
+    return new Promise<MbMemberAuthLogs>((resolve, reject) => {
+        http.get(`/${_prefix}/auth/last?userId=${userId}`)
+            .then((res) => {
+                const data = res.data
+                if (typeof data === 'object') {
+                    resolve(data as MbMemberAuthLogs)
+                    return
+                }
+                reject('结果类型错误')
+                return
             })
             .catch(reject)
     })
@@ -203,4 +241,6 @@ export {
     changeEmail,
     personal,
     enterprise,
+    certificationList,
+    certificationLast,
 }

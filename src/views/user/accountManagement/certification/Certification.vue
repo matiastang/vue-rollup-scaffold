@@ -2,14 +2,17 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 15:26:23
+ * @LastEditTime: 2021-11-17 20:08:06
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
 <template>
-    <div class="certification">
+    <div class="certification flexColumnCenter">
         <!-- 认证通过 -->
-        <div v-if="certStatus && certStatus === 1" class="certification-content-through">
+        <div
+            v-if="!recertification && certStatus && certStatus === 1"
+            class="certification-content-through"
+        >
             <div class="certification-title defaultFont">实名认证</div>
             <div class="certification-through-content">
                 <div class="certification-through-top-content">
@@ -63,13 +66,17 @@
                 <div class="certification-through-bottom-title">
                     如果您的账户信息有变更，请点击<span
                         class="certification-through-bottom-text cursorP"
+                        @click="recertificationAction"
                         >这里</span
                     >，重新进行实名认证
                 </div>
             </div>
         </div>
         <!-- 审核中 -->
-        <div v-if="certStatus === 2 || certStatus === 3" class="certification-content-auditing">
+        <div
+            v-if="!recertification && (certStatus === 2 || certStatus === 3)"
+            class="certification-content-auditing"
+        >
             <div class="certification-auditing-title defaultFont">认证申请</div>
             <div class="certification-auditing-content flexRowCenter">
                 <img class="certification-auditing-img" />
@@ -100,10 +107,10 @@
                             {{ userInfo.unifiedCreditCode || '-' }}
                         </div>
                     </div>
-                    <div class="certification-auditing-item flexRowCenter">
+                    <div v-if="userType" class="certification-auditing-item flexRowCenter">
                         <div class="certification-auditing-item-title defaultFont">账号类型:</div>
                         <div class="certification-auditing-item-text defaultFont">
-                            {{ userType && userType === 1 ? '个人账号' : '企业账号' }}
+                            {{ userType === 1 ? '个人账号' : '企业账号' }}
                         </div>
                     </div>
                     <div
@@ -127,37 +134,88 @@
                         <div class="certification-auditing-item-title defaultFont">认证状态：</div>
                         <div
                             class="
-                                certification-auditing-item-text certification-auditing-status
+                                certification-auditing-item-text certification-auditing-status-2
                                 defaultFont
                             "
                         >
                             未通过
                         </div>
-                        <div class="certification-audit-error-button cursorP defaultFont">
+                        <div
+                            class="certification-audit-error-button cursorP defaultFont"
+                            @click="recertificationAction"
+                        >
                             重新认证
                         </div>
                     </div>
                 </div>
             </div>
             <!-- 审核失败 -->
-            <div v-if="certStatus === 2" class="certification-content-error">
+            <div v-if="certStatus && certStatus === 2" class="certification-content-error">
                 <div class="certification-error-title defaultFont">申请记录</div>
-                <el-table class="certification-audit-table" :data="tableData" style="width: 100%">
-                    <el-table-column prop="date" label="提交时间" min-width="100" />
-                    <el-table-column prop="name" label="企业名称" min-width="100" />
-                    <el-table-column prop="state" label="认证状态" min-width="80" />
-                    <el-table-column prop="city" label="描述" min-width="80" />
+                <el-table
+                    class="certification-audit-table"
+                    :data="tableData.list"
+                    style="width: 100%"
+                >
+                    <el-table-column class="certification-table-item" label="提交时间">
+                        <template #default="scope">
+                            <div class="certification-table-status">{{ scope.row.time }}</div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        class="certification-table-item"
+                        v-if="userType === 1"
+                        label="姓名"
+                    >
+                        <template #default="scope">
+                            <div class="certification-table-status">{{ scope.row.name }}</div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        class="certification-table-item"
+                        v-if="userType === 2"
+                        label="企业名称"
+                    >
+                        <template #default="scope">
+                            <div class="certification-table-status">{{ scope.row.name }}</div>
+                        </template></el-table-column
+                    >
+                    <el-table-column class="certification-table-item" label="认证状态">
+                        <template #default="scope">
+                            <div v-if="scope.row.status === 1" class="certification-table-status-1">
+                                认证成功
+                            </div>
+                            <div
+                                v-else-if="scope.row.status === 2"
+                                class="certification-table-status-2"
+                            >
+                                未通过
+                            </div>
+                            <div
+                                v-else-if="scope.row.status === 3"
+                                class="certification-table-status-3 defaultFont"
+                            >
+                                认证中
+                            </div>
+                            <div v-else class="certification-table-status">未认证</div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column class="certification-table-item" label="描述">
+                        <template #default="scope">
+                            <div class="certification-table-status">{{ scope.row.certResult }}</div>
+                        </template>
+                    </el-table-column>
                 </el-table>
             </div>
         </div>
         <!-- 提交认证 -->
         <div
-            v-if="!certStatus || certStatus === 0"
+            v-if="recertification || !certStatus || certStatus === 0"
             class="certification-content-post flexColumnCenter"
         >
             <div class="certification-post-top flexColumnCenter">
                 <div class="certification-auditing-title defaultFont">认证申请</div>
-                <el-tabs class="right-tabs" v-model="activeName" @tab-click="tabClick">
+                <el-tabs class="right-tabs" v-model="activeName">
                     <el-tab-pane class="right-tab flexColumnCenter" label="企业认证" name="company">
                         <div class="tab-company-content flexColumnCenter">
                             <div class="tab-personage-item flexRowCenter">
@@ -293,7 +351,13 @@
                                 >
                                     提交认证
                                 </div>
-                                <!-- <div class="personage-cancel-button cursorP defaultFont">取消</div> -->
+                                <div
+                                    v-if="recertification"
+                                    class="personage-cancel-button cursorP defaultFont"
+                                    @click="cancelRecertificationAction"
+                                >
+                                    取消
+                                </div>
                             </div>
                         </div>
                     </el-tab-pane>
@@ -422,7 +486,13 @@
                                 >
                                     提交认证
                                 </div>
-                                <!-- <div class="personage-cancel-button cursorP defaultFont">取消</div> -->
+                                <div
+                                    v-if="recertification"
+                                    class="personage-cancel-button cursorP defaultFont"
+                                    @click="cancelRecertificationAction"
+                                >
+                                    取消
+                                </div>
                             </div>
                         </div>
                     </el-tab-pane>
@@ -445,11 +515,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed } from 'vue'
+import { defineComponent, ref, Ref, computed, watchSyncEffect, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'store/index'
 import { baseURL } from '@/common/request/config'
-import { personal, enterprise } from '@/common/request/modules/user'
+import {
+    personal,
+    enterprise,
+    certificationList,
+    certificationLast,
+} from '@/common/request/modules/user'
+import { certificationLog } from './certification'
 import { email_check } from 'utils/check/index'
 
 export default defineComponent({
@@ -462,6 +538,8 @@ export default defineComponent({
         let certStatus = computed(() => userInfo.value.certStatus)
         // 认证类型
         let userType = computed(() => userInfo.value.userType)
+        // 重新认证表示
+        let recertification = ref(false)
         // 类型切换
         let activeName = ref('company')
         // 图片上传地址
@@ -486,13 +564,13 @@ export default defineComponent({
             const isJPG = file.type === 'image/jpeg'
             const isLt2M = file.size / 1024 / 1024 < 2
 
-            if (!isJPG) {
-                ElMessage({
-                    message: '只能选择JPG格式的图片',
-                    type: 'error',
-                })
-                return false
-            }
+            // if (!isJPG) {
+            //     ElMessage({
+            //         message: '只能选择JPG格式的图片',
+            //         type: 'error',
+            //     })
+            //     return false
+            // }
             if (!isLt2M) {
                 ElMessage({
                     message: '图片大小不能超过2MB!',
@@ -500,7 +578,7 @@ export default defineComponent({
                 })
                 return false
             }
-            return isJPG && isLt2M
+            return true
         }
         // 公司认证提交
         const comapnyOkAction = () => {
@@ -601,6 +679,7 @@ export default defineComponent({
                         message: res,
                         type: 'success',
                     })
+                    recertification.value = false
                     store.commit('setEnterpriseInfo', parameters)
                 })
                 .catch((err) => {
@@ -611,15 +690,13 @@ export default defineComponent({
                 })
         }
         // 个人认证personage
-        let personageName = ref('唐道勇')
-        let personageIdNumber = ref('123456789012345678')
-        let personageEmail = ref('18380449615@163.com')
-        let personageNote = ref('开发，测试')
-        const personageChecked = ref(true)
+        let personageName = ref('')
+        let personageIdNumber = ref('')
+        let personageEmail = ref('')
+        let personageNote = ref('')
+        const personageChecked = ref(false)
         // 身份证正面
-        const personageImageFrontUrl: Ref<string | null> = ref(
-            'https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/2021-11-17/openalpha/member/7d8dc47b-74e3-4210-b338-0aa454b7bcfd.jpeg'
-        )
+        const personageImageFrontUrl: Ref<string | null> = ref(null)
         const personageImageFrontAvatarSuccess = (res: any, file: any) => {
             let url = res.data
             if (url) {
@@ -630,13 +707,14 @@ export default defineComponent({
             const isJPG = file.type === 'image/jpeg'
             const isLt2M = file.size / 1024 / 1024 < 2
 
-            if (!isJPG) {
-                ElMessage({
-                    message: '只能选择JPG格式的图片',
-                    type: 'error',
-                })
-                return false
-            }
+            // if (!isJPG) {
+            //     ElMessage({
+            //         message: '只能选择JPG格式的图片',
+            //         type: 'error',
+            //     })
+            //     return false
+            // }
+            debugger
             if (!isLt2M) {
                 ElMessage({
                     message: '图片大小不能超过2MB!',
@@ -644,12 +722,10 @@ export default defineComponent({
                 })
                 return false
             }
-            return isJPG && isLt2M
+            return true
         }
         // 身份证反面
-        const personageImageBgUrl: Ref<string | null> = ref(
-            'https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/2021-11-17/openalpha/member/2710016c-3603-42be-b19f-1a8aaccfcdd3.jpeg'
-        )
+        const personageImageBgUrl: Ref<string | null> = ref(null)
         const personageImageBgAvatarSuccess = (res: any, file: any) => {
             let url = res.data
             if (url) {
@@ -660,13 +736,13 @@ export default defineComponent({
             const isJPG = file.type === 'image/jpeg'
             const isLt2M = file.size / 1024 / 1024 < 2
 
-            if (!isJPG) {
-                ElMessage({
-                    message: '只能选择JPG格式的图片',
-                    type: 'error',
-                })
-                return false
-            }
+            // if (!isJPG) {
+            //     ElMessage({
+            //         message: '只能选择JPG格式的图片',
+            //         type: 'error',
+            //     })
+            //     return false
+            // }
             if (!isLt2M) {
                 ElMessage({
                     message: '图片大小不能超过2MB!',
@@ -674,7 +750,7 @@ export default defineComponent({
                 })
                 return false
             }
-            return isJPG && isLt2M
+            return true
         }
         // 个人认证提交
         const personageOkAction = () => {
@@ -763,6 +839,7 @@ export default defineComponent({
                         message: res,
                         type: 'success',
                     })
+                    recertification.value = false
                     store.commit('setPersonalInfo', parameters)
                 })
                 .catch((err) => {
@@ -773,14 +850,92 @@ export default defineComponent({
                 })
         }
         // table数据
-        let tableData = [
-            {
-                date: '2021-10-20 14:41:37 ',
-                name: '成都西筹金融科技有限公司',
-                state: '未通过',
-                city: '您上传的材料错误，当前仅支持营业执照+申请公函，烦请重新上传',
-            },
-        ]
+        let tableData = reactive({
+            list: Array<certificationLog>(),
+        })
+        watchSyncEffect(async () => {
+            if (!certStatus.value || certStatus.value !== 2) {
+                return
+            }
+            let userId = userInfo.value.id
+            if (userId && certStatus.value && certStatus.value === 2) {
+                let arr = await certificationList(userId)
+                tableData.list = arr.map((item) => {
+                    return {
+                        time: item.certDate.replace('T', ' '),
+                        name: '-',
+                        certResult: item.certResult || '-',
+                        status: item.certStatus,
+                    }
+                })
+            }
+        })
+        // 重新认证
+        const recertificationAction = () => {
+            recertification.value = true
+            if (userType.value === 1) {
+                activeName.value = 'personage'
+                personageName.value = userInfo.value.realName || ''
+                personageIdNumber.value = userInfo.value.idNumber || ''
+                personageEmail.value = userInfo.value.email || ''
+                personageNote.value = userInfo.value.mbMemberAuthLogs?.useScenario || ''
+                let certMaterials = userInfo.value.mbMemberAuthLogs?.certMaterials
+                if (certMaterials) {
+                    try {
+                        let urls = JSON.parse(certMaterials)
+                        if (Array.isArray(urls)) {
+                            if (urls.length >= 1) {
+                                personageImageFrontUrl.value = urls[0]
+                            }
+                            if (urls.length >= 2) {
+                                personageImageBgUrl.value = urls[1]
+                            }
+                        }
+                    } catch (error) {
+                        console.warn('个人认证 certMaterials 解析 json 失败')
+                    }
+                }
+            } else {
+                companyName.value = userInfo.value.company || ''
+                companyUnifiedCreditCode.value = userInfo.value.unifiedCreditCode || ''
+                companyLegalPerson.value = userInfo.value.legalPerson || ''
+                companyDept.value = userInfo.value.dept || ''
+                companyEmail.value = userInfo.value.email || ''
+                companyNote.value = userInfo.value.mbMemberAuthLogs?.useScenario || ''
+                let certMaterials = userInfo.value.mbMemberAuthLogs?.certMaterials
+                if (certMaterials) {
+                    try {
+                        let urls = JSON.parse(certMaterials)
+                        if (Array.isArray(urls) && urls.length >= 1) {
+                            companyImageUrl.value = urls[0]
+                        }
+                    } catch (error) {
+                        console.warn('公司认证 certMaterials 解析 json 失败')
+                    }
+                }
+            }
+        }
+        // 取消重新认证
+        const cancelRecertificationAction = () => {
+            recertification.value = false
+        }
+        // 审核中状态刷新
+        if (certStatus && certStatus.value === 3) {
+            let userId = computed(() => userInfo.value.id)
+            watchSyncEffect(async () => {
+                if (!userId.value) {
+                    ElMessage({
+                        message: '用户信息错误',
+                        type: 'error',
+                    })
+                    return
+                }
+                let info = await certificationLast(userId.value)
+                if (info.certStatus !== certStatus.value) {
+                    store.commit('setAuthInfo', info)
+                }
+            })
+        }
         return {
             userInfo,
             certStatus,
@@ -813,6 +968,9 @@ export default defineComponent({
             personageImageBgBeforeAvatarUpload,
             personageOkAction,
             tableData,
+            recertification,
+            recertificationAction,
+            cancelRecertificationAction,
         }
     },
 })
@@ -824,7 +982,9 @@ export default defineComponent({
     min-height: 100%;
     padding: 20px 16px;
     box-sizing: border-box;
+    justify-content: flex-start;
     .certification-content-through {
+        flex-grow: 1;
         width: 100%;
         height: 100%;
         padding: 16px 24px;
@@ -888,10 +1048,12 @@ export default defineComponent({
             line-height: 20px;
             .certification-through-bottom-text {
                 color: rgba(78, 154, 235, 1);
+                margin: 0px 5px;
             }
         }
     }
     .certification-content-auditing {
+        flex-grow: 1;
         width: 100%;
         height: 100%;
         padding: 16px 24px 20px 24px;
@@ -938,6 +1100,9 @@ export default defineComponent({
                     .certification-auditing-status {
                         color: #ffa941;
                     }
+                    .certification-auditing-status-2 {
+                        color: #e62412;
+                    }
                     .certification-audit-error-button {
                         font-size: 16px;
                         color: #4e9aeb;
@@ -958,6 +1123,29 @@ export default defineComponent({
             }
             .certification-audit-table {
                 margin-top: 18px;
+                box-sizing: border-box;
+                border: 1px solid #dfdfdf;
+                border-bottom: none;
+                ::v-deep(.certification-table-status) {
+                    font-size: 16px;
+                    color: $titleColor;
+                    line-height: 24px;
+                }
+                ::v-deep(.certification-table-status-1) {
+                    font-size: 16px;
+                    color: #4e9aeb;
+                    line-height: 24px;
+                }
+                ::v-deep(.certification-table-status-2) {
+                    font-size: 16px;
+                    color: #e62412;
+                    line-height: 24px;
+                }
+                ::v-deep(.certification-table-status-3) {
+                    font-size: 16px;
+                    color: #ffa941;
+                    line-height: 24px;
+                }
                 ::v-deep(th) {
                     background: #e9e9e9;
                 }
@@ -971,6 +1159,7 @@ export default defineComponent({
         }
     }
     .certification-content-post {
+        flex-grow: 1;
         width: 100%;
         height: 100%;
         .certification-post-top {
@@ -1133,13 +1322,18 @@ export default defineComponent({
                         .tab-company-img {
                             width: 120px;
                             height: 180px;
-                            padding: 11px 12px;
-                            box-sizing: border-box;
                             border-radius: 2px;
                             border: 1px solid #bfbfbf;
+                            .avatar {
+                                width: 120px;
+                                height: 180px;
+                                background: $themeColor;
+                            }
                             .company-img-content {
                                 width: 100%;
                                 height: 100%;
+                                padding: 11px 12px;
+                                box-sizing: border-box;
                                 .company-image-front-icon {
                                     width: 96px;
                                     height: 128px;

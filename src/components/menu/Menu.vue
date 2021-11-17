@@ -2,13 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:42:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 15:49:13
+ * @LastEditTime: 2021-11-17 16:59:28
  * @FilePath: /datumwealth-openalpha-front/src/components/menu/Menu.vue
  * @Description: 个人中心-折叠导航
 -->
 <template>
     <div class="menu">
-        <el-collapse class="menu-collapse" v-model="activeName">
+        <el-collapse class="menu-collapse" v-model="activeNames">
             <el-collapse-item
                 v-for="menuItem in menuList"
                 :key="menuItem.title"
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch } from 'vue'
+import { defineComponent, reactive, ref, watchEffect } from 'vue'
 import menuData from './menu'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -41,8 +41,7 @@ export default defineComponent({
         let router = useRouter()
         let route = useRoute()
         let menuList = reactive(menuData)
-        let activeList = new Array<string>()
-        let activeName = reactive(activeList)
+        let activeNames = ref('')
         // 下级页面选中
         const childrenSelected = (children: { path: string }[], path: string) => {
             for (let i = 0; i < children.length; i++) {
@@ -59,8 +58,8 @@ export default defineComponent({
                 for (let j = 0; j < children.length; j++) {
                     if (children[j].path === path || childrenSelected(children[j].children, path)) {
                         children[j].selected = true
-                        if (!activeName.includes(menuList[i].name)) {
-                            activeName.push(menuList[i].name)
+                        if (activeNames.value !== menuList[i].name) {
+                            activeNames.value = menuList[i].name
                         }
                     } else {
                         children[j].selected = false
@@ -68,14 +67,8 @@ export default defineComponent({
                 }
             }
         }
-        initSelected(route.path)
         // 检测路由变化时更新menu选中状态
-        watch(
-            () => route.path,
-            (newPath: string) => {
-                initSelected(newPath)
-            }
-        )
+        watchEffect(() => initSelected(route.path))
         /**
          * 跳转
          */
@@ -86,7 +79,7 @@ export default defineComponent({
         }
         return {
             menuList,
-            activeName,
+            activeNames,
             pushAction,
         }
     },
