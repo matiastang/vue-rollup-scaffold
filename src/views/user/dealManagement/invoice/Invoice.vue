@@ -11,8 +11,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import MyInvoice from '@/views/user/dealManagement/invoice/myinvoice.vue'
-import InvoiceRecord from '@/views/user/dealManagement/invoice/invoicerecord.vue'
+import MyInvoice from '@/views/user/dealManagement/invoice/myInv.vue'
+import InvoiceRecord from '@/views/user/dealManagement/invoice/invRecord.vue'
 const activeName = ref('first')
 </script>
 
