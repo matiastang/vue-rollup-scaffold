@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 09:49:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:54:03
+ * @LastEditTime: 2021-11-18 14:54:58
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/check/userInfoCheck.ts
  * @Description: 用户信息校验
  */

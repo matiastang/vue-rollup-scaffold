@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 11:42:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-12 17:58:09
+ * @LastEditTime: 2021-11-18 14:46:16
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/storage/localStorage.ts
  * @Description: LocalStorage简单封装
  */
@@ -18,6 +18,10 @@ const localStorageKey = {
      * 用户信息key
      */
     userInfoKey: 'USER_INFO_KEY',
+    /**
+     * vux key
+     */
+    vuexKey: 'vuex',
 }
 /**
  * 存储LocalStorage数据

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:09:57
+ * @LastEditTime: 2021-11-18 15:22:57
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -51,7 +51,7 @@
                                 'name-dropdown-selected-item': item.selected,
                             },
                         ]"
-                        @click="dropdownItemAction(index)"
+                        @click="!item.selected && dropdownItemAction(index)"
                     >
                         {{ item.title }}
                     </div>
@@ -62,11 +62,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch, computed } from 'vue'
+import { defineComponent, reactive, watchEffect, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from '../search/Search.vue'
 import { useStore } from 'store/index'
 import { checkLoginPath } from '@/router/loginInterceptor'
+import { logout } from '@/common/request/index'
+import { routerToUserCenter } from 'utils/router/index'
 
 export default defineComponent({
     name: 'Header',
@@ -99,7 +101,7 @@ export default defineComponent({
          */
         const userToken = computed(() => store.state.userModule.userLoginInfo.token)
 
-        let titleArr = reactive([
+        const titleArr = reactive([
             {
                 title: '首页',
                 selected: true,
@@ -126,19 +128,13 @@ export default defineComponent({
                 name: 'discount',
             },
         ])
-        for (let index = 0; index < titleArr.length; index++) {
-            titleArr[index].selected = route.path.startsWith(`/${titleArr[index].name}`)
-        }
         // 检测路由变化时更新header选中状态
-        watch(
-            () => route.path,
-            (newPath: string) => {
-                for (let index = 0; index < titleArr.length; index++) {
-                    titleArr[index].selected = newPath.startsWith(`/${titleArr[index].name}`)
-                }
+        watchEffect(() => {
+            let path = route.path
+            for (let i = 0; i < titleArr.length; i++) {
+                titleArr[i].selected = path.startsWith(`/${titleArr[i].name}`)
             }
-        )
-
+        })
         /**
          * header点击
          */
@@ -175,32 +171,52 @@ export default defineComponent({
         let dropdownData = reactive([
             {
                 title: '个人中心',
+                prefix: '/user/',
                 selected: false,
             },
             {
                 title: '帮助中心',
+                prefix: '/help/',
                 selected: false,
             },
             {
                 title: '退出登录',
+                prefix: null,
                 selected: false,
             },
         ])
+        // 检测路由变化时更新下拉列表选中状态
+        watchEffect(() => {
+            let path = route.path
+            for (let i = 0; i < dropdownData.length; i++) {
+                let perfix = dropdownData[i].prefix
+                if (perfix) {
+                    dropdownData[i].selected = path.startsWith(perfix)
+                } else {
+                    dropdownData[i].selected = false
+                }
+            }
+        })
+
         /**
          * 下拉选项点击
          */
-        const dropdownItemAction = (index: number) => {
-            console.log(index)
+        const dropdownItemAction = async (index: number) => {
             for (let i = 0; i < dropdownData.length; i++) {
                 dropdownData[i].selected = i === index
             }
             if (index === 0) {
+                routerToUserCenter(store, router)
+            }
+            if (index === 1) {
+                // 跳转帮助中心
                 router.push({
-                    path: '/user/data/statement',
+                    path: '/help/login',
                 })
             }
             if (index === 2) {
-                // TODO: - 请求接口退出
+                // 退出登录
+                let _ = await logout()
                 store.commit('setUserLoginInfo', null)
                 store.commit('setToken', null)
                 const findItem = checkLoginPath.find(({ path }) => {

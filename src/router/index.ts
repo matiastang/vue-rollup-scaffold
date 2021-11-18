@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-15 15:34:14
+ * @LastEditTime: 2021-11-18 10:56:58
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -10,6 +10,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 // layout
 import Layout from '@/components/layout/Layout.vue'
 import UserLayout from '@/components/userLayout/UserLayout.vue'
+import HelpLayout from '@/components/helpLayout/HelpLayout.vue'
 // web
 import Home from '@/views/web/home/Home.vue'
 import Interface from '@/views/web/interface/Interface.vue'
@@ -29,6 +30,11 @@ import Order from '@/views/user/dealManagement/order/Order.vue'
 import Invoice from '@/views/user/dealManagement/invoice/Invoice.vue'
 import Setting from '@/views/user/accountManagement/setting/Setting.vue'
 import Certification from '@/views/user/accountManagement/certification/Certification.vue'
+// 帮助中心
+import LoginRegister from '@/views/user/helpCenter/loginRegister/LoginRegister.vue'
+import Test from '@/views/user/helpCenter/test/Test.vue'
+import Pay from '@/views/user/helpCenter/pay/Pay.vue'
+import Issue from '@/views/user/helpCenter/issue/Issue.vue'
 
 // NotFound
 import NotFound from '@/views/NotFound.vue'
@@ -100,7 +106,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/user',
-        name: '/user',
+        name: 'user',
         component: UserLayout,
         children: [
             {
@@ -146,6 +152,37 @@ const routes: Array<RouteRecordRaw> = [
         ],
         beforeEnter: (to, from) => {
             console.log(`user路由卫士：即将从${from.path}跳转到${to.path}`)
+            return true
+        },
+    },
+    {
+        path: '/help',
+        name: 'help',
+        component: HelpLayout,
+        children: [
+            {
+                path: 'login',
+                name: 'helpLoginRegister',
+                component: LoginRegister,
+            },
+            {
+                path: 'test',
+                name: 'helpTest',
+                component: Test,
+            },
+            {
+                path: 'pay',
+                name: 'helpPay',
+                component: Pay,
+            },
+            {
+                path: 'issue',
+                name: 'helpIssue',
+                component: Issue,
+            },
+        ],
+        beforeEnter: (to, from) => {
+            console.log(`help路由卫士：即将从${from.path}跳转到${to.path}`)
             return true
         },
     },

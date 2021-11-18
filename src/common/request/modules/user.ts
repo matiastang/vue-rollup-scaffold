@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 20:11:17
+ * @LastEditTime: 2021-11-18 15:22:41
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
@@ -50,7 +50,6 @@ function logout() {
     return new Promise<string>((resolve, reject) => {
         http.get(`/${_prefix}/logout`)
             .then((res) => {
-                localStorageRemoveAll()
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '退出成功')
             })
