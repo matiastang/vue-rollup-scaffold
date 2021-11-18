@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-18 10:56:58
+ * @LastEditTime: 2021-11-18 19:19:35
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -206,6 +206,13 @@ const router = createRouter({
  */
 router.beforeEach((to, from, next) => {
     console.log(`即将从${from.path}跳转到${to.path}`)
+    if (to.path === '/') {
+        next({
+            path: '/home',
+            replace: true,
+        })
+        return
+    }
     // 登录校验
     const toPath = to.path
     const findItem = checkLoginPath.find(({ path }) => {
@@ -224,6 +231,7 @@ router.beforeEach((to, from, next) => {
                 )
                 next({
                     path: findItem.redirectPath,
+                    replace: true,
                 })
             }
         } else {
@@ -234,6 +242,7 @@ router.beforeEach((to, from, next) => {
                 )
                 next({
                     path: findItem.redirectPath,
+                    replace: true,
                 })
             } else {
                 next()
