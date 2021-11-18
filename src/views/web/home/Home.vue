@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-10 20:06:24
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-18 20:13:27
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/src/views/Home.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
 -->
 <template>
     <div class="home">
@@ -13,11 +13,7 @@
                 <Collapse class="dw-collapse" :data="collapseData" />
             </div>
             <div class="home-top-right">
-                <SwiperSlider style="height: 100%">
-                    <swiper-slide class="swiper-slide"> Slide 1 </swiper-slide>
-                    <swiper-slide class="swiper-slide"> Slide 2 </swiper-slide>
-                    <swiper-slide class="swiper-slide"> Slide 3 </swiper-slide>
-                </SwiperSlider>
+                <SwiperSlider class="swiper-slide-content" :banners="bannerList.banners" />
             </div>
         </div>
         <div class="solution borderBox flexColumnCenter">
@@ -49,14 +45,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, watchSyncEffect } from 'vue'
 import SwiperSlider from '@/components/swiperSlider/SwiperSlider.vue'
 import Collapse from './components/collapse/Collapse.vue'
 import SolutionCell from './components/solutionCell/SolutionCell.vue'
 import HomeTitle from './components/homeTitle/HomeTitle.vue'
 import Hot from './components/hot/Hot.vue'
+import { homeBanner } from '@/common/request/index'
 
 export default defineComponent({
+    setup() {
+        let bannerList = reactive({
+            banners: Array<string>(),
+        })
+        watchSyncEffect(async () => {
+            bannerList.banners = await homeBanner()
+        })
+        homeBanner
+        return {
+            bannerList,
+        }
+    },
     data() {
         return {
             collapseData: [
@@ -424,6 +433,9 @@ export default defineComponent({
         }
         .home-top-right {
             width: 70%;
+            .swiper-slide-content {
+                height: 100%;
+            }
         }
     }
     .solution {

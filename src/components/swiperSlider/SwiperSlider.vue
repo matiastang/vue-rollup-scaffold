@@ -1,10 +1,10 @@
 <!--
- * @Author: your name
- * @Date: 2021-11-04 17:15:04
- * @LastEditTime: 2021-11-10 20:11:45
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Author: matiastang
+ * @Date: 2021-11-11 17:58:07
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-18 20:12:48
  * @FilePath: /datumwealth-openalpha-front/src/components/swiperSlider/SwiperSlider.vue
+ * @Description: 首页banner
 -->
 <template>
     <swiper
@@ -16,15 +16,14 @@
         :autoplay="autoplay"
         @slideChange="onSlideChange"
     >
-        <slot></slot>
-        <swiper-slide class="swiper-slide"> Slide 1 </swiper-slide>
-        <swiper-slide class="swiper-slide"> Slide 2 </swiper-slide>
-        <swiper-slide class="swiper-slide"> Slide 3 </swiper-slide>
+        <swiper-slide v-for="item in banners" :key="item" class="swiper-slide">
+            <img class="banner" :src="item" />
+        </swiper-slide>
     </swiper>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType, reactive } from 'vue'
 // import Swiper core and required modules
 import { Pagination, Autoplay } from 'swiper'
 // Import Swiper Vue.js components
@@ -36,29 +35,36 @@ import 'swiper/scss/pagination'
 import 'swiper/scss/autoplay'
 
 export default defineComponent({
-    data() {
+    name: '',
+    props: {
+        banners: {
+            type: Array as PropType<Array<string>>,
+            default: () => {
+                return []
+            },
+        },
+    },
+    setup() {
+        const onSlideChange = () => {
+            // TODO: - 切换处理
+        }
+        const autoplay = reactive({
+            disableOnInteraction: false,
+            delay: 5000,
+        })
+        const pagination = reactive({
+            clickable: true,
+        })
         return {
-            autoplay: {
-                disableOnInteraction: false,
-                delay: 5000,
-            },
-            pagination: {
-                clickable: true,
-            },
+            onSlideChange,
+            autoplay,
+            pagination,
+            modules: [Pagination, Autoplay],
         }
     },
     components: {
         Swiper,
         SwiperSlide,
-    },
-    setup() {
-        const onSlideChange = () => {
-            console.log('slide change')
-        }
-        return {
-            onSlideChange,
-            modules: [Pagination, Autoplay],
-        }
     },
 })
 </script>
@@ -72,6 +78,11 @@ export default defineComponent({
         width: 100%;
         height: 100%;
         background: $bgColor;
+        .banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
     ::v-deep(.swiper-pagination) {
         display: flex;

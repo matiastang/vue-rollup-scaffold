@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 15:22:41
+ * @LastEditTime: 2021-11-18 19:23:10
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
@@ -19,7 +19,6 @@ import {
     EnterpriseParameters,
     certificationAuth,
 } from './userInterface'
-import { localStorageRemoveAll } from '@/common/utils/storage/localStorage'
 
 /**
  * 前缀
