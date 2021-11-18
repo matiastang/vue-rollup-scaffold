@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-11-12 14:25:12
+ * @LastEditTime: 2021-11-18 17:41:43
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/vite.config.ts
@@ -16,13 +16,33 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // 解析.jsx语法
 import vueJsx from '@vitejs/plugin-vue-jsx'
+// 手动导入使用 unplugin-element-plus
+// import ElementPlus from 'unplugin-element-plus/vite'
+// 自动导入使用 unplugin-vue-components
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 const proxyPath = '/dev-api'
 const target = 'https://test.mini.datumwealth.cn/open'
 
 export default defineConfig({
     // 共享配置
-    plugins: [vue(), vueJsx()],
+    plugins: [
+        vue(),
+        vueJsx(),
+        Components({
+            resolvers: [
+                ElementPlusResolver({
+                    importStyle: 'sass',
+                    // directives: true,
+                    // version: "1.2.0-beta.1",
+                }),
+            ],
+        }),
+        // ElementPlus({
+        //     useSource: true,
+        // }),
+    ],
     resolve: {
         // 别名
         alias: [
@@ -41,8 +61,10 @@ export default defineConfig({
         preprocessorOptions: {
             less: {},
             scss: {
-                // 多个使用+号连接
-                additionalData: '@import "@/common/css/index.scss";',
+                additionalData: `
+                    @use "@/common/css/element-variables.scss" as * ;
+                    @use "@/common/css/index.scss" as * ;
+                `,
             },
             sass: {},
         },

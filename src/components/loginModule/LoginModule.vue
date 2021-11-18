@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-18 14:54:48
+ * @LastEditTime: 2021-11-18 17:32:53
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -79,7 +79,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, computed } from 'vue'
+import { defineComponent, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
@@ -88,6 +88,7 @@ import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.v
 import { sendSMS, forget } from '@/common/request/modules/user'
 import { phone_check, code_check, password_check } from 'utils/check/index'
 import { useStore } from 'store/index'
+import { routerToUserCenter } from 'utils/router/index'
 
 export default defineComponent({
     name: 'LoginModule',
@@ -99,8 +100,6 @@ export default defineComponent({
     setup() {
         const router = useRouter()
         const store = useStore()
-        // 用户信息
-        const userInfo = computed(() => store.state.userModule.userLoginInfo.member)
         let inputPhone = ref('')
         let findPassword = ref(false)
 
@@ -174,21 +173,6 @@ export default defineComponent({
             // 注册登录
             dwLogin('code', phone, code)
         }
-        /**
-         * 登录成功跳转逻辑
-         */
-        const loginToUserCenter = () => {
-            let path = '/user/data/statement'
-            if (!userInfo.value.phone || !userInfo.value.email) {
-                path = '/user/account/setting'
-            }
-            if (!userInfo.value.certStatus || userInfo.value.certStatus !== 1) {
-                path = '/user/account/certification'
-            }
-            router.push({
-                path,
-            })
-        }
         // 登录
         const dwLogin = (loginType: string, username: string, password: string) => {
             store
@@ -202,7 +186,7 @@ export default defineComponent({
                         message: res,
                         type: 'success',
                     })
-                    loginToUserCenter()
+                    routerToUserCenter(store, router)
                 })
                 .catch((err) => {
                     ElMessage({
