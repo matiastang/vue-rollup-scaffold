@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 19:23:10
+ * @LastEditTime: 2021-11-19 10:11:39
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
@@ -19,11 +19,7 @@ import {
     EnterpriseParameters,
     certificationAuth,
 } from './userInterface'
-
-/**
- * 前缀
- */
-const _prefix = 'member'
+import { memberPrefix } from '../prefix'
 
 /**
  * 用户登录/注册
@@ -33,7 +29,7 @@ const _prefix = 'member'
  * @returns
  */
 function login(parameters: LoginParameters) {
-    return http.post(`/${_prefix}/login`, {
+    return http.post(`${memberPrefix}/login`, {
         loginType: parameters.loginType,
         username: parameters.username,
         password:
@@ -47,7 +43,7 @@ function login(parameters: LoginParameters) {
  */
 function logout() {
     return new Promise<string>((resolve, reject) => {
-        http.get(`/${_prefix}/logout`)
+        http.get(`${memberPrefix}/logout`)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '退出成功')
@@ -63,7 +59,7 @@ function logout() {
  */
 function sendSMS(mobile: string) {
     return new Promise<string>((resolve, reject) => {
-        http.get(`/${_prefix}/send/sms/${mobile}`)
+        http.get(`${memberPrefix}/send/sms/${mobile}`)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '发送成功')
@@ -79,7 +75,7 @@ function sendSMS(mobile: string) {
  */
 function sendEmail(email: string) {
     return new Promise<string>((resolve, reject) => {
-        http.get(`/${_prefix}/send/email/${email}`)
+        http.get(`${memberPrefix}/send/email/${email}`)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '发送成功')
@@ -97,7 +93,7 @@ function sendEmail(email: string) {
  */
 function forget(parameters: FotgetParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post(`/${_prefix}/forget`, {
+        http.post(`${memberPrefix}/forget`, {
             mobile: parameters.mobile,
             verifyCode: parameters.verifyCode,
             password: Md5.hashStr(parameters.password),
@@ -117,7 +113,7 @@ function forget(parameters: FotgetParameters) {
  */
 function changeMobile(parameters: ChangeMobileParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post(`/${_prefix}/change/mobile`, parameters)
+        http.post(`${memberPrefix}/change/mobile`, parameters)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
@@ -133,7 +129,7 @@ function changeMobile(parameters: ChangeMobileParameters) {
  */
 function changePassword(parameters: ChangePasswordParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post(`/${_prefix}/change/password`, {
+        http.post(`${memberPrefix}/change/password`, {
             id: parameters.id,
             oldPassword: Md5.hashStr(parameters.oldPassword),
             password: Md5.hashStr(parameters.password),
@@ -153,7 +149,7 @@ function changePassword(parameters: ChangePasswordParameters) {
  */
 function changeEmail(parameters: ChangeEmailParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post(`/${_prefix}/change/email`, parameters)
+        http.post(`${memberPrefix}/change/email`, parameters)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
@@ -167,7 +163,7 @@ function changeEmail(parameters: ChangeEmailParameters) {
  */
 function personal(parameters: PersonalParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post(`/${_prefix}/auth/personal`, parameters)
+        http.post(`${memberPrefix}/auth/personal`, parameters)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
@@ -181,7 +177,7 @@ function personal(parameters: PersonalParameters) {
  */
 function enterprise(parameters: EnterpriseParameters) {
     return new Promise<string>((resolve, reject) => {
-        http.post(`/${_prefix}/auth/enterprise`, parameters)
+        http.post(`${memberPrefix}/auth/enterprise`, parameters)
             .then((res) => {
                 const data = res.data
                 resolve(typeof data === 'string' ? data : '修改成功')
@@ -195,7 +191,7 @@ function enterprise(parameters: EnterpriseParameters) {
  */
 const certificationList = (userId: number) => {
     return new Promise<certificationAuth[]>((resolve, reject) => {
-        http.get(`/${_prefix}/auth/log/${userId}`)
+        http.get(`${memberPrefix}/auth/log/${userId}`)
             .then((res) => {
                 const data = res.data
                 if (Array.isArray(data)) {
@@ -214,7 +210,7 @@ const certificationList = (userId: number) => {
  */
 const certificationLast = (userId: number) => {
     return new Promise<MbMemberAuthLogs>((resolve, reject) => {
-        http.get(`/${_prefix}/auth/last?userId=${userId}`)
+        http.get(`${memberPrefix}/auth/last?userId=${userId}`)
             .then((res) => {
                 const data = res.data
                 if (typeof data === 'object') {

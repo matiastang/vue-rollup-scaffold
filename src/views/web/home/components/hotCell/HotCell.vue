@@ -1,33 +1,50 @@
 <!--
- * @Author: your name
- * @Date: 2021-11-05 14:16:21
- * @LastEditTime: 2021-11-05 15:14:03
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/home/components/hotCell/HotCell.vue
+ * @Author: matiastang
+ * @Date: 2021-11-11 17:58:07
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-19 11:40:27
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
+ * @Description: 热榜接口cell
 -->
 <template>
     <div class="hot-cell borderBox flexColumnCenter">
         <div class="hot-cell-top borderBox flexColumnCenter">
-            <img class="hot-cell-img" />
-            <div class="hot-cell-title">{{ data.title || '标题' }}</div>
-            <div v-for="item in data.texts" :key="item" class="hot-cell-text defaultFont">
+            <img class="hot-cell-img" :src="data.apiHomeRecoIcon" />
+            <div class="hot-cell-title">{{ data.apiHomeRecoDesc || '标题' }}</div>
+            <div
+                v-for="item in getText(data.apiHomeRecoPopularText || '')"
+                :key="item"
+                class="hot-cell-text defaultFont"
+            >
                 {{ item || '副标题' }}
             </div>
             <div class="hot-cell-text defaultFont">...</div>
         </div>
-        <div class="hot-cell-value">{{ `$${data.value}/次` }}</div>
+        <div class="hot-cell-value">{{ `$${data.apiPrice}/次` }}</div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { ApiInfoType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     name: 'hotCell',
-    props: ['data'],
-    data() {
-        return {}
+    props: {
+        data: {
+            type: Object as PropType<ApiInfoType>,
+            default: () => {
+                return {}
+            },
+        },
+    },
+    setup() {
+        const getText = (homeText: string) => {
+            return homeText.split('，')
+        }
+        return {
+            getText,
+        }
     },
 })
 </script>

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-18 20:13:27
+ * @LastEditTime: 2021-11-19 11:53:30
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
@@ -30,7 +30,12 @@
         <div class="home-hot borderBox flexColumnCenter">
             <HomeTitle data="热门接口推荐" />
             <div class="home-hot-bottom flexColumnCenter">
-                <Hot v-for="item in hotData" :key="item.title" :data="item" />
+                <Hot
+                    class="home-hot-content"
+                    v-for="item in hotList.hots"
+                    :key="item.title"
+                    :data="item"
+                />
             </div>
         </div>
         <div class="partners borderBox flexColumnCenter">
@@ -51,19 +56,28 @@ import Collapse from './components/collapse/Collapse.vue'
 import SolutionCell from './components/solutionCell/SolutionCell.vue'
 import HomeTitle from './components/homeTitle/HomeTitle.vue'
 import Hot from './components/hot/Hot.vue'
-import { homeBanner } from '@/common/request/index'
+import { homeBanner, homeHotInterface } from '@/common/request/index'
+import { HotType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     setup() {
+        // 首页banner
         let bannerList = reactive({
             banners: Array<string>(),
         })
         watchSyncEffect(async () => {
             bannerList.banners = await homeBanner()
         })
-        homeBanner
+        // 首页热榜
+        let hotList = reactive({
+            hots: Array<HotType>(),
+        })
+        watchSyncEffect(async () => {
+            hotList.hots = await homeHotInterface()
+        })
         return {
             bannerList,
+            hotList,
         }
     },
     data() {
@@ -146,204 +160,6 @@ export default defineComponent({
                         },
                         {
                             text: '·智能选基',
-                        },
-                    ],
-                },
-            ],
-            hotData: [
-                {
-                    title: '基金基本信息',
-                    text: '全国基金信息，实时数据更新',
-                    topColor: '#F8642A',
-                    bottomColor: '#FDA668',
-                    dataList: [
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                    ],
-                },
-                {
-                    title: '基金净值',
-                    text: '全国基金信息，实时数据更新',
-                    topColor: '#F49D12',
-                    bottomColor: '#FFC67A',
-                    dataList: [
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                    ],
-                },
-                {
-                    title: '基金业绩表现',
-                    text: '全国基金信息，实时数据更新',
-                    topColor: '#F1343A',
-                    bottomColor: '#FA7377',
-                    dataList: [
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                    ],
-                },
-                {
-                    title: '基金投资组合',
-                    text: '全国基金信息，实时数据更新',
-                    topColor: '#3785F9',
-                    bottomColor: '#7AB0FF',
-                    dataList: [
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                    ],
-                },
-                {
-                    title: '基金财务数据',
-                    text: '全国基金信息，实时数据更新',
-                    topColor: '#12BAF5',
-                    bottomColor: '#6ADBFF',
-                    dataList: [
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                    ],
-                },
-                {
-                    title: '基金风险',
-                    text: '全国基金信息，实时数据更新',
-                    topColor: '#EF1E51',
-                    bottomColor: '#FF6D88',
-                    dataList: [
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                    ],
-                },
-                {
-                    title: '基金业绩归因',
-                    text: '全国基金信息，实时数据更新',
-                    topColor: '#9233F9',
-                    bottomColor: '#BF84FF',
-                    dataList: [
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
-                        },
-                        {
-                            title: '基金基本要素',
-                            texts: ['基金名称', '基金代码', '基金经理', '管理规模'],
-                            value: 0.15,
                         },
                     ],
                 },
@@ -454,11 +270,15 @@ export default defineComponent({
     }
     .home-hot {
         width: 100%;
+        box-sizing: border-box;
         padding: 60px calc(10% - 8px) 60px calc(10% - 8px);
         .home-hot-bottom {
             width: 100%;
             flex-wrap: wrap;
             justify-content: space-between;
+            .home-hot-content {
+                width: 100%;
+            }
         }
     }
     .partners {

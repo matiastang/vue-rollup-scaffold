@@ -1,14 +1,14 @@
 <!--
- * @Author: your name
- * @Date: 2021-11-05 14:18:31
- * @LastEditTime: 2021-11-05 15:15:39
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/home/components/hotLeftCell/HotLeftCell.vue
+ * @Author: matiastang
+ * @Date: 2021-11-11 17:58:07
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-19 11:22:29
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotLeftCell/HotLeftCell.vue
+ * @Description: 首页热榜分类cell
 -->
 <template>
     <div class="hot-left-cell borderBox flexColumnCenter">
-        <img class="hot-left-cell-img" />
+        <img class="hot-left-cell-img" :src="url" />
         <div class="hot-left-cell-title">{{ title || '标题' }}</div>
         <div class="hot-left-cell-text">{{ text || '副标题' }}</div>
         <div class="hot-left-cell-button defaultFont cursorP">查看全部</div>
@@ -20,9 +20,23 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'hotLeftCell',
-    props: ['title', 'text'],
-    data() {
-        return {}
+    props: {
+        id: {
+            type: Number,
+            default: -1,
+        },
+        url: {
+            type: String,
+            default: '',
+        },
+        title: {
+            type: String,
+            default: '',
+        },
+        text: {
+            type: String,
+            default: '',
+        },
     },
 })
 </script>
