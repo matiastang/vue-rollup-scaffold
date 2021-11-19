@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-19 11:53:30
+ * @LastEditTime: 2021-11-19 14:48:34
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
@@ -16,18 +16,18 @@
                 <SwiperSlider class="swiper-slide-content" :banners="bannerList.banners" />
             </div>
         </div>
-        <div class="solution borderBox flexColumnCenter">
+        <div v-if="solutionList.solutions.length > 0" class="solution borderBox flexColumnCenter">
             <HomeTitle data="解决方案" />
             <div class="solution-bottom flexRowCenter">
                 <SolutionCell
                     class="solution-cell"
-                    v-for="item in solutionData"
+                    v-for="item in solutionList.solutions"
                     :key="item.title"
                     :data="item"
                 />
             </div>
         </div>
-        <div class="home-hot borderBox flexColumnCenter">
+        <div v-if="hotList.hots.length > 0" class="home-hot borderBox flexColumnCenter">
             <HomeTitle data="热门接口推荐" />
             <div class="home-hot-bottom flexColumnCenter">
                 <Hot
@@ -38,12 +38,10 @@
                 />
             </div>
         </div>
-        <div class="partners borderBox flexColumnCenter">
+        <div v-if="partnerList.length > 0" class="partners borderBox flexColumnCenter">
             <HomeTitle data="合作伙伴" />
             <div class="partners-content flexRowCenter">
-                <div v-for="item in partnersData" :key="item" class="partners-cell">
-                    {{ item.title }}
-                </div>
+                <img v-for="item in partnerList" :key="item" class="partners-cell" :src="item" />
             </div>
         </div>
     </div>
@@ -56,28 +54,44 @@ import Collapse from './components/collapse/Collapse.vue'
 import SolutionCell from './components/solutionCell/SolutionCell.vue'
 import HomeTitle from './components/homeTitle/HomeTitle.vue'
 import Hot from './components/hot/Hot.vue'
-import { homeBanner, homeHotInterface } from '@/common/request/index'
-import { HotType } from '@/common/request/modules/home/homeInterface'
+import { homeBanner, homeSolution, homeHotInterface, homePartner } from '@/common/request/index'
+import { HotType, SolutionType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     setup() {
         // 首页banner
-        let bannerList = reactive({
+        const bannerList = reactive({
             banners: Array<string>(),
         })
         watchSyncEffect(async () => {
             bannerList.banners = await homeBanner()
         })
+        // 首页解决方案
+        const solutionList = reactive({
+            solutions: Array<SolutionType>(),
+        })
+        watchSyncEffect(async () => {
+            solutionList.solutions = await homeSolution()
+        })
         // 首页热榜
-        let hotList = reactive({
+        const hotList = reactive({
             hots: Array<HotType>(),
         })
         watchSyncEffect(async () => {
             hotList.hots = await homeHotInterface()
         })
+        // 合作伙伴
+        const partnerList = reactive({
+            partners: Array<string>(),
+        })
+        watchSyncEffect(async () => {
+            partnerList.partners = await homePartner()
+        })
         return {
             bannerList,
+            solutionList,
             hotList,
+            partnerList,
         }
     },
     data() {
@@ -229,7 +243,6 @@ export default defineComponent({
         HomeTitle,
         Hot,
     },
-    methods: {},
 })
 </script>
 
@@ -294,6 +307,7 @@ export default defineComponent({
                 background: #ffffff;
                 box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
                 margin: 8px;
+                object-fit: cover;
             }
         }
     }

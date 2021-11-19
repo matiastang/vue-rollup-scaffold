@@ -1,17 +1,17 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-05 11:33:07
- * @LastEditTime: 2021-11-11 10:43:04
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-19 14:23:48
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/home/components/solutionCell/solutionCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/solutionCell/SolutionCell.vue
 -->
 <template>
     <div class="borderBox solution-cell">
         <div class="solution-cell-top-content">
             <OpenalphaTitle class="solution-cell-top" :title="data.title" :fontSize="18" />
-            <div v-for="item in data.data" :key="item.text" class="solution-cell-text defaultFont">
-                {{ item.text }}
+            <div v-for="item in sceneList" :key="item" class="solution-cell-text defaultFont">
+                {{ `· ${item}` }}
             </div>
         </div>
         <div class="solution-cell-details defaultFont cursorP">了解详情</div>
@@ -19,14 +19,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, ComputedRef, defineComponent, PropType } from 'vue'
 import OpenalphaTitle from '@/components/openalphaTitle/OpenalphaTitle.vue'
+import { SolutionType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     name: 'SolutionCell',
-    props: ['data'],
-    data() {
-        return {}
+    props: {
+        data: {
+            type: Object as PropType<SolutionType>,
+            default: () => {
+                return {}
+            },
+        },
+    },
+    setup(props) {
+        // 应用场景列表
+        const sceneList: ComputedRef<string[]> = computed(() => {
+            try {
+                let arr = JSON.parse(props.data.scenario)
+                return arr
+                    .map((item: { title: string }) => {
+                        return item.title
+                    })
+                    .filter((item: string, index: number) => {
+                        return index <= 3
+                    })
+            } catch (error) {
+                return []
+            }
+        })
+        return {
+            sceneList,
+        }
     },
     components: {
         OpenalphaTitle,

@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 15:13:24
- * @LastEditTime: 2021-11-08 15:42:39
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-19 15:07:44
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/discount/components/discountPackage/DiscountPackage.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/discount/components/discountPackage/DiscountPackage.vue
 -->
 <template>
     <div
@@ -18,7 +18,7 @@
         ]"
         @click="selectAction"
     >
-        <div v-if="recommend" class="discount-recommend">推荐</div>
+        <div v-if="recommend" class="discount-recommend defaultFont">推荐</div>
         <div class="discount-title-content flexRowCenter">
             <div class="discount-title-left defaultFont">{{ discount }}</div>
             <div class="discount-title-right defaultFont">{{ text }}</div>

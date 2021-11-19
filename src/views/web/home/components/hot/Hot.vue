@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 12:07:34
+ * @LastEditTime: 2021-11-19 14:25:36
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hot/Hot.vue
  * @Description: 首页热榜cell
 -->
@@ -15,20 +15,15 @@
             :title="data.categoryName"
             :text="data.categoryDescribe"
             :style="{
-                background: getBackground(data.categoryName),
+                background: background,
             }"
         />
-        <HotCell
-            class="hot-cell"
-            v-for="item in firstApi(data.apiInfoList)"
-            :key="item.title"
-            :data="item"
-        />
+        <HotCell class="hot-cell" v-for="item in apiList" :key="item.title" :data="item" />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, computed, ComputedRef, PropType, reactive } from 'vue'
 import HotLeftCell from '../hotLeftCell/HotLeftCell.vue'
 import HotCell from '../hotCell/HotCell.vue'
 import { HotType, ApiInfoType } from '@/common/request/modules/home/homeInterface'
@@ -43,7 +38,7 @@ export default defineComponent({
             },
         },
     },
-    setup() {
+    setup(props) {
         // 背景
         const backgroundColors = reactive([
             {
@@ -75,24 +70,26 @@ export default defineComponent({
                 value: 'linear-gradient(#9233F9, #BF84FF)',
             },
         ])
-        const getBackground = (name: string) => {
+        // 获取当前背景
+        const background: ComputedRef<string> = computed(() => {
             for (let i = 0; i < backgroundColors.length; i++) {
-                if (backgroundColors[i].title === name) {
+                if (backgroundColors[i].title === props.data.categoryName) {
                     return backgroundColors[i].value
                 }
             }
             return 'linear-gradient(#F8642A, #FDA668)'
-        }
+        })
         // 前四条数据
-        const firstApi = (list: ApiInfoType[]) => {
+        const apiList: ComputedRef<ApiInfoType[]> = computed(() => {
+            let list = props.data.apiInfoList
             if (list.length > 4) {
                 return list.slice(0, 4)
             }
             return list
-        }
+        })
         return {
-            getBackground,
-            firstApi,
+            background,
+            apiList,
         }
     },
     components: {

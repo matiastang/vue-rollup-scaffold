@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>登录注册后-个人中心</title>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="功能性ICON" transform="translate(-209.000000, -357.000000)">
+            <g id="登录注册后-个人中心" transform="translate(209.000000, 357.000000)">
+                <rect id="bg" fill="#D8D8D8" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                <polygon id="三角形" fill="#595959" transform="translate(8.000000, 8.000000) scale(1, -1) translate(-8.000000, -8.000000) " points="8 4 15 12 1 12"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

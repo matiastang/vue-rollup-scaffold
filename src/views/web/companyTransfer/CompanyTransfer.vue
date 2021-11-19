@@ -1,15 +1,15 @@
 <!--
- * @Author: your name
- * @Date: 2021-11-09 09:55:15
- * @LastEditTime: 2021-11-09 11:18:55
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/companyTransfer/CompanyTransfer.vue
+ * @Author: matiastang
+ * @Date: 2021-11-11 17:58:07
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-19 15:17:25
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/companyTransfer/CompanyTransfer.vue
+ * @Description: 对公转账成功
 -->
 <template>
     <div class="company-transfer borderBox flexColumnCenter">
         <div class="company-transfer-content borderBox flexColumnCenter">
-            <div class="company-transfer-icon"></div>
+            <img class="company-transfer-icon" src="static/user/certification_success.svg" />
             <div class="company-transfer-title">提交订单成功</div>
             <div class="company-transfer-bottom-content">
                 <div class="company-transfer-bottom-title defaultFont">
@@ -155,7 +155,6 @@ export default defineComponent({
         .company-transfer-icon {
             width: 48px;
             height: 48px;
-            background: #64d16d;
             border-radius: 24px;
         }
         .company-transfer-title {

@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 19:40:09
- * @LastEditTime: 2021-11-10 20:10:35
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-19 15:33:55
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interface/components/interfaceHot/InterfaceHot.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/interfaceHot/InterfaceHot.vue
 -->
 <template>
     <div class="Interface-hot-cell borderBox flexRowCenter">
@@ -15,7 +15,7 @@
             :title="title"
             :showLine="index === 0"
         />
-        <div class="hot-icon"></div>
+        <img class="hot-icon" src="static/api/hot.svg" />
     </div>
 </template>
 <script lang="ts">
@@ -77,7 +77,6 @@ export default defineComponent({
         height: 60px;
         top: 0px;
         right: 0px;
-        background: #e62412;
     }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 11:40:27
+ * @LastEditTime: 2021-11-19 14:17:35
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
  * @Description: 热榜接口cell
 -->
@@ -11,11 +11,7 @@
         <div class="hot-cell-top borderBox flexColumnCenter">
             <img class="hot-cell-img" :src="data.apiHomeRecoIcon" />
             <div class="hot-cell-title">{{ data.apiHomeRecoDesc || '标题' }}</div>
-            <div
-                v-for="item in getText(data.apiHomeRecoPopularText || '')"
-                :key="item"
-                class="hot-cell-text defaultFont"
-            >
+            <div v-for="item in texts" :key="item" class="hot-cell-text defaultFont">
                 {{ item || '副标题' }}
             </div>
             <div class="hot-cell-text defaultFont">...</div>
@@ -25,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, computed, ComputedRef, PropType } from 'vue'
 import { ApiInfoType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
@@ -38,12 +34,16 @@ export default defineComponent({
             },
         },
     },
-    setup() {
-        const getText = (homeText: string) => {
-            return homeText.split('，')
-        }
+    setup(props) {
+        const texts: ComputedRef<string[]> = computed(() => {
+            let text = props.data.apiHomeRecoPopularText
+            if (text) {
+                return text.split('，')
+            }
+            return []
+        })
         return {
-            getText,
+            texts,
         }
     },
 })

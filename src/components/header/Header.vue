@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 15:22:57
+ * @LastEditTime: 2021-11-19 15:36:57
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -37,7 +37,7 @@
                 <div class="header-name textLine1">
                     {{ userName }}
                 </div>
-                <div class="header-name-icon"></div>
+                <img class="header-name-icon" src="static/user/login_off.svg" />
                 <div class="name-dropdown">
                     <div
                         v-for="(item, index) in dropdownData"
@@ -302,7 +302,6 @@ export default defineComponent({
                 margin-left: 5px;
                 width: 14px;
                 height: 8px;
-                background: #595959;
             }
             .name-dropdown {
                 display: none;

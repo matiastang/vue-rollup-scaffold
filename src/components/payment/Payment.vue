@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:16:03
- * @LastEditTime: 2021-11-08 15:49:47
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-19 15:05:47
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/payment/Payment.vue
 -->
@@ -57,7 +57,6 @@ export default defineComponent({
     .pay-monet-img {
         width: 16px;
         height: 16px;
-        background: red;
         margin-right: 10px;
     }
     .pay-monet-text {

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 19:35:04
- * @LastEditTime: 2021-11-09 09:49:38
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-19 15:31:56
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/applyTrialModel/ApplyTrialModel.vue
 -->
@@ -11,7 +11,7 @@
         <el-dialog :="$attrs" center>
             <div class="model-title defaultFont">申请试用套餐</div>
             <div class="model-warning-content flexRowCenter">
-                <img class="model-warning-icon" />
+                <img class="model-warning-icon" src="static/api/warning.svg" />
                 <div class="model-warning defaultFont">
                     试用套餐仅能申请一次，请仔细核对账号信息！
                 </div>
@@ -128,9 +128,8 @@ export default defineComponent({
             .model-warning-icon {
                 width: 14px;
                 height: 14px;
-                background: #e62412;
                 flex-flow: 0;
-                margin-right: 2px;
+                margin-right: 5px;
             }
             .model-warning {
                 font-size: 12px;

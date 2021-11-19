@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180px" height="180px" viewBox="0 0 180 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 6</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.149020 0 0 0 0 0.149020 0 0 0 0 0.149020 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="前端网页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="充值金额" transform="translate(-1410.000000, -475.000000)">
+            <g id="编组-6" transform="translate(1410.000000, 475.000000)">
+                <rect id="矩形备份-12" fill="#FFFFFF" opacity="0" x="0" y="0" width="180" height="180"></rect>
+                <g filter="url(#filter-1)" id="编组">
+                    <g transform="translate(71.000000, 60.000000)">
+                        <path d="M8.88888889,13.0544813 C10.2774197,13.0544813 11.4030463,14.180108 11.4030463,15.5686388 L11.4030463,33.1677409 L11.4030463,33.1677409 C8.6259847,33.1677409 6.37473144,30.9164876 6.37473144,28.139426 L6.37473144,15.5686388 C6.37473144,14.180108 7.50035807,13.0544813 8.88888889,13.0544813 Z" id="矩形" fill="#FFFFFF" transform="translate(8.888889, 23.111111) rotate(-45.000000) translate(-8.888889, -23.111111) "></path>
+                        <path d="M29.1808241,-4.11325955 L29.1808241,-4.11325955 L29.1808241,-4.11325955 L29.1808241,33.5991021 C29.1808241,34.9876329 28.0551975,36.1132596 26.6666667,36.1132596 C25.2781359,36.1132596 24.1525092,34.9876329 24.1525092,33.5991021 L24.1525092,0.915055335 C24.1525092,-1.8620063 26.4037625,-4.11325955 29.1808241,-4.11325955 Z" id="矩形备份" fill="#FFFFFF" transform="translate(26.666667, 16.000000) rotate(-135.000000) translate(-26.666667, -16.000000) "></path>
+                    </g>
+                </g>
+                <path d="M89,126 C64.2498282,126 44,107.662528 44,85.2497163 L44,70.7502837 C44,48.337472 64.2498282,30 89,30 C113.750172,30 134,48.337472 134,70.7502837 L134,97.9995684" id="Stroke-1" stroke="#262626" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M30,64 C34.434,66.949 44.98,72.496 44.98,82.105 C44.98,91.715 34.434,97.633 30,100.953 L30,64 Z" id="Fill-1备份" stroke="#262626" stroke-width="2" fill="#262626" stroke-linecap="round" stroke-linejoin="round" transform="translate(37.490000, 82.476500) scale(-1, 1) translate(-37.490000, -82.476500) "></path>
+                <path d="M133,64 C137.434,66.949 147.98,72.496 147.98,82.105 C147.98,91.715 137.434,97.633 133,100.953 L133,64 Z" id="Fill-1备份-2" stroke="#262626" stroke-width="2" fill="#262626" stroke-linecap="round" stroke-linejoin="round"></path>
+                <rect id="矩形" stroke="#262626" stroke-width="2" fill="#D65928" x="78" y="121" width="24" height="10" rx="5"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

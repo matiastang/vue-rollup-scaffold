@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:55:53
- * @LastEditTime: 2021-11-09 10:27:41
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-19 15:11:31
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/discount/Discount.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/discount/Discount.vue
 -->
 <template>
     <div class="discount borderBox">
@@ -70,7 +70,10 @@
                         ]"
                     >
                         <div class="discount-service-item-img-content flexRowCenter">
-                            <img class="discount-service-item-img" />
+                            <img
+                                class="discount-service-item-img"
+                                :src="`static/pay/advantage_${index + 1}.svg`"
+                            />
                         </div>
                         <div class="discount-service-item-title defaultFont">{{ item.title }}</div>
                     </div>
@@ -187,17 +190,17 @@ export default defineComponent({
         const paymentArr = reactive([
             {
                 title: '微信支付',
-                url: 'static/recharge/recharge-select.svg',
+                url: 'static/pay/weixin_icon.svg',
                 selected: true,
             },
             {
                 title: '支付宝支付',
-                url: 'static/recharge/recharge-select.svg',
+                url: 'static/pay/zfb_icon.svg',
                 selected: false,
             },
             {
                 title: '对公转账',
-                url: 'static/recharge/recharge-select.svg',
+                url: 'static/pay/dgzz_icon.svg',
                 selected: false,
             },
         ])

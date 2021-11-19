@@ -2,10 +2,25 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 11:35:50
+ * @LastEditTime: 2021-11-19 13:53:22
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
+/**
+ * 解决方案类型
+ */
+export interface SolutionType {
+    categoryId: number
+    createTime: string
+    id: number
+    images: string
+    isHide: number
+    scenario: string
+    summary: string
+    target: string
+    title: string
+    updateTime: string
+}
 /**
  * 接口信息类型
  */

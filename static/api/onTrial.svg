@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>申请试用</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="申请试用" transform="translate(-332.000000, -105.000000)" filter="url(#filter-1)">
+            <g transform="translate(333.000000, 106.000000)">
+                <path d="M25.3955831,12.7723555 L23.1681172,15 L15,6.83122772 L17.2274658,4.60358324 C18.3434262,3.48976101 22.4263711,1.63413316 25.3955831,4.60358324 C28.3670225,7.57526097 26.509316,11.6585333 25.3955831,12.7723555 Z" id="Stroke-1" stroke="#333333" stroke-width="2"></path>
+                <line x1="30" y1="0" x2="26" y2="4" id="Stroke-3" stroke="#333333" stroke-width="2"></line>
+                <path d="M4.60358324,17.2276445 L6.83122772,15 L15,23.1687723 L12.7723555,25.3964168 C11.6585333,26.510239 7.57303333,28.3658668 4.60358324,25.3964168 C1.63413316,22.424739 3.48976101,18.3414667 4.60358324,17.2276445 Z" id="Stroke-5" stroke="#333333" stroke-width="2"></path>
+                <line x1="14" y1="21" x2="17" y2="18" id="Stroke-7" stroke="#333333" stroke-width="2"></line>
+                <line x1="0" y1="30" x2="4" y2="26" id="Stroke-9" stroke="#333333" stroke-width="2"></line>
+                <line x1="9" y1="16" x2="12" y2="13" id="Stroke-11" stroke="#333333" stroke-width="2"></line>
+            </g>
+        </g>
+    </g>
+</svg>

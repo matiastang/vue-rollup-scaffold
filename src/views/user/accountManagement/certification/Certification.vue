@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 20:08:06
+ * @LastEditTime: 2021-11-19 15:22:50
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -17,7 +17,10 @@
             <div class="certification-through-content">
                 <div class="certification-through-top-content">
                     <div class="certification-through-top flexRowCenter">
-                        <img class="certification-through-top-img" />
+                        <img
+                            class="certification-through-top-img"
+                            src="static/user/certification_success.svg"
+                        />
                         <div class="certification-through-top-img-title defaultFont">
                             您已通过实名认证
                         </div>
@@ -79,7 +82,14 @@
         >
             <div class="certification-auditing-title defaultFont">认证申请</div>
             <div class="certification-auditing-content flexRowCenter">
-                <img class="certification-auditing-img" />
+                <img
+                    class="certification-auditing-img"
+                    :src="
+                        certStatus && certStatus === 3
+                            ? 'static/user/reviewing.svg'
+                            : 'static/user/revie_err.svg'
+                    "
+                />
                 <div class="certification-auditing-right flexColumnCenter">
                     <div v-if="userType === 1" class="certification-auditing-item flexRowCenter">
                         <div class="certification-auditing-item-title defaultFont">姓名:</div>
@@ -327,7 +337,10 @@
                                         class="avatar"
                                     />
                                     <div v-else class="company-img-content">
-                                        <img class="company-image-front-icon" />
+                                        <img
+                                            class="company-image-front-icon"
+                                            src="static/user/license.svg"
+                                        />
                                         <div class="company-image-title">上传</div>
                                     </div>
                                 </el-upload>
@@ -442,7 +455,10 @@
                                             class="avatar"
                                         />
                                         <div v-else class="personage-img-content">
-                                            <img class="personage-image-front-icon" />
+                                            <img
+                                                class="personage-image-front-icon"
+                                                src="static/user/identityCardOn.svg"
+                                            />
                                             <div class="personage-image-title">人像面</div>
                                         </div>
                                     </el-upload>
@@ -461,7 +477,10 @@
                                             class="avatar"
                                         />
                                         <div v-else class="personage-img-content">
-                                            <img class="personage-image-bg-icon" />
+                                            <img
+                                                class="personage-image-bg-icon"
+                                                src="static/user/identityCardOff.svg"
+                                            />
                                             <div class="personage-image-title">国徽面</div>
                                         </div>
                                     </el-upload>
@@ -1015,7 +1034,6 @@ export default defineComponent({
                 .certification-through-top-img {
                     width: 30px;
                     height: 30px;
-                    background: #15ad31;
                     margin-right: 16px;
                 }
                 .certification-through-top-img-title {
