@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:23:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 14:37:09
+ * @LastEditTime: 2021-11-19 16:28:03
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/home.ts
  * @Description: 首页相关接口
  */
@@ -43,6 +43,29 @@ const homeBanner = () => {
                     return
                 }
                 reject('获取banner错误')
+                return
+            })
+            .catch(reject)
+    })
+}
+
+/**
+ * 获取首页接口分类导航树接口
+ */
+const homeInterfaceNavigationTree = () => {
+    return new Promise<HotType[]>((resolve, reject) => {
+        http.get(`${apiPrefix}/openApi/navBar/tree`)
+            .then((res) => {
+                const data = res.data
+                if (typeof data === 'object' && Array.isArray(data)) {
+                    resolve(
+                        data.map((item) => {
+                            return item as HotType
+                        })
+                    )
+                    return
+                }
+                reject('首页热榜错误')
                 return
             })
             .catch(reject)
@@ -124,4 +147,4 @@ const homePartner = () => {
     })
 }
 
-export { homeBanner, homeSolution, homeHotInterface, homePartner }
+export { homeBanner, homeInterfaceNavigationTree, homeSolution, homeHotInterface, homePartner }

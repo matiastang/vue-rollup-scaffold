@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 13:53:22
+ * @LastEditTime: 2021-11-19 17:20:05
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
@@ -57,11 +57,32 @@ export interface ApiInfoType {
     returnResult: string
     tag: string
 }
+
+/**
+ * 树形结构二级类型
+ */
+export interface HotChildrenType {
+    apiInfoList: ApiInfoType[]
+    categoryId: number
+    categoryIsShow: number
+    categoryLevelType: number
+    categoryName: string
+    categoryOrderNum: number
+    categoryPath: string
+    categoryType: number
+    homeRecoFlag: number
+    id: number
+    navBarFlag: number
+    navOrderNum: number
+    parentId: number
+}
+
 /**
  * 首页热榜接口返回类型
  */
 export interface HotType {
     apiInfoList: ApiInfoType[]
+    children?: HotChildrenType[]
     categoryDeletedFlag: number
     categoryDescribe: string
     categoryId: number

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-19 14:48:34
+ * @LastEditTime: 2021-11-19 19:15:53
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
@@ -10,10 +10,57 @@
     <div class="home">
         <div class="collapse-popover-bound home-top borderBox flexRowCenter">
             <div class="borderBox home-top-left">
-                <Collapse class="dw-collapse" :data="collapseData" />
+                <Collapse
+                    class="dw-collapse"
+                    :data="iNavTree.tree"
+                    :selectedIndex="selectedIndex"
+                    @mouseoverIndex="mouseoverIndex"
+                    @mouseoutIndex="mouseoutIndex"
+                />
             </div>
             <div class="home-top-right">
                 <SwiperSlider class="swiper-slide-content" :banners="bannerList.banners" />
+            </div>
+            <div
+                v-if="selectedCategory"
+                class="home-category-content"
+                @mouseover="categoryContentMouseover"
+                @mouseout="categoryContentMouseout"
+            >
+                <div v-if="selectedCategory.categoryType === 0" class="content borderBox">
+                    <div
+                        v-for="childrenItem in selectedCategory.children"
+                        :key="childrenItem.categoryId"
+                        class="content-item borderBox flexColumnCenter"
+                    >
+                        <div class="content-title defaultFont">{{ childrenItem.categoryName }}</div>
+                        <div class="content-bottom borderBox flexRowCenter">
+                            <div
+                                v-for="item in childrenItem.apiInfoList"
+                                :key="item.apiCode"
+                                class="content-cell defaultFont"
+                            >
+                                {{ item.apiName }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="content borderBox">
+                    <div class="content-item borderBox flexColumnCenter">
+                        <div class="content-title defaultFont">
+                            {{ selectedCategory.categoryName }}
+                        </div>
+                        <div class="content-bottom flexRowCenter">
+                            <div
+                                v-for="item in selectedCategory.apiInfoList"
+                                :key="item.apiCode"
+                                class="content-cell defaultFont"
+                            >
+                                {{ item.apiName }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-if="solutionList.solutions.length > 0" class="solution borderBox flexColumnCenter">
@@ -38,23 +85,34 @@
                 />
             </div>
         </div>
-        <div v-if="partnerList.length > 0" class="partners borderBox flexColumnCenter">
+        <div v-if="partnerList.partners.length > 0" class="partners borderBox flexColumnCenter">
             <HomeTitle data="合作伙伴" />
             <div class="partners-content flexRowCenter">
-                <img v-for="item in partnerList" :key="item" class="partners-cell" :src="item" />
+                <img
+                    v-for="item in partnerList.partners"
+                    :key="item"
+                    class="partners-cell"
+                    :src="item"
+                />
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watchSyncEffect } from 'vue'
+import { defineComponent, ref, Ref, reactive, computed, ComputedRef, watchSyncEffect } from 'vue'
 import SwiperSlider from '@/components/swiperSlider/SwiperSlider.vue'
 import Collapse from './components/collapse/Collapse.vue'
 import SolutionCell from './components/solutionCell/SolutionCell.vue'
 import HomeTitle from './components/homeTitle/HomeTitle.vue'
 import Hot from './components/hot/Hot.vue'
-import { homeBanner, homeSolution, homeHotInterface, homePartner } from '@/common/request/index'
+import {
+    homeBanner,
+    homeInterfaceNavigationTree,
+    homeSolution,
+    homeHotInterface,
+    homePartner,
+} from '@/common/request/index'
 import { HotType, SolutionType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
@@ -66,6 +124,60 @@ export default defineComponent({
         watchSyncEffect(async () => {
             bannerList.banners = await homeBanner()
         })
+        // 接口导航树
+        const iNavTree = reactive({
+            tree: Array<HotType>(),
+        })
+        // 首页需要显示的分类
+        const homeCategory = reactive([
+            '基金基本信息',
+            '基金净值',
+            '基金业绩表现',
+            '基金投资组合',
+            '基金财务数据',
+            '基金风险',
+            '基金业绩归因',
+        ])
+        watchSyncEffect(async () => {
+            let categoryTree = await homeInterfaceNavigationTree()
+            iNavTree.tree = categoryTree.filter((item: HotType) => {
+                console.log(homeCategory.includes(item.categoryName))
+                return homeCategory.includes(item.categoryName)
+            })
+        })
+        // 当前选中的category
+        const selectedIndex: Ref<number | null> = ref(null)
+        const canRemove = ref(true)
+        const selectedCategory: ComputedRef<HotType | null> = computed(() => {
+            let index = selectedIndex.value
+            if (index !== null) {
+                return iNavTree.tree[index]
+            }
+            return null
+        })
+        const mouseoverIndex = (index: number) => {
+            canRemove.value = false
+            selectedIndex.value = index
+        }
+        const mouseoutIndex = (index: number) => {
+            setTimeout(() => {
+                if (canRemove.value) {
+                    selectedIndex.value = null
+                }
+            }, 50)
+            canRemove.value = true
+        }
+        const categoryContentMouseover = () => {
+            canRemove.value = false
+        }
+        const categoryContentMouseout = () => {
+            setTimeout(() => {
+                if (canRemove.value) {
+                    selectedIndex.value = null
+                }
+            }, 50)
+            canRemove.value = true
+        }
         // 首页解决方案
         const solutionList = reactive({
             solutions: Array<SolutionType>(),
@@ -89,6 +201,13 @@ export default defineComponent({
         })
         return {
             bannerList,
+            iNavTree,
+            selectedIndex,
+            selectedCategory,
+            mouseoverIndex,
+            mouseoutIndex,
+            categoryContentMouseover,
+            categoryContentMouseout,
             solutionList,
             hotList,
             partnerList,
@@ -254,16 +373,58 @@ export default defineComponent({
         background: #fff2ee;
         padding: 20px 10% 30px 10%;
         align-items: stretch;
+        position: relative;
         .home-top-left {
             width: 30%;
             padding-right: 16px;
             box-sizing: border-box;
-            // margin-right: 16px;
         }
         .home-top-right {
             width: 70%;
             .swiper-slide-content {
                 height: 100%;
+            }
+        }
+        .home-category-content {
+            position: absolute;
+            right: 10%;
+            top: 0px;
+            padding: 20px 60px;
+            width: calc(56% + 16px);
+            height: 628px;
+            box-sizing: border-box;
+            background: $themeBgColor;
+            z-index: 100;
+            overflow-y: scroll;
+            .content-item {
+                border-bottom: 1px solid #dfdfdf;
+                align-items: flex-start;
+                .content-title {
+                    font-size: 14px;
+                    font-family: PingFangSC-Medium, PingFang SC;
+                    font-weight: 500;
+                    color: $themeColor;
+                    line-height: 20px;
+                    letter-spacing: 1px;
+                    margin-top: 23px;
+                }
+                .content-bottom {
+                    padding: 12px 0px;
+                    box-sizing: border-box;
+                    width: 100%;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    .content-cell {
+                        width: 25%;
+                        margin: 6px 0px;
+                        font-size: 14px;
+                        color: $titleColor;
+                        line-height: 20px;
+                        flex-shrink: 0;
+                        cursor: pointer;
+                        text-align: left;
+                    }
+                }
             }
         }
     }
@@ -300,7 +461,7 @@ export default defineComponent({
         .partners-content {
             width: 100%;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: flex-start;
             .partners-cell {
                 width: 224px;
                 height: 80px;
@@ -321,6 +482,10 @@ export default defineComponent({
             }
             .home-top-right {
                 width: 65%;
+            }
+            .home-category-content {
+                right: 5%;
+                width: calc(58.5% + 16px);
             }
         }
         .solution {

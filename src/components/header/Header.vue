@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 15:36:57
+ * @LastEditTime: 2021-11-19 16:06:43
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -33,11 +33,19 @@
                     {{ '登录/注册' }}
                 </div>
             </div>
-            <div v-if="userToken" class="header-name-button flexRowCenter">
+            <div
+                v-if="userToken"
+                class="header-name-button flexRowCenter"
+                @mouseover="dropdownMouseover"
+                @mouseout="dropdownMouseout"
+            >
                 <div class="header-name textLine1">
                     {{ userName }}
                 </div>
-                <img class="header-name-icon" src="static/user/login_off.svg" />
+                <img
+                    class="header-name-icon"
+                    :src="isDropdown ? 'static/user/login_on.svg' : 'static/user/login_off.svg'"
+                />
                 <div class="name-dropdown">
                     <div
                         v-for="(item, index) in dropdownData"
@@ -62,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watchEffect, computed } from 'vue'
+import { defineComponent, reactive, ref, watchEffect, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from '../search/Search.vue'
 import { useStore } from 'store/index'
@@ -165,6 +173,13 @@ export default defineComponent({
                 path: '/login',
             })
         }
+        const isDropdown = ref(false)
+        const dropdownMouseover = () => {
+            isDropdown.value = true
+        }
+        const dropdownMouseout = () => {
+            isDropdown.value = false
+        }
         /**
          * 登录后下拉选项
          */
@@ -238,6 +253,9 @@ export default defineComponent({
             headerLoginAction,
             dropdownData,
             dropdownItemAction,
+            isDropdown,
+            dropdownMouseover,
+            dropdownMouseout,
         }
     },
 })
@@ -331,9 +349,6 @@ export default defineComponent({
         .header-name-button:hover {
             .name-dropdown {
                 display: block;
-            }
-            .header-name-icon {
-                background: $themeColor;
             }
         }
     }

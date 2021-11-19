@@ -1,42 +1,67 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-11-04 20:14:49
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-19 19:06:10
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/home/components/collapseCell/CollapseCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
 -->
 <template>
-    <div class="borderBox collapse-cell">
+    <div :class="['borderBox', 'collapse-cell', { 'collapse-cell-selected': selected }]">
+        <!-- @mouseover="mouseoverAction"
+        @mouseout="mouseoutAction" -->
         <div class="collapse-cell-left">
-            <img class="collapse-cell-left-icon" />
+            <img class="collapse-cell-left-icon" :src="url" />
             <div class="flexColumnCenter collapse-cell-center">
                 <div class="collapse-cell-title defaultFont">{{ title }}</div>
-                <div class="collapse-cell-text defaultFont">{{ text }}</div>
+                <div class="collapse-cell-text textLine1 defaultFont">{{ text }}</div>
             </div>
         </div>
-        <img class="collapse-cell-right-icon" />
+        <img
+            class="collapse-cell-right-icon"
+            :src="selected ? 'static/api/category_on.svg' : 'static/api/category_off.svg'"
+        />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
     name: 'CollapseCell',
-    props: ['title', 'text'],
-    data() {
-        return {
-            autoplay: {
-                disableOnInteraction: false,
-                delay: 5000,
-            },
-            pagination: {
-                clickable: true,
-            },
-        }
+    props: {
+        url: {
+            type: String,
+            default: '',
+        },
+        title: {
+            type: String,
+            default: '',
+        },
+        text: {
+            type: String,
+            default: '',
+        },
+        selected: {
+            type: Boolean,
+            default: false,
+        },
     },
 })
+// setup() {
+//         const isMouse = ref(false)
+//         const mouseoverAction = () => {
+//             isMouse.value = true
+//         }
+//         const mouseoutAction = () => {
+//             isMouse.value = false
+//         }
+//         return {
+//             isMouse,
+//             mouseoverAction,
+//             mouseoutAction,
+//         }
+//     },
 </script>
 
 <style lang="scss" scoped>
@@ -44,16 +69,14 @@ export default defineComponent({
     padding: 12px 17px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     background: $themeColor;
     .collapse-cell-left {
         display: flex;
         align-items: flex-start;
         .collapse-cell-left-icon {
-            width: 16px;
-            height: 16px;
-            margin-top: 4px;
-            background: $themeBgColor;
+            width: 20px;
+            height: 20px;
         }
         .collapse-cell-center {
             align-items: flex-start;
@@ -77,15 +100,12 @@ export default defineComponent({
         width: 16px;
         height: 16px;
         margin-top: 4px;
-        background: $themeBgColor;
     }
 }
+.collapse-cell-selected,
 .collapse-cell:hover {
     background: $themeBgColor;
     .collapse-cell-left {
-        .collapse-cell-left-icon {
-            background: $themeColor;
-        }
         .collapse-cell-center {
             .collapse-cell-title {
                 color: $themeColor;
@@ -94,9 +114,6 @@ export default defineComponent({
                 color: $titleColor;
             }
         }
-    }
-    .collapse-cell-right-icon {
-        background: $themeColor;
     }
 }
 </style>
