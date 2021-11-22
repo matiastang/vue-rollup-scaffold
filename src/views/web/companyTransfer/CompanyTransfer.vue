@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 15:17:25
+ * @LastEditTime: 2021-11-22 18:45:00
  * @FilePath: /datumwealth-openalpha-front/src/views/web/companyTransfer/CompanyTransfer.vue
  * @Description: 对公转账成功
 -->
@@ -13,11 +13,11 @@
             <div class="company-transfer-title">提交订单成功</div>
             <div class="company-transfer-bottom-content">
                 <div class="company-transfer-bottom-title defaultFont">
-                    西筹数据开放平台优惠套餐订单
+                    {{ `西筹数据开放平台${isDiscount ? '优惠套餐' : '充值'}订单` }}
                 </div>
                 <div class="order-info borderBox">
                     <div
-                        v-for="item in orderInfo"
+                        v-for="item in orderData.info"
                         :key="item.title"
                         class="order-info-cell defaultFont flexRowCenter"
                     >
@@ -50,58 +50,50 @@
                         我的订单
                     </div>
                     <div class="company-transfer-tottom-content-right-text defaultFont">
-                        ,点击「上传凭证」,将电汇凭证拍照上传，审核通过后套餐生效。
+                        {{
+                            `,点击「上传凭证」,将电汇凭证拍照上传，审核通过后${
+                                isDiscount ? '套餐' : '充值'
+                            }生效。`
+                        }}
                     </div>
                 </div>
                 <div class="company-transfer-warning-text defaultFont">温馨提示</div>
                 <div class="company-transfer-warning-text defaultFont" style="padding: 18px 44px">
-                    1.请于2021-10-30 10:47:25前完成转账，若未及时转账，订单将取消
+                    {{ `1.请于${lastTime}前完成转账，若未及时转账，订单将取消` }}
                 </div>
                 <div class="company-transfer-warning-text defaultFont">
-                    2.请在电汇凭证的「汇款用途」中写入“西筹数据开放平台优惠套餐”
+                    {{
+                        `2.请在电汇凭证的「汇款用途」中写入“西筹数据开放平台${
+                            isDiscount ? '优惠套餐' : '充值'
+                        }”`
+                    }}
                 </div>
             </div>
-            <div class="company-transfer-download defaultFont cursorP" @click="downloadAction">
+            <div
+                v-if="false"
+                class="company-transfer-download defaultFont cursorP"
+                @click="downloadAction"
+            >
                 下载采购订单
             </div>
-            <div class="company-transfer-text defaultFont">提交财务打款更方便</div>
+            <div v-if="false" class="company-transfer-text defaultFont">提交财务打款更方便</div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, computed, watchSyncEffect } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { getOdInfo } from '@/common/request/modules/pay/pay'
+import { useStore } from 'store/index'
 
 export default defineComponent({
     name: 'CompanyTransfer',
     setup() {
-        const orderInfo = [
-            {
-                title: '充值帐号:',
-                value: '18708147975',
-            },
-            {
-                title: '订单编号:',
-                value: 'B20211027104725848843',
-            },
-            {
-                title: '订单内容:',
-                value: '西筹数据开放平台优惠套餐',
-            },
-            {
-                title: '实付金额:',
-                value: '6,000.00元',
-            },
-            {
-                title: '转账方式:',
-                value: '对公转账',
-            },
-            {
-                title: '订单时间:',
-                value: '2021-10-27 10:47:25',
-            },
-        ]
+        const router = useRouter()
+        const route = useRoute()
+        let store = useStore()
         const companyInfo = [
             {
                 title: '开户名称:',
@@ -120,11 +112,84 @@ export default defineComponent({
                 value: '西筹数据开放平台优惠套餐',
             },
         ]
+        const orderId = computed(() => {
+            return route.params.id as string
+        })
+        const orderData = reactive({
+            info: [
+                {
+                    title: '充值帐号:',
+                    value: '-',
+                },
+                {
+                    title: '订单编号:',
+                    value: '-',
+                },
+                {
+                    title: '订单内容:',
+                    value: '-',
+                },
+                {
+                    title: '实付金额:',
+                    value: '-',
+                },
+                {
+                    title: '转账方式:',
+                    value: '-',
+                },
+                {
+                    title: '订单时间:',
+                    value: '-',
+                },
+            ],
+        })
+        const userName = computed(() => {
+            return store.state.userModule.userLoginInfo.member.userName || '-'
+        })
+        const isDiscount = computed(() => {
+            return route.path.startsWith('/discount/companyTransfer')
+        })
+        companyInfo[companyInfo.length - 1].value = `西筹数据开放平台${
+            isDiscount.value ? '优惠套餐' : '充值调用'
+        }`
+        const lastTime = ref('')
+        // route
+        watchSyncEffect(async () => {
+            let res = await getOdInfo(orderId.value)
+            lastTime.value = res.confirmTime
+            orderData.info = [
+                {
+                    title: '充值帐号:',
+                    value: userName.value,
+                },
+                {
+                    title: '订单编号:',
+                    value: res.orderSn,
+                },
+                {
+                    title: '订单内容:',
+                    value: `西筹数据开放平台${isDiscount.value ? '优惠套餐' : '充值调用'}`,
+                },
+                {
+                    title: '实付金额:',
+                    value: `${res.goodsAmount.toFixed(2)}元`,
+                },
+                {
+                    title: '转账方式:',
+                    value: res.payName,
+                },
+                {
+                    title: '订单时间:',
+                    value: res.addTime,
+                },
+            ]
+        })
+        /**
+         * 我的订单
+         */
         const orderAction = () => {
-            // TODO: - 校验
-            ElMessage({
-                message: '功能开发中...',
-                type: 'warning',
+            router.push({
+                path: '/user/data/statement',
             })
         }
         const downloadAction = () => {
@@ -135,7 +200,9 @@ export default defineComponent({
             })
         }
         return {
-            orderInfo,
+            isDiscount,
+            lastTime,
+            orderData,
             companyInfo,
             orderAction,
             downloadAction,

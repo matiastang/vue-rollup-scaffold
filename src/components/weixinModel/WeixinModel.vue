@@ -1,15 +1,17 @@
 <!--
- * @Author: your name
- * @Date: 2021-11-08 16:37:02
- * @LastEditTime: 2021-11-08 17:44:37
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Author: matiastang
+ * @Date: 2021-11-11 17:58:07
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-22 16:59:40
  * @FilePath: /datumwealth-openalpha-front/src/components/weixinModel/WeixinModel.vue
+ * @Description: 微信支付
 -->
 <template>
     <div class="weixin-model">
-        <el-dialog :="$attrs" center>
-            <div class="model-title defaultFont">西筹数据开放平台优惠套餐</div>
+        <el-dialog :="$attrs" center @close="dialogCloseAction">
+            <div class="model-title defaultFont">
+                {{ `西筹数据开放平台${orderType === 1 ? '充值' : '优惠套餐'}` }}
+            </div>
             <div class="model-pay-title">微信支付</div>
             <div class="model-Price-content flexRowCenter">
                 <div class="model-Price-title defaultFont">实付金额:</div>
@@ -19,13 +21,22 @@
                 <div class="model-Price-title defaultFont">单据编号:</div>
                 <div class="model-Price-order">{{ order }}</div>
             </div>
-            <img class="model-code" />
+            <div class="model-code-content flexRowCenter">
+                <img
+                    v-if="status"
+                    class="model-code-success"
+                    src="static/user/certification_success.svg"
+                />
+                <QrcodeVue v-else class="model-code" :value="codeUrl" :size="size" />
+            </div>
         </el-dialog>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, Ref, watchEffect } from 'vue'
+import QrcodeVue from 'qrcode.vue'
+import { payStatus } from '@/common/request/modules/pay/pay'
 
 export default defineComponent({
     name: 'WeixinModel',
@@ -33,17 +44,68 @@ export default defineComponent({
     props: {
         price: {
             type: Number,
-            default: 6000,
+            default: 0,
         },
         order: {
+            type: Number,
+            default: -1,
+        },
+        codeUrl: {
             type: String,
-            default: 'W20211027134801613670',
+            default: '',
+        },
+        orderType: {
+            type: Number,
+            default: 0,
         },
     },
-    setup() {
-        return {}
+    emits: ['close'],
+    setup(props, context) {
+        const size = 370
+        // 支付状态
+        const status = ref(false)
+        // 查询定时器
+        const timerId: Ref<number | null> = ref(null)
+        // 查询支付状态
+        const getOrderStatus = (orderId: number) => {
+            timerId.value = window.setTimeout(() => {
+                timerId.value = null
+                console.log('定时调用')
+                payStatus(orderId)
+                    .then((res) => {
+                        status.value = res
+                        if (!res) {
+                            getOrderStatus(orderId)
+                        }
+                    })
+                    .catch((err) => {
+                        if (!status.value) {
+                            getOrderStatus(orderId)
+                        }
+                    })
+            }, 3000)
+        }
+        watchEffect(() => {
+            if (props.order > 0) {
+                getOrderStatus(props.order)
+            }
+        })
+        // 销毁定时器
+        const dialogCloseAction = () => {
+            if (timerId.value) {
+                window.clearTimeout(timerId.value)
+            }
+            context.emit('close')
+        }
+        return {
+            size,
+            status,
+            dialogCloseAction,
+        }
     },
-    components: {},
+    components: {
+        QrcodeVue,
+    },
 })
 </script>
 
@@ -113,13 +175,15 @@ export default defineComponent({
                 line-height: 24px;
             }
         }
-        .model-code {
+        .model-code-content {
             margin-top: 17px;
             width: 100%;
             max-width: 694px;
             height: 371px;
-            background: $themeColor;
-            border: none;
+            .model-code-success {
+                width: 150px;
+                height: 150px;
+            }
         }
     }
     ::v-deep(.el-dialog__footer) {

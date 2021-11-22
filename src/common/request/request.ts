@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:01:59
+ * @LastEditTime: 2021-11-22 14:18:27
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
@@ -18,7 +18,7 @@ import initInstance from './axiosInterceptors'
  */
 interface ResolveObj {
     code: number
-    data: object | string | null
+    data: object | string | boolean | null
     msg: string
 }
 

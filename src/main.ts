@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2021-11-18 17:40:41
+ * @LastEditTime: 2021-11-22 17:42:42
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/main.ts
@@ -13,6 +13,7 @@ import { store, key } from '@/store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import ElementPlus from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
 
 const app = createApp(App)
 

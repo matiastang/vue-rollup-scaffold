@@ -1,10 +1,10 @@
 <!--
- * @Author: your name
- * @Date: 2021-11-08 10:27:06
- * @LastEditTime: 2021-11-19 15:12:31
+ * @Author: matiastang
+ * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @LastEditTime: 2021-11-22 17:44:38
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
+ * @Description: 充值
 -->
 <template>
     <div class="recharge borderBox">
@@ -25,12 +25,12 @@
                 <div class="recharge-title defaultFont">支付方式:</div>
                 <div class="recharge-money-right-content flexRowCenter">
                     <Payment
-                        v-for="(item, index) in paymentArr"
-                        :key="item.title"
-                        :title="item.title"
-                        :url="item.url"
-                        :select="item.selected"
-                        @selectAction="paymentSelectAction(index)"
+                        v-for="(item, index) in paymentData.payments"
+                        :key="item.payId"
+                        :title="item.payName"
+                        :id="item.payId"
+                        :selected="item.selected"
+                        @click="paymentSelectAction(index)"
                     />
                 </div>
             </div>
@@ -101,75 +101,146 @@
                 </div>
             </div>
         </div>
-        <WeixinModel v-model="weixinDialogVisible" />
-        <TransferModel v-model="transferDialogVisible" @post="transferAction" />
+        <WeixinModel
+            v-if="paymentSeleted.payment.payId === 1"
+            :price="selectedMoney"
+            :orderType="orderType.recharge"
+            :order="orederData.order.orderId"
+            :codeUrl="orederData.order.codeUrl"
+            v-model="weixinDialogVisible"
+            @close="weixinPayClose"
+        />
+        <TransferModel
+            :price="selectedMoney"
+            :orderType="orderType.recharge"
+            :payId="paymentSeleted.payment.payId"
+            v-model="transferDialogVisible"
+        />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, watchSyncEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import RechargeMoney from './components/rechargeMoney/RechargeMoney.vue'
 import Payment from '@/components/payment/Payment.vue'
 import WeixinModel from '@/components/weixinModel/WeixinModel.vue'
 import TransferModel from '@/components/transferModel/TransferModel.vue'
 import { ElMessage } from 'element-plus'
+import { orderType, addOd, payList } from '@/common/request/modules/pay/pay'
+import { PaymentType, WeiXinOdResponse } from '@/common/request/modules/pay/payInterface'
 
 export default defineComponent({
     name: 'Recharge',
     setup() {
         const router = useRouter()
+        const selectedMoney = ref(0.01)
         const moneyArr = reactive([
             {
                 title: '500',
+                value: 0.01,
                 selected: true,
             },
             {
                 title: '1000',
+                value: 0.01,
                 selected: false,
             },
             {
                 title: '2000',
+                value: 0.01,
                 selected: false,
             },
             {
                 title: '5000',
+                value: 0.01,
                 selected: false,
             },
             {
                 title: '10000',
+                value: 0.01,
                 selected: false,
             },
         ])
         const moneySelectAction = (index: number) => {
             for (let i = 0; i < moneyArr.length; i++) {
-                moneyArr[i].selected = i === index
+                if (i === index) {
+                    moneyArr[i].selected = true
+                    selectedMoney.value = moneyArr[i].value
+                } else {
+                    moneyArr[i].selected = false
+                }
             }
         }
-        const paymentArr = reactive([
-            {
-                title: '微信支付',
-                url: 'static/pay/weixin_icon.svg',
-                selected: true,
-            },
-            {
-                title: '支付宝支付',
-                url: 'static/pay/zfb_icon.svg',
-                selected: false,
-            },
-            {
-                title: '对公转账',
-                url: 'static/pay/dgzz_icon.svg',
-                selected: false,
-            },
-        ])
+        const paymentSeleted = reactive({
+            payment: {} as PaymentType,
+        })
+        const paymentData = reactive({
+            payments: Array<PaymentType>(),
+        })
+        watchSyncEffect(async () => {
+            const list = await payList()
+            paymentData.payments = list
+            if (list.length > 0) {
+                paymentSeleted.payment = list[0]
+            }
+        })
         let weixinDialogVisible = ref(false)
         let transferDialogVisible = ref(false)
         const paymentSelectAction = (index: number) => {
-            for (let i = 0; i < paymentArr.length; i++) {
-                paymentArr[i].selected = i === index
+            for (let i = 0; i < paymentData.payments.length; i++) {
+                if (i === index) {
+                    paymentData.payments[i].selected = true
+                    paymentSeleted.payment = paymentData.payments[i]
+                } else {
+                    paymentData.payments[i].selected = false
+                }
             }
         }
+        // 订单
+        let orederData = reactive({
+            order: { payUrl: '', codeUrl: '', orderId: -1 } as WeiXinOdResponse,
+        })
+        // 支付
+        const payAction = () => {
+            for (let i = 0; i < paymentData.payments.length; i++) {
+                if (paymentData.payments[i].selected) {
+                    if (paymentData.payments[i].payId === 3) {
+                        transferDialogVisible.value = true
+                    } else {
+                        addOd({
+                            goodsAmount: selectedMoney.value,
+                            orderType: orderType.recharge,
+                            payId: paymentData.payments[i].payId,
+                        }).then((oreder) => {
+                            orederData.order = oreder
+                            if (paymentData.payments[i].payId === 1) {
+                                weixinDialogVisible.value = true
+                            } else {
+                                let routerData = router.resolve({
+                                    path: '/alipay',
+                                    query: { payUrl: oreder.payUrl },
+                                })
+                                window.open(routerData.href, '_blank')
+                            }
+                        })
+                    }
+                    return
+                }
+            }
+            ElMessage({
+                message: '请选择支付方式',
+                type: 'warning',
+            })
+        }
+        const weixinPayClose = () => {
+            orederData.order = {
+                payUrl: '',
+                codeUrl: '',
+                orderId: -1,
+            }
+        }
+        // 服务优势
         const serviceArr = [
             {
                 title: '稳定及时',
@@ -184,6 +255,7 @@ export default defineComponent({
                 title: '优质售后服务',
             },
         ]
+        // 使用流程
         const courseArr = [
             {
                 title: '充值',
@@ -198,40 +270,21 @@ export default defineComponent({
                 text: '测试接口或按需调用接口',
             },
         ]
-        const payAction = () => {
-            for (let i = 0; i < paymentArr.length; i++) {
-                if (paymentArr[i].selected) {
-                    if (i === 0) {
-                        weixinDialogVisible.value = true
-                    }
-                    if (i === 2) {
-                        transferDialogVisible.value = true
-                    }
-                }
-            }
-
-            // TODO: - 校验
-            ElMessage({
-                message: '功能开发中...',
-                type: 'warning',
-            })
-        }
-        const transferAction = () => {
-            router.push({
-                path: '/recharge/companyTransfer',
-            })
-        }
         return {
+            selectedMoney,
             moneyArr,
             moneySelectAction,
-            paymentArr,
+            paymentData,
             paymentSelectAction,
+            paymentSeleted,
+            orderType,
             serviceArr,
             courseArr,
             payAction,
+            weixinPayClose,
+            orederData,
             weixinDialogVisible,
             transferDialogVisible,
-            transferAction,
         }
     },
     components: {

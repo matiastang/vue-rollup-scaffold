@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 17:47:01
- * @LastEditTime: 2021-11-08 18:11:10
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-22 18:34:45
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/transferModel/TransferModel.vue
 -->
 <template>
-    <div class="transfer-model">
-        <el-dialog :="$attrs" center>
+    <div id="transfer-model" class="transfer-model">
+        <el-dialog :="$attrs" :append-to-body="false" center>
             <div class="model-title defaultFont">西筹数据开放平台优惠套餐</div>
             <div class="model-pay-title">对公转账</div>
             <div class="model-Price-content flexRowCenter">
@@ -38,6 +38,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { addOd, orderType } from '@/common/request/modules/pay/pay'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'TransferModel',
@@ -45,14 +48,42 @@ export default defineComponent({
     props: {
         price: {
             type: Number,
-            default: 6000,
+            default: 0,
+        },
+        orderType: {
+            type: Number,
+            default: 0,
+        },
+        payId: {
+            type: Number,
+            default: 0,
         },
     },
-    emits: ['post'],
-    methods: {
-        transferAction() {
-            this.$emit('post')
-        },
+    setup(props) {
+        const router = useRouter()
+        const transferAction = () => {
+            addOd({
+                goodsAmount: props.price,
+                orderType: props.orderType,
+                payId: props.payId,
+            })
+                .then((oreder) => {
+                    router.push({
+                        path: `/${
+                            props.orderType === orderType.discount ? 'discount' : 'recharge'
+                        }/companyTransfer/${oreder.orderId}`,
+                    })
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '提交订单失败',
+                        type: 'warning',
+                    })
+                })
+        }
+        return {
+            transferAction,
+        }
     },
 })
 </script>
@@ -143,6 +174,7 @@ export default defineComponent({
                 color: $themeBgColor;
                 line-height: 42px;
                 text-align: center;
+                cursor: pointer;
             }
         }
     }

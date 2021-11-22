@@ -1,10 +1,10 @@
 <!--
- * @Author: your name
- * @Date: 2021-11-08 14:16:03
- * @LastEditTime: 2021-11-19 15:05:47
+ * @Author: matiastang
+ * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @LastEditTime: 2021-11-22 16:41:37
  * @FilePath: /datumwealth-openalpha-front/src/components/payment/Payment.vue
+ * @Description: 支付方式cell
 -->
 <template>
     <div
@@ -12,15 +12,16 @@
             'pay-monet',
             'flexRowCenter',
             {
-                cursorP: !select,
-                'pay-monet-select': select,
+                cursorP: !selected,
+                'pay-monet-select': selected,
             },
         ]"
-        @click="selectAction"
     >
-        <img v-if="url" class="pay-monet-img" :src="url" />
+        <img v-if="title === '微信支付'" class="pay-monet-img" src="static/pay/weixin_icon.svg" />
+        <img v-if="title === '支付宝支付'" class="pay-monet-img" src="static/pay/zfb_icon.svg" />
+        <img v-if="title === '对公转账'" class="pay-monet-img" src="static/pay/dgzz_icon.svg" />
         <div class="pay-monet-text defaultFont">{{ title }}</div>
-        <img v-if="select" class="pay-monet-selected" src="static/recharge/recharge-select.svg" />
+        <img v-if="selected" class="pay-monet-selected" src="static/recharge/recharge-select.svg" />
     </div>
 </template>
 
@@ -29,18 +30,18 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'PayMonet',
-    emits: ['selectAction'],
-    props: ['title', 'select', 'url'],
-    data() {
-        return {}
-    },
-    methods: {
-        selectAction() {
-            if (this.select) {
-                console.warn('已经处于选中状态')
-                return
-            }
-            this.$emit('selectAction', this.title)
+    props: {
+        id: {
+            type: Number,
+            default: -1,
+        },
+        title: {
+            type: String,
+            default: '',
+        },
+        selected: {
+            type: Boolean,
+            default: false,
         },
     },
 })

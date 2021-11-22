@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-18 19:19:35
+ * @LastEditTime: 2021-11-22 18:03:36
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -42,6 +42,8 @@ import NotFound from '@/views/NotFound.vue'
 import { checkLoginPath } from './loginInterceptor'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 
+import Alipay from '@/views/web/alipay/Alipay.vue'
+
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -79,7 +81,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: Recharge,
             },
             {
-                path: 'recharge/companyTransfer',
+                path: 'recharge/companyTransfer/:id(\\d+)',
                 name: 'rechargeTransfer',
                 component: CompanyTransfer,
             },
@@ -89,7 +91,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: Discount,
             },
             {
-                path: 'discount/companyTransfer',
+                path: 'discount/companyTransfer/:id(\\d+)',
                 name: 'discountTransfer',
                 component: CompanyTransfer,
             },
@@ -99,6 +101,15 @@ const routes: Array<RouteRecordRaw> = [
                 component: Login,
             },
         ],
+        beforeEnter: (to, from) => {
+            console.log(`web路由卫士：即将从${from.path}跳转到${to.path}`)
+            return true
+        },
+    },
+    {
+        path: '/alipay',
+        name: 'alipay',
+        component: Alipay,
         beforeEnter: (to, from) => {
             console.log(`web路由卫士：即将从${from.path}跳转到${to.path}`)
             return true
