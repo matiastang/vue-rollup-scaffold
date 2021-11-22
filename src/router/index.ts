@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-22 18:03:36
+ * @LastEditTime: 2021-11-22 19:06:03
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -41,7 +41,7 @@ import NotFound from '@/views/NotFound.vue'
 // 校验登录列表
 import { checkLoginPath } from './loginInterceptor'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
-
+// 支付宝支付页面
 import Alipay from '@/views/web/alipay/Alipay.vue'
 
 const routes: Array<RouteRecordRaw> = [

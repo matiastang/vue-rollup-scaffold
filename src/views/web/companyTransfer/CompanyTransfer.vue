@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-22 18:45:00
+ * @LastEditTime: 2021-11-22 19:07:47
  * @FilePath: /datumwealth-openalpha-front/src/views/web/companyTransfer/CompanyTransfer.vue
  * @Description: 对公转账成功
 -->
@@ -93,7 +93,7 @@ export default defineComponent({
     setup() {
         const router = useRouter()
         const route = useRoute()
-        let store = useStore()
+        const store = useStore()
         const companyInfo = [
             {
                 title: '开户名称:',

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:55:53
- * @LastEditTime: 2021-11-22 18:39:29
+ * @LastEditTime: 2021-11-22 19:28:34
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/discount/Discount.vue
@@ -116,6 +116,7 @@
                 </div>
             </div>
         </div>
+        <LoginModel v-model="loginDialogVisible" @login="loginAction" />
         <WeixinModel
             :price="selectedMoney"
             :order="orederData.order.orderId"
@@ -143,11 +144,13 @@ import TransferModel from '@/components/transferModel/TransferModel.vue'
 import { ElMessage } from 'element-plus'
 import { orderType, addOd, payList } from '@/common/request/modules/pay/pay'
 import { PaymentType, WeiXinOdResponse } from '@/common/request/modules/pay/payInterface'
+import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 
 export default defineComponent({
     name: 'Discount',
     setup() {
         const router = useRouter()
+        const loginDialogVisible = ref(false)
         const timeArr = reactive([
             {
                 title: '1年',
@@ -238,6 +241,13 @@ export default defineComponent({
         })
         // 支付
         const payAction = () => {
+            // 用户token
+            const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
+            if (!userToken || userToken.trim() === '') {
+                // 未登录
+                loginDialogVisible.value = true
+                return
+            }
             for (let i = 0; i < paymentData.payments.length; i++) {
                 if (paymentData.payments[i].selected) {
                     if (paymentData.payments[i].payId === 3) {
@@ -267,6 +277,9 @@ export default defineComponent({
                 message: '请选择支付方式',
                 type: 'warning',
             })
+        }
+        const loginAction = () => {
+            loginDialogVisible.value = false
         }
         const weixinPayClose = () => {
             orederData.order = {
@@ -319,6 +332,8 @@ export default defineComponent({
             payAction,
             weixinPayClose,
             orederData,
+            loginAction,
+            loginDialogVisible,
             weixinDialogVisible,
             transferDialogVisible,
         }

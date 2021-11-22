@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-18 17:32:53
+ * @LastEditTime: 2021-11-22 19:18:31
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -92,12 +92,19 @@ import { routerToUserCenter } from 'utils/router/index'
 
 export default defineComponent({
     name: 'LoginModule',
+    props: {
+        jump: {
+            type: Boolean,
+            default: true,
+        },
+    },
+    emits: ['loginSuccess'],
     data() {
         return {
             activeName: 'login',
         }
     },
-    setup() {
+    setup(props, context) {
         const router = useRouter()
         const store = useStore()
         let inputPhone = ref('')
@@ -186,7 +193,11 @@ export default defineComponent({
                         message: res,
                         type: 'success',
                     })
-                    routerToUserCenter(store, router)
+                    if (props.jump) {
+                        routerToUserCenter(store, router)
+                    } else {
+                        context.emit('loginSuccess')
+                    }
                 })
                 .catch((err) => {
                     ElMessage({

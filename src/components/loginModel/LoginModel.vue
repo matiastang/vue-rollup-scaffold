@@ -1,15 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 18:20:27
- * @LastEditTime: 2021-11-08 18:41:37
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-22 19:22:18
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModel/LoginModel.vue
 -->
 <template>
     <div class="login-model">
         <el-dialog :="$attrs" center>
-            <LoginModule />
+            <LoginModule :jump="false" @loginSuccess="loginAction" />
         </el-dialog>
     </div>
 </template>
@@ -21,6 +21,15 @@ import LoginModule from '@/components/loginModule/LoginModule.vue'
 export default defineComponent({
     name: 'LoginModel',
     inheritAttrs: false,
+    emits: ['login'],
+    setup(props, context) {
+        const loginAction = () => {
+            context.emit('login')
+        }
+        return {
+            loginAction,
+        }
+    },
     components: {
         LoginModule,
     },
