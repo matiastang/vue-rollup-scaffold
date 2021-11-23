@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 19:35:04
- * @LastEditTime: 2021-11-19 15:31:56
+ * @LastEditTime: 2021-11-23 19:09:01
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/applyTrialModel/ApplyTrialModel.vue
@@ -67,15 +67,15 @@ export default defineComponent({
         },
         name: {
             type: String,
-            default: 'open12345678909',
+            default: '-',
         },
         phone: {
             type: String,
-            default: '12345678909',
+            default: '-',
         },
         email: {
             type: String,
-            default: '12345678909@123.com',
+            default: '-',
         },
     },
     emits: ['okAction', 'cancelAction'],

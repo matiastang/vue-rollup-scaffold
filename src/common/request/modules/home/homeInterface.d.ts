@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-23 16:32:02
+ * @LastEditTime: 2021-11-23 17:48:24
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
@@ -34,6 +34,7 @@ export interface ApiParamType {
     paramKey: string //参数名称key
     paramType: string //参数类型
     paramTypeRange: string //字段类型及范围
+    paramValue: string // 字段值
 }
 /**
  * 接口信息类型

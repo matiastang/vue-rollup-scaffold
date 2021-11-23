@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-23 16:58:29
+ * @LastEditTime: 2021-11-23 19:27:14
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -20,7 +20,7 @@
                 </el-option>
             </el-select>
             <div class="call-top-token-title defaultFont">token值:</div>
-            <div class="call-top-token defaultFont">{{ token }}</div>
+            <div class="call-top-token defaultFont">{{ appSecret ? appSecret : '-' }}</div>
         </div>
         <div class="call-bottom borderBox flexRowCenter">
             <div class="call-bottom-left borderBox">
@@ -38,47 +38,62 @@
                         <div class="bottom-right-parameters borderBox flexColumnCenter">
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">接口名称:</div>
-                                <div class="parameters-item-text defaultFont">机构信息</div>
+                                <div class="parameters-item-text defaultFont">
+                                    {{ getApiInfo ? getApiInfo.apiName : '-' }}
+                                </div>
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">接口ID:</div>
-                                <div class="parameters-item-text defaultFont">1314</div>
+                                <div class="parameters-item-text defaultFont">
+                                    {{ getApiInfo ? getApiInfo.apiInfoId : '-' }}
+                                </div>
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">请求方式:</div>
-                                <div class="parameters-item-text defaultFont">POST</div>
+                                <div class="parameters-item-text defaultFont">
+                                    {{ getApiInfo ? getApiInfo.requestMethod : '-' }}
+                                </div>
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">返回格式:</div>
-                                <div class="parameters-item-text defaultFont">JSON</div>
-                            </div>
-                            <div class="parameters-title borderBox defaultFont">API参数:</div>
-                            <div
-                                v-for="item in parametersData"
-                                :key="item.key"
-                                class="parameters-input-item borderBox flexRowCenter"
-                            >
-                                <div class="parameters-item-key-content borderBox flexRowCenter">
-                                    <div
-                                        v-show="item.must"
-                                        class="parameters-item-must defaultFont"
-                                    >
-                                        *
-                                    </div>
-                                    <div class="parameters-item-key defaultFont">
-                                        {{ item.key }}
-                                    </div>
+                                <div class="parameters-item-text defaultFont">
+                                    {{ getApiInfo ? getApiInfo.returnFormat : '-' }}
                                 </div>
+                            </div>
+                            <div
+                                v-if="getApiInfo && getApiInfo.apiParamList.length > 0"
+                                class="parameters-content"
+                            >
+                                <div class="parameters-title borderBox defaultFont">API参数:</div>
+                                <div
+                                    v-for="item in getApiInfo.apiParamList"
+                                    :key="item.paramKey"
+                                    class="parameters-input-item borderBox flexRowCenter"
+                                >
+                                    <div
+                                        class="parameters-item-key-content borderBox flexRowCenter"
+                                    >
+                                        <div
+                                            v-show="item.paramIsRequired === 1"
+                                            class="parameters-item-must defaultFont"
+                                        >
+                                            *
+                                        </div>
+                                        <div class="parameters-item-key defaultFont">
+                                            {{ item.paramKey }}
+                                        </div>
+                                    </div>
 
-                                <el-input
-                                    class="parameters-item-input defaultFont"
-                                    v-model="item.value"
-                                    :placeholder="`请输入${item.text}`"
-                                />
+                                    <el-input
+                                        class="parameters-item-input defaultFont"
+                                        v-model="item.paramValue"
+                                        :placeholder="`请输入${item.paramKey}`"
+                                    />
+                                </div>
                             </div>
                             <div
                                 class="apply-trial-button borderBox defaultFont"
-                                @click="showApplyTrialModel"
+                                @click="apiCallAction"
                             >
                                 调用接口
                             </div>
@@ -95,37 +110,81 @@
                                 style="margin-top: 42px"
                             >
                                 <div class="json-title defaultFont">返回内容:</div>
-                                <JsonView class="result-json" :data="resultJson" />
+                                <JsonView class="result-json" :data="resultJson.result" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <InterfaceAffix @click="showApplyTrialModel" />
+        <LoginModel v-model="loginDialogVisible" @login="loginAction" />
+        <OpenalphaModel
+            v-model="authenticationDialogVisible"
+            title="您还未实名认证，无法申请试用套餐"
+            okText="立即认证"
+            :hiddenCancel="true"
+            @okAction="authenticationOkAction"
+        />
+        <OpenalphaModel
+            v-model="buyDialogVisible"
+            title="您的优惠套餐已过期，请重新购买"
+            okText="立即购买"
+            :hiddenCancel="true"
+            @okAction="discountOkAction"
+        />
+        <OpenalphaModel
+            v-model="overdueDialogVisible"
+            title="您已经申请过试用套餐，不能再次申请"
+            okText="立即充值"
+            cancelText="购买套餐"
+            @okAction="overdueOkAction"
+            @cancelAction="overdueCancelAction"
+        />
+        <OpenalphaModel
+            v-model="nsfDialogVisible"
+            title="您的账户余额不足，请先充值"
+            okText="立即充值"
+            cancelText="申请试用"
+            :cancelStyle="{ color: '#8C8C8C', border: '1px solid #8C8C8C', background: 'white' }"
+            @okAction="rechargeOkAction"
+            @cancelAction="rechargeCancelAction"
+        />
         <ApplyTrialModel
             v-model="applyTrialDialogVisible"
+            :name="userName"
+            :phone="userPhone"
+            :email="userEmail"
             @okAction="applyTrialOkAction"
             @cancelAction="applyTrialCancelAction"
         />
+        <InterfaceAffix @click="showApplyTrialModel" />
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref, computed, watchSyncEffect } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import JsonView from 'vue3-json-view/src'
 import InfoList from '../interfaceInfo/components/infoList/InfoList.vue'
 import InterfaceAffix from '@/components/interfaceAffix/InterfaceAffix.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import { ElMessage } from 'element-plus'
 import { homeInterfaceNavigationTree } from '@/common/request/modules/home/home'
+import { apiInfoCode } from '@/common/request/modules/api/api'
 import { HotType } from '@/common/request/modules/home/homeInterface'
+import { useStore } from 'store/index'
+import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 
 export default defineComponent({
     name: 'InterfaceCall',
     setup() {
+        const store = useStore()
         const route = useRoute()
+        const router = useRouter()
+        const appSecret = computed(() => store.state.userModule.userLoginInfo.member.appSecret)
+        const certStatus = computed(() => store.state.userModule.userLoginInfo.member.certStatus)
+        const userName = computed(() => store.state.userModule.userLoginInfo.member.realName)
+        const userPhone = computed(() => store.state.userModule.userLoginInfo.member.phone)
+        const userEmail = computed(() => store.state.userModule.userLoginInfo.member.email)
         // 接口列表树
         const interfaceTree = reactive({
             tree: Array<HotType>(),
@@ -172,168 +231,24 @@ export default defineComponent({
         const selectApiAction = (id: number) => {
             selectApiId.value = id
         }
-        let requestJson = reactive({
-            result: {
-                historyNames: '贵州力源液压股份有限公司;',
-                cancelDate: null,
-                regStatus: '存续',
-            },
+        // 请求参数
+        const requestJson = computed(() => {
+            let json = Object.create(null)
+            const info = getApiInfo.value
+            if (info) {
+                for (let i = 0; i < info.apiParamList.length; i++) {
+                    const item = info.apiParamList[i]
+                    json[item.paramKey] = item.paramValue
+                }
+            }
+            return json
         })
-        let resultJson = reactive({
-            result: {
-                historyNames: '贵州力源液压股份有限公司;',
-                cancelDate: null,
-                regStatus: '存续',
-            },
+        // 返回类型
+        const resultJson = reactive({
+            result: {} as { res: any } | { err: any },
         })
-        let interfaceData = reactive([
-            {
-                title: '基本信息',
-                count: 1,
-                selected: false,
-                url: 'static/header/search.png',
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 2,
-                selected: false,
-                url: 'static/header/search.png',
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 3,
-                selected: false,
-                url: 'static/header/search.png',
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 4,
-                selected: false,
-                url: 'static/header/search.png',
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 5,
-                selected: true,
-                url: 'static/header/search.png',
-                data: [
-                    {
-                        title: '基金资产配置',
-                        count: 2,
-                        selected: true,
-                        data: [
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                        ],
-                    },
-                    {
-                        title: '基金资产配置',
-                        count: 3,
-                        selected: false,
-                        data: [
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                        ],
-                    },
-                ],
-            },
-        ])
         // token选择
-        let selectOptions = reactive([
+        const selectOptions = reactive([
             {
                 value: 0,
                 label: '充值调用',
@@ -343,46 +258,138 @@ export default defineComponent({
                 label: '优惠调用',
             },
         ])
-        let selectTokenType = ref(0)
-        let token = computed(() =>
-            selectTokenType.value === 0
-                ? 'e2aef4ea-cf17-4485-b5c4-c11120197c03'
-                : 'abcdefghi-cf17-4485-b5c4-c11120197c03'
-        )
-        // 参数信息
-        let parametersData = reactive([
-            {
-                key: 'name',
-                text: '名字',
-                must: true,
-                value: '',
-            },
-            {
-                key: 'age',
-                text: '年龄',
-                must: false,
-                value: '',
-            },
-        ])
+        const selectTokenType = ref(0)
+        const loginDialogVisible = ref(false)
+        const loginAction = () => {
+            loginDialogVisible.value = false
+        }
+        const authenticationDialogVisible = ref(false)
+        const authenticationOkAction = () => {
+            router.push({
+                path: '/user/account/certification',
+            })
+        }
+        const buyDialogVisible = ref(false)
+        const discountOkAction = () => {
+            buyDialogVisible.value = false
+            router.push({
+                path: '/discount',
+            })
+        }
+        const overdueDialogVisible = ref(false)
+        const overdueOkAction = () => {
+            overdueDialogVisible.value = false
+            router.push({
+                path: '/recharge',
+            })
+        }
+        const overdueCancelAction = () => {
+            overdueDialogVisible.value = false
+            router.push({
+                path: '/discount',
+            })
+        }
+        const nsfDialogVisible = ref(false)
+        const rechargeOkAction = () => {
+            nsfDialogVisible.value = false
+            router.push({
+                path: '/recharge',
+            })
+        }
+        const rechargeCancelAction = () => {
+            nsfDialogVisible.value = false
+            overdueDialogVisible.value = true
+        }
         // 申请接口试用
-        let applyTrialDialogVisible = ref(false)
+        const applyTrialDialogVisible = ref(false)
         const showApplyTrialModel = () => {
             applyTrialDialogVisible.value = true
         }
+        const applyTrialOkAction = () => {
+            // TODO: - 校验
+            ElMessage({
+                message: '申请功能开发中...',
+                type: 'warning',
+            })
+        }
+        const applyTrialCancelAction = () => {
+            router.push({
+                path: '/user/account/setting',
+            })
+        }
+        /**
+         * 接口试用
+         */
+        const apiCallAction = () => {
+            // 用户token
+            const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
+            if (!userToken || userToken.trim() === '') {
+                // 未登录
+                loginDialogVisible.value = true
+                return
+            }
+            if (certStatus.value !== 1) {
+                authenticationDialogVisible.value = true
+                return
+            }
+            if (selectTokenType.value === 0) {
+                nsfDialogVisible.value = true
+                return
+            }
+            if (selectTokenType.value === 1) {
+                buyDialogVisible.value = true
+                return
+            }
+            const info = getApiInfo.value
+            if (info) {
+                apiInfoCode(info.apiCode, 'v1', requestJson)
+                    .then((res) => {
+                        resultJson.result = {
+                            res,
+                        }
+                    })
+                    .catch((err) => {
+                        resultJson.result = {
+                            err,
+                        }
+                    })
+                return
+            }
+            ElMessage({
+                message: '接口信息错误',
+                type: 'error',
+            })
+        }
         return {
+            appSecret,
             interfaceTree,
             getApiInfo,
             selectApiId,
             selectApiAction,
             requestJson,
             resultJson,
-            interfaceData,
-            applyTrialDialogVisible,
-            showApplyTrialModel,
             selectOptions,
             selectTokenType,
-            token,
-            parametersData,
+            applyTrialOkAction,
+            applyTrialCancelAction,
+            apiCallAction,
+            loginDialogVisible,
+            loginAction,
+            authenticationDialogVisible,
+            authenticationOkAction,
+            buyDialogVisible,
+            discountOkAction,
+            overdueDialogVisible,
+            overdueOkAction,
+            overdueCancelAction,
+            nsfDialogVisible,
+            rechargeOkAction,
+            rechargeCancelAction,
+            userName,
+            userPhone,
+            userEmail,
+            applyTrialDialogVisible,
+            showApplyTrialModel,
         }
     },
     components: {
@@ -390,30 +397,6 @@ export default defineComponent({
         InterfaceAffix,
         ApplyTrialModel,
         JsonView,
-    },
-    methods: {
-        applyTrialOkAction() {
-            // TODO: - 校验
-            ElMessage({
-                message: '申请功能开发中...',
-                type: 'warning',
-            })
-        },
-        applyTrialCancelAction() {
-            // TODO: - 校验
-            ElMessage({
-                message: '修改信息功能开发中...',
-                type: 'warning',
-            })
-        },
-        /**
-         * 跳转接口试用
-         */
-        applyTrialAction(id: string) {
-            this.$router.push({
-                path: `/interface/call/${id}`,
-            })
-        },
     },
 })
 </script>
@@ -499,40 +482,43 @@ export default defineComponent({
                                 line-height: 24px;
                             }
                         }
-                        .parameters-input-item {
+                        .parameters-content {
                             width: 100%;
-                            justify-content: flex-start;
-                            align-items: center;
-                            margin-top: 20px;
-                            padding-right: 24px;
-                            .parameters-item-key-content {
-                                width: 100px;
-                                .parameters-item-must,
-                                .parameters-item-key {
-                                    max-width: 90%;
-                                    font-size: 16px;
-                                    color: $titleColor;
-                                    line-height: 24px;
-                                    margin-right: 8px;
+                            .parameters-input-item {
+                                width: 100%;
+                                justify-content: flex-start;
+                                align-items: center;
+                                margin-top: 20px;
+                                padding-right: 24px;
+                                .parameters-item-key-content {
+                                    width: 100px;
+                                    .parameters-item-must,
+                                    .parameters-item-key {
+                                        max-width: 90%;
+                                        font-size: 16px;
+                                        color: $titleColor;
+                                        line-height: 24px;
+                                        margin-right: 8px;
+                                    }
+                                    .parameters-item-must {
+                                        max-width: 10%;
+                                        color: $themeColor;
+                                    }
                                 }
-                                .parameters-item-must {
-                                    max-width: 10%;
-                                    color: $themeColor;
+                                .parameters-item-input {
+                                    flex-shrink: 0;
+                                    width: calc(100% - 100px);
                                 }
                             }
-                            .parameters-item-input {
-                                flex-shrink: 0;
-                                width: calc(100% - 100px);
+                            .parameters-title {
+                                width: 100%;
+                                padding-left: 18px;
+                                margin-top: 20px;
+                                font-size: 16px;
+                                color: $themeColor;
+                                line-height: 24px;
+                                text-align: left;
                             }
-                        }
-                        .parameters-title {
-                            width: 100%;
-                            padding-left: 18px;
-                            margin-top: 20px;
-                            font-size: 16px;
-                            color: $themeColor;
-                            line-height: 24px;
-                            text-align: left;
                         }
                         .apply-trial-button {
                             width: 118px;

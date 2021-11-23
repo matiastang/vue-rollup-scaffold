@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 18:47:23
- * @LastEditTime: 2021-11-09 09:49:28
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 19:04:34
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/openalphaModel/OpenalphaModel.vue
 -->
@@ -58,13 +58,17 @@ export default defineComponent({
         },
     },
     emits: ['okAction', 'cancelAction'],
-    methods: {
-        modelOkAction() {
-            this.$emit('okAction')
-        },
-        modelCancelAction() {
-            this.$emit('cancelAction')
-        },
+    setup(props, context) {
+        const modelOkAction = () => {
+            context.emit('okAction')
+        }
+        const modelCancelAction = () => {
+            context.emit('cancelAction')
+        }
+        return {
+            modelOkAction,
+            modelCancelAction,
+        }
     },
 })
 </script>
