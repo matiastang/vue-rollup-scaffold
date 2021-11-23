@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 15:19:59
- * @LastEditTime: 2021-11-10 16:33:32
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 15:25:24
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interfaceInfo/components/infoListCell/InfoListCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoListCell/InfoListCell.vue
 -->
 <template>
     <div
@@ -13,40 +13,31 @@
             'borderBox',
             'cursorP',
             'flexRowCenter',
-            { 'info-list-cell-selected': data.selected },
+            { 'info-list-cell-selected': selected },
         ]"
-        @click="cellAction"
     >
         <div class="cell-title defaultFont" :style="{ 'padding-left': `${left}px` }">
-            {{ data.title }}
+            {{ title }}
         </div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { InterfaceListCell } from '../../interfaceInfo'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'InfoListCell',
     props: {
-        data: {
-            type: Object as PropType<InterfaceListCell>,
-            default: () => {
-                return {
-                    title: '基金基本信息',
-                    selected: false,
-                }
-            },
+        title: {
+            type: String,
+            default: '',
+        },
+        selected: {
+            type: Boolean,
+            default: false,
         },
         left: {
             type: Number,
             default: 48,
-        },
-    },
-    emits: ['selectAction'],
-    methods: {
-        cellAction() {
-            this.$emit('selectAction')
         },
     },
 })

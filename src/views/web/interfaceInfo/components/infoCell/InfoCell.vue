@@ -1,57 +1,85 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:50:34
- * @LastEditTime: 2021-11-10 17:19:34
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 17:33:11
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interfaceInfo/components/infoCell/InfoCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoCell/InfoCell.vue
 -->
 <template>
     <div class="info-cell borderBox flexRowCenter">
         <div class="cell-left flexRowCenter">
-            <div class="cell-icon"></div>
+            <img class="cell-icon" :src="url" />
             <div class="cell-title-content flexColumnCenter">
-                <div class="cell-title defaultFont">{{ data.title }}</div>
+                <div class="cell-title defaultFont">{{ title || '-' }}</div>
                 <div class="cell-item flexRowCenter">
                     <div class="cell-item-title defaultFont">描述:</div>
-                    <div class="cell-text defaultFont">{{ data.text }}</div>
+                    <div class="cell-text defaultFont">{{ text || '-' }}</div>
                 </div>
                 <div class="cell-last flexRowCenter">
                     <div class="cell-last-item flexRowCenter">
                         <div class="cell-item-title defaultFont">接口ID:</div>
-                        <div class="cell-id defaultFont">{{ data.id }}</div>
+                        <div class="cell-id defaultFont">{{ id || '-' }}</div>
                     </div>
                     <div class="cell-last-item flexRowCenter" style="margin-left: 30px">
                         <div class="cell-item-title defaultFont">价格:</div>
-                        <div class="cell-price defaultFont">{{ `${data.price}元` }}</div>
+                        <div class="cell-price defaultFont">
+                            {{ `${price ? price.toFixed(2) : '-'}元` }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="cell-button cursorP defaultFont" @click.stop="cellButtonAction(data.id)">
-            试用接口
-        </div>
+        <div class="cell-button cursorP defaultFont" @click.stop="cellButtonAction">试用接口</div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { InterfaceInfo } from '../../interfaceInfo'
+import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+import { interface_id_check } from 'utils/check/index'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'InfoCell',
     props: {
-        data: {
-            type: Object as PropType<InterfaceInfo>,
-            default: () => {
-                return {}
-            },
+        url: {
+            type: String,
+            default: '',
+        },
+        title: {
+            type: String,
+            default: '-',
+        },
+        text: {
+            type: String,
+            default: '-',
+        },
+        id: {
+            type: Number,
+            default: 0,
+        },
+        price: {
+            type: Number,
+            default: 0,
         },
     },
-    emits: ['trialAction'],
-    methods: {
-        cellButtonAction(id: string) {
-            this.$emit('trialAction', id)
-        },
+    setup(props) {
+        const router = useRouter()
+        const cellButtonAction = () => {
+            if (interface_id_check(props.id)) {
+                router.push({
+                    path: `/interface/call/${props.id}`,
+                })
+            } else {
+                ElMessage({
+                    message: '接口id错误',
+                    type: 'error',
+                })
+            }
+        }
+        return {
+            cellButtonAction,
+        }
     },
 })
 </script>

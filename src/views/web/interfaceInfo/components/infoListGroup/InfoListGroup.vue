@@ -1,59 +1,64 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 15:36:48
- * @LastEditTime: 2021-11-10 16:44:13
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 15:21:55
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interfaceInfo/components/infoListGroup/InfoListGroup.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoListGroup/InfoListGroup.vue
 -->
 <template>
     <div class="info-list-group borderBox flexColumnCenter">
-        <div class="group-content borderBox cursorP flexRowCenter" @click="groupAction">
+        <div class="group-content borderBox cursorP flexRowCenter" @click="selectAction">
             <div class="cell-left flexRowCenter">
-                <img v-if="data.url" class="cell-left-icon" :src="data.url" />
-                <div
-                    class="cell-title defaultFont"
-                    :style="{ 'margin-left': `${data.url ? 0 : 32}px` }"
-                >
-                    {{ data.title }}
+                <img v-if="url !== ''" class="cell-left-icon" :src="url" />
+                <div class="cell-title defaultFont" :style="{ 'margin-left': `${url ? 0 : 32}px` }">
+                    {{ title }}
                 </div>
             </div>
             <div class="cell-right flexRowCenter">
-                <div class="cell-value defaultFont">{{ `(${data.count})` }}</div>
-                <img class="cell-right-icon" />
+                <div class="cell-value defaultFont">{{ `(${count})` }}</div>
+                <img
+                    class="cell-right-icon"
+                    :src="selectedGroup ? 'static/api/api_off.svg' : 'static/api/api_on.svg'"
+                />
             </div>
         </div>
-        <div v-show="showGroup" class="slot-content">
+        <div v-show="selectedGroup" class="slot-content">
             <slot></slot>
         </div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
-import { InterfaceListGroup } from '../../interfaceInfo'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
     name: 'InfoListGroup',
     props: {
-        data: {
-            type: Object as PropType<InterfaceListGroup>,
-            default: () => {
-                return {
-                    title: '基本信息',
-                    count: 0,
-                    selected: false,
-                }
-            },
+        title: {
+            type: String,
+            default: '',
+        },
+        url: {
+            type: String,
+            default: '',
+        },
+        count: {
+            type: Number,
+            default: 0,
+        },
+        selected: {
+            type: Boolean,
+            default: false,
         },
     },
     setup(props) {
-        let showGroup = ref(props.data.selected)
-        const groupAction = () => {
-            showGroup.value = !showGroup.value
+        const selectedGroup = ref(props.selected)
+        const selectAction = () => {
+            selectedGroup.value = !selectedGroup.value
         }
         return {
-            showGroup,
-            groupAction,
+            selectedGroup,
+            selectAction,
         }
     },
 })
@@ -85,11 +90,11 @@ export default defineComponent({
                 font-size: 16px;
                 color: $titleColor;
                 line-height: 24px;
+                margin-right: 8px;
             }
             .cell-right-icon {
-                width: 24px;
-                height: 24px;
-                background: $themeColor;
+                width: 16px;
+                height: 16px;
             }
         }
     }

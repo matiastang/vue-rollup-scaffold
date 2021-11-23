@@ -1,62 +1,69 @@
 <!--
  * @Author: matiastang
- * @Date: 2021-11-10 19:40:26
+ * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-11 14:50:43
- * @FilePath: /datumwealth-openalpha-front/src/views/interface/components/hotCell/HotCell.vue
- * @Description: 热榜cell
+ * @LastEditTime: 2021-11-23 17:34:51
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/hotCell/HotCell.vue
+ * @Description: 接口列表热榜cell
 -->
 <template>
     <div class="hot-cell borderBox flexColumnCenter">
         <div class="cell-top borderBox flexRowCenter">
-            <div class="cell-icon"></div>
-            <div class="cell-title defaultFont">{{ title }}</div>
+            <img class="cell-icon" :src="url" />
+            <div class="cell-title defaultFont">{{ title || '-' }}</div>
         </div>
         <div
             class="cell-bottom borderBox flexColumnCenter"
             :style="{ 'border-left': `${showLine ? 0 : 1}px solid #dfdfdf` }"
         >
-            <div class="cell-text textLine2 defaultFont">{{ text }}</div>
-            <div class="cell-button cursorP defaultFont" @click="clickAction(id)">查看接口</div>
+            <div class="cell-text textLine2 defaultFont">{{ text || '-' }}</div>
+            <div class="cell-button cursorP defaultFont" @click="clickAction">查看接口</div>
         </div>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { interface_id_check } from 'utils/check/index'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'HotCell',
     props: {
+        url: {
+            type: String,
+            default: '',
+        },
         title: {
             type: String,
-            default: '名称',
+            default: '-',
         },
         text: {
             type: String,
-            default:
-                '基金基本要素接口描述，基金基本要素接口描述,基金基本要素接口描述，基金基本要素接口描述，基金基本要素接口描述',
+            default: '-',
         },
         id: {
-            type: String,
-            default: '',
+            type: Number,
+            default: -1,
         },
         showLine: {
             type: Boolean,
             default: false,
         },
     },
-    emits: {
-        /**
-         * 查看接口
-         */
-        onClick: (id: string) => {
-            return interface_id_check(id)
-        },
-    },
-    setup(props, context) {
-        const clickAction = (id: string) => {
-            context.emit('onClick', id)
+    setup(props) {
+        const router = useRouter()
+        const clickAction = () => {
+            if (interface_id_check(props.id)) {
+                router.push({
+                    path: `/interface/info/${props.id}`,
+                })
+            } else {
+                ElMessage({
+                    message: '接口id错误',
+                    type: 'error',
+                })
+            }
         }
         return {
             clickAction,

@@ -1,68 +1,54 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-11 13:49:14
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 14:23:54
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interface/Interface.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
 -->
 <template>
     <div class="interface flexColumnCenter">
         <div class="interface-hot">
-            <InterfaceHot title="热榜一" />
-            <!-- <SwiperSlider style="height: 100%">
-                <swiper-slide class="swiper-slide">
-                    <InterfaceHot title="热榜一" />
-                </swiper-slide>
-                <swiper-slide class="swiper-slide">
-                    <InterfaceHot title="热榜二" />
-                </swiper-slide>
-                <swiper-slide class="swiper-slide">
-                    <InterfaceHot title="热榜三" />
-                </swiper-slide>
-            </SwiperSlider> -->
+            <InterfaceHot :data="hotListData.list" />
         </div>
         <div class="interface-bottom flexRowCenter">
             <div class="interface-left borderBox flexRowCenter">
                 <InterfaceList
-                    :listData="interfaceData"
                     class="interface-list"
+                    :data="interfaceTree.tree"
+                    :selectIndex="selectedIndex"
                     @selectAction="selectAction"
                 />
             </div>
             <div class="interface-right borderBox flexColumnCenter">
                 <div class="interface-right-title defaultFont">
-                    {{ `基金基本信息(${interfaceAllCount})` }}
+                    {{ `${selectInterfaceData && selectInterfaceData.categoryName}(${allCount})` }}
                 </div>
-                <div v-for="dataItem in interfaceListData" :key="dataItem.title">
-                    <div v-if="Array.isArray(dataItem.data)">
+                <div v-if="selectInterfaceData && selectInterfaceData.categoryType === 0">
+                    <div
+                        v-for="dataItem in selectInterfaceData.children"
+                        :key="dataItem.categoryId"
+                    >
                         <div class="interface-next-content flexRowCenter">
                             <div class="interface-next-line"></div>
                             <div class="interface-next-title">
-                                {{ `${dataItem.title}(${dataItem.data.length})` }}
+                                {{ `${dataItem.categoryName}(${dataItem.apiInfoList.length})` }}
                             </div>
                         </div>
-
                         <BaseInfoCell
-                            v-for="item in dataItem.data"
-                            :key="item.title"
-                            :title="item.title"
-                            :text="item.text"
-                            :id="item.id"
-                            :price="item.price"
-                            @trialAction="applyTrialAction"
-                            @click="infoCellAction(item.id)"
+                            v-for="item in dataItem.apiInfoList"
+                            :key="item.apiInfoId"
+                            :data="item"
+                            @click="infoCellAction(item.apiInfoId)"
                         />
                     </div>
+                </div>
+                <div v-else-if="selectInterfaceData && selectInterfaceData.categoryType === 1">
                     <BaseInfoCell
-                        v-else
-                        :key="dataItem.title"
-                        :title="dataItem.title"
-                        :text="dataItem.text"
-                        :id="dataItem.id"
-                        :price="dataItem.price"
-                        @trialAction="applyTrialAction"
-                        @click="infoCellAction(dataItem.id)"
+                        v-for="item in selectInterfaceData.apiInfoList"
+                        :key="item.apiInfoId"
+                        :data="item"
+                        @click="infoCellAction(item.apiInfoId)"
                     />
                 </div>
             </div>
@@ -70,194 +56,80 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from 'vue'
-import { InterfaceData, InterfaceBaseInfo, InterfaceInfo } from './interface'
+import { defineComponent, reactive, ref, computed, watchSyncEffect } from 'vue'
 import InterfaceList from './components/interfaceList/InterfaceList.vue'
 import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
 import InterfaceHot from './components/interfaceHot/InterfaceHot.vue'
-import SwiperSlider from '@/components/swiperSlider/SwiperSlider.vue'
 import { ElMessage } from 'element-plus'
+import { apiHotInterface } from '@/common/request/modules/api/api'
+import { homeInterfaceNavigationTree } from '@/common/request/modules/home/home'
+import { HotType } from '@/common/request/modules/home/homeInterface'
+import { ListRecoType } from '@/common/request/modules/api/apiInterface'
 
 export default defineComponent({
     name: 'Interface',
     setup() {
-        let selectIndex = ref(4)
-        let interfaceData = reactive([
-            {
-                title: '基本信息',
-                count: 1,
-                selected: false,
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 2,
-                selected: false,
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 3,
-                selected: false,
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 4,
-                selected: false,
-                data: [
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                    {
-                        title: '基金基本要素',
-                        text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                        id: '1314',
-                        price: '0.15',
-                    },
-                ],
-            },
-            {
-                title: '基本信息',
-                count: 5,
-                selected: true,
-                data: [
-                    {
-                        title: '基金资产配置',
-                        data: [
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                        ],
-                    },
-                    {
-                        title: '基金资产配置',
-                        data: [
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                            {
-                                title: '基金基本要素',
-                                text: '可以通过公司名称或ID获取相关基金信息，包括私募基金管理人名称、法定代表人/执行事务合伙人、机构类型、登记编号、成立日期等字段的相关信息',
-                                id: '1314',
-                                price: '0.15',
-                            },
-                        ],
-                    },
-                ],
-            },
-        ])
-        let interfaceListData = computed(() => interfaceData[selectIndex.value].data)
-        let interfaceAllCount = computed(() => interfaceData[selectIndex.value].count)
+        // 热榜
+        const hotListData = reactive({
+            list: [] as Array<ListRecoType>,
+        })
+        watchSyncEffect(async () => {
+            hotListData.list = await apiHotInterface()
+        })
+        // 接口列表树
+        const interfaceTree = reactive({
+            tree: Array<HotType>(),
+        })
+        watchSyncEffect(async () => {
+            interfaceTree.tree = await homeInterfaceNavigationTree()
+        })
+        // 选择的分类
+        let selectIndex = ref(0)
+        // 切换分类
         const selectAction = (index: number) => {
             selectIndex.value = index
-            for (let i = 0; i < interfaceData.length; i++) {
-                interfaceData[i].selected = i === index
-            }
         }
+        const selectInterfaceData = computed(() => {
+            return interfaceTree.tree[selectIndex.value]
+        })
+        const allCount = computed(() => {
+            let num = 0
+            const data = selectInterfaceData.value
+            if (!data) {
+                return num
+            }
+            if (data.categoryType === 1) {
+                // 叶子节点
+                let apiList = data.apiInfoList
+                num += apiList.length
+            } else {
+                const children = data.children
+                if (children) {
+                    for (let j = 0; j < children.length; j++) {
+                        const element = children[j]
+                        if (element.categoryType === 1) {
+                            // 叶子节点
+                            let childrenApiList = element.apiInfoList
+                            num += childrenApiList.length
+                        }
+                    }
+                }
+            }
+            return num
+        })
         return {
+            hotListData,
+            interfaceTree,
             selectIndex,
             selectAction,
-            interfaceData,
-            interfaceAllCount,
-            interfaceListData,
+            allCount,
+            selectInterfaceData,
         }
     },
     components: {
         InterfaceList,
         BaseInfoCell,
         InterfaceHot,
-        SwiperSlider,
-    },
-    methods: {
-        /**
-         * 跳转到接口试用界面
-         */
-        applyTrialAction(interfaceId: string) {
-            this.$router.push({
-                path: `/interface/call/${interfaceId}`,
-            })
-        },
-        /**
-         * 跳转到接口详情界面
-         */
-        infoCellAction(interfaceId: string) {
-            this.$router.push({
-                path: `/interface/info/${interfaceId}`,
-            })
-        },
     },
 })
 </script>

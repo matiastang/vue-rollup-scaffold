@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 16:53:09
- * @LastEditTime: 2021-11-09 17:12:54
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 14:27:50
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interface/components/interfaceListCell/InterfaceListCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/interfaceListCell/InterfaceListCell.vue
 -->
 <template>
     <div
@@ -17,30 +17,59 @@
         ]"
     >
         <div class="cell-left flexRowCenter">
-            <div class="cell-icon"></div>
-            <div class="cell-title defaultFont">{{ title }}</div>
+            <img class="cell-icon" :src="data.categoryIconUrl" />
+            <div class="cell-title defaultFont">{{ data.categoryName }}</div>
         </div>
         <div class="cell-value defaultFont">{{ `(${count})` }}</div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
+import { HotType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     name: 'InterfaceListCell',
     props: {
-        title: {
-            type: String,
-            default: '名称',
-        },
-        count: {
-            type: Number,
-            default: 0,
+        data: {
+            type: Object as PropType<HotType>,
+            default: () => {
+                return {}
+            },
         },
         selected: {
             type: Boolean,
             default: false,
         },
+    },
+    setup(props) {
+        /**
+         * 接口总数
+         */
+        const count = computed(() => {
+            let num = 0
+            if (props.data.categoryType === 1) {
+                // 叶子节点
+                let apiList = props.data.apiInfoList
+                num += apiList.length
+            } else {
+                const children = props.data.children
+                if (children) {
+                    for (let j = 0; j < children.length; j++) {
+                        const element = children[j]
+                        if (element.categoryType === 1) {
+                            // 叶子节点
+                            let childrenApiList = element.apiInfoList
+                            num += childrenApiList.length
+                        }
+                    }
+                }
+            }
+            return num
+        })
+        // 选中的列表
+        return {
+            count,
+        }
     },
 })
 </script>
@@ -55,7 +84,6 @@ export default defineComponent({
         .cell-icon {
             width: 24px;
             height: 24px;
-            background: $themeColor;
             margin-right: 8px;
         }
         .cell-title {
@@ -73,9 +101,6 @@ export default defineComponent({
 .cell-selected {
     background: $themeColor;
     .cell-left {
-        .cell-icon {
-            background: #d8d8d8;
-        }
         .cell-title {
             color: $themeBgColor;
         }
@@ -87,9 +112,6 @@ export default defineComponent({
 .interface-list-cell:hover {
     background: rgba(214, 89, 40, 0.5);
     .cell-left {
-        .cell-icon {
-            background: #d8d8d8;
-        }
         .cell-title {
             color: $themeBgColor;
         }

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 17:20:05
+ * @LastEditTime: 2021-11-23 16:32:02
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
@@ -20,6 +20,20 @@ export interface SolutionType {
     target: string
     title: string
     updateTime: string
+}
+
+/**
+ * 接口参数类型
+ */
+export interface ApiParamType {
+    paramDbType: string //输出参数数据库对应字段类型
+    paramDeletedFlag: number
+    paramExplain: string //字段说明
+    paramId: number
+    paramIsRequired: number //入参是否必传 0=：否,1=：是
+    paramKey: string //参数名称key
+    paramType: string //参数类型
+    paramTypeRange: string //字段类型及范围
 }
 /**
  * 接口信息类型
@@ -42,6 +56,7 @@ export interface ApiInfoType {
     apiIsShow: number
     apiName: string
     apiOrderNum: number
+    apiParamList: ApiParamType[]
     apiPrice: number
     apiTable: string
     apiTableName: string

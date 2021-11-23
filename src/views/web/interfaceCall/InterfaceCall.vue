@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-10 19:37:18
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 16:58:29
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interfaceCall/InterfaceCall.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
 -->
 <template>
     <div class="interface-call borderBox flexColumnCenter">
@@ -24,7 +24,12 @@
         </div>
         <div class="call-bottom borderBox flexRowCenter">
             <div class="call-bottom-left borderBox">
-                <InfoList class="left-list" :listData="interfaceData" />
+                <InfoList
+                    class="left-list"
+                    :data="interfaceTree.tree"
+                    :selectedId="selectApiId"
+                    @select="selectApiAction"
+                />
             </div>
             <div class="call-bottom-right borderBox flexRowCenter">
                 <div class="call-bottom-right-content">
@@ -107,16 +112,66 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from 'vue'
+import { defineComponent, reactive, ref, computed, watchSyncEffect } from 'vue'
+import { useRoute } from 'vue-router'
 import JsonView from 'vue3-json-view/src'
 import InfoList from '../interfaceInfo/components/infoList/InfoList.vue'
 import InterfaceAffix from '@/components/interfaceAffix/InterfaceAffix.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import { ElMessage } from 'element-plus'
+import { homeInterfaceNavigationTree } from '@/common/request/modules/home/home'
+import { HotType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     name: 'InterfaceCall',
     setup() {
+        const route = useRoute()
+        // 接口列表树
+        const interfaceTree = reactive({
+            tree: Array<HotType>(),
+        })
+        watchSyncEffect(async () => {
+            interfaceTree.tree = await homeInterfaceNavigationTree()
+        })
+        // 选择了api
+        const selectApiId = ref(Number(route.params.id))
+        // 选择的api信息
+        const getApiInfo = computed(() => {
+            const apiTree = interfaceTree.tree
+            for (let i = 0; i < apiTree.length; i++) {
+                const item = apiTree[i]
+                if (item.categoryType === 1) {
+                    const apiList = item.apiInfoList
+                    for (let j = 0; j < apiList.length; j++) {
+                        if (apiList[j].apiInfoId === selectApiId.value) {
+                            return apiList[j]
+                        }
+                    }
+                    return null
+                } else {
+                    const children = item.children
+                    if (children) {
+                        for (let j = 0; j < children.length; j++) {
+                            const element = children[j]
+                            if (element.categoryType === 1) {
+                                const apiList = item.apiInfoList
+                                for (let k = 0; k < apiList.length; k++) {
+                                    if (apiList[k].apiInfoId === selectApiId.value) {
+                                        return apiList[k]
+                                    }
+                                }
+                                return null
+                            }
+                        }
+                    }
+                }
+            }
+            return null
+        })
+        // 切换选择
+        const selectApiAction = (id: number) => {
+            selectApiId.value = id
+        }
         let requestJson = reactive({
             result: {
                 historyNames: '贵州力源液压股份有限公司;',
@@ -315,6 +370,10 @@ export default defineComponent({
             applyTrialDialogVisible.value = true
         }
         return {
+            interfaceTree,
+            getApiInfo,
+            selectApiId,
+            selectApiAction,
             requestJson,
             resultJson,
             interfaceData,

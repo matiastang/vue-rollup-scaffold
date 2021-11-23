@@ -1,62 +1,87 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 17:16:04
- * @LastEditTime: 2021-11-10 10:37:10
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 17:36:15
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interface/components/baseInfoCell/BaseInfoCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/baseInfoCell/BaseInfoCell.vue
 -->
 <template>
-    <div class="base-info-cell borderBox cursorP flexRowCenter">
+    <div class="base-info-cell borderBox cursorP flexRowCenter" @click="infoCellAction">
         <div class="cell-left flexRowCenter">
-            <div class="cell-icon"></div>
+            <img class="cell-icon" :src="data.apiIconUrl" />
             <div class="cell-title-content flexColumnCenter">
-                <div class="cell-title defaultFont">{{ title }}</div>
+                <div class="cell-title defaultFont">{{ data.apiName }}</div>
                 <div class="cell-item flexRowCenter">
                     <div class="cell-item-title defaultFont">描述:</div>
-                    <div class="cell-text defaultFont">{{ text }}</div>
+                    <div class="cell-text defaultFont">{{ data.apiDescribe }}</div>
                 </div>
                 <div class="cell-item flexRowCenter">
                     <div class="cell-item-title defaultFont">接口ID:</div>
-                    <div class="cell-id defaultFont">{{ id }}</div>
+                    <div class="cell-id defaultFont">{{ data.apiInfoId }}</div>
                 </div>
                 <div class="cell-item cell-item-last flexRowCenter">
                     <div class="cell-item-title defaultFont">价格:</div>
-                    <div class="cell-price defaultFont">{{ `${price}元` }}</div>
+                    <div class="cell-price defaultFont">{{ `${data.apiPrice.toFixed(2)}元` }}</div>
                 </div>
             </div>
         </div>
-        <div class="cell-button defaultFont" @click.stop="cellButtonAction(id)">试用接口</div>
+        <div class="cell-button defaultFont" @click.stop="cellButtonAction">试用接口</div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { useRouter } from 'vue-router'
+import { ApiInfoType } from '@/common/request/modules/home/homeInterface'
+import { interface_id_check } from 'utils/check/index'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'BaseInfoCell',
     props: {
-        title: {
-            type: String,
-            default: '名称',
-        },
-        text: {
-            type: String,
-            default: '描述',
-        },
-        id: {
-            type: String,
-            default: 'id',
-        },
-        price: {
-            type: String,
-            default: '0.15',
+        data: {
+            type: Object as PropType<ApiInfoType>,
+            default: () => {
+                return {}
+            },
         },
     },
-    emits: ['trialAction'],
-    methods: {
-        cellButtonAction(id: string) {
-            this.$emit('trialAction', id)
-        },
+    setup(props) {
+        const router = useRouter()
+        /**
+         * 跳转到接口试用界面
+         */
+        const cellButtonAction = () => {
+            if (interface_id_check(props.data.apiInfoId)) {
+                router.push({
+                    path: `/interface/call/${props.data.apiInfoId}`,
+                })
+            } else {
+                ElMessage({
+                    message: '接口id错误',
+                    type: 'error',
+                })
+            }
+        }
+        /**
+         * 跳转到接口详情界面
+         */
+        const infoCellAction = () => {
+            if (interface_id_check(props.data.apiInfoId)) {
+                router.push({
+                    path: `/interface/info/${props.data.apiInfoId}`,
+                })
+            } else {
+                ElMessage({
+                    message: '接口id错误',
+                    type: 'error',
+                })
+            }
+        }
+        return {
+            infoCellAction,
+            cellButtonAction,
+        }
     },
 })
 </script>

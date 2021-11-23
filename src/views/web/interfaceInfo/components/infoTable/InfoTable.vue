@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 14:37:21
- * @LastEditTime: 2021-11-10 15:17:41
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-23 16:41:23
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/interfaceInfo/components/infoTable/InfoTable.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoTable/InfoTable.vue
 -->
 <template>
     <div class="info-table borderBox flexRowCenter">
@@ -26,6 +26,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { InterfaceInfoTableHeader } from '../../interfaceInfo'
+import { ApiParamType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     name: 'InfoTable',
@@ -37,16 +38,10 @@ export default defineComponent({
             },
         },
         data: {
-            type: Array,
+            type: Array as PropType<ApiParamType[]>,
             default: () => {
                 return []
             },
-        },
-    },
-    emits: ['trialAction'],
-    methods: {
-        cellButtonAction(id: string) {
-            this.$emit('trialAction', id)
         },
     },
 })
