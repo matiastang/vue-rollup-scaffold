@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-23 17:27:10
+ * @LastEditTime: 2021-11-24 17:12:36
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoList/InfoList.vue
  * @Description: 详情接口列表树
 -->
@@ -26,7 +26,6 @@
                     v-for="dataItem in groupItem.children"
                     :key="dataItem.categoryId"
                     :title="dataItem.categoryName"
-                    :url="dataItem.categoryIconUrl"
                     :count="getCount(dataItem)"
                     :selected="secondSelectedGroup && dataItem.categoryId === secondSelectedGroup"
                 >
@@ -75,6 +74,9 @@ export default defineComponent({
     setup(props, context) {
         // 选中的api
         const selectedApiId: Ref<number> = ref(props.selectedId)
+        watchEffect(() => {
+            selectedApiId.value = props.selectedId
+        })
         // Group是否展开
         const firstSelectedGroup: Ref<number | null> = ref(null)
         const secondSelectedGroup: Ref<number | null> = ref(null)

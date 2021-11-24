@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 17:16:04
- * @LastEditTime: 2021-11-23 17:36:15
+ * @LastEditTime: 2021-11-24 15:34:05
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/baseInfoCell/BaseInfoCell.vue
@@ -9,7 +9,6 @@
 <template>
     <div class="base-info-cell borderBox cursorP flexRowCenter" @click="infoCellAction">
         <div class="cell-left flexRowCenter">
-            <!-- <img class="cell-icon" :src="data.apiIconUrl" /> -->
             <svg class="icon cell-icon" aria-hidden="true">
                 <use :xlink:href="`#${data.apiIconUrl}`"></use>
             </svg>

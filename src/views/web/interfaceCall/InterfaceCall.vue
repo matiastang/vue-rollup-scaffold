@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-24 14:20:15
+ * @LastEditTime: 2021-11-24 17:14:05
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -162,7 +162,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, computed, watchSyncEffect } from 'vue'
+import { defineComponent, reactive, ref, computed, watchEffect, watchSyncEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import JsonView from 'vue3-json-view/src'
 import InfoList from '../interfaceInfo/components/infoList/InfoList.vue'
@@ -194,7 +194,14 @@ export default defineComponent({
             interfaceTree.tree = await homeInterfaceTree()
         })
         // 选择了api
-        const selectApiId = ref(Number(route.params.id))
+        const selectApiId = ref(1)
+        watchEffect(() => {
+            if (route.params.id) {
+                selectApiId.value = Number(route.params.id)
+                return
+            }
+            selectApiId.value = 1
+        })
         // 选择的api信息
         const getApiInfo = computed(() => {
             const apiTree = interfaceTree.tree
@@ -207,20 +214,18 @@ export default defineComponent({
                             return apiList[j]
                         }
                     }
-                    return null
                 } else {
                     const children = item.children
                     if (children) {
                         for (let j = 0; j < children.length; j++) {
                             const element = children[j]
                             if (element.categoryType === 1) {
-                                const apiList = item.apiInfoList
+                                const apiList = element.apiInfoList
                                 for (let k = 0; k < apiList.length; k++) {
                                     if (apiList[k].apiInfoId === selectApiId.value) {
                                         return apiList[k]
                                     }
                                 }
-                                return null
                             }
                         }
                     }
@@ -309,13 +314,10 @@ export default defineComponent({
             applyTrialDialogVisible.value = true
         }
         const applyTrialOkAction = () => {
-            // TODO: - 校验
-            ElMessage({
-                message: '申请功能开发中...',
-                type: 'warning',
-            })
+            applyTrialDialogVisible.value = false
         }
         const applyTrialCancelAction = () => {
+            applyTrialDialogVisible.value = false
             router.push({
                 path: '/user/account/setting',
             })

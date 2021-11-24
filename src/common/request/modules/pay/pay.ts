@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-22 10:02:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-22 18:29:05
+ * @LastEditTime: 2021-11-24 17:21:18
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/pay/pay.ts
  * @Description: 支付相关接口
  */
@@ -17,6 +17,8 @@ enum orderType {
     recharge = 1,
     // 套餐
     discount = 2,
+    // 试用
+    test = 3,
 }
 
 /**

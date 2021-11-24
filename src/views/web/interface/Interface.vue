@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-24 11:01:35
+ * @LastEditTime: 2021-11-24 17:00:39
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -16,8 +16,8 @@
                 <InterfaceList
                     class="interface-list"
                     :data="interfaceTree.tree"
-                    :selectIndex="selectedIndex"
-                    @selectAction="selectAction"
+                    :seletedCategoryId="seletedCategoryId"
+                    @seletedCategoryAction="seletedCategoryAction"
                 />
             </div>
             <div class="interface-right borderBox flexColumnCenter">
@@ -39,7 +39,6 @@
                             v-for="item in dataItem.apiInfoList"
                             :key="item.apiInfoId"
                             :data="item"
-                            @click="infoCellAction(item.apiInfoId)"
                         />
                     </div>
                 </div>
@@ -48,7 +47,6 @@
                         v-for="item in selectInterfaceData.apiInfoList"
                         :key="item.apiInfoId"
                         :data="item"
-                        @click="infoCellAction(item.apiInfoId)"
                     />
                 </div>
             </div>
@@ -56,19 +54,21 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, computed, watchSyncEffect } from 'vue'
+import { defineComponent, reactive, ref, computed, watchSyncEffect, watchEffect } from 'vue'
 import InterfaceList from './components/interfaceList/InterfaceList.vue'
 import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
 import InterfaceHot from './components/interfaceHot/InterfaceHot.vue'
-import { ElMessage } from 'element-plus'
+// import { ElMessage } from 'element-plus'
 import { apiHotInterface } from '@/common/request/modules/api/api'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { HotType } from '@/common/request/modules/home/homeInterface'
 import { ListRecoType } from '@/common/request/modules/api/apiInterface'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
     name: 'Interface',
     setup() {
+        const route = useRoute()
         // 热榜
         const hotListData = reactive({
             list: [] as Array<ListRecoType>,
@@ -84,13 +84,26 @@ export default defineComponent({
             interfaceTree.tree = await homeInterfaceTree()
         })
         // 选择的分类
-        let selectIndex = ref(0)
+        let seletedCategoryId = ref(0)
+        watchEffect(() => {
+            if (route.params.id) {
+                seletedCategoryId.value = Number(route.params.id)
+                return
+            }
+            seletedCategoryId.value = 0
+        })
         // 切换分类
-        const selectAction = (index: number) => {
-            selectIndex.value = index
+        const seletedCategoryAction = (id: number) => {
+            seletedCategoryId.value = id
         }
         const selectInterfaceData = computed(() => {
-            return interfaceTree.tree[selectIndex.value]
+            for (let i = 0; i < interfaceTree.tree.length; i++) {
+                const element = interfaceTree.tree[i]
+                if (element.categoryId === seletedCategoryId.value) {
+                    return element
+                }
+            }
+            return {} as HotType
         })
         const allCount = computed(() => {
             let num = 0
@@ -120,8 +133,8 @@ export default defineComponent({
         return {
             hotListData,
             interfaceTree,
-            selectIndex,
-            selectAction,
+            seletedCategoryId,
+            seletedCategoryAction,
             allCount,
             selectInterfaceData,
         }

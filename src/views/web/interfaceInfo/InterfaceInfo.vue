@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-11-24 14:34:27
+ * @LastEditTime: 2021-11-24 17:04:22
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -90,7 +90,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, watchSyncEffect, computed } from 'vue'
+import { defineComponent, reactive, ref, watchEffect, watchSyncEffect, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import JsonView from 'vue3-json-view/src'
 import InfoCell from './components/infoCell/InfoCell.vue'
@@ -113,7 +113,14 @@ export default defineComponent({
             interfaceTree.tree = await homeInterfaceTree()
         })
         // 选择了api
-        const selectApiId = ref(Number(route.params.id))
+        const selectApiId = ref(1)
+        watchEffect(() => {
+            if (route.params.id) {
+                selectApiId.value = Number(route.params.id)
+                return
+            }
+            selectApiId.value = 1
+        })
         // 选择的api信息
         const getApiInfo = computed(() => {
             const apiTree = interfaceTree.tree
@@ -126,25 +133,25 @@ export default defineComponent({
                             return apiList[j]
                         }
                     }
-                    return null
                 } else {
                     const children = item.children
                     if (children) {
+                        console.log(children)
                         for (let j = 0; j < children.length; j++) {
-                            const element = children[j]
-                            if (element.categoryType === 1) {
-                                const apiList = item.apiInfoList
+                            const childrenItem = children[j]
+                            if (childrenItem.categoryType === 1) {
+                                const apiList = childrenItem.apiInfoList
                                 for (let k = 0; k < apiList.length; k++) {
                                     if (apiList[k].apiInfoId === selectApiId.value) {
                                         return apiList[k]
                                     }
                                 }
-                                return null
                             }
                         }
                     }
                 }
             }
+            console.log('未查询到接口')
             return null
         })
         // 返回json

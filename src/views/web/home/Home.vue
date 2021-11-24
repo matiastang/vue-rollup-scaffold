@@ -1,10 +1,10 @@
 <!--
- * @Author: your name
- * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-23 19:31:27
+ * @Author: matiastang
+ * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @Description: In User Settings Edit
+ * @LastEditTime: 2021-11-24 16:30:44
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
+ * @Description: 首页
 -->
 <template>
     <div class="home">
@@ -39,6 +39,7 @@
                                 v-for="item in childrenItem.apiInfoList"
                                 :key="item.apiCode"
                                 class="content-cell defaultFont"
+                                @click="apiInfoAction(item.apiInfoId)"
                             >
                                 {{ item.apiName }}
                             </div>
@@ -55,6 +56,7 @@
                                 v-for="item in selectedCategory.apiInfoList"
                                 :key="item.apiCode"
                                 class="content-cell defaultFont"
+                                @click="apiInfoAction(item.apiInfoId)"
                             >
                                 {{ item.apiName }}
                             </div>
@@ -114,9 +116,13 @@ import {
     homePartner,
 } from '@/common/request/index'
 import { HotType, SolutionType } from '@/common/request/modules/home/homeInterface'
+import { useRouter } from 'vue-router'
+import { interface_id_check } from 'utils/check/interfaceCheck'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     setup() {
+        const router = useRouter()
         // 首页banner
         const bannerList = reactive({
             banners: Array<string>(),
@@ -177,6 +183,18 @@ export default defineComponent({
             }, 50)
             canRemove.value = true
         }
+        const apiInfoAction = (id: number) => {
+            if (interface_id_check(id)) {
+                router.push({
+                    path: `/interface/info/${id}`,
+                })
+                return
+            }
+            ElMessage({
+                message: '接口id错误',
+                type: 'error',
+            })
+        }
         // 首页解决方案
         const solutionList = reactive({
             solutions: Array<SolutionType>(),
@@ -203,6 +221,7 @@ export default defineComponent({
             iNavTree,
             selectedIndex,
             selectedCategory,
+            apiInfoAction,
             mouseoverIndex,
             mouseoutIndex,
             categoryContentMouseover,
@@ -422,6 +441,9 @@ export default defineComponent({
                         flex-shrink: 0;
                         cursor: pointer;
                         text-align: left;
+                    }
+                    .content-cell:hover {
+                        color: $themeColor;
                     }
                 }
             }

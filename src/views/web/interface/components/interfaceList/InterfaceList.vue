@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 16:39:34
- * @LastEditTime: 2021-11-23 13:42:10
+ * @LastEditTime: 2021-11-24 16:53:53
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/interfaceList/InterfaceList.vue
@@ -13,16 +13,16 @@
             <div class="interface-list-value defaultFont">{{ `(${count})` }}</div>
         </div>
         <InterfaceListCell
-            v-for="(item, index) in data"
+            v-for="item in data"
             :key="item.categoryId"
             :data="item"
-            :selected="selectedIndex === index"
-            @click="clickAction(index)"
+            :selected="seletedCategoryId === item.categoryId"
+            @click="clickAction(item.categoryId)"
         />
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import InterfaceListCell from '../interfaceListCell/InterfaceListCell.vue'
 import { HotType } from '@/common/request/modules/home/homeInterface'
 
@@ -35,12 +35,12 @@ export default defineComponent({
                 return []
             },
         },
-        selectIndex: {
+        seletedCategoryId: {
             type: Number,
             default: 0,
         },
     },
-    emits: ['selectAction'],
+    emits: ['seletedCategoryAction'],
     setup(props, context) {
         /**
          * 接口总数
@@ -69,16 +69,12 @@ export default defineComponent({
             }
             return num
         })
-        // 选中的列表
-        const selectedIndex = ref(props.selectIndex)
         // 点击分类
-        const clickAction = (index: number) => {
-            selectedIndex.value = index
-            context.emit('selectAction', index)
+        const clickAction = (id: number) => {
+            context.emit('seletedCategoryAction', id)
         }
         return {
             count,
-            selectedIndex,
             clickAction,
         }
     },
