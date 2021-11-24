@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 15:36:48
- * @LastEditTime: 2021-11-23 15:21:55
+ * @LastEditTime: 2021-11-24 15:52:34
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoListGroup/InfoListGroup.vue
@@ -10,8 +10,7 @@
     <div class="info-list-group borderBox flexColumnCenter">
         <div class="group-content borderBox cursorP flexRowCenter" @click="selectAction">
             <div class="cell-left flexRowCenter">
-                <!-- <img v-if="url !== ''" class="cell-left-icon" :src="url" /> -->
-                <svg class="icon cell-left-icon" aria-hidden="true">
+                <svg v-if="url" class="icon cell-left-icon" aria-hidden="true">
                     <use :xlink:href="`#${url}`"></use>
                 </svg>
                 <div class="cell-title defaultFont" :style="{ 'margin-left': `${url ? 0 : 32}px` }">
@@ -79,13 +78,13 @@ export default defineComponent({
             .cell-left-icon {
                 width: 24px;
                 height: 24px;
-                // background: $themeColor;
                 margin-right: 8px;
             }
             .cell-title {
                 font-size: 16px;
                 color: $titleColor;
                 line-height: 24px;
+                text-align: left;
             }
         }
         .cell-right {

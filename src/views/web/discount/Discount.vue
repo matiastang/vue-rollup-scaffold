@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:55:53
- * @LastEditTime: 2021-11-22 19:28:34
+ * @LastEditTime: 2021-11-24 14:03:06
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/discount/Discount.vue
@@ -160,42 +160,42 @@ export default defineComponent({
         const selectedMoney = ref(6000)
         const moneyArr = reactive([
             {
-                discountPrice: 1500,
-                originalPrice: 1500,
-                text: '元/1万次',
+                discountPrice: 300,
+                originalPrice: 400,
+                text: '元/2000次',
                 value: '0.15',
                 selected: false,
                 recommend: false,
             },
             {
-                discountPrice: 6000,
-                originalPrice: 7500,
-                text: '元/1万次',
-                value: '0.15',
+                discountPrice: 1000,
+                originalPrice: 1600,
+                text: '元/8000次',
+                value: '0.125',
                 selected: true,
                 recommend: true,
             },
             {
-                discountPrice: 10000,
-                originalPrice: 15000,
-                text: '元/10万次',
-                value: '0.15',
+                discountPrice: 5000,
+                originalPrice: 10000,
+                text: '元/5万次',
+                value: '0.1',
                 selected: false,
                 recommend: false,
             },
             {
-                discountPrice: 24000,
-                originalPrice: 30000,
-                text: '元/10万次',
-                value: '0.15',
+                discountPrice: 10000,
+                originalPrice: 25000,
+                text: '元/12.5万次',
+                value: '0.08',
                 selected: false,
                 recommend: false,
             },
             {
                 discountPrice: 30000,
-                originalPrice: 40000,
-                text: '元/10万次',
-                value: '0.15',
+                originalPrice: 100000,
+                text: '元/50万次',
+                value: '0.06',
                 selected: false,
                 recommend: false,
             },

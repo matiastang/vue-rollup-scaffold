@@ -2,14 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-23 17:34:51
+ * @LastEditTime: 2021-11-24 15:26:49
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/hotCell/HotCell.vue
  * @Description: 接口列表热榜cell
 -->
 <template>
     <div class="hot-cell borderBox flexColumnCenter">
         <div class="cell-top borderBox flexRowCenter">
-            <!-- <img class="cell-icon" :src="url" /> -->
             <svg class="icon cell-icon" aria-hidden="true">
                 <use :xlink:href="`#${url}`"></use>
             </svg>
@@ -86,8 +85,8 @@ export default defineComponent({
         .cell-icon {
             width: 24px;
             height: 24px;
-            background: $themeColor;
             margin-right: 6px;
+            color: $themeBgColor;
         }
         .cell-title {
             font-size: 16px;

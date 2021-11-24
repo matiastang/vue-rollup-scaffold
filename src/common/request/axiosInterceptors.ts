@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-16 14:09:39
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:14:21
+ * @LastEditTime: 2021-11-24 14:18:09
  * @FilePath: /datumwealth-openalpha-front/src/common/request/axiosInterceptors.ts
  * @Description: axiosInstance | 拦截器
  */
@@ -40,6 +40,13 @@ const initInstance = () => {
                     config.headers = {
                         Authorization: `Bearer ${userToken}`,
                     }
+                }
+            }
+            if (config.headers) {
+                config.headers.viewType = 'front'
+            } else {
+                config.headers = {
+                    viewType: 'front',
                 }
             }
             return config

@@ -2,14 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 14:17:35
+ * @LastEditTime: 2021-11-24 15:14:25
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
  * @Description: 热榜接口cell
 -->
 <template>
     <div class="hot-cell borderBox flexColumnCenter">
         <div class="hot-cell-top borderBox flexColumnCenter">
-            <!-- <img class="hot-cell-img" :src="data.apiHomeRecoIcon" /> -->
             <svg class="icon hot-cell-img" aria-hidden="true">
                 <use :xlink:href="`#${data.apiHomeRecoIcon}`"></use>
             </svg>
@@ -67,8 +66,7 @@ export default defineComponent({
             max-width: 54px;
             width: 100%;
             height: 54px;
-            // background: $themeColor;
-            // color: white;
+            color: #333333;
         }
         .hot-cell-title {
             font-size: 18px;

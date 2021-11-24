@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 19:35:04
- * @LastEditTime: 2021-11-23 19:09:01
+ * @LastEditTime: 2021-11-24 19:49:38
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/applyTrialModel/ApplyTrialModel.vue
@@ -21,10 +21,10 @@
                     <div class="model-info-title defaultFont">总调用次数:</div>
                     <div class="model-info-value">{{ `${count}次` }}</div>
                 </div>
-                <div class="model-info-right-content flexRowCenter">
+                <!-- <div class="model-info-right-content flexRowCenter">
                     <div class="model-info-title defaultFont">有效期限:</div>
                     <div class="model-info-value">{{ time }}</div>
-                </div>
+                </div> -->
             </div>
             <div class="model-content flexRowCenter">
                 <div class="model-body-title defaultFont">登录账号:</div>
@@ -52,6 +52,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { addOd, orderType } from '@/common/request/modules/pay/pay'
+import { ElMessage } from 'element-plus'
+import { useStore } from 'store/index'
 
 export default defineComponent({
     name: 'ApplyTrialModel',
@@ -79,13 +82,36 @@ export default defineComponent({
         },
     },
     emits: ['okAction', 'cancelAction'],
-    methods: {
-        modelOkAction() {
-            this.$emit('okAction')
-        },
-        modelCancelAction() {
-            this.$emit('cancelAction')
-        },
+    setup(props, context) {
+        const store = useStore()
+        const modelOkAction = () => {
+            addOd({
+                goodsAmount: 0,
+                orderType: orderType.test,
+                payId: 0,
+            })
+                .then((oreder) => {
+                    ElMessage({
+                        message: '试用申请成功',
+                        type: 'success',
+                    })
+                    store.commit('setApplyTry', 1)
+                    context.emit('okAction')
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '接口id错误',
+                        type: 'error',
+                    })
+                })
+        }
+        const modelCancelAction = () => {
+            context.emit('cancelAction')
+        }
+        return {
+            modelOkAction,
+            modelCancelAction,
+        }
     },
 })
 </script>

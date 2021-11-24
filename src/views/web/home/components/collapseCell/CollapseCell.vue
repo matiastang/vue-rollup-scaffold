@@ -1,19 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-11-19 19:06:10
+ * @LastEditTime: 2021-11-24 15:11:34
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
 -->
 <template>
     <div :class="['borderBox', 'collapse-cell', { 'collapse-cell-selected': selected }]">
-        <!-- @mouseover="mouseoverAction"
-        @mouseout="mouseoutAction" -->
         <div class="collapse-cell-left">
             <svg class="icon collapse-cell-left-icon" aria-hidden="true">
                 <use :xlink:href="`#${url}`"></use>
-                <!-- <use :xlink:href="`#icon-jijinzhaiquantouzi-guijinshuchicangmingxi`"></use> -->
             </svg>
             <div class="flexColumnCenter collapse-cell-center">
                 <div class="collapse-cell-title defaultFont">{{ title }}</div>
@@ -28,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'CollapseCell',
@@ -51,20 +48,6 @@ export default defineComponent({
         },
     },
 })
-// setup() {
-//         const isMouse = ref(false)
-//         const mouseoverAction = () => {
-//             isMouse.value = true
-//         }
-//         const mouseoutAction = () => {
-//             isMouse.value = false
-//         }
-//         return {
-//             isMouse,
-//             mouseoverAction,
-//             mouseoutAction,
-//         }
-//     },
 </script>
 
 <style lang="scss" scoped>
@@ -81,6 +64,7 @@ export default defineComponent({
             width: 20px;
             height: 20px;
             color: white;
+            margin-top: 3px;
         }
 
         .collapse-cell-center {
@@ -90,7 +74,7 @@ export default defineComponent({
                 font-size: fontSize(18px);
                 font-weight: 500;
                 color: $themeBgColor;
-                line-height: lineHeight(18px);
+                line-height: 26px;
                 text-align: left;
             }
             .collapse-cell-text {

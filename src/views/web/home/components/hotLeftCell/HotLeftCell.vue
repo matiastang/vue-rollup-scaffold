@@ -2,24 +2,26 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 11:22:29
+ * @LastEditTime: 2021-11-24 16:30:00
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotLeftCell/HotLeftCell.vue
  * @Description: 首页热榜分类cell
 -->
 <template>
     <div class="hot-left-cell borderBox flexColumnCenter">
-        <!-- <img class="hot-left-cell-img" :src="url" /> -->
         <svg class="icon hot-left-cell-img" aria-hidden="true">
             <use :xlink:href="`#${url}`"></use>
         </svg>
         <div class="hot-left-cell-title">{{ title || '标题' }}</div>
         <div class="hot-left-cell-text">{{ text || '副标题' }}</div>
-        <div class="hot-left-cell-button defaultFont cursorP">查看全部</div>
+        <div class="hot-left-cell-button defaultFont cursorP" @click="categoryAction">查看全部</div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+import { category_id_check } from 'utils/check/interfaceCheck'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'hotLeftCell',
@@ -41,6 +43,26 @@ export default defineComponent({
             default: '',
         },
     },
+    setup(props) {
+        const router = useRouter()
+        // 跳转接口分类
+        const categoryAction = () => {
+            const categoryId = props.id
+            if (category_id_check(categoryId)) {
+                router.push({
+                    path: `/interface/${categoryId}`,
+                })
+                return
+            }
+            ElMessage({
+                message: '分类id错误',
+                type: 'error',
+            })
+        }
+        return {
+            categoryAction,
+        }
+    },
 })
 </script>
 
@@ -55,7 +77,7 @@ export default defineComponent({
         max-width: 120px;
         width: 100%;
         height: 120px;
-        background: white;
+        color: $themeBgColor;
     }
     .hot-left-cell-title {
         font-size: 26px;

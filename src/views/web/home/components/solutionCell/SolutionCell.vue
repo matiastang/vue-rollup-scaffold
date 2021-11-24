@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-05 11:33:07
- * @LastEditTime: 2021-11-19 14:23:48
+ * @LastEditTime: 2021-11-24 15:21:15
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/solutionCell/SolutionCell.vue
@@ -14,7 +14,7 @@
                 {{ `· ${item}` }}
             </div>
         </div>
-        <div class="solution-cell-details defaultFont cursorP">了解详情</div>
+        <div class="solution-cell-details defaultFont cursorP" @click="moreAction">了解详情</div>
     </div>
 </template>
 
@@ -22,6 +22,7 @@
 import { computed, ComputedRef, defineComponent, PropType } from 'vue'
 import OpenalphaTitle from '@/components/openalphaTitle/OpenalphaTitle.vue'
 import { SolutionType } from '@/common/request/modules/home/homeInterface'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
     name: 'SolutionCell',
@@ -34,6 +35,7 @@ export default defineComponent({
         },
     },
     setup(props) {
+        const router = useRouter()
         // 应用场景列表
         const sceneList: ComputedRef<string[]> = computed(() => {
             try {
@@ -49,8 +51,15 @@ export default defineComponent({
                 return []
             }
         })
+        // 查看更多
+        const moreAction = () => {
+            router.push({
+                path: '/solution',
+            })
+        }
         return {
             sceneList,
+            moreAction,
         }
     },
     components: {

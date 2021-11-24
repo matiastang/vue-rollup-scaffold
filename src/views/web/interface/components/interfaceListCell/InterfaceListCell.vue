@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 16:53:09
- * @LastEditTime: 2021-11-23 14:27:50
+ * @LastEditTime: 2021-11-24 15:31:10
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/interfaceListCell/InterfaceListCell.vue
@@ -17,10 +17,12 @@
         ]"
     >
         <div class="cell-left flexRowCenter">
-            <svg class="icon cell-icon" aria-hidden="true">
+            <svg
+                :class="['icon', 'cell-icon', { 'cell-selected-icon': selected }]"
+                aria-hidden="true"
+            >
                 <use :xlink:href="`#${data.categoryIconUrl}`"></use>
             </svg>
-            <!-- <img class="cell-icon" :src="data.categoryIconUrl" /> -->
 
             <div class="cell-title defaultFont">{{ data.categoryName }}</div>
         </div>
@@ -90,6 +92,9 @@ export default defineComponent({
             height: 24px;
             margin-right: 8px;
         }
+        .cell-selected-icon {
+            color: $themeBgColor;
+        }
         .cell-title {
             font-size: 16px;
             color: $titleColor;
@@ -114,8 +119,11 @@ export default defineComponent({
     }
 }
 .interface-list-cell:hover {
-    background: rgba(214, 89, 40, 0.5);
+    background: $themeColor;
     .cell-left {
+        .cell-icon {
+            color: $themeBgColor;
+        }
         .cell-title {
             color: $themeBgColor;
         }

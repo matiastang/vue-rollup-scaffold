@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-23 15:31:55
+ * @LastEditTime: 2021-11-24 19:18:29
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -58,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'interface/:id*',
                 name: 'interface',
+                component: Interface,
+            },
+            {
+                path: 'search/:id*',
+                name: 'search',
                 component: Interface,
             },
             {

@@ -1,17 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:42:33
- * @LastEditTime: 2021-11-17 19:32:35
+ * @LastEditTime: 2021-11-24 19:05:29
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/user.d.ts
  */
-/* eslint-disable */
-// declare module '*.vue' {
-//   import type { DefineComponent } from 'vue'
-//   const component: DefineComponent<{}, {}, any>
-//   export default component
-// }
 /**
  * 认证对象
  */
@@ -43,6 +37,7 @@ export interface UserInfo {
     expireDate: string | null
     id: number | null
     idNumber: string | null
+    isApplyTry: number | null
     isLimiting: number | null
     legalPerson: string | null
     linitingNumber: number | null

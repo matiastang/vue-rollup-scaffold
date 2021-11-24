@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 15:19:59
- * @LastEditTime: 2021-11-23 15:25:24
+ * @LastEditTime: 2021-11-24 15:39:39
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoListCell/InfoListCell.vue
@@ -63,7 +63,7 @@ export default defineComponent({
     }
 }
 .info-list-cell:hover {
-    background: rgba(214, 89, 40, 0.5);
+    background: $themeColor;
     .cell-title {
         color: $themeBgColor;
     }

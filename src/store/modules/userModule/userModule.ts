@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 20:08:49
+ * @LastEditTime: 2021-11-24 19:05:15
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -48,6 +48,8 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                 id: null,
                 // 身份证号
                 idNumber: null,
+                // 是否申请了试用
+                isApplyTry: null,
                 // 是否限流：0=否 1=是
                 isLimiting: null,
                 // 法人
@@ -80,6 +82,14 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
     },
     getters: {},
     mutations: {
+        /**
+         * 设置是否试用
+         * @param state
+         * @param statue
+         */
+        setApplyTry(state, statue: number) {
+            state.userLoginInfo.member.isApplyTry = statue
+        },
         /**
          * 认证信息更新
          * @param state
@@ -156,6 +166,14 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
             state.userLoginInfo.token = token
         },
         /**
+         * 设置Secret
+         * @param state
+         * @param token
+         */
+        setSecret(state, secret: string | null) {
+            state.userLoginInfo.member.appSecret = secret
+        },
+        /**
          * 设置用户信息
          * @param state
          * @param info
@@ -177,6 +195,7 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                     expireDate: null,
                     id: null,
                     idNumber: null,
+                    isApplyTry: null,
                     isLimiting: null,
                     legalPerson: null,
                     linitingNumber: null,

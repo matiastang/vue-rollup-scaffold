@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 20:03:37
+ * @LastEditTime: 2021-11-24 13:54:44
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -89,6 +89,38 @@
             </div>
             <div class="setting-info-content flexRowCenter">
                 <div class="setting-info-left flexColumnCenter">
+                    <div class="setting-left-top-content flexRowCenter">
+                        <div class="setting-info-title defaultFont">API Token</div>
+                        <el-popover
+                            placement="bottom-start"
+                            :width="270"
+                            trigger="click"
+                            popper-class="explain-popover"
+                            content="该API Token值可作为调用接口服务的凭证"
+                        >
+                            <template #reference>
+                                <img
+                                    class="setting-secret-explain cursorP"
+                                    src="static/api/explain.svg"
+                                />
+                            </template>
+                        </el-popover>
+                    </div>
+                    <div class="setting-left-bottom-content flexRowCenter">
+                        <PasswordInput
+                            passwordClass="setting-secret-input"
+                            v-model="appSecret"
+                            readonly
+                        />
+                        <div class="setting-copy-content cursorP flexRowCenter" @click="copyToken">
+                            <img class="setting-secret-copy" src="static/user/copy.svg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-info-right cursorP defaultFont" @click="resetAction">重置</div>
+            </div>
+            <div class="setting-info-content flexRowCenter">
+                <div class="setting-info-left flexColumnCenter">
                     <div class="setting-info-title defaultFont">登录密码</div>
                     <div class="setting-info-text defaultFont">
                         互联网账号存在盗号风险，建议您定期修改密码以保护账号安全
@@ -139,6 +171,15 @@
             :isChange="isChange"
             @cancelAction="changeMailCancelAction"
         />
+        <OpenalphaModel
+            v-model="explainDialogVisible"
+            title="token值每天仅可重置一次,确认要重置"
+            okText="确定"
+            cancelText="取消"
+            :cancelStyle="{ color: '#8C8C8C', border: '1px solid #8C8C8C', background: 'white' }"
+            @okAction="explainOkAction"
+            @cancelAction="explainCancelAction"
+        />
     </div>
 </template>
 
@@ -147,9 +188,14 @@ import { defineComponent, ref, computed } from 'vue'
 import ChangePasswordModel from '@/components/changePasswordModel/ChangePasswordModel.vue'
 import ChangePhoneModel from '@/components/changePhoneModel/ChangePhoneModel.vue'
 import ChangeMailModel from '@/components/changeMailModel/ChangeMailModel.vue'
+import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
+import OpenalphaModel from '@/components/openalphaModel/OpenalphaModel.vue'
 import { useStore } from 'store/index'
 import { phoneDesensitization } from 'utils/index'
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import useClipboard from 'vue-clipboard3'
+import { resetToken } from '@/common/request/modules/user'
 
 export default defineComponent({
     name: 'Setting',
@@ -158,6 +204,7 @@ export default defineComponent({
         let router = useRouter()
         // 用户信息
         let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
+        const appSecret = computed(() => store.state.userModule.userLoginInfo.member.appSecret)
         // 脱敏phone
         let desensitizationPhone = computed(() => phoneDesensitization(userInfo.value.phone || ''))
         // 脱敏email
@@ -197,7 +244,57 @@ export default defineComponent({
                 path: '/user/account/certification',
             })
         }
+        let explainDialogVisible = ref(false)
+        const explainOkAction = async () => {
+            try {
+                const token = await resetToken()
+                store.commit('setSecret', token)
+                explainDialogVisible.value = false
+                ElMessage({
+                    message: '重置成功',
+                    type: 'success',
+                })
+            } catch (error) {
+                explainDialogVisible.value = false
+                ElMessage({
+                    message: '重置失败',
+                    type: 'error',
+                })
+            }
+        }
+        const explainCancelAction = () => {
+            explainDialogVisible.value = false
+        }
+        // 拷贝token
+        const { toClipboard } = useClipboard()
+        const copyToken = async () => {
+            const secret = appSecret.value
+            if (!secret) {
+                ElMessage({
+                    message: '复制失败',
+                    type: 'error',
+                })
+                return
+            }
+            try {
+                await toClipboard(secret)
+                ElMessage({
+                    message: '复制成功',
+                    type: 'success',
+                })
+            } catch (e) {
+                ElMessage({
+                    message: '复制失败',
+                    type: 'error',
+                })
+            }
+        }
+        // 充值token
+        const resetAction = () => {
+            explainDialogVisible.value = true
+        }
         return {
+            appSecret,
             userInfo,
             desensitizationPhone,
             desensitizationEmail,
@@ -214,12 +311,19 @@ export default defineComponent({
             mailAction,
             changeMailCancelAction,
             authenticationAction,
+            copyToken,
+            resetAction,
+            explainDialogVisible,
+            explainOkAction,
+            explainCancelAction,
         }
     },
     components: {
         ChangePasswordModel,
         ChangePhoneModel,
         ChangeMailModel,
+        PasswordInput,
+        OpenalphaModel,
     },
 })
 </script>
@@ -280,6 +384,47 @@ export default defineComponent({
                         color: $titleColor;
                         line-height: 24px;
                         margin-left: 12px;
+                    }
+                }
+                .setting-left-top-content {
+                    position: relative;
+                    .setting-info-title {
+                        font-size: 16px;
+                        font-family: PingFangSC-Medium, PingFang SC;
+                        font-weight: 500;
+                        color: $themeColor;
+                        line-height: 24px;
+                        letter-spacing: 1px;
+                    }
+                    .setting-secret-explain {
+                        width: 18px;
+                        height: 14px;
+                        box-sizing: border-box;
+                        margin-left: 8px;
+                        padding-left: 4px;
+                    }
+                    .explain-popover {
+                        background: black;
+                    }
+                }
+                .setting-left-bottom-content {
+                    margin-top: 18px;
+                    .setting-secret-input {
+                        width: 456px;
+                        height: 42px;
+                        border-radius: 2px;
+                        border: 1px solid #bfbfbf;
+                    }
+                    .setting-copy-content {
+                        margin-left: 14px;
+                        width: 40px;
+                        height: 42px;
+                        background: $themeColor;
+                        border-radius: 2px;
+                        .setting-secret-copy {
+                            width: 32px;
+                            height: 32px;
+                        }
                     }
                 }
             }

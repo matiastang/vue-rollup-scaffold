@@ -1,67 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 20:01:27
- * @LastEditTime: 2021-11-19 18:56:07
+ * @LastEditTime: 2021-11-24 14:53:49
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapse/Collapse.vue
 -->
 <template>
     <div class="flexColumnCenter collapse">
-        <!-- <el-popover
-            popper-class="collapse-popover"
-            v-for="categoryItem in data"
-            :key="categoryItem.id"
-            :visible="false"
-            :show-arrow="false"
-            :popper-options="{
-                boundariesElement: '.collapse-popover-bound',
-                gpuAcceleration: true,
-            }"
-            trigger="hover"
-            placement="right-end"
-        >
-            <div v-if="categoryItem.categoryType === 0" class="content borderBox">
-                <div
-                    v-for="childrenItem in categoryItem.children"
-                    :key="childrenItem.categoryId"
-                    class="content-item borderBox flexColumnCenter"
-                >
-                    <div class="content-title defaultFont">{{ childrenItem.categoryName }}</div>
-                    <div class="content-bottom borderBox flexRowCenter">
-                        <div
-                            v-for="item in childrenItem.apiInfoList"
-                            :key="item.apiCode"
-                            class="content-cell defaultFont"
-                        >
-                            {{ item.apiName }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-else class="content borderBox">
-                <div class="content-item borderBox flexColumnCenter">
-                    <div class="content-title defaultFont">{{ categoryItem.categoryName }}</div>
-                    <div class="content-bottom flexRowCenter">
-                        <div
-                            v-for="item in categoryItem.apiInfoList"
-                            :key="item.apiCode"
-                            class="content-cell defaultFont"
-                        >
-                            {{ item.apiName }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <template #reference>
-                <CollapseCell
-                    class="collapse-cell"
-                    :url="categoryItem.categoryIconUrl"
-                    :title="categoryItem.categoryName"
-                    :text="categoryItem.categoryDescribe"
-                />
-            </template>
-        </el-popover> -->
         <CollapseCell
             v-for="(categoryItem, index) in data"
             class="collapse-cell"
@@ -73,12 +19,13 @@
             @mouseover="mouseoverAction(index)"
             @mouseout="mouseoutAction(index)"
         />
-        <div class="defaultFont cursorP collapse-all">查看全部接口</div>
+        <div class="defaultFont cursorP collapse-all" @click="allAction">查看全部接口</div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { useRouter } from 'vue-router'
 import CollapseCell from '../collapseCell/CollapseCell.vue'
 import { HotType } from '@/common/request/modules/home/homeInterface'
 
@@ -105,15 +52,22 @@ export default defineComponent({
         },
     },
     setup(props, context) {
+        const router = useRouter()
         const mouseoverAction = (index: number) => {
             context.emit('mouseoverIndex', index)
         }
         const mouseoutAction = (index: number) => {
             context.emit('mouseoutIndex', index)
         }
+        const allAction = () => {
+            router.push({
+                path: '/interface',
+            })
+        }
         return {
             mouseoverAction,
             mouseoutAction,
+            allAction,
         }
     },
     components: {
