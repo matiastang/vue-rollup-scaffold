@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 11:35:35
+ * @LastEditTime: 2021-11-24 13:54:44
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -91,11 +91,20 @@
                 <div class="setting-info-left flexColumnCenter">
                     <div class="setting-left-top-content flexRowCenter">
                         <div class="setting-info-title defaultFont">API Token</div>
-                        <img
-                            class="setting-secret-explain cursorP"
-                            src="static/api/explain.svg"
-                            @click="explainAction"
-                        />
+                        <el-popover
+                            placement="bottom-start"
+                            :width="270"
+                            trigger="click"
+                            popper-class="explain-popover"
+                            content="该API Token值可作为调用接口服务的凭证"
+                        >
+                            <template #reference>
+                                <img
+                                    class="setting-secret-explain cursorP"
+                                    src="static/api/explain.svg"
+                                />
+                            </template>
+                        </el-popover>
                     </div>
                     <div class="setting-left-bottom-content flexRowCenter">
                         <PasswordInput
@@ -168,7 +177,7 @@
             okText="确定"
             cancelText="取消"
             :cancelStyle="{ color: '#8C8C8C', border: '1px solid #8C8C8C', background: 'white' }"
-            @okAction="explainCancelAction"
+            @okAction="explainOkAction"
             @cancelAction="explainCancelAction"
         />
     </div>
@@ -236,8 +245,22 @@ export default defineComponent({
             })
         }
         let explainDialogVisible = ref(false)
-        const explainAction = () => {
-            explainDialogVisible.value = true
+        const explainOkAction = async () => {
+            try {
+                const token = await resetToken()
+                store.commit('setSecret', token)
+                explainDialogVisible.value = false
+                ElMessage({
+                    message: '重置成功',
+                    type: 'success',
+                })
+            } catch (error) {
+                explainDialogVisible.value = false
+                ElMessage({
+                    message: '重置失败',
+                    type: 'error',
+                })
+            }
         }
         const explainCancelAction = () => {
             explainDialogVisible.value = false
@@ -267,20 +290,8 @@ export default defineComponent({
             }
         }
         // 充值token
-        const resetAction = async () => {
-            try {
-                const token = await resetToken()
-                store.commit('setSecret', token)
-                ElMessage({
-                    message: '重置成功',
-                    type: 'error',
-                })
-            } catch (error) {
-                ElMessage({
-                    message: '重置失败',
-                    type: 'error',
-                })
-            }
+        const resetAction = () => {
+            explainDialogVisible.value = true
         }
         return {
             appSecret,
@@ -303,7 +314,7 @@ export default defineComponent({
             copyToken,
             resetAction,
             explainDialogVisible,
-            explainAction,
+            explainOkAction,
             explainCancelAction,
         }
     },
@@ -376,6 +387,7 @@ export default defineComponent({
                     }
                 }
                 .setting-left-top-content {
+                    position: relative;
                     .setting-info-title {
                         font-size: 16px;
                         font-family: PingFangSC-Medium, PingFang SC;
@@ -385,7 +397,14 @@ export default defineComponent({
                         letter-spacing: 1px;
                     }
                     .setting-secret-explain {
-                        margin-left: 12px;
+                        width: 18px;
+                        height: 14px;
+                        box-sizing: border-box;
+                        margin-left: 8px;
+                        padding-left: 4px;
+                    }
+                    .explain-popover {
+                        background: black;
                     }
                 }
                 .setting-left-bottom-content {

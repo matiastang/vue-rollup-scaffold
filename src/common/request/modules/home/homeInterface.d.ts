@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-23 17:48:24
+ * @LastEditTime: 2021-11-24 14:09:05
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */

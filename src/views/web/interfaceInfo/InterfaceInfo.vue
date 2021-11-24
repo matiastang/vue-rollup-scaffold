@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-11-24 11:01:48
+ * @LastEditTime: 2021-11-24 14:34:27
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -28,7 +28,7 @@
             <div class="right-bottom borderBox flexRowCenter">
                 <el-tabs class="right-tabs" v-model="activeName">
                     <el-tab-pane class="right-tab right-info" label="接口信息" name="info">
-                        <FoldInfo class="tab-info-fold" :show="false" title="基本信息">
+                        <FoldInfo class="tab-info-fold" :show="true" title="基本信息">
                             <div class="base-info-fold borderBox flexColumnCenter">
                                 <div class="base-info-item flexRowCenter">
                                     <div class="base-info-item-title defaultFont">接口地址:</div>
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                         </FoldInfo>
-                        <FoldInfo class="tab-info-fold" :show="false" title="请求参数">
+                        <FoldInfo class="tab-info-fold" :show="true" title="请求参数">
                             <div
                                 v-if="getApiInfo && getApiInfo.apiParamList.length > 0"
                                 class="base-info-parameter borderBox flexRowCenter"
@@ -65,18 +65,17 @@
                             </div>
                             <div v-else class="base-info-parameter borderBox flexRowCenter">无</div>
                         </FoldInfo>
-                        <FoldInfo class="tab-info-fold" :show="false" title="返回结果">
+                        <FoldInfo class="tab-info-fold" :show="true" title="返回结果">
                             <div class="base-info-result borderBox flexColumnCenter">
                                 <div class="base-info-item-title defaultFont">JSON示例:</div>
-                                <!-- // TODO: - 接口未返回该字段 -->
-                                <JsonView class="base-info-item-text" :data="{}" />
+                                <JsonView class="base-info-item-text" :data="returnResult" />
                             </div>
                         </FoldInfo>
                     </el-tab-pane>
                     <el-tab-pane class="right-tab right-error" label="错误代码" name="error">
-                        <div class="text">错误代码功能开发中</div>
+                        <InfoTable :header="errorTableHeader" :data="errorTableData" />
                     </el-tab-pane>
-                    <el-tab-pane class="right-tab right-sample" label="示例代码" name="sample">
+                    <!-- <el-tab-pane class="right-tab right-sample" label="示例代码" name="sample">
                         <div class="text">示例代码功能开发中</div>
                     </el-tab-pane>
                     <el-tab-pane class="right-tab right-document" label="接口文档" name="document">
@@ -84,7 +83,7 @@
                     </el-tab-pane>
                     <el-tab-pane class="right-tab right-version" label="升级版本" name="version">
                         <div class="text">升级版本功能开发中</div>
-                    </el-tab-pane>
+                    </el-tab-pane> -->
                 </el-tabs>
             </div>
         </div>
@@ -148,6 +147,17 @@ export default defineComponent({
             }
             return null
         })
+        // 返回json
+        const returnResult = computed(() => {
+            if (!getApiInfo.value) {
+                return {}
+            }
+            try {
+                return JSON.parse(getApiInfo.value.returnResult)
+            } catch (error) {
+                return {}
+            }
+        })
         // 切换选择
         const selectApiAction = (id: number) => {
             selectApiId.value = id
@@ -171,6 +181,75 @@ export default defineComponent({
                 key: 'paramExplain',
             },
         ])
+        // 错误代码
+        const errorTableHeader = reactive([
+            {
+                title: '错误代码',
+                key: 'key',
+            },
+            {
+                title: '说明',
+                key: 'value',
+            },
+        ])
+        const errorTableData = reactive([
+            {
+                key: '0',
+                value: '查询成功',
+            },
+            {
+                key: '101',
+                value: '查询无结果',
+            },
+            {
+                key: '102',
+                value: '查询参数错误',
+            },
+            {
+                key: '103',
+                value: '请求数据的条目数超过上限（5000）',
+            },
+            {
+                key: '104',
+                value: '无权限访问此api',
+            },
+            {
+                key: '105',
+                value: 'TOKEN无效',
+            },
+            {
+                key: '106',
+                value: '账号异常',
+            },
+            {
+                key: '107',
+                value: '访问频率过快',
+            },
+            {
+                key: '108',
+                value: '余额不足',
+            },
+            {
+                key: '109',
+                value: '剩余次数不足',
+            },
+            {
+                key: '110',
+                value: '请求超过每日调用总量限制',
+            },
+            {
+                key: '111',
+                value: '账号信息有误',
+            },
+            {
+                key: '112',
+                value: 'URL不存在',
+            },
+            {
+                key: '113',
+                value: '此IP已被禁用',
+            },
+        ])
         return {
             interfaceTree,
             getApiInfo,
@@ -178,6 +257,9 @@ export default defineComponent({
             selectApiAction,
             activeName,
             tableHeader,
+            returnResult,
+            errorTableHeader,
+            errorTableData,
         }
     },
     components: {
