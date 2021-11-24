@@ -14,6 +14,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
+import 'element-plus/theme-chalk/el-message-box.css'
 
 const app = createApp(App)
 

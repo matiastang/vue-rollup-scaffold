@@ -56,10 +56,10 @@ const phoneDesensitization = (phone: string) => {
 export { phoneDesensitization }
 
 // 添加日期范围
-export function addDateRange(params: Exact<{}>, dateRange: Array<String>, propName?: string) {
+export function addDateRange(params: Exact<{}>, dateRange: Array<string>, propName?: string) {
     let search = { ...params, beginTime: '', endTime: '' } as Exact<{
-        beginTime: String
-        endTime: String
+        beginTime: string
+        endTime: string
     }>
     dateRange = Array.isArray(dateRange) ? dateRange : []
     if (typeof propName === 'undefined') {
@@ -88,7 +88,7 @@ export function orderTypeToText(type: OrderTypeEnum) {
 export function payStatusToText(
     payId: Number,
     payStatus: PayStatusEnum,
-    payVoucher: Maybe<String>
+    payVoucher: Maybe<string>
 ) {
     let result = ''
     const PayStatusEnum = {

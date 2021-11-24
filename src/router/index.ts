@@ -27,6 +27,7 @@ import DiscountInfo from '@/views/user/dataCenter/discountInfo/DiscountInfo.vue'
 import RechargeInfo from '@/views/user/dataCenter/rechargeInfo/RechargeInfo.vue'
 import DataStatistics from '@/views/user/dataCenter/dataStatistics/DataStatistics.vue'
 import Order from '@/views/user/dealManagement/order/index.vue'
+import OrderDetail from '@/views/user/dealManagement/order/detail.vue'
 import Invoice from '@/views/user/dealManagement/invoice/index.vue'
 import Setting from '@/views/user/accountManagement/setting/Setting.vue'
 import Certification from '@/views/user/accountManagement/certification/Certification.vue'
@@ -149,6 +150,11 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'deal/order',
                 name: 'dealOrder',
                 component: Order,
+            },
+            {
+                path: 'deal/order/:id(\\d+)',
+                name: 'dealOrderDetail',
+                component: OrderDetail,
             },
             {
                 path: 'deal/invoice',

@@ -2,52 +2,56 @@ import { Maybe, Exact, OrderTypeEnum, OrderStstusEnum, PayStatusEnum, Invoic } f
 
 export declare namespace Order {
     export type AsObject = {
-        orderId?: Number
-        orderSn?: Maybe<String>
-        userId?: Number
+        orderId?: number
+        orderSn?: Maybe<string>
+        userId?: number
         OrderType?: OrderTypeEnum
         orderStatus?: OrderStstusEnum
         payStatus?: PayStatusEnum
-        payId?: Maybe<Number>
-        payName?: Maybe<String>
-        orderAmount?: Maybe<Number>
-        goodsAmount?: Maybe<Number>
-        discountAmount?: Maybe<Number>
-        payFee?: Maybe<Number>
-        invId?: Maybe<Number>
-        addressId?: Maybe<Number>
-        payVoucher?: Maybe<String>
-        postscript?: Maybe<String>
-        toBuyer?: Maybe<String>
-        channel?: Maybe<String>
-        addTime?: Maybe<String>
-        confirmTime?: Maybe<String>
-        payTime?: Maybe<String>
-        finishTime?: Maybe<String>
-        modifyTime?: Maybe<String>
-        beginTime?: Maybe<String>
-        beginTime?: Maybe<String>
+        payId?: Maybe<number>
+        payName?: Maybe<string>
+        orderAmount?: Maybe<number>
+        goodsAmount?: Maybe<number>
+        discountAmount?: Maybe<number>
+        payFee?: Maybe<number>
+        invId?: Maybe<number>
+        addressId?: Maybe<number>
+        payVoucher?: Maybe<string>
+        postscript?: Maybe<string>
+        toBuyer?: Maybe<string>
+        channel?: Maybe<string>
+        addTime?: Maybe<string>
+        confirmTime?: Maybe<string>
+        payTime?: Maybe<string>
+        finishTime?: Maybe<string>
+        modifyTime?: Maybe<string>
+        beginTime?: Maybe<string>
+        beginTime?: Maybe<string>
     }
     export type QueryList = {
-        beginTime?: Maybe<String>
-        endTime?: Maybe<String>
-        orderSn?: Maybe<String>
+        beginTime?: Maybe<string>
+        endTime?: Maybe<string>
+        orderSn?: Maybe<string>
         orderStatus?: Maybe<OrderStstusEnum>
-        payId?: Maybe<Number>
+        payId?: Maybe<number>
         PayStatus?: Maybe<PayStatusEnum>
-        userName?: Maybe<String>
-        pageNum?: Maybe<String>
-        pageSize?: Maybe<String>
+        userName?: Maybe<string>
+        pageNum?: Maybe<string>
+        pageSize?: Maybe<string>
     }
     export type OrderResponse = {
-        total?: Maybe<Number>
+        total?: Maybe<number>
         rows?: Array<Maybe<AsObject>>
     }
     export type CancelQuery = {
-        orderId?: Maybe<Number>
+        orderId?: Maybe<number>
     }
-}
-export type Pagination = {
-    page: Maybe<number>
-    limit: Maybe<number>
+    export type Pagination = {
+        page: Maybe<number>
+        limit: Maybe<number>
+    }
+    export type Voucher = {
+        orderId: Maybe<number>
+        payVoucher: Maybe<string>
+    }
 }

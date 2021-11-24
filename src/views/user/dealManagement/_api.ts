@@ -1,5 +1,5 @@
 import request, { RequestMethod } from '@/api/request'
-import { Order } from '@/@types/order'
+import { Order, Invoic } from '@/@types'
 
 // 查询订单列表
 export function getOrderList(data: Order.QueryList) {
@@ -8,8 +8,7 @@ export function getOrderList(data: Order.QueryList) {
         method: RequestMethod.post,
         data,
         params: {
-            pageNum: data.pageNum,
-            pageSize: data.pageSize,
+            ...data,
             orderByColumn: 'addTime',
             isAsc: 'desc',
         },
@@ -35,7 +34,7 @@ export function getOrderCancel(query: Order.CancelQuery) {
 }
 
 // 获取订单详细信息
-export function getOrderDetail(id: string) {
+export function getOrderDetail(id: Number) {
     return request({
         url: `/api/trade/od/${id}`,
         method: RequestMethod.get,
@@ -50,9 +49,17 @@ export function postAddOrder(data: Order.QueryList) {
         data,
     })
 }
+// 新增订单
+export function postAddOrderVoucher(data: Order.Voucher) {
+    return request({
+        url: `/api/trade/od/voucher`,
+        method: RequestMethod.post,
+        data,
+    })
+}
 
 // 新增发票
-export function postAddInv(data: Order.QueryList) {
+export function postAddInv(data: Invoic.AddQuery) {
     return request({
         url: `/api/trade/inv`,
         method: RequestMethod.post,
@@ -81,6 +88,11 @@ export function postInvList(data: Order.QueryList) {
         url: `/api/trade/inv/list`,
         method: RequestMethod.post,
         data,
+        params: {
+            ...data,
+            orderByColumn: 'addTime',
+            isAsc: 'desc',
+        },
     })
 }
 
