@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-24 17:14:05
+ * @LastEditTime: 2021-11-24 18:42:33
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -170,7 +170,7 @@ import InterfaceAffix from '@/components/interfaceAffix/InterfaceAffix.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import { ElMessage } from 'element-plus'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
-import { apiInfoCode } from '@/common/request/modules/api/api'
+import { apiTool } from '@/common/request/modules/api/api'
 import { HotType } from '@/common/request/modules/home/homeInterface'
 import { useStore } from 'store/index'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
@@ -323,6 +323,19 @@ export default defineComponent({
             })
         }
         /**
+         * 拼接测试请求参数
+         */
+        const getRequestParams = () => {
+            let params = ''
+            const obj = requestJson.value
+            for (const key in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                    params += `${key}=${obj[key]}`
+                }
+            }
+            return params
+        }
+        /**
          * 接口试用
          */
         const apiCallAction = () => {
@@ -333,21 +346,28 @@ export default defineComponent({
                 loginDialogVisible.value = true
                 return
             }
-            if (certStatus.value !== 1) {
-                authenticationDialogVisible.value = true
-                return
-            }
-            if (selectTokenType.value === 0) {
-                nsfDialogVisible.value = true
-                return
-            }
-            if (selectTokenType.value === 1) {
-                buyDialogVisible.value = true
-                return
-            }
+            // if (certStatus.value !== 1) {
+            //     authenticationDialogVisible.value = true
+            //     return
+            // }
+            // if (selectTokenType.value === 0) {
+            //     nsfDialogVisible.value = true
+            //     return
+            // }
+            // if (selectTokenType.value === 1) {
+            //     buyDialogVisible.value = true
+            //     return
+            // }
             const info = getApiInfo.value
             if (info) {
-                apiInfoCode(info.apiCode, 'v1', requestJson)
+                apiTool({
+                    apiCode: info.apiCode,
+                    apiVersion: 'v1',
+                    requestParams: getRequestParams(),
+                    requestType: info.requestMethod,
+                    requestUrl: info.apiDocAddress,
+                    billingMethod: selectTokenType.value === 0 ? '1' : '2',
+                })
                     .then((res) => {
                         resultJson.result = {
                             res,

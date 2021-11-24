@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-12 18:31:01
+ * @LastEditTime: 2021-11-24 19:40:19
  * @FilePath: /datumwealth-openalpha-front/src/components/search/Search.vue
  * @Description: 搜索输入框
 -->
@@ -57,16 +57,18 @@ export default defineComponent({
          */
         const inputEnter = () => {
             router.push({
-                path: `/interface/${inputValue.value}`,
+                path: `/search/${inputValue.value}`,
             })
+            inputValue.value = ''
         }
         /**
          * 搜索
          */
         const searchAction = () => {
             router.push({
-                path: `/interface/${inputValue.value}`,
+                path: `/search/${inputValue.value}`,
             })
+            inputValue.value = ''
         }
         return {
             inputValue,

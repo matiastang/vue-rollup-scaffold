@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 19:35:04
- * @LastEditTime: 2021-11-24 17:25:02
+ * @LastEditTime: 2021-11-24 18:15:28
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/applyTrialModel/ApplyTrialModel.vue
@@ -21,10 +21,10 @@
                     <div class="model-info-title defaultFont">总调用次数:</div>
                     <div class="model-info-value">{{ `${count}次` }}</div>
                 </div>
-                <div class="model-info-right-content flexRowCenter">
+                <!-- <div class="model-info-right-content flexRowCenter">
                     <div class="model-info-title defaultFont">有效期限:</div>
                     <div class="model-info-value">{{ time }}</div>
-                </div>
+                </div> -->
             </div>
             <div class="model-content flexRowCenter">
                 <div class="model-body-title defaultFont">登录账号:</div>

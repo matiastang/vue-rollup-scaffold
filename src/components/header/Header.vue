@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 16:06:43
+ * @LastEditTime: 2021-11-24 19:38:43
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -141,6 +141,9 @@ export default defineComponent({
             let path = route.path
             for (let i = 0; i < titleArr.length; i++) {
                 titleArr[i].selected = path.startsWith(`/${titleArr[i].name}`)
+                if (i === 1 && !titleArr[i].selected) {
+                    titleArr[i].selected = path.startsWith('/search')
+                }
             }
         })
         /**
