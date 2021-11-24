@@ -2,13 +2,11 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:23:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 16:28:03
+ * @LastEditTime: 2021-11-24 11:00:44
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/home.ts
  * @Description: 首页相关接口
  */
 import http from '../../request'
-import { Md5 } from 'ts-md5/dist/md5'
-import { MbMemberAuthLogs } from '@/user'
 import { HotType, SolutionType } from './homeInterface'
 import { apiPrefix, contentPrefix } from '../../prefix'
 
@@ -66,6 +64,29 @@ const homeInterfaceNavigationTree = () => {
                     return
                 }
                 reject('首页热榜错误')
+                return
+            })
+            .catch(reject)
+    })
+}
+
+/**
+ * 获取接口列表结构树
+ */
+const homeInterfaceTree = () => {
+    return new Promise<HotType[]>((resolve, reject) => {
+        http.get(`${apiPrefix}/openApi/tree`)
+            .then((res) => {
+                const data = res.data
+                if (typeof data === 'object' && Array.isArray(data)) {
+                    resolve(
+                        data.map((item) => {
+                            return item as HotType
+                        })
+                    )
+                    return
+                }
+                reject('接口列表结构树错误')
                 return
             })
             .catch(reject)
@@ -147,4 +168,11 @@ const homePartner = () => {
     })
 }
 
-export { homeBanner, homeInterfaceNavigationTree, homeSolution, homeHotInterface, homePartner }
+export {
+    homeBanner,
+    homeInterfaceNavigationTree,
+    homeInterfaceTree,
+    homeSolution,
+    homeHotInterface,
+    homePartner,
+}

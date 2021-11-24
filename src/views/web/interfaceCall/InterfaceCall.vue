@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-23 19:27:14
+ * @LastEditTime: 2021-11-24 11:01:27
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -168,7 +168,7 @@ import InfoList from '../interfaceInfo/components/infoList/InfoList.vue'
 import InterfaceAffix from '@/components/interfaceAffix/InterfaceAffix.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import { ElMessage } from 'element-plus'
-import { homeInterfaceNavigationTree } from '@/common/request/modules/home/home'
+import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { apiInfoCode } from '@/common/request/modules/api/api'
 import { HotType } from '@/common/request/modules/home/homeInterface'
 import { useStore } from 'store/index'
@@ -190,7 +190,7 @@ export default defineComponent({
             tree: Array<HotType>(),
         })
         watchSyncEffect(async () => {
-            interfaceTree.tree = await homeInterfaceNavigationTree()
+            interfaceTree.tree = await homeInterfaceTree()
         })
         // 选择了api
         const selectApiId = ref(Number(route.params.id))

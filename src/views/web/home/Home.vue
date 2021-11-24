@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 17:25:57
- * @LastEditTime: 2021-11-19 19:15:53
+ * @LastEditTime: 2021-11-23 19:31:27
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
@@ -141,7 +141,6 @@ export default defineComponent({
         watchSyncEffect(async () => {
             let categoryTree = await homeInterfaceNavigationTree()
             iNavTree.tree = categoryTree.filter((item: HotType) => {
-                console.log(homeCategory.includes(item.categoryName))
                 return homeCategory.includes(item.categoryName)
             })
         })

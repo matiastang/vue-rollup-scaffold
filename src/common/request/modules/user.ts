@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 10:11:39
+ * @LastEditTime: 2021-11-24 11:08:59
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
@@ -224,6 +224,20 @@ const certificationLast = (userId: number) => {
     })
 }
 
+/**
+ * 用户token重置
+ */
+const resetToken = () => {
+    return new Promise<string>((resolve, reject) => {
+        http.post(`${memberPrefix}/reset/token`, {})
+            .then((res) => {
+                const data = res.data
+                resolve(typeof data === 'string' ? data : '修改成功')
+            })
+            .catch(reject)
+    })
+}
+
 export {
     login,
     logout,
@@ -237,4 +251,5 @@ export {
     enterprise,
     certificationList,
     certificationLast,
+    resetToken,
 }

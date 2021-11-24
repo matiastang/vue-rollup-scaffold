@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 20:08:49
+ * @LastEditTime: 2021-11-24 11:14:47
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -154,6 +154,14 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                 localStorageRemove(localStorageKey.userTokenKey)
             }
             state.userLoginInfo.token = token
+        },
+        /**
+         * 设置Secret
+         * @param state
+         * @param token
+         */
+        setSecret(state, secret: string | null) {
+            state.userLoginInfo.member.appSecret = secret
         },
         /**
          * 设置用户信息

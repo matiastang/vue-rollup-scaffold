@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <g id="个人账号" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="账号信息-个人" transform="translate(-776.000000, -385.000000)">
+            <g id="编组" transform="translate(776.000000, 385.000000)">
+                <polygon id="Fill-3" fill="#FFFFFF" opacity="0" points="0 32 32 32 32 0 0 0"></polygon>
+                <path d="M8,6.6182 L8,4.6662 C8,3.5622 8.896,2.6662 10,2.6662 L27.334,2.6662 C28.438,2.6662 29.334,3.5622 29.334,4.6662 L29.334,22.0002 C29.334,23.1062 28.438,24.0002 27.334,24.0002 L25.346,24.0002" id="Stroke-5" stroke="#FFFFFF"></path>
+                <path d="M4.667,6.667 L23.333,6.667 C24.437,6.667 25.333,7.563 25.333,8.667 L25.333,27.333 C25.333,28.437 24.437,29.333 23.333,29.333 L4.667,29.333 C3.563,29.333 2.667,28.437 2.667,27.333 L2.667,8.667 C2.667,7.563 3.563,6.667 4.667,6.667 Z" id="Stroke-7" stroke="#FFFFFF" stroke-linejoin="round"></path>
+                <path d="M12.293,15.4062 L15.821,11.7342 C16.789,10.7662 18.379,10.7862 19.373,11.7822 C20.367,12.7762 20.389,14.3642 19.421,15.3322 L18.149,16.6822" id="Stroke-9" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M8.9776,19.164 C8.6376,19.504 7.9336,20.184 7.9336,20.184 C6.9656,21.152 6.9396,22.876 7.9336,23.872 C8.9276,24.866 10.5196,24.886 11.4856,23.918 L14.9296,20.792" id="Stroke-11" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M12.4424,18.8848 C11.9804,18.4248 11.7284,17.8328 11.6884,17.2368 C11.6424,16.5488 11.8764,15.8508 12.3944,15.3328" id="Stroke-13" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M14.8808,17.2412 C15.8748,18.2352 15.8968,19.8252 14.9288,20.7932" id="Stroke-15" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

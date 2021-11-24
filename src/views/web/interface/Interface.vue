@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-23 14:23:54
+ * @LastEditTime: 2021-11-24 11:01:35
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -62,7 +62,7 @@ import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
 import InterfaceHot from './components/interfaceHot/InterfaceHot.vue'
 import { ElMessage } from 'element-plus'
 import { apiHotInterface } from '@/common/request/modules/api/api'
-import { homeInterfaceNavigationTree } from '@/common/request/modules/home/home'
+import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { HotType } from '@/common/request/modules/home/homeInterface'
 import { ListRecoType } from '@/common/request/modules/api/apiInterface'
 
@@ -81,7 +81,7 @@ export default defineComponent({
             tree: Array<HotType>(),
         })
         watchSyncEffect(async () => {
-            interfaceTree.tree = await homeInterfaceNavigationTree()
+            interfaceTree.tree = await homeInterfaceTree()
         })
         // 选择的分类
         let selectIndex = ref(0)
