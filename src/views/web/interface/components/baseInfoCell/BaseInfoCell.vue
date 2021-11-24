@@ -9,7 +9,10 @@
 <template>
     <div class="base-info-cell borderBox cursorP flexRowCenter" @click="infoCellAction">
         <div class="cell-left flexRowCenter">
-            <img class="cell-icon" :src="data.apiIconUrl" />
+            <!-- <img class="cell-icon" :src="data.apiIconUrl" /> -->
+            <svg class="icon cell-icon" aria-hidden="true">
+                <use :xlink:href="`#${data.apiIconUrl}`"></use>
+            </svg>
             <div class="cell-title-content flexColumnCenter">
                 <div class="cell-title defaultFont">{{ data.apiName }}</div>
                 <div class="cell-item flexRowCenter">

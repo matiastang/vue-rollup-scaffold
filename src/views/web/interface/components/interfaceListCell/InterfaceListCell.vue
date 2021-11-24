@@ -17,7 +17,11 @@
         ]"
     >
         <div class="cell-left flexRowCenter">
-            <img class="cell-icon" :src="data.categoryIconUrl" />
+            <svg class="icon cell-icon" aria-hidden="true">
+                <use :xlink:href="`#${data.categoryIconUrl}`"></use>
+            </svg>
+            <!-- <img class="cell-icon" :src="data.categoryIconUrl" /> -->
+
             <div class="cell-title defaultFont">{{ data.categoryName }}</div>
         </div>
         <div class="cell-value defaultFont">{{ `(${count})` }}</div>

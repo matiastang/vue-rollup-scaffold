@@ -8,7 +8,10 @@
 -->
 <template>
     <div class="hot-left-cell borderBox flexColumnCenter">
-        <img class="hot-left-cell-img" :src="url" />
+        <!-- <img class="hot-left-cell-img" :src="url" /> -->
+        <svg class="icon hot-left-cell-img" aria-hidden="true">
+            <use :xlink:href="`#${url}`"></use>
+        </svg>
         <div class="hot-left-cell-title">{{ title || '标题' }}</div>
         <div class="hot-left-cell-text">{{ text || '副标题' }}</div>
         <div class="hot-left-cell-button defaultFont cursorP">查看全部</div>

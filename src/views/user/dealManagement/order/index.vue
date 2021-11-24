@@ -11,7 +11,6 @@
             </el-form-item>
             <el-form-item label="查询日期">
                 <el-date-picker
-                    size="mini"
                     v-model="date"
                     type="daterange"
                     range-separator="-"
@@ -41,8 +40,8 @@
             </template>
             <el-skeleton v-if="loading" :rows="5" animated />
             <el-table
-                border
                 v-else
+                height="60vh"
                 :header-cell-style="{
                     background: '#e9e9e9',
                 }"
@@ -63,24 +62,43 @@
                 <el-table-column prop="goodsAmount" label="订单金额（元）" show-overflow-tooltip />
                 <el-table-column prop="orderAmount" label="实付金额（元）" show-overflow-tooltip />
                 <el-table-column prop="payName" label="支付方式" show-overflow-tooltip />
-                <el-table-column prop="addTime" label="订单时间" show-overflow-tooltip />
-                <el-table-column prop="PayStatus" label="支付状态">
+                <el-table-column
+                    prop="addTime"
+                    :width="180"
+                    label="订单时间"
+                    show-overflow-tooltip
+                />
+                <el-table-column prop="PayStatus" :width="120" label="支付状态">
                     <template #default="scope"
-                        >{{ payStatusToText(scope.row.PayStatus) }}
+                        >{{
+                            payStatusToText(
+                                Number(scope.row.payId),
+                                Number(scope.row.payStatus),
+                                Number(scope.row.payVoucher)
+                            )
+                        }}
                     </template>
                 </el-table-column>
-                <el-table-column prop="address" label="操作">
+                <el-table-column prop="address" label="操作" width="400px">
                     <template #default="scope">
-                        <el-button type="text">下载采购单 </el-button>
-                        <el-button type="text">上传凭证 </el-button>
-                        <el-button type="text">去支付 </el-button>
-                        <el-button type="text">取消 </el-button>
-                        <el-button type="text">去开票 </el-button>
-                        <el-button type="text">查看详情 </el-button>
-                        <el-button type="text">重新上传 </el-button>
-                        <el-button type="text" @click="handleCancel(scope.row.id)">
-                            取消订单
-                        </el-button>
+                        <template v-if="isPayStatusInUpload(scope.row)">
+                            <el-button type="text">下载采购单 </el-button>
+                            <el-button type="text">上传凭证 </el-button>
+                        </template>
+                        <template v-if="isPayStatusNotPay(scope.row)">
+                            <el-button type="text">去支付 </el-button>
+                            <el-button type="text">取消 </el-button>
+                        </template>
+                        <template v-if="isPayStatusFinish(scope.row)">
+                            <el-button type="text">去开票 </el-button>
+                        </template>
+                        <template v-if="isPayStatusChecking(scope.row)">
+                            <el-button type="text">查看详情 </el-button>
+                        </template>
+                        <template v-if="isPayStatusFailure(scope.row)">
+                            <el-button type="text">重新上传 </el-button>
+                            <el-button type="text">查看详情 </el-button>
+                        </template>
                     </template>
                 </el-table-column>
             </el-table>
@@ -99,7 +117,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import { Search } from '@element-plus/icons'
 import { Order } from '@/@types'
 import { ElMessageBox } from 'element-plus'
@@ -110,7 +128,7 @@ const loading = ref(true)
 const list = ref<Array<Order.AsObject>>([])
 const date = ref([])
 const form = ref()
-const queryParams = ref({
+const queryParams = reactive({
     orderSn: '',
     type: '',
     pageNum: 1,
@@ -124,7 +142,7 @@ onMounted(() => {
 
 const doQuery = async () => {
     try {
-        const query = addDateRange(queryParams.value, date.value)
+        const query = addDateRange(queryParams, date.value)
         const response = await getOrderList(query)
         loading.value = false
         list.value = response.data.rows
@@ -133,6 +151,27 @@ const doQuery = async () => {
         throw error
     }
 }
+const isPayStatusInUpload = (row: Order.AsObject) => {
+    const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
+    return payText === '未上传凭证'
+}
+const isPayStatusNotPay = (row: Order.AsObject) => {
+    const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
+    return payText === '未支付'
+}
+const isPayStatusFinish = (row: Order.AsObject) => {
+    const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
+    return payText === '已支付'
+}
+const isPayStatusChecking = (row: Order.AsObject) => {
+    const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
+    return payText === '已上传待审核'
+}
+const isPayStatusFailure = (row: Order.AsObject) => {
+    const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
+    return payText === '审核未通过'
+}
+
 const handleCancel = async (id: Number, name?: String) => {
     ElMessageBox.confirm(`确定删除${name}?`, '警告', {
         confirmButtonText: '确认',
@@ -144,7 +183,7 @@ const handleCancel = async (id: Number, name?: String) => {
                 const response = await getOrderCancel({ orderId: id })
                 loading.value = false
                 list.value = response.data.rows
-                queryParams.value.total = response.data.total
+                queryParams.total = response.data.total
             } catch (error) {
                 loading.value = false
                 throw error
@@ -152,22 +191,26 @@ const handleCancel = async (id: Number, name?: String) => {
         })
         .catch(() => {})
 }
-const doRest = () => {
-    queryParams.value = {
-        orderSn: '',
-        type: '',
-        pageNum: 1,
-        pageSize: 10,
-        total: 0,
-    }
+const doReset = () => {
+    Object.assign(
+        {
+            orderSn: '',
+            type: '',
+            pageNum: 1,
+            pageSize: 10,
+            total: 0,
+        },
+        queryParams
+    )
     date.value = []
     form.value.resetFields()
+    doQuery()
 }
 const asyncPageNumber = (count: number) => {
-    queryParams.value.pageNum = count
+    queryParams.pageNum = count
 }
 const asyncPageSize = (count: number) => {
-    queryParams.value.pageSize = count
+    queryParams.pageSize = count
 }
 </script>
 

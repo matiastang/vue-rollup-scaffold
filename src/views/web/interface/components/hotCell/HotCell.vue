@@ -9,7 +9,10 @@
 <template>
     <div class="hot-cell borderBox flexColumnCenter">
         <div class="cell-top borderBox flexRowCenter">
-            <img class="cell-icon" :src="url" />
+            <!-- <img class="cell-icon" :src="url" /> -->
+            <svg class="icon cell-icon" aria-hidden="true">
+                <use :xlink:href="`#${url}`"></use>
+            </svg>
             <div class="cell-title defaultFont">{{ title || '-' }}</div>
         </div>
         <div
