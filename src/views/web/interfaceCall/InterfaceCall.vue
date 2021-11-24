@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-24 18:42:33
+ * @LastEditTime: 2021-11-24 20:10:55
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -158,7 +158,7 @@
             @okAction="applyTrialOkAction"
             @cancelAction="applyTrialCancelAction"
         />
-        <InterfaceAffix @click="showApplyTrialModel" />
+        <InterfaceAffix v-if="isApplyTry === 0" @click="showApplyTrialModel" />
     </div>
 </template>
 <script lang="ts">
@@ -169,11 +169,13 @@ import InfoList from '../interfaceInfo/components/infoList/InfoList.vue'
 import InterfaceAffix from '@/components/interfaceAffix/InterfaceAffix.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import { ElMessage } from 'element-plus'
+import { checkAvailable } from '@/common/request/modules/user'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { apiTool } from '@/common/request/modules/api/api'
 import { HotType } from '@/common/request/modules/home/homeInterface'
 import { useStore } from 'store/index'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
+import { addOd, orderType } from '@/common/request/modules/pay/pay'
 
 export default defineComponent({
     name: 'InterfaceCall',
@@ -186,6 +188,7 @@ export default defineComponent({
         const userName = computed(() => store.state.userModule.userLoginInfo.member.realName)
         const userPhone = computed(() => store.state.userModule.userLoginInfo.member.phone)
         const userEmail = computed(() => store.state.userModule.userLoginInfo.member.email)
+        const isApplyTry = computed(() => store.state.userModule.userLoginInfo.member.isApplyTry)
         // 接口列表树
         const interfaceTree = reactive({
             tree: Array<HotType>(),
@@ -306,7 +309,29 @@ export default defineComponent({
         }
         const rechargeCancelAction = () => {
             nsfDialogVisible.value = false
-            overdueDialogVisible.value = true
+            if (isApplyTry.value === 1) {
+                overdueDialogVisible.value = true
+                return
+            }
+            // 申请试用
+            addOd({
+                goodsAmount: 0,
+                orderType: orderType.test,
+                payId: 0,
+            })
+                .then((oreder) => {
+                    ElMessage({
+                        message: '试用申请成功',
+                        type: 'success',
+                    })
+                    store.commit('setApplyTry', 1)
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '接口id错误',
+                        type: 'error',
+                    })
+                })
         }
         // 申请接口试用
         const applyTrialDialogVisible = ref(false)
@@ -336,28 +361,9 @@ export default defineComponent({
             return params
         }
         /**
-         * 接口试用
+         * 测试接口
          */
-        const apiCallAction = () => {
-            // 用户token
-            const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
-            if (!userToken || userToken.trim() === '') {
-                // 未登录
-                loginDialogVisible.value = true
-                return
-            }
-            // if (certStatus.value !== 1) {
-            //     authenticationDialogVisible.value = true
-            //     return
-            // }
-            // if (selectTokenType.value === 0) {
-            //     nsfDialogVisible.value = true
-            //     return
-            // }
-            // if (selectTokenType.value === 1) {
-            //     buyDialogVisible.value = true
-            //     return
-            // }
+        const apiTest = () => {
             const info = getApiInfo.value
             if (info) {
                 apiTool({
@@ -384,6 +390,42 @@ export default defineComponent({
                 message: '接口信息错误',
                 type: 'error',
             })
+        }
+        /**
+         * 接口试用
+         */
+        const apiCallAction = () => {
+            // 用户token
+            const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
+            if (!userToken || userToken.trim() === '') {
+                // 未登录
+                loginDialogVisible.value = true
+                return
+            }
+            // 实名认证
+            if (certStatus.value !== 1) {
+                authenticationDialogVisible.value = true
+                return
+            }
+            checkAvailable(selectTokenType.value + 1)
+                .then((can) => {
+                    if (!can) {
+                        if (selectTokenType.value === 0) {
+                            nsfDialogVisible.value = true
+                        }
+                        if (selectTokenType.value === 1) {
+                            buyDialogVisible.value = true
+                        }
+                        return
+                    }
+                    apiTest()
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '调用接口校验错误',
+                        type: 'error',
+                    })
+                })
         }
         return {
             appSecret,
@@ -415,6 +457,7 @@ export default defineComponent({
             userEmail,
             applyTrialDialogVisible,
             showApplyTrialModel,
+            isApplyTry,
         }
     },
     components: {

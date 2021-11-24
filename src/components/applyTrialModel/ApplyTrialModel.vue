@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 19:35:04
- * @LastEditTime: 2021-11-24 18:15:28
+ * @LastEditTime: 2021-11-24 19:49:38
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/applyTrialModel/ApplyTrialModel.vue
@@ -54,8 +54,7 @@
 import { defineComponent } from 'vue'
 import { addOd, orderType } from '@/common/request/modules/pay/pay'
 import { ElMessage } from 'element-plus'
-import { PaymentType, WeiXinOdResponse } from '@/common/request/modules/pay/payInterface'
-import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
+import { useStore } from 'store/index'
 
 export default defineComponent({
     name: 'ApplyTrialModel',
@@ -83,8 +82,9 @@ export default defineComponent({
         },
     },
     emits: ['okAction', 'cancelAction'],
-    methods: {
-        modelOkAction() {
+    setup(props, context) {
+        const store = useStore()
+        const modelOkAction = () => {
             addOd({
                 goodsAmount: 0,
                 orderType: orderType.test,
@@ -95,7 +95,8 @@ export default defineComponent({
                         message: '试用申请成功',
                         type: 'success',
                     })
-                    this.$emit('okAction')
+                    store.commit('setApplyTry', 1)
+                    context.emit('okAction')
                 })
                 .catch((err) => {
                     ElMessage({
@@ -103,10 +104,14 @@ export default defineComponent({
                         type: 'error',
                     })
                 })
-        },
-        modelCancelAction() {
-            this.$emit('cancelAction')
-        },
+        }
+        const modelCancelAction = () => {
+            context.emit('cancelAction')
+        }
+        return {
+            modelOkAction,
+            modelCancelAction,
+        }
     },
 })
 </script>

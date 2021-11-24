@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 11:08:59
+ * @LastEditTime: 2021-11-24 19:56:42
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
  * @Description: 用户相关接口
  */
@@ -238,6 +238,27 @@ const resetToken = () => {
     })
 }
 
+/**
+ * 检查账户余额/套餐是否可用
+ * @param userId
+ * @returns
+ */
+const checkAvailable = (type: number) => {
+    return new Promise<boolean>((resolve, reject) => {
+        http.get(`${memberPrefix}/check/account/balance/available?type=${type}`)
+            .then((res) => {
+                const data = res.data
+                if (typeof data === 'boolean') {
+                    resolve(data)
+                    return
+                }
+                reject('检查账户余额/套餐是否可用错误')
+                return
+            })
+            .catch(reject)
+    })
+}
+
 export {
     login,
     logout,
@@ -252,4 +273,5 @@ export {
     certificationList,
     certificationLast,
     resetToken,
+    checkAvailable,
 }
