@@ -9,7 +9,10 @@
 <template>
     <div class="hot-cell borderBox flexColumnCenter">
         <div class="hot-cell-top borderBox flexColumnCenter">
-            <img class="hot-cell-img" :src="data.apiHomeRecoIcon" />
+            <!-- <img class="hot-cell-img" :src="data.apiHomeRecoIcon" /> -->
+            <svg class="icon hot-cell-img" aria-hidden="true">
+                <use :xlink:href="`#${data.apiHomeRecoIcon}`"></use>
+            </svg>
             <div class="hot-cell-title">{{ data.apiHomeRecoDesc || '标题' }}</div>
             <div v-for="item in texts" :key="item" class="hot-cell-text defaultFont">
                 {{ item || '副标题' }}
@@ -64,7 +67,8 @@ export default defineComponent({
             max-width: 54px;
             width: 100%;
             height: 54px;
-            background: $themeColor;
+            // background: $themeColor;
+            // color: white;
         }
         .hot-cell-title {
             font-size: 18px;

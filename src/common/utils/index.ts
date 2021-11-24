@@ -6,7 +6,7 @@
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/index.ts
  * @Description: 工具函数
  */
-import { Exact, Maybe, OrderTypeEnum, PayStatusEnum } from '@/@types'
+import { Exact, Maybe, OrderTypeEnum, PayStatusEnum, Order } from '@/@types'
 /**
  * 手机号脱敏
  * @param phone
@@ -85,8 +85,13 @@ export function orderTypeToText(type: OrderTypeEnum) {
  * @param type
  * @returns
  */
-export function payStatusToText(type: PayStatusEnum) {
-    const result = {
+export function payStatusToText(
+    payId: Number,
+    payStatus: PayStatusEnum,
+    payVoucher: Maybe<String>
+) {
+    let result = ''
+    const PayStatusEnum = {
         0: '未支付',
         1: '支付中',
         2: '已支付',
@@ -96,5 +101,20 @@ export function payStatusToText(type: PayStatusEnum) {
         6: '已取消',
         7: '部分退款',
     }
-    return result[type] || ''
+    if (Number(payId) === 3) {
+        switch (Number(payStatus)) {
+            case 0:
+                result = payVoucher ? '未上传凭证' : '审核未通过'
+                break
+            case 1:
+                result = '已上传待审核'
+                break
+            default:
+                result = PayStatusEnum[payStatus]
+                break
+        }
+    } else {
+        result = PayStatusEnum[payStatus]
+    }
+    return result
 }

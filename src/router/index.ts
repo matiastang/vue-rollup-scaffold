@@ -26,8 +26,8 @@ import InterfaceStatement from '@/views/user/dataCenter/interfaceStatement/Inter
 import DiscountInfo from '@/views/user/dataCenter/discountInfo/DiscountInfo.vue'
 import RechargeInfo from '@/views/user/dataCenter/rechargeInfo/RechargeInfo.vue'
 import DataStatistics from '@/views/user/dataCenter/dataStatistics/DataStatistics.vue'
-import Order from '@/views/user/dealManagement/order/Order.vue'
-import Invoice from '@/views/user/dealManagement/invoice/Invoice.vue'
+import Order from '@/views/user/dealManagement/order/index.vue'
+import Invoice from '@/views/user/dealManagement/invoice/index.vue'
 import Setting from '@/views/user/accountManagement/setting/Setting.vue'
 import Certification from '@/views/user/accountManagement/certification/Certification.vue'
 // 帮助中心

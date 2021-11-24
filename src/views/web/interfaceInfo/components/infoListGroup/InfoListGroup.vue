@@ -10,7 +10,10 @@
     <div class="info-list-group borderBox flexColumnCenter">
         <div class="group-content borderBox cursorP flexRowCenter" @click="selectAction">
             <div class="cell-left flexRowCenter">
-                <img v-if="url !== ''" class="cell-left-icon" :src="url" />
+                <!-- <img v-if="url !== ''" class="cell-left-icon" :src="url" /> -->
+                <svg class="icon cell-left-icon" aria-hidden="true">
+                    <use :xlink:href="`#${url}`"></use>
+                </svg>
                 <div class="cell-title defaultFont" :style="{ 'margin-left': `${url ? 0 : 32}px` }">
                     {{ title }}
                 </div>
@@ -76,7 +79,7 @@ export default defineComponent({
             .cell-left-icon {
                 width: 24px;
                 height: 24px;
-                background: $themeColor;
+                // background: $themeColor;
                 margin-right: 8px;
             }
             .cell-title {

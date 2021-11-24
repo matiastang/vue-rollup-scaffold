@@ -1,4 +1,4 @@
-import { Maybe, Exact, OrderTypeEnum, OrderStstusEnum, PayStatusEnum } from '@/@types'
+import { Maybe, Exact, OrderTypeEnum, OrderStstusEnum, PayStatusEnum, Invoic } from '@/@types'
 
 export declare namespace Order {
     export type AsObject = {
@@ -7,7 +7,7 @@ export declare namespace Order {
         userId?: Number
         OrderType?: OrderTypeEnum
         orderStatus?: OrderStstusEnum
-        PayStatus?: PayStatusEnum
+        payStatus?: PayStatusEnum
         payId?: Maybe<Number>
         payName?: Maybe<String>
         orderAmount?: Maybe<Number>
@@ -17,12 +17,16 @@ export declare namespace Order {
         invId?: Maybe<Number>
         addressId?: Maybe<Number>
         payVoucher?: Maybe<String>
+        postscript?: Maybe<String>
+        toBuyer?: Maybe<String>
         channel?: Maybe<String>
         addTime?: Maybe<String>
         confirmTime?: Maybe<String>
         payTime?: Maybe<String>
         finishTime?: Maybe<String>
         modifyTime?: Maybe<String>
+        beginTime?: Maybe<String>
+        beginTime?: Maybe<String>
     }
     export type QueryList = {
         beginTime?: Maybe<String>

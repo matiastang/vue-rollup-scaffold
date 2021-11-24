@@ -11,7 +11,10 @@
         <!-- @mouseover="mouseoverAction"
         @mouseout="mouseoutAction" -->
         <div class="collapse-cell-left">
-            <img class="collapse-cell-left-icon" :src="url" />
+            <svg class="icon collapse-cell-left-icon" aria-hidden="true">
+                <use :xlink:href="`#${url}`"></use>
+                <!-- <use :xlink:href="`#icon-jijinzhaiquantouzi-guijinshuchicangmingxi`"></use> -->
+            </svg>
             <div class="flexColumnCenter collapse-cell-center">
                 <div class="collapse-cell-title defaultFont">{{ title }}</div>
                 <div class="collapse-cell-text textLine1 defaultFont">{{ text }}</div>
@@ -77,7 +80,9 @@ export default defineComponent({
         .collapse-cell-left-icon {
             width: 20px;
             height: 20px;
+            color: white;
         }
+
         .collapse-cell-center {
             align-items: flex-start;
             margin-left: 18px;
@@ -106,6 +111,9 @@ export default defineComponent({
 .collapse-cell:hover {
     background: $themeBgColor;
     .collapse-cell-left {
+        .collapse-cell-left-icon {
+            color: $themeColor;
+        }
         .collapse-cell-center {
             .collapse-cell-title {
                 color: $themeColor;

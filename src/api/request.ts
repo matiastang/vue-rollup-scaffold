@@ -1,7 +1,11 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { Response } from '@/@types'
-import { localStorageKey, localStorageRead } from '@/common/utils/storage/localStorage'
+import {
+    localStorageKey,
+    localStorageRead,
+    localStorageRemoveAll,
+} from '@/common/utils/storage/localStorage'
 // 创建axios实例
 const service = axios.create({
     // axios vite 配置文档 https://cn.vitejs.dev/guide/env-and-mode.html
@@ -31,6 +35,10 @@ const onResponseError = (err: Response.AxiosError): Promise<Response.AxiosError>
 const onResponseSuccess = (response: Response.AxiosResponse): Response.AxiosResponse => {
     if (response.data.code === 200) {
         return response.data
+    } else if (response.data.code === 401) {
+        localStorageRemoveAll()
+        ElMessage.error(response.data.msg)
+        window.location.href = '#/login'
     } else {
         ElMessage.error(response.data.msg)
         throw response.data
