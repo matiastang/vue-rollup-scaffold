@@ -36,6 +36,8 @@ export declare namespace Order {
         payId?: Maybe<Number>
         PayStatus?: Maybe<PayStatusEnum>
         userName?: Maybe<String>
+        pageNum?: Maybe<String>
+        pageSize?: Maybe<String>
     }
     export type OrderResponse = {
         total?: Maybe<Number>
@@ -44,4 +46,8 @@ export declare namespace Order {
     export type CancelQuery = {
         orderId?: Maybe<Number>
     }
+}
+export type Pagination = {
+    page: Maybe<number>
+    limit: Maybe<number>
 }

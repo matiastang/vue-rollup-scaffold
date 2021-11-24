@@ -7,6 +7,12 @@ export function getOrderList(data: Order.QueryList) {
         url: '/api/trade/od/list',
         method: RequestMethod.post,
         data,
+        params: {
+            pageNum: data.pageNum,
+            pageSize: data.pageSize,
+            orderByColumn: 'addTime',
+            isAsc: 'desc',
+        },
     })
 }
 

@@ -31,7 +31,7 @@
             <el-form-item label="" label-width="0">
                 <el-button @click="doQuery" type="primary" plain>查询</el-button>
                 <el-button @click="doReset" plain>重置</el-button>
-                <el-button type="primary">开发票</el-button>
+                <el-button type="primary" plain>开发票</el-button>
             </el-form-item>
         </el-form>
         <el-card shadow="never">
@@ -41,7 +41,7 @@
             <el-skeleton v-if="loading" :rows="5" animated />
             <el-table
                 v-else
-                height="60vh"
+                height="53vh"
                 :header-cell-style="{
                     background: '#e9e9e9',
                 }"
@@ -59,8 +59,18 @@
                         >{{ orderTypeToText(scope.row.orderType) }}
                     </template>
                 </el-table-column>
-                <el-table-column prop="goodsAmount" label="订单金额（元）" show-overflow-tooltip />
-                <el-table-column prop="orderAmount" label="实付金额（元）" show-overflow-tooltip />
+                <el-table-column
+                    prop="goodsAmount"
+                    :width="120"
+                    label="订单金额（元）"
+                    show-overflow-tooltip
+                />
+                <el-table-column
+                    prop="orderAmount"
+                    :width="120"
+                    label="实付金额（元）"
+                    show-overflow-tooltip
+                />
                 <el-table-column prop="payName" label="支付方式" show-overflow-tooltip />
                 <el-table-column
                     prop="addTime"
@@ -79,10 +89,10 @@
                         }}
                     </template>
                 </el-table-column>
-                <el-table-column prop="address" label="操作" width="400px">
+                <el-table-column prop="address" label="操作" width="200px">
                     <template #default="scope">
                         <template v-if="isPayStatusInUpload(scope.row)">
-                            <el-button type="text">下载采购单 </el-button>
+                            <!-- <el-button type="text">下载采购单 </el-button> -->
                             <el-button type="text">上传凭证 </el-button>
                         </template>
                         <template v-if="isPayStatusNotPay(scope.row)">
@@ -92,25 +102,24 @@
                         <template v-if="isPayStatusFinish(scope.row)">
                             <el-button type="text">去开票 </el-button>
                         </template>
-                        <template v-if="isPayStatusChecking(scope.row)">
+                        <!-- <template v-if="isPayStatusChecking(scope.row)">
                             <el-button type="text">查看详情 </el-button>
-                        </template>
+                        </template> -->
                         <template v-if="isPayStatusFailure(scope.row)">
                             <el-button type="text">重新上传 </el-button>
-                            <el-button type="text">查看详情 </el-button>
                         </template>
+                        <el-button type="text">查看详情 </el-button>
                     </template>
                 </el-table-column>
             </el-table>
-
             <pagination
                 v-show="total > 0"
                 :total="total"
                 :page="queryParams.pageNum"
                 :limit="queryParams.pageSize"
-                @update:page="asyncPageNumber"
-                @update:limit="asyncPageSize"
-                @pagination="doQuery"
+                @page="asyncPageNumber"
+                @limit="asyncPageSize"
+                @pagination="handlePagination"
             />
         </el-card>
     </div>
@@ -119,21 +128,20 @@
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { Search } from '@element-plus/icons'
-import { Order } from '@/@types'
+import { Order, Pagination } from '@/@types'
 import { ElMessageBox } from 'element-plus'
 import { addDateRange, orderTypeToText, payStatusToText } from '@/common/utils'
 import { getOrderList, getOrderCancel } from '@/api'
-
 const loading = ref(true)
 const list = ref<Array<Order.AsObject>>([])
 const date = ref([])
 const form = ref()
+const total = ref()
 const queryParams = reactive({
     orderSn: '',
     type: '',
     pageNum: 1,
     pageSize: 10,
-    total: 0,
 })
 
 onMounted(() => {
@@ -146,6 +154,7 @@ const doQuery = async () => {
         const response = await getOrderList(query)
         loading.value = false
         list.value = response.data.rows
+        total.value = response.data.total
     } catch (error) {
         loading.value = false
         throw error
@@ -157,7 +166,7 @@ const isPayStatusInUpload = (row: Order.AsObject) => {
 }
 const isPayStatusNotPay = (row: Order.AsObject) => {
     const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
-    return payText === '未支付'
+    return payText === '支付中'
 }
 const isPayStatusFinish = (row: Order.AsObject) => {
     const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
@@ -183,7 +192,8 @@ const handleCancel = async (id: Number, name?: String) => {
                 const response = await getOrderCancel({ orderId: id })
                 loading.value = false
                 list.value = response.data.rows
-                queryParams.total = response.data.total
+                total.value = response.data.total
+                console.log(response.data.total, total)
             } catch (error) {
                 loading.value = false
                 throw error
@@ -211,6 +221,15 @@ const asyncPageNumber = (count: number) => {
 }
 const asyncPageSize = (count: number) => {
     queryParams.pageSize = count
+}
+const handlePagination = (params: Pagination) => {
+    if (params.page) {
+        queryParams.pageNum = params.page
+    }
+    if (params.limit) {
+        queryParams.pageSize = params.limit
+    }
+    doQuery()
 }
 </script>
 
