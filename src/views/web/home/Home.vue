@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 16:30:44
+ * @LastEditTime: 2021-11-25 12:05:22
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -128,7 +128,8 @@ export default defineComponent({
             banners: Array<string>(),
         })
         watchSyncEffect(async () => {
-            bannerList.banners = await homeBanner()
+            let res = await homeBanner()
+            bannerList.banners = res.map((item) => item.content)
         })
         // 接口导航树
         const iNavTree = reactive({
@@ -214,7 +215,8 @@ export default defineComponent({
             partners: Array<string>(),
         })
         watchSyncEffect(async () => {
-            partnerList.partners = await homePartner()
+            let res = await homePartner()
+            partnerList.partners = res.map((item) => item.content)
         })
         return {
             bannerList,

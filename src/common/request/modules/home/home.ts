@@ -2,13 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:23:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 11:00:44
+ * @LastEditTime: 2021-11-25 11:59:48
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/home.ts
  * @Description: 首页相关接口
  */
-import http from '../../request'
-import { HotType, SolutionType } from './homeInterface'
-import { apiPrefix, contentPrefix } from '../../prefix'
+import http from '@/common/request/request'
+import { HotType, SolutionType, BannerType } from './homeInterface'
+import { apiPrefix, contentPrefix } from '@/common/request/prefix'
 
 enum HomeListType {
     // 首页banner
@@ -24,73 +24,23 @@ enum HomeListType {
  * @returns
  */
 const homeBanner = () => {
-    return new Promise<string[]>((resolve, reject) => {
-        http.get(`${contentPrefix}/article/list?categoryCode=${HomeListType.banner}`)
-            .then((res) => {
-                const data = res.data
-                if (typeof data === 'object' && Array.isArray(data)) {
-                    resolve(
-                        data
-                            .map((item) => {
-                                return item.content as string
-                            })
-                            .filter((item) => {
-                                return item
-                            })
-                    )
-                    return
-                }
-                reject('获取banner错误')
-                return
-            })
-            .catch(reject)
-    })
+    return http.get<BannerType[]>(
+        `${contentPrefix}/article/list?categoryCode=${HomeListType.banner}`
+    )
 }
 
 /**
  * 获取首页接口分类导航树接口
  */
 const homeInterfaceNavigationTree = () => {
-    return new Promise<HotType[]>((resolve, reject) => {
-        http.get(`${apiPrefix}/openApi/navBar/tree`)
-            .then((res) => {
-                const data = res.data
-                if (typeof data === 'object' && Array.isArray(data)) {
-                    resolve(
-                        data.map((item) => {
-                            return item as HotType
-                        })
-                    )
-                    return
-                }
-                reject('首页热榜错误')
-                return
-            })
-            .catch(reject)
-    })
+    return http.get<HotType[]>(`${apiPrefix}/openApi/navBar/tree`)
 }
 
 /**
  * 获取接口列表结构树
  */
 const homeInterfaceTree = () => {
-    return new Promise<HotType[]>((resolve, reject) => {
-        http.get(`${apiPrefix}/openApi/tree`)
-            .then((res) => {
-                const data = res.data
-                if (typeof data === 'object' && Array.isArray(data)) {
-                    resolve(
-                        data.map((item) => {
-                            return item as HotType
-                        })
-                    )
-                    return
-                }
-                reject('接口列表结构树错误')
-                return
-            })
-            .catch(reject)
-    })
+    return http.get<HotType[]>(`${apiPrefix}/openApi/tree`)
 }
 
 /**
@@ -98,46 +48,14 @@ const homeInterfaceTree = () => {
  * @returns
  */
 const homeSolution = () => {
-    return new Promise<SolutionType[]>((resolve, reject) => {
-        http.get(`${contentPrefix}/solution/home`)
-            .then((res) => {
-                const data = res.data
-                if (typeof data === 'object' && Array.isArray(data)) {
-                    resolve(
-                        data.map((item) => {
-                            return item as SolutionType
-                        })
-                    )
-                    return
-                }
-                reject('获取solution错误')
-                return
-            })
-            .catch(reject)
-    })
+    return http.get<SolutionType[]>(`${contentPrefix}/solution/home`)
 }
 
 /**
  * 获取首页推荐热门接口列表(含内容)
  */
 const homeHotInterface = () => {
-    return new Promise<HotType[]>((resolve, reject) => {
-        http.get(`${apiPrefix}/openApi/homeReco`)
-            .then((res) => {
-                const data = res.data
-                if (typeof data === 'object' && Array.isArray(data)) {
-                    resolve(
-                        data.map((item) => {
-                            return item as HotType
-                        })
-                    )
-                    return
-                }
-                reject('首页热榜错误')
-                return
-            })
-            .catch(reject)
-    })
+    return http.get<HotType[]>(`${apiPrefix}/openApi/homeReco`)
 }
 
 /**
@@ -145,27 +63,9 @@ const homeHotInterface = () => {
  * @returns
  */
 const homePartner = () => {
-    return new Promise<string[]>((resolve, reject) => {
-        http.get(`${contentPrefix}/article/list?categoryCode=${HomeListType.partner}`)
-            .then((res) => {
-                const data = res.data
-                if (typeof data === 'object' && Array.isArray(data)) {
-                    resolve(
-                        data
-                            .map((item) => {
-                                return item.content as string
-                            })
-                            .filter((item) => {
-                                return item
-                            })
-                    )
-                    return
-                }
-                reject('获取partner错误')
-                return
-            })
-            .catch(reject)
-    })
+    return http.get<BannerType[]>(
+        `${contentPrefix}/article/list?categoryCode=${HomeListType.partner}`
+    )
 }
 
 export {

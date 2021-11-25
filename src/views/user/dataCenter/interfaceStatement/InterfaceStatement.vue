@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 15:35:22
+ * @LastEditTime: 2021-11-25 11:25:43
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -18,10 +18,10 @@
                     >
                         <div class="tab-recharge-content">
                             <div class="tab-discount-content">
-                                <div class="discount borderBox flexRowCenter">
+                                <!-- <div class="discount borderBox flexRowCenter">
                                     <div class="discount-token-title defaultFont">关联token值:</div>
                                     <TokenView class="discount-token-view" :token="token" />
-                                </div>
+                                </div> -->
                                 <div class="account-information defaultFont">账户信息</div>
                                 <div class="account-information-content flexRowCenter">
                                     <div class="account-information-left flexRowCenter">
@@ -52,7 +52,12 @@
                                         </div>
                                     </div>
                                     <div class="account-information-right flexRowCenter">
-                                        <div class="account-information-buy defaultFont">购买</div>
+                                        <div
+                                            class="account-information-buy cursorP defaultFont"
+                                            @click="toRechargeAction"
+                                        >
+                                            购买
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +65,7 @@
                     </el-tab-pane>
                     <el-tab-pane class="right-tab" label="优惠套餐账单" name="discount">
                         <div class="tab-discount-content">
-                            <div class="discount borderBox flexRowCenter">
+                            <!-- <div class="discount borderBox flexRowCenter">
                                 <div class="discount-type defaultFont">订单编号:</div>
                                 <el-select
                                     class="token-type-select"
@@ -77,7 +82,7 @@
                                 </el-select>
                                 <div class="discount-token-title defaultFont">关联token值:</div>
                                 <TokenView class="discount-token-view" :token="token" />
-                            </div>
+                            </div> -->
                             <div class="account-information defaultFont">账户信息</div>
                             <div class="account-information-content flexRowCenter">
                                 <div class="account-information-left flexRowCenter">
@@ -106,7 +111,12 @@
                                     </div>
                                 </div>
                                 <div class="account-information-right flexRowCenter">
-                                    <div class="account-information-buy defaultFont">购买</div>
+                                    <div
+                                        class="account-information-buy cursorP defaultFont"
+                                        @click="toDiscountAction"
+                                    >
+                                        购买
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +139,7 @@
                     </el-date-picker>
                     <div class="bill-filter-search cursorP defaultFont">查询</div>
                 </div>
-                <SearchInput class="search-input" placeholder="请输入需要查询的账单" />
+                <!-- <SearchInput class="search-input" placeholder="请输入需要查询的账单" /> -->
                 <el-table class="bill-table" :data="tableData" style="width: 100%">
                     <el-table-column prop="date" label="每日订单编号" min-width="100" />
                     <el-table-column prop="name" label="订单编号" min-width="100" />
@@ -155,14 +165,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed } from 'vue'
+import { defineComponent, ref, reactive, computed, watchSyncEffect } from 'vue'
 import TokenView from '@/components/tokenView/TokenView.vue'
 import SearchInput from '@/components/searchInput/SearchInput.vue'
-import router from '@/router'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { userRechargeInfo } from '@/common/request/modules/pay/pay'
+import { RejectType } from '@/common/request/request'
 
 export default defineComponent({
     name: 'InterfaceStatement',
     setup() {
+        const router = useRouter()
         let activeName = ref('recharge')
         // token选择
         let selectOptions = reactive([
@@ -181,40 +195,67 @@ export default defineComponent({
                 ? 'e2aef4ea-cf17-4485-b5c4-c11120197c03'
                 : 'abcdefghi-cf17-4485-b5c4-c11120197c03'
         )
-        // discount info
+        // 优惠套餐
         let discountInfo = reactive([
             {
-                count: 500,
+                count: 0,
                 text: '套餐次数',
             },
             {
-                count: 370,
+                count: 0,
                 text: '总调用量',
             },
             {
-                count: 350,
+                count: 0,
                 text: '总有效调用量',
             },
             {
-                count: 200,
+                count: 0,
                 text: '套餐剩余次数',
             },
         ])
-        // recharge info
-        let rechargeInfo = reactive([
+        // 跳转优惠套餐
+        const toDiscountAction = () => {
+            router.push({
+                path: '/discount',
+            })
+        }
+        // 充值信息
+        const rechargeInfo = reactive([
             {
-                count: 500,
+                count: 0,
                 text: '充值金额',
             },
             {
-                count: 370,
+                count: 0,
                 text: '消费',
             },
             {
-                count: 130,
+                count: 0,
                 text: '账户余额',
             },
         ])
+        // 获取充值信息
+        watchSyncEffect(() => {
+            userRechargeInfo()
+                .then((res) => {
+                    rechargeInfo[0].count = res.balance || 0
+                    rechargeInfo[1].count = res.totalAmount || 0
+                    rechargeInfo[2].count = res.totalConsume || 0
+                })
+                .catch((err: RejectType) => {
+                    ElMessage({
+                        message: err.msg,
+                        type: 'error',
+                    })
+                })
+        })
+        // 跳转充值调用
+        const toRechargeAction = () => {
+            router.push({
+                path: '/recharge',
+            })
+        }
         // 日期选择
         let dateSelected = ref('')
         // table数据
@@ -282,11 +323,13 @@ export default defineComponent({
             dateSelected,
             tableData,
             infoAction,
+            toRechargeAction,
+            toDiscountAction,
         }
     },
     components: {
-        TokenView,
-        SearchInput,
+        // TokenView,
+        // SearchInput,
     },
 })
 </script>

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-22 10:03:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-22 18:35:46
+ * @LastEditTime: 2021-11-25 11:18:45
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/pay/payInterface.d.ts
  * @Description: 支付相关类型
  */
@@ -44,4 +44,18 @@ export interface OrderInfoResponse {
     payName: string // "对公转账"
     orderSn: string //"DW01202111220075"
     postscript: string // "余额充值"
+}
+
+/**
+ * 充值账户信息
+ */
+export interface RechargeResponse {
+    balance: number | null
+    createTime: string | null
+    id: integer | null
+    token: string | null
+    totalAmount: number | null
+    totalConsume: number | null
+    updateTime: string | null
+    userId: BigInteger | null
 }

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-22 14:18:27
+ * @LastEditTime: 2021-11-25 11:18:15
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
@@ -14,11 +14,9 @@ import initInstance from './axiosInterceptors'
 // import { requestDebounce } from './requestDebounce.js'
 
 /**
- * 成功返回类型
+ * 失败返回类型
  */
-interface ResolveObj {
-    code: number
-    data: object | string | boolean | null
+export interface RejectType {
     msg: string
 }
 
@@ -28,18 +26,28 @@ const http = {
      * @param options
      * @returns
      */
-    request(options: AxiosRequestConfig) {
+    request<T>(options: AxiosRequestConfig) {
         const httpAxios = initInstance()
         const requestConfig = {
             ...options,
         }
-        return new Promise<ResolveObj>((resolve, reject) => {
+        /**
+         * 成功返回类型
+         */
+        interface ResolveType {
+            code: number
+            data: T
+            msg: string
+        }
+        return new Promise<ResolveType>((resolve, reject: (reason: RejectType) => void) => {
             httpAxios
                 .request(requestConfig)
                 .then((response) => {
                     const status = response.status
                     if (status !== 200) {
-                        reject(response)
+                        reject({
+                            msg: `错误码${status}`,
+                        })
                         return
                     }
                     if (response && response.data) {
@@ -48,19 +56,32 @@ const http = {
                             resolve(response.data)
                             return
                         }
-                        reject(response.data)
+                        reject({
+                            msg: `接口${code}`,
+                        })
                         return
                     }
-                    reject(response)
+                    reject({
+                        msg: '返回数据异常',
+                    })
                 })
                 .catch((err) => {
-                    if (err.errMsg && err.errMsg.endsWith('timeout')) {
-                        // 超时
+                    const errMessage = err.msg
+                    if (typeof errMessage === 'string' && errMessage.endsWith('timeout')) {
+                        reject({
+                            msg: '请求超时',
+                        })
+                        return
                     }
-                    if (err.errMsg && err.errMsg.endsWith('abort')) {
-                        // 取消
+                    if (typeof errMessage === 'string' && errMessage.endsWith('abort')) {
+                        reject({
+                            msg: '取消请求',
+                        })
+                        return
                     }
-                    reject(err)
+                    reject({
+                        msg: errMessage,
+                    })
                 })
         })
     },
@@ -70,10 +91,16 @@ const http = {
      * @param options
      * @returns
      */
-    get(url: string, options: AxiosRequestConfig = {}) {
+    get<T>(url: string, options: AxiosRequestConfig = {}) {
         options.url = url
         options.method = 'GET'
-        return this.request(options)
+        return new Promise<T>((resolve, reject) => {
+            this.request<T>(options)
+                .then((res) => {
+                    resolve(res.data)
+                })
+                .catch(reject)
+        })
     },
     /**
      * post请求
@@ -82,11 +109,17 @@ const http = {
      * @param options
      * @returns
      */
-    post(url: string, data: object, options: AxiosRequestConfig = {}) {
+    post<T>(url: string, data: object, options: AxiosRequestConfig = {}) {
         options.url = url
         options.data = data
         options.method = 'POST'
-        return this.request(options)
+        return new Promise<T>((resolve, reject) => {
+            this.request<T>(options)
+                .then((res) => {
+                    resolve(res.data)
+                })
+                .catch(reject)
+        })
     },
     /**
      * put请求
@@ -95,11 +128,17 @@ const http = {
      * @param options
      * @returns
      */
-    put(url: string, data: object, options: AxiosRequestConfig = {}) {
+    put<T>(url: string, data: object, options: AxiosRequestConfig = {}) {
         options.url = url
         options.data = data
         options.method = 'PUT'
-        return this.request(options)
+        return new Promise<T>((resolve, reject) => {
+            this.request<T>(options)
+                .then((res) => {
+                    resolve(res.data)
+                })
+                .catch(reject)
+        })
     },
     /**
      * delete请求
@@ -108,11 +147,17 @@ const http = {
      * @param options
      * @returns
      */
-    delete(url: string, data: object, options: AxiosRequestConfig = {}) {
+    delete<T>(url: string, data: object, options: AxiosRequestConfig = {}) {
         options.url = url
         options.data = data
         options.method = 'DELETE'
-        return this.request(options)
+        return new Promise<T>((resolve, reject) => {
+            this.request<T>(options)
+                .then((res) => {
+                    resolve(res.data)
+                })
+                .catch(reject)
+        })
     },
 }
 

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 19:05:15
+ * @LastEditTime: 2021-11-25 12:13:57
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -11,9 +11,9 @@ import { RootStateTypes } from 'store/indexInterface'
 import { MbMemberAuthLogs } from '@/user'
 import { UserModuleTypes, PersonalInfoTypes, EnterpriseInfoTypes } from './userInterface'
 import { UserInfo } from '@/user'
-import { UserLoginInfo } from '@/user'
-import { LoginParameters } from '@/common/request/modules/userInterface'
-import { login } from '@/common/request/modules/user'
+// import { UserLoginInfo } from '@/user'
+import { LoginParameters } from '@/common/request/modules/user/userInterface'
+import { login } from '@/common/request/modules/user/user'
 import { localStorageKey, localStorageWrite, localStorageRemove } from 'utils/storage/localStorage'
 
 /**
@@ -221,12 +221,8 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
             return new Promise<string>((resolve, reject) => {
                 login(parameters)
                     .then((res) => {
-                        const data = res.data
-                        if (typeof data === 'object') {
-                            const userLoginInfo = data as UserLoginInfo
-                            commit('setUserLoginInfo', userLoginInfo.member)
-                            commit('setToken', userLoginInfo.token)
-                        }
+                        commit('setUserLoginInfo', res.member)
+                        commit('setToken', res.token)
                         resolve('登录成功')
                     })
                     .catch(reject)

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-11-24 17:04:22
+ * @LastEditTime: 2021-11-25 12:19:57
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -22,7 +22,7 @@
                 :url="getApiInfo && getApiInfo.apiIconUrl"
                 :title="getApiInfo && getApiInfo.apiName"
                 :text="getApiInfo && getApiInfo.apiDescribe"
-                :id="getApiInfo && getApiInfo.apiInfoId"
+                :id="getApiInfo && getApiInfo.apiCode"
                 :price="getApiInfo && getApiInfo.apiPrice"
             />
             <div class="right-bottom borderBox flexRowCenter">
@@ -33,7 +33,7 @@
                                 <div class="base-info-item flexRowCenter">
                                     <div class="base-info-item-title defaultFont">接口地址:</div>
                                     <div class="base-info-item-text defaultFont">
-                                        {{ getApiInfo ? getApiInfo.apiDocAddress : '-' }}
+                                        {{ getApiInfo ? getApiInfo.apiAddress : '-' }}
                                     </div>
                                 </div>
                                 <div class="base-info-item flexRowCenter">

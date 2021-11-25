@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:22:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 17:09:19
+ * @LastEditTime: 2021-11-25 12:08:11
  * @FilePath: /datumwealth-openalpha-front/src/components/changeMailModel/ChangeMailModel.vue
  * @Description: 修改有效
 -->
@@ -45,7 +45,7 @@ import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.v
 import { ElMessage } from 'element-plus'
 import { useStore } from 'store/index'
 import { code_check, email_check } from 'utils/check/index'
-import { sendEmail, changeEmail } from '@/common/request/modules/user'
+import { sendEmail, changeEmail } from '@/common/request/modules/user/user'
 
 export default defineComponent({
     name: 'ChangeMailModel',

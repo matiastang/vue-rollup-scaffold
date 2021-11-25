@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 14:09:05
+ * @LastEditTime: 2021-11-25 12:00:56
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
@@ -18,6 +18,22 @@ export interface SolutionType {
     scenario: string
     summary: string
     target: string
+    title: string
+    updateTime: string
+}
+
+/**
+ * bannber类型
+ */
+export interface BannerType {
+    categoryId: number
+    content: string
+    createTime: string
+    id: number
+    isHide: number
+    subTitle: string | null
+    summary: string | null
+    target: string | null
     title: string
     updateTime: string
 }

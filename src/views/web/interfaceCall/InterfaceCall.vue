@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-24 20:10:55
+ * @LastEditTime: 2021-11-25 12:15:13
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -169,7 +169,7 @@ import InfoList from '../interfaceInfo/components/infoList/InfoList.vue'
 import InterfaceAffix from '@/components/interfaceAffix/InterfaceAffix.vue'
 import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import { ElMessage } from 'element-plus'
-import { checkAvailable } from '@/common/request/modules/user'
+import { checkAvailable } from '@/common/request/modules/user/user'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { apiTool } from '@/common/request/modules/api/api'
 import { HotType } from '@/common/request/modules/home/homeInterface'
@@ -374,12 +374,12 @@ export default defineComponent({
                     requestUrl: info.apiDocAddress,
                     billingMethod: selectTokenType.value === 0 ? '1' : '2',
                 })
-                    .then((res) => {
+                    .then((res: any) => {
                         resultJson.result = {
                             res,
                         }
                     })
-                    .catch((err) => {
+                    .catch((err: any) => {
                         resultJson.result = {
                             err,
                         }
@@ -408,7 +408,7 @@ export default defineComponent({
                 return
             }
             checkAvailable(selectTokenType.value + 1)
-                .then((can) => {
+                .then((can: boolean) => {
                     if (!can) {
                         if (selectTokenType.value === 0) {
                             nsfDialogVisible.value = true
@@ -420,7 +420,7 @@ export default defineComponent({
                     }
                     apiTest()
                 })
-                .catch((err) => {
+                .catch((err: any) => {
                     ElMessage({
                         message: err.msg || '调用接口校验错误',
                         type: 'error',
