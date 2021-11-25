@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 11:25:43
+ * @LastEditTime: 2021-11-25 17:08:29
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -10,7 +10,7 @@
     <div class="interface-statement">
         <div class="interface-statement-content flexColumnCenter">
             <div class="interface-statement-top-content">
-                <el-tabs class="right-tabs" v-model="activeName" @tab-click="tabClick">
+                <el-tabs class="right-tabs" v-model="activeName" @click="activeAction">
                     <el-tab-pane
                         class="right-tab flexColumnCenter"
                         label="充值调用账单"
@@ -18,10 +18,6 @@
                     >
                         <div class="tab-recharge-content">
                             <div class="tab-discount-content">
-                                <!-- <div class="discount borderBox flexRowCenter">
-                                    <div class="discount-token-title defaultFont">关联token值:</div>
-                                    <TokenView class="discount-token-view" :token="token" />
-                                </div> -->
                                 <div class="account-information defaultFont">账户信息</div>
                                 <div class="account-information-content flexRowCenter">
                                     <div class="account-information-left flexRowCenter">
@@ -29,6 +25,11 @@
                                             v-for="(item, index) in rechargeInfo"
                                             :key="item.count"
                                             class="discount-item flexColumnCenter"
+                                            :style="{
+                                                'border-right': `${
+                                                    index === rechargeInfo.length - 1 ? 0 : 1
+                                                }px solid #dfdfdf`,
+                                            }"
                                         >
                                             <div class="discount-item-top flexRowCenter">
                                                 <div
@@ -65,24 +66,6 @@
                     </el-tab-pane>
                     <el-tab-pane class="right-tab" label="优惠套餐账单" name="discount">
                         <div class="tab-discount-content">
-                            <!-- <div class="discount borderBox flexRowCenter">
-                                <div class="discount-type defaultFont">订单编号:</div>
-                                <el-select
-                                    class="token-type-select"
-                                    v-model="selectTokenType"
-                                    placeholder="请选择"
-                                >
-                                    <el-option
-                                        v-for="item in selectOptions"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                    >
-                                    </el-option>
-                                </el-select>
-                                <div class="discount-token-title defaultFont">关联token值:</div>
-                                <TokenView class="discount-token-view" :token="token" />
-                            </div> -->
                             <div class="account-information defaultFont">账户信息</div>
                             <div class="account-information-content flexRowCenter">
                                 <div class="account-information-left flexRowCenter">
@@ -90,6 +73,11 @@
                                         v-for="(item, index) in discountInfo"
                                         :key="item.count"
                                         class="discount-item flexColumnCenter"
+                                        :style="{
+                                            'border-right': `${
+                                                index === discountInfo.length - 1 ? 0 : 1
+                                            }px solid #dfdfdf`,
+                                        }"
                                     >
                                         <div class="discount-item-top flexRowCenter">
                                             <div
@@ -123,11 +111,31 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
-            <div class="interface-statement-bottom-content">
+            <div class="interface-statement-bottom-content flexColumnCenter">
                 <div class="account-information defaultFont">账单明细</div>
                 <div class="bill-filter-content flexRowCenter">
-                    <div class="bill-day-filter cursorP bill-selected defaultFont">日账单</div>
-                    <div class="bill-month-filter cursorP defaultFont">月账单</div>
+                    <div
+                        :class="[
+                            'bill-day-filter',
+                            'cursorP',
+                            'defaultFont',
+                            { 'bill-selected': billType },
+                        ]"
+                        @click="billAction(true)"
+                    >
+                        日账单
+                    </div>
+                    <div
+                        :class="[
+                            'bill-month-filter',
+                            'cursorP',
+                            'defaultFont',
+                            { 'bill-selected': !billType },
+                        ]"
+                        @click="billAction(false)"
+                    >
+                        月账单
+                    </div>
                     <div class="bill-time-title defaultFont">自定义：</div>
                     <el-date-picker
                         v-model="dateSelected"
@@ -135,68 +143,120 @@
                         range-separator="~"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期"
+                        format="YYYY-MM-DD"
+                        value-format="YYYY-MM-DD"
                     >
                     </el-date-picker>
-                    <div class="bill-filter-search cursorP defaultFont">查询</div>
+                    <div class="bill-filter-search cursorP defaultFont" @click="searchAction">
+                        查询
+                    </div>
                 </div>
-                <!-- <SearchInput class="search-input" placeholder="请输入需要查询的账单" /> -->
-                <el-table class="bill-table" :data="tableData" style="width: 100%">
-                    <el-table-column prop="date" label="每日订单编号" min-width="100" />
-                    <el-table-column prop="name" label="订单编号" min-width="100" />
-                    <el-table-column prop="state" label="总调用量" min-width="80" />
-                    <el-table-column prop="city" label="有效调用量" min-width="80" />
-                    <el-table-column prop="address" label="剩余次数" min-width="80" />
-                    <el-table-column prop="zip" label="剩余天数" min-width="80" />
-                    <el-table-column prop="time" label="出账时间" min-width="100" />
+                <el-table class="bill-table" :data="tableData.list" style="width: 100%">
+                    <el-table-column prop="billDate" label="日期" min-width="100">
+                        <template #default="scope">
+                            {{ scope.row.billDate || '-' }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="totalTimes" label="总调用次数" min-width="100">
+                        <template #default="scope">
+                            {{ scope.row.totalTimes || '-' }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="effectiveTimes" label="有效调用次数" min-width="100">
+                        <template #default="scope">
+                            {{ scope.row.effectiveTimes || '-' }}
+                        </template>
+                    </el-table-column>
+                    <!-- <el-table-column prop="times" label="剩余次数" min-width="100">
+                        <template #default="scope">
+                            {{ scope.row.times || '-' }}
+                        </template>
+                    </el-table-column> -->
                     <el-table-column label="操作">
                         <template #default="scope">
                             <div
                                 class="info-title cursorP defaultFont"
-                                @click="infoAction(scope.$index)"
+                                @click="infoAction(scope.row.billDate)"
                             >
                                 查看详情
                             </div>
                         </template>
                     </el-table-column>
                 </el-table>
+                <el-pagination
+                    v-if="totalPage > pageSize"
+                    class="table-pagination"
+                    layout="prev, pager, next"
+                    :total="totalPage"
+                    :page-size="pageSize"
+                    v-model:currentPage="pageNum"
+                ></el-pagination>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed, watchSyncEffect } from 'vue'
+import {
+    defineComponent,
+    ref,
+    Ref,
+    reactive,
+    computed,
+    watch,
+    watchSyncEffect,
+    onMounted,
+} from 'vue'
 import TokenView from '@/components/tokenView/TokenView.vue'
-import SearchInput from '@/components/searchInput/SearchInput.vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { userRechargeInfo } from '@/common/request/modules/pay/pay'
+import {
+    userRechargeInfo,
+    userRechargeList,
+    userDiscountInfo,
+    userDiscountList,
+} from '@/common/request/modules/pay/pay'
+import {
+    RechargeListRequest,
+    RechargeItemResponse,
+} from '@/common/request/modules/pay/payInterface'
 import { RejectType } from '@/common/request/request'
 
 export default defineComponent({
     name: 'InterfaceStatement',
     setup() {
         const router = useRouter()
-        let activeName = ref('recharge')
-        // token选择
-        let selectOptions = reactive([
-            {
-                value: 0,
-                label: 'S12345678',
-            },
-            {
-                value: 1,
-                label: 'S13579246',
-            },
-        ])
-        let selectTokenType = ref(0)
-        let token = computed(() =>
-            selectTokenType.value === 0
-                ? 'e2aef4ea-cf17-4485-b5c4-c11120197c03'
-                : 'abcdefghi-cf17-4485-b5c4-c11120197c03'
-        )
+        const activeName = ref('recharge')
+        // 账单类型
+        const billType = ref(true)
+        // 切换账单类型
+        const billAction = (type: boolean) => {
+            billType.value = type
+        }
+        // 日期选择
+        const dateSelected: Ref<string[]> = ref([])
+        const startDate = computed(() => {
+            if (dateSelected.value.length > 0) {
+                return dateSelected.value[0]
+            }
+            return ''
+        })
+        const endDate = computed(() => {
+            if (dateSelected.value.length > 1) {
+                return dateSelected.value[1]
+            }
+            return ''
+        })
+        // 页码
+        const totalPage = ref(1)
+        const pageNum = ref(1)
+        const pageSize = ref(10)
+        const activeAction = () => {
+            pageNum.value = 1
+            pageSize.value = 10
+        }
         // 优惠套餐
-        let discountInfo = reactive([
+        const discountInfo = reactive([
             {
                 count: 0,
                 text: '套餐次数',
@@ -214,6 +274,22 @@ export default defineComponent({
                 text: '套餐剩余次数',
             },
         ])
+        // 获取优惠套餐信息
+        watchSyncEffect(() => {
+            userDiscountInfo()
+                .then((res) => {
+                    rechargeInfo[0].count = res.totalTimes || 0
+                    rechargeInfo[1].count = res.totalConsume || 0
+                    rechargeInfo[2].count = res.effectiveUseNum || 0
+                    rechargeInfo[2].count = res.times || 0
+                })
+                .catch((err: RejectType) => {
+                    ElMessage({
+                        message: err.msg,
+                        type: 'error',
+                    })
+                })
+        })
         // 跳转优惠套餐
         const toDiscountAction = () => {
             router.push({
@@ -256,80 +332,92 @@ export default defineComponent({
                 path: '/recharge',
             })
         }
-        // 日期选择
-        let dateSelected = ref('')
+
         // table数据
-        let tableData = [
-            {
-                date: 'A20211020013003363848',
-                name: 'S20211008174916250831',
-                state: '10000',
-                city: '9999',
-                address: '35000',
-                zip: '1',
-                time: '2021-10-20 01:30:13',
-            },
-            {
-                date: 'A20211020013003363848',
-                name: 'S20211008174916250831',
-                state: '10000',
-                city: '9999',
-                address: '35000',
-                zip: '1',
-                time: '2021-10-20 01:30:13',
-            },
-            {
-                date: 'A20211020013003363848',
-                name: 'S20211008174916250831',
-                state: '10000',
-                city: '9999',
-                address: '35000',
-                zip: '1',
-                time: '2021-10-20 01:30:13',
-            },
-            {
-                date: 'A20211020013003363848',
-                name: 'S20211008174916250831',
-                state: '10000',
-                city: '9999',
-                address: '35000',
-                zip: '1',
-                time: '2021-10-20 01:30:13',
-            },
-            {
-                date: 'A20211020013003363848',
-                name: 'S20211008174916250831',
-                state: '10000',
-                city: '9999',
-                address: '35000',
-                zip: '1',
-                time: '2021-10-20 01:30:13',
-            },
-        ]
+        const tableData = reactive({
+            list: Array<RechargeItemResponse>(),
+        })
+        const parameterData = reactive({
+            parameter: {} as RechargeListRequest,
+        })
+        // 获取列表信息
+        watchSyncEffect(() => {
+            const parameter: RechargeListRequest = {
+                billType: billType.value ? 'day' : 'month', //账单类型：day-日账单 month-月账单
+                pageNum: pageNum.value,
+                pageSize: pageSize.value,
+            }
+            if (startDate.value !== '') {
+                parameter.startDate = startDate.value
+            }
+            if (endDate.value !== '') {
+                parameter.endDate = endDate.value
+            }
+            parameterData.parameter = parameter
+        })
+        const searchAction = () => {
+            if (activeName.value !== 'recharge') {
+                userDiscountList(parameterData.parameter)
+                    .then((res) => {
+                        totalPage.value = res.pages
+                        tableData.list = res.list
+                    })
+                    .catch((err: RejectType) => {
+                        ElMessage({
+                            message: err.msg,
+                            type: 'error',
+                        })
+                    })
+                return
+            }
+            userRechargeList(parameterData.parameter)
+                .then((res) => {
+                    totalPage.value = res.pages
+                    tableData.list = res.list
+                })
+                .catch((err: RejectType) => {
+                    ElMessage({
+                        message: err.msg,
+                        type: 'error',
+                    })
+                })
+        }
+        watch(
+            () => billType.value,
+            (newType) => {
+                searchAction()
+            }
+        )
         // 查看详情
-        const infoAction = (index: number) => {
-            console.log(`跳转到${index}详情页面`)
+        const infoAction = (time: string) => {
             router.push({
-                path: `/user/data/${activeName.value}/info/${index}`,
+                path: `/user/data/${activeName.value}/info`,
+                query: {
+                    type: billType.value ? 'day' : 'month', //账单类型：day-日账单 month-月账单
+                    time,
+                },
             })
         }
+        onMounted(() => {
+            searchAction()
+        })
         return {
             activeName,
-            selectOptions,
-            selectTokenType,
-            token,
+            activeAction,
+            billType,
+            totalPage,
+            pageNum,
+            pageSize,
+            billAction,
             discountInfo,
             rechargeInfo,
             dateSelected,
             tableData,
+            searchAction,
             infoAction,
             toRechargeAction,
             toDiscountAction,
         }
-    },
-    components: {
-        // TokenView,
-        // SearchInput,
     },
 })
 </script>
@@ -384,7 +472,7 @@ export default defineComponent({
                             color: $titleColor;
                             line-height: 36px;
                             letter-spacing: 1px;
-                            border-bottom: 1px solid #dfdfdf;
+                            // border-bottom: 1px solid #dfdfdf;
                             text-align: left;
                         }
                         .account-information-content {
@@ -393,8 +481,10 @@ export default defineComponent({
                             justify-content: space-between;
                             .account-information-left {
                                 width: calc(100% - 138px);
+                                height: 100%;
                                 .discount-item {
                                     width: 25%;
+                                    height: 60%;
                                     .discount-item-top {
                                         .discount-item-top-title {
                                             font-size: 22px;
@@ -467,7 +557,9 @@ export default defineComponent({
             background: $themeBgColor;
             border-radius: 4px;
             margin-top: 20px;
+            align-items: flex-start;
             .account-information {
+                width: 100%;
                 height: 36px;
                 font-size: 14px;
                 font-family: PingFangSC-Medium, PingFang SC;
@@ -523,6 +615,9 @@ export default defineComponent({
             }
             .bill-table {
                 margin-top: 18px;
+                box-sizing: border-box;
+                border: 1px solid #dfdfdf;
+                border-bottom: none;
                 ::v-deep(th) {
                     background: #e9e9e9;
                 }
@@ -532,6 +627,9 @@ export default defineComponent({
                     line-height: 24px;
                     text-align: left;
                 }
+            }
+            .table-pagination {
+                align-self: flex-end;
             }
         }
     }

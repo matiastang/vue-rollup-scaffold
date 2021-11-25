@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:50:48
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:02:44
+ * @LastEditTime: 2021-11-25 17:47:14
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/api.ts
  * @Description: 开放接口
  */

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 14:17:56
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 14:29:53
+ * @LastEditTime: 2021-11-25 16:45:22
  * @FilePath: /datumwealth-openalpha-front/src/components/searchInput/SearchInput.vue
  * @Description: 个人中心搜索样式
 -->
@@ -39,13 +39,13 @@ export default defineComponent({
     },
     emits: {
         search: (value: string) => {
-            if (value.trim() === '') {
-                ElMessage({
-                    message: '请求输入搜索内容',
-                    type: 'warning',
-                })
-                return false
-            }
+            // if (value.trim() === '') {
+            //     ElMessage({
+            //         message: '请求输入搜索内容',
+            //         type: 'warning',
+            //     })
+            //     return false
+            // }
             return true
         },
     },
@@ -95,7 +95,7 @@ export default defineComponent({
         padding-right: 0px;
         border-radius: 8px;
         border-radius: 8px;
-        border: 1px solid $placeholderColor;
+        border: 1px solid #dfdfdf;
         border-radius: 4px;
         padding: 0px 0px 0px 5px;
     }

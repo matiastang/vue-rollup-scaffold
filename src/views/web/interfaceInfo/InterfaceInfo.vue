@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-11-25 12:19:57
+ * @LastEditTime: 2021-11-25 17:36:39
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -22,7 +22,8 @@
                 :url="getApiInfo && getApiInfo.apiIconUrl"
                 :title="getApiInfo && getApiInfo.apiName"
                 :text="getApiInfo && getApiInfo.apiDescribe"
-                :id="getApiInfo && getApiInfo.apiCode"
+                :id="getApiInfo && getApiInfo.apiInfoId"
+                :code="getApiInfo && getApiInfo.apiCode"
                 :price="getApiInfo && getApiInfo.apiPrice"
             />
             <div class="right-bottom borderBox flexRowCenter">
@@ -61,7 +62,14 @@
                                 v-if="getApiInfo && getApiInfo.apiParamList.length > 0"
                                 class="base-info-parameter borderBox flexRowCenter"
                             >
-                                <InfoTable :header="tableHeader" :data="getApiInfo.apiParamList" />
+                                <InfoTable
+                                    :header="tableHeader"
+                                    :data="
+                                        getApiInfo.apiParamList.sort(
+                                            (left, right) => left.paramId - right.paramId
+                                        )
+                                    "
+                                />
                             </div>
                             <div v-else class="base-info-parameter borderBox flexRowCenter">无</div>
                         </FoldInfo>

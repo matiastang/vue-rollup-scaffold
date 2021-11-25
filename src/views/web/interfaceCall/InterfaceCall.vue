@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-25 12:15:13
+ * @LastEditTime: 2021-11-25 17:40:21
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -19,7 +19,7 @@
                 >
                 </el-option>
             </el-select>
-            <div class="call-top-token-title defaultFont">token值:</div>
+            <div class="call-top-token-title defaultFont">API KEY:</div>
             <div class="call-top-token defaultFont">{{ appSecret ? appSecret : '-' }}</div>
         </div>
         <div class="call-bottom borderBox flexRowCenter">
@@ -66,7 +66,9 @@
                             >
                                 <div class="parameters-title borderBox defaultFont">API参数:</div>
                                 <div
-                                    v-for="item in getApiInfo.apiParamList"
+                                    v-for="item in getApiInfo.apiParamList.sort(
+                                        (left, right) => left.paramId - right.paramId
+                                    )"
                                     :key="item.paramKey"
                                     class="parameters-input-item borderBox flexRowCenter"
                                 >

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:08:20
+ * @LastEditTime: 2021-11-25 17:38:24
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -90,7 +90,7 @@
             <div class="setting-info-content flexRowCenter">
                 <div class="setting-info-left flexColumnCenter">
                     <div class="setting-left-top-content flexRowCenter">
-                        <div class="setting-info-title defaultFont">API Token</div>
+                        <div class="setting-info-title defaultFont">API KEY</div>
                         <el-popover
                             placement="bottom-start"
                             :width="270"

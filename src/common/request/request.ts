@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 11:18:15
+ * @LastEditTime: 2021-11-25 17:47:32
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
@@ -10,13 +10,14 @@ import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 import config from './config'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 import { useRouter } from 'vue-router'
-import initInstance from './axiosInterceptors'
+import initInstance from '@/common/request/axiosInterceptors'
 // import { requestDebounce } from './requestDebounce.js'
 
 /**
  * 失败返回类型
  */
 export interface RejectType {
+    code?: number
     msg: string
 }
 
@@ -51,13 +52,14 @@ const http = {
                         return
                     }
                     if (response && response.data) {
-                        const { code } = response.data
+                        const { code, msg } = response.data
                         if (code === 200) {
                             resolve(response.data)
                             return
                         }
                         reject({
-                            msg: `接口${code}`,
+                            code,
+                            msg,
                         })
                         return
                     }
@@ -91,8 +93,9 @@ const http = {
      * @param options
      * @returns
      */
-    get<T>(url: string, options: AxiosRequestConfig = {}) {
+    get<T>(url: string, params: object = {}, options: AxiosRequestConfig = {}) {
         options.url = url
+        options.params = params
         options.method = 'GET'
         return new Promise<T>((resolve, reject) => {
             this.request<T>(options)

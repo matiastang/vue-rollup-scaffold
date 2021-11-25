@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:09:26
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 16:03:37
+ * @LastEditTime: 2021-11-25 16:47:28
  * @FilePath: /datumwealth-openalpha-front/src/components/menu/menu.ts
  * @Description:
  */
@@ -17,10 +17,10 @@ const menuData = [
                 selected: false,
                 children: [
                     {
-                        path: '/user/data/discount/info/',
+                        path: '/user/data/discount/info',
                     },
                     {
-                        path: '/user/data/recharge/info/',
+                        path: '/user/data/recharge/info',
                     },
                 ],
             },
