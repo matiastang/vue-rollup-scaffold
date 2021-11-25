@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-22 10:02:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:18:07
+ * @LastEditTime: 2021-11-25 19:04:01
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/pay/pay.ts
  * @Description: 支付相关接口
  */
@@ -111,7 +111,18 @@ const userRechargeDetail = (parameters: RechargeDetailRequest) => {
  * @returns
  */
 const userRechargeExport = (parameters: RechargeDetailRequest) => {
-    return http.post(`${memberPrefix}/stat/recharge/bill/detail/export`, parameters)
+    let fileName = '账单'
+    const type = parameters.billType
+    if (type === 'day') {
+        fileName = `${parameters.billDay}日账单`
+    } else {
+        fileName = `${parameters.billMonth}月账单`
+    }
+    return http.download(fileName, {
+        url: `${memberPrefix}/stat/recharge/bill/detail/export`,
+        method: 'POST',
+        data: parameters,
+    })
 }
 
 /**
@@ -146,7 +157,18 @@ const userDiscountDetail = (parameters: RechargeDetailRequest) => {
  * @returns
  */
 const userDiscountExport = (parameters: RechargeDetailRequest) => {
-    return http.post(`${memberPrefix}/stat/combo/bill/detail/export`, parameters)
+    let fileName = ''
+    const type = parameters.billType
+    if (type === 'day') {
+        fileName = `${parameters.billDay}日账单`
+    } else {
+        fileName = `${parameters.billMonth}月账单`
+    }
+    return http.download(fileName, {
+        url: `${memberPrefix}/stat/combo/bill/detail/export`,
+        method: 'POST',
+        data: parameters,
+    })
 }
 
 export {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 15:30:33
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:58:37
+ * @LastEditTime: 2021-11-25 18:50:37
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/rechargeInfo/RechargeInfo.vue
  * @Description: 充值订单详情
 -->
@@ -161,6 +161,9 @@ export default defineComponent({
                 parameter.billDay = rechargeTime.value
             } else {
                 parameter.billMonth = rechargeTime.value
+            }
+            if (searchValue.value.trim() !== '') {
+                parameter.keywords = searchValue.value
             }
             userRechargeExport(parameter)
         }

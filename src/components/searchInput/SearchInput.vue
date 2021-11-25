@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 14:17:56
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 16:45:22
+ * @LastEditTime: 2021-11-25 19:08:58
  * @FilePath: /datumwealth-openalpha-front/src/components/searchInput/SearchInput.vue
  * @Description: 个人中心搜索样式
 -->
@@ -97,7 +97,7 @@ export default defineComponent({
         border-radius: 8px;
         border: 1px solid #dfdfdf;
         border-radius: 4px;
-        padding: 0px 0px 0px 5px;
+        padding: 0px 0px 0px 12px;
     }
     ::v-deep(.el-input__suffix) {
         right: 0px;

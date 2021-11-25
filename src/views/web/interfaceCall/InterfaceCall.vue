@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-25 17:40:21
+ * @LastEditTime: 2021-11-25 18:41:51
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -174,7 +174,7 @@ import { ElMessage } from 'element-plus'
 import { checkAvailable } from '@/common/request/modules/user/user'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { apiTool } from '@/common/request/modules/api/api'
-import { HotType } from '@/common/request/modules/home/homeInterface'
+import { HotType, ApiParamType } from '@/common/request/modules/home/homeInterface'
 import { useStore } from 'store/index'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 import { addOd, orderType } from '@/common/request/modules/pay/pay'
@@ -363,17 +363,40 @@ export default defineComponent({
             return params
         }
         /**
+         * 校验必填参数是否传递
+         */
+        const checkParams = (paramList: ApiParamType[]) => {
+            const obj = requestJson.value
+            for (let i = 0; i < paramList.length; i++) {
+                const item = paramList[i]
+                if (item.paramIsRequired === 1) {
+                    const paramValue = obj[item.paramKey]
+                    if (!paramValue) {
+                        return false
+                    }
+                }
+            }
+            return true
+        }
+        /**
          * 测试接口
          */
         const apiTest = () => {
             const info = getApiInfo.value
             if (info) {
+                if (!checkParams(info.apiParamList)) {
+                    ElMessage({
+                        message: '必填参数项为空',
+                        type: 'error',
+                    })
+                    return
+                }
                 apiTool({
                     apiCode: info.apiCode,
                     apiVersion: 'v1',
                     requestParams: getRequestParams(),
                     requestType: info.requestMethod,
-                    requestUrl: info.apiDocAddress,
+                    requestUrl: info.apiAddress,
                     billingMethod: selectTokenType.value === 0 ? '1' : '2',
                 })
                     .then((res: any) => {

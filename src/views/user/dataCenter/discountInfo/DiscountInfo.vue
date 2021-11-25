@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 14:59:37
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:59:33
+ * @LastEditTime: 2021-11-25 18:51:21
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/discountInfo/DiscountInfo.vue
  * @Description: 优惠套餐详情
 -->
@@ -161,6 +161,9 @@ export default defineComponent({
                 parameter.billDay = discountTime.value
             } else {
                 parameter.billMonth = discountTime.value
+            }
+            if (searchValue.value.trim() !== '') {
+                parameter.keywords = searchValue.value
             }
             userDiscountExport(parameter)
         }

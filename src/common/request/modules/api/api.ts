@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:50:48
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:47:14
+ * @LastEditTime: 2021-11-25 18:49:59
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/api.ts
  * @Description: 开放接口
  */
@@ -30,7 +30,10 @@ const apiSearch = (keyword: string) => {
  * @returns
  */
 const apiTool = (parameters: ApiToolParameterType) => {
-    return http.post<ListRecoType[]>(`${apiPrefix}/apiTool`, parameters)
+    return http.toolRequest({
+        url: `${apiPrefix}/apiTool`,
+        data: parameters,
+    })
 }
 
 export { apiHotInterface, apiTool, apiSearch }
