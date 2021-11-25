@@ -1,5 +1,5 @@
 import request, { RequestMethod } from '@/api/request'
-import { Order } from '@/@types/order'
+import { Order, Invoic } from '@/@types'
 
 // 查询订单列表
 export function getOrderList(data: Order.QueryList) {
@@ -7,6 +7,11 @@ export function getOrderList(data: Order.QueryList) {
         url: '/api/trade/od/list',
         method: RequestMethod.post,
         data,
+        params: {
+            ...data,
+            orderByColumn: 'addTime',
+            isAsc: 'desc',
+        },
     })
 }
 
@@ -29,7 +34,7 @@ export function getOrderCancel(query: Order.CancelQuery) {
 }
 
 // 获取订单详细信息
-export function getOrderDetail(id: string) {
+export function getOrderDetail(id: Number) {
     return request({
         url: `/api/trade/od/${id}`,
         method: RequestMethod.get,
@@ -44,9 +49,17 @@ export function postAddOrder(data: Order.QueryList) {
         data,
     })
 }
+// 添加支付凭证
+export function postAddOrderVoucher(data: Order.Voucher) {
+    return request({
+        url: `/api/trade/od/voucher`,
+        method: RequestMethod.post,
+        data,
+    })
+}
 
 // 新增发票
-export function postAddInv(data: Order.QueryList) {
+export function postAddInv(data: Invoic.AddQuery) {
     return request({
         url: `/api/trade/inv`,
         method: RequestMethod.post,
@@ -55,14 +68,14 @@ export function postAddInv(data: Order.QueryList) {
 }
 
 // 发票信息
-export function getInv(invId: String) {
+export function getInv(invId: number) {
     return request({
         url: `/api/trade/inv/${invId}`,
         method: RequestMethod.get,
     })
 }
 // 删除发票
-export function deleteInv(invId: String) {
+export function deleteInv(invId: number) {
     return request({
         url: `/api/trade/inv/${invId}`,
         method: RequestMethod.delete,
@@ -70,16 +83,21 @@ export function deleteInv(invId: String) {
 }
 
 // 查询发票列表
-export function postInvList(data: Order.QueryList) {
+export function postInvList(data: Invoic.Query) {
     return request({
         url: `/api/trade/inv/list`,
         method: RequestMethod.post,
         data,
+        params: {
+            ...data,
+            orderByColumn: 'applyTime',
+            isAsc: 'desc',
+        },
     })
 }
 
 // 修改发票信息
-export function postInvUpdate(data: Order.QueryList) {
+export function postInvUpdate(data: Invoic.Update) {
     return request({
         url: `/api/trade/inv/update`,
         method: RequestMethod.post,

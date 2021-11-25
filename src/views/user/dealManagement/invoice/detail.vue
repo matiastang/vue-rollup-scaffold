@@ -1,0 +1,79 @@
+<template>
+    <el-skeleton v-if="loading" :rows="8" animated />
+    <div class="app-container" v-else>
+        <el-descriptions title="发票申请审核" :column="1">
+            <el-descriptions-item label="客户账号">{{ detail.userName }}</el-descriptions-item>
+            <el-descriptions-item label="企业名称/姓名">{{
+                detail.userType === 1 ? detail.realName : detail.company
+            }}</el-descriptions-item>
+            <el-descriptions-item label="订单编号"> {{ detail.target }}</el-descriptions-item>
+            <el-descriptions-item label="发票编号">{{ detail.invNo }}</el-descriptions-item>
+            <el-descriptions-item label="提交日期">{{ detail.applyTime }}</el-descriptions-item>
+        </el-descriptions>
+        <el-divider></el-divider>
+        <el-descriptions :column="1">
+            <el-descriptions-item label="开票金额">{{ detail.tax }}</el-descriptions-item>
+            <el-descriptions-item label="开票内容">{{ detail.invContent }}</el-descriptions-item>
+            <el-descriptions-item label="发票类型">{{
+                invTypeToText(detail.invType)
+            }}</el-descriptions-item>
+            <el-descriptions-item label="发票抬头">{{ detail.invPayee }}</el-descriptions-item>
+            <el-descriptions-item label="发票税号">{{
+                detail.inv_payee_number
+            }}</el-descriptions-item>
+            <el-descriptions-item v-if="detail.invType === 2" label="银行账号">{{
+                detail.blankNo
+            }}</el-descriptions-item>
+            <el-descriptions-item v-if="detail.invType === 2" label="开户银行">{{
+                detail.blank
+            }}</el-descriptions-item>
+        </el-descriptions>
+        <el-divider v-if="detail.address"></el-divider>
+        <el-descriptions v-if="detail.address" :column="1">
+            <el-descriptions-item label="收件人">{{
+                detail.address.consignee
+            }}</el-descriptions-item>
+            <el-descriptions-item label="联系方式">{{
+                detail.address.contact
+            }}</el-descriptions-item>
+            <el-descriptions-item label="邮寄地址">{{
+                detail.address.address
+            }}</el-descriptions-item>
+            <el-descriptions-item label="邮寄编码">{{
+                detail.address.zipcode
+            }}</el-descriptions-item>
+        </el-descriptions>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { reactive, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { getInv } from '@/api'
+import { invTypeToText } from '@/common/utils'
+const route = useRoute()
+const detail = reactive({})
+const loading = ref(true)
+onMounted(() => {
+    doFetchDetail()
+})
+const doFetchDetail = () => {
+    loading.value = true
+    const id = Number(route.params.id)
+    getInv(id)
+        .then((response) => {
+            loading.value = false
+            Object.assign(detail, response.data)
+        })
+        .catch((err) => {
+            throw err
+        })
+}
+</script>
+
+<style scoped lang="scss">
+.app-container {
+    padding: 20px;
+    background-color: white;
+}
+</style>

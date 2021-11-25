@@ -31,6 +31,7 @@ module.exports = {
         // 规则
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'no-unused-variable': 'off',
         // prettier样式规则，需要和配置文件的统一
         'prettier/prettier': [
             'error',

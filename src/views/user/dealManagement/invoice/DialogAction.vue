@@ -7,36 +7,40 @@
         custom-class="invoiceActionDialog"
     >
         <template #title>
-            <div class="title">添加发票抬头</div>
+            <div class="title">发票信息</div>
         </template>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="普票" name="first"><NormalInv ref="normalOnvoice" /></el-tab-pane>
-            <el-tab-pane label="专票" name="second"
-                ><SpecialInv ref="specialOnvoice"
-            /></el-tab-pane>
+            <el-tab-pane :disabled="props.invType === 2" label="普票" name="first"></el-tab-pane>
+            <el-tab-pane :disabled="props.invType === 1" label="专票" name="second"></el-tab-pane>
+            <NormalInv
+                :id="props.invId"
+                @on-close="handleClose"
+                @on-next="handleSumbit"
+                ref="specialOnvoice"
+            />
         </el-tabs>
-        <template #footer>
-            <el-button type="primary" plain @click="handleClose">取消</el-button>
-            <el-button type="primary" @click="handleSumbit">确定</el-button>
-        </template>
     </el-dialog>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref, watchEffect } from 'vue'
 import NormalInv from '@/views/user/dealManagement/invoice/NormalInv.vue'
-import SpecialInv from '@/views/user/dealManagement/invoice/SpecialInv.vue'
-defineProps({
+const _props = defineProps({
     open: Boolean,
+    invId: Number,
+    invType: Number,
 })
+const props = reactive(_props)
 const activeName = ref('first')
 const normalOnvoice = ref()
 const specialOnvoice = ref()
-const emit = defineEmits(['on-close'])
+watchEffect(() => {
+    activeName.value = props.invType === 1 ? 'first' : 'second'
+})
+
+const emit = defineEmits(['on-close', 'on-next'])
 const handleClose = () => emit('on-close')
-const handleSumbit = () => {
-    console.log(normalOnvoice.value, specialOnvoice.value)
-}
+const handleSumbit = () => emit('on-next')
 </script>
 
 <style lang="scss" scope>

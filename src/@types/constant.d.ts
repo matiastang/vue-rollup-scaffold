@@ -28,13 +28,24 @@ export enum PayStatusEnum {
     ORDER_ALREADY_CANCEL = 6,
     ORDER_SOME_REFUND = 7,
 }
-//发票类型1：增值税普通发票\r\n2：增值税专用发票
+//发票类型1：增值税普通发票\r\n2：增值税专用发票 3 电子发票
 export enum InvTypeEnum {
     NORMAL_INV = 1,
     SPECIAL_INV = 2,
+    ELECTRONIC_INV = 3,
 }
 // 发票状态0：待开发票\r\n1：已开发票
 export enum InvStatusEnum {
-    READY = 0,
-    ALREADY = 1,
+    WITE_CHECK = 0,
+    ORDER_SN_INVI = 1,
+    INV_DONE = 2,
+    INV_DOINE = 3,
+    WITE_SFXPRESS = 4,
+    SFXPRESS_DONE = 5,
+    NOT_INVI = 6,
+}
+
+export type UploadFile = {
+    name: string
+    url: string
 }
