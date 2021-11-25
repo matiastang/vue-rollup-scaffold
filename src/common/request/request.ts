@@ -2,14 +2,11 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 19:01:44
+ * @LastEditTime: 2021-11-25 19:25:22
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
-import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
-import config from './config'
-import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
-import { useRouter } from 'vue-router'
+import { AxiosRequestConfig } from 'axios'
 import initInstance from '@/common/request/axiosInterceptors'
 // import { requestDebounce } from './requestDebounce.js'
 

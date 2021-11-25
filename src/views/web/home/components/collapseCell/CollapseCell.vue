@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-11-24 15:11:34
+ * @LastEditTime: 2021-11-25 20:13:34
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
@@ -14,7 +14,25 @@
             </svg>
             <div class="flexColumnCenter collapse-cell-center">
                 <div class="collapse-cell-title defaultFont">{{ title }}</div>
-                <div class="collapse-cell-text textLine1 defaultFont">{{ text }}</div>
+                <div v-if="data.length > 0" class="collapse-cell-sub-content flexRowCenter">
+                    <div
+                        v-if="data.length > 0"
+                        class="collapse-cell-text textLine1 cursorP defaultFont"
+                        style="margin-right: 5px"
+                        @click="subAction(data[0])"
+                    >
+                        {{ data[0].name }}
+                    </div>
+                    <div v-if="data.length > 1" class="collapse-cell-line"></div>
+                    <div
+                        v-if="data.length > 1"
+                        class="collapse-cell-text textLine1 cursorP defaultFont"
+                        style="margin-left: 5px"
+                        @click="subAction(data[1])"
+                    >
+                        {{ data[1].name }}
+                    </div>
+                </div>
             </div>
         </div>
         <img
@@ -25,7 +43,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { useRouter } from 'vue-router'
+import { CollapseCellDataType } from '@/common/request/modules/home/homeInterface'
+import { interface_id_check, category_id_check } from 'utils/check/interfaceCheck'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'CollapseCell',
@@ -38,14 +60,50 @@ export default defineComponent({
             type: String,
             default: '',
         },
-        text: {
-            type: String,
-            default: '',
+        data: {
+            type: Array as PropType<CollapseCellDataType[]>,
+            default: () => {
+                return []
+            },
         },
         selected: {
             type: Boolean,
             default: false,
         },
+    },
+    setup(props) {
+        const router = useRouter()
+        /**
+         * 跳转
+         */
+        const subAction = (subData: CollapseCellDataType) => {
+            if (subData.isCategory) {
+                if (category_id_check(subData.id)) {
+                    router.push({
+                        path: `/interface/${subData.id}`,
+                    })
+                    return
+                }
+                ElMessage({
+                    message: '分类id错误',
+                    type: 'error',
+                })
+                return
+            }
+            if (interface_id_check(subData.id)) {
+                router.push({
+                    path: `/interface/info/${subData.id}`,
+                })
+                return
+            }
+            ElMessage({
+                message: '接口id错误',
+                type: 'error',
+            })
+        }
+        return {
+            subAction,
+        }
     },
 })
 </script>
@@ -60,6 +118,7 @@ export default defineComponent({
     .collapse-cell-left {
         display: flex;
         align-items: flex-start;
+        flex-grow: 1;
         .collapse-cell-left-icon {
             width: 20px;
             height: 20px;
@@ -68,6 +127,7 @@ export default defineComponent({
         }
 
         .collapse-cell-center {
+            flex-grow: 1;
             align-items: flex-start;
             margin-left: 18px;
             .collapse-cell-title {
@@ -77,11 +137,25 @@ export default defineComponent({
                 line-height: 26px;
                 text-align: left;
             }
-            .collapse-cell-text {
-                font-size: fontSize(14px);
-                color: $themeBgColor;
-                line-height: lineHeight(14px);
-                text-align: left;
+            .collapse-cell-sub-content {
+                width: 100%;
+                justify-content: flex-start;
+                .collapse-cell-line {
+                    width: 1px;
+                    height: 16px;
+                    background: $themeBgColor;
+                }
+                .collapse-cell-text {
+                    max-width: calc(50% - 6px);
+                    box-sizing: border-box;
+                    font-size: fontSize(14px);
+                    color: $themeBgColor;
+                    line-height: 20px;
+                    text-align: left;
+                }
+                .collapse-cell-text:hover {
+                    color: $themeColor;
+                }
             }
         }
     }
@@ -102,8 +176,16 @@ export default defineComponent({
             .collapse-cell-title {
                 color: $themeColor;
             }
-            .collapse-cell-text {
-                color: $titleColor;
+            .collapse-cell-sub-content {
+                .collapse-cell-line {
+                    background: $themeColor;
+                }
+                .collapse-cell-text {
+                    color: $titleColor;
+                }
+                .collapse-cell-text:hover {
+                    color: $themeColor;
+                }
             }
         }
     }

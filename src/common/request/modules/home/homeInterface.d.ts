@@ -2,10 +2,18 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:00:56
+ * @LastEditTime: 2021-11-25 19:39:07
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
+/**
+ * 解决方案类型
+ */
+export interface CollapseCellDataType {
+    isCategory: boolean
+    name: string
+    id: number
+}
 /**
  * 解决方案类型
  */

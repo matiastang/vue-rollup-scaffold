@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:08:29
+ * @LastEditTime: 2021-11-25 19:16:48
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -207,7 +207,7 @@ import {
     watchSyncEffect,
     onMounted,
 } from 'vue'
-import TokenView from '@/components/tokenView/TokenView.vue'
+// import TokenView from '@/components/tokenView/TokenView.vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import {

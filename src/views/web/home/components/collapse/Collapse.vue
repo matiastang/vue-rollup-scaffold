@@ -1,20 +1,21 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 20:01:27
- * @LastEditTime: 2021-11-24 14:53:49
+ * @LastEditTime: 2021-11-25 19:59:27
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapse/Collapse.vue
 -->
 <template>
     <div class="flexColumnCenter collapse">
+        <!-- :text="categoryItem.categoryDescribe" -->
         <CollapseCell
             v-for="(categoryItem, index) in data"
             class="collapse-cell"
             :key="categoryItem.id"
             :url="categoryItem.categoryIconUrl"
             :title="categoryItem.categoryName"
-            :text="categoryItem.categoryDescribe"
+            :data="getSubData(categoryItem)"
             :selected="selectedIndex === index"
             @mouseover="mouseoverAction(index)"
             @mouseout="mouseoutAction(index)"
@@ -27,7 +28,7 @@
 import { defineComponent, PropType } from 'vue'
 import { useRouter } from 'vue-router'
 import CollapseCell from '../collapseCell/CollapseCell.vue'
-import { HotType } from '@/common/request/modules/home/homeInterface'
+import { HotType, CollapseCellDataType } from '@/common/request/modules/home/homeInterface'
 
 export default defineComponent({
     name: 'Collapse',
@@ -53,6 +54,44 @@ export default defineComponent({
     },
     setup(props, context) {
         const router = useRouter()
+        /**
+         * 获取下一级描述
+         */
+        const getSubData = (category: HotType) => {
+            if (category.categoryType === 1) {
+                const list = category.apiInfoList
+                    .sort((left, right) => left.apiOrderNum - right.apiOrderNum)
+                    .filter((item, index) => index < 2)
+                    .map((item) => {
+                        return {
+                            isCategory: false,
+                            name: item.apiName,
+                            id: item.apiInfoId,
+                        } as CollapseCellDataType
+                    })
+                return list
+            }
+            const childrenData = category.children
+            if (!childrenData) {
+                return [] as CollapseCellDataType[]
+            }
+            const list = childrenData
+                .sort((left, right) => left.categoryOrderNum - right.categoryOrderNum)
+                .filter((item, index) => index < 2)
+                .map((item) => {
+                    // return {
+                    //     isCategory: true,
+                    //     name: item.categoryName,
+                    //     id: item.categoryId,
+                    // } as CollapseCellDataType
+                    return {
+                        isCategory: true,
+                        name: category.categoryName,
+                        id: category.categoryId,
+                    } as CollapseCellDataType
+                })
+            return list
+        }
         const mouseoverAction = (index: number) => {
             context.emit('mouseoverIndex', index)
         }
@@ -68,6 +107,7 @@ export default defineComponent({
             mouseoverAction,
             mouseoutAction,
             allAction,
+            getSubData,
         }
     },
     components: {
