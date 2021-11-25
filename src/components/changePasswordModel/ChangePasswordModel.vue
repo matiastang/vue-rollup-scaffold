@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 16:31:59
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:29:59
+ * @LastEditTime: 2021-11-25 12:08:04
  * @FilePath: /datumwealth-openalpha-front/src/components/changePasswordModel/ChangePasswordModel.vue
  * @Description: 修改密码弹窗
 -->
@@ -49,7 +49,7 @@ import { defineComponent, ref } from 'vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
 import { ElMessage } from 'element-plus'
 import { password_check } from 'utils/check/index'
-import { changePassword } from '@/common/request/modules/user'
+import { changePassword } from '@/common/request/modules/user/user'
 import { useStore } from 'store/index'
 
 export default defineComponent({

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2021-11-24 10:45:44
+ * @LastEditTime: 2021-11-25 14:58:16
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/main.ts
@@ -13,13 +13,16 @@ import { store, key } from '@/store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import ElementPlus from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/el-message-box.css'
 
 const app = createApp(App)
 
 // Element-plus组件
-app.use(ElementPlus)
+app.use(ElementPlus, {
+    locale: zhCn,
+})
 // 状态
 app.use(store, key)
 // 路由

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 17:56:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 18:47:24
+ * @LastEditTime: 2021-11-25 12:07:41
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/register.ts
  * @Description: 注册逻辑
  */
@@ -12,7 +12,7 @@ import { AllStateTypes } from 'store/indexInterface'
 import { ref, Ref } from 'vue'
 import { routerToUserCenter } from 'utils/router/index'
 // import _, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
-import { sendSMS, forget } from '@/common/request/modules/user'
+import { sendSMS, forget } from '@/common/request/modules/user/user'
 import { phone_check, code_check } from 'utils/check/index'
 import { ElMessage, MessageParams } from 'element-plus'
 

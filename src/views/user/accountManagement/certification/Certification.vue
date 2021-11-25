@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 15:22:50
+ * @LastEditTime: 2021-11-25 12:08:15
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -543,7 +543,7 @@ import {
     enterprise,
     certificationList,
     certificationLast,
-} from '@/common/request/modules/user'
+} from '@/common/request/modules/user/user'
 import { certificationLog } from './certification'
 import { email_check } from 'utils/check/index'
 

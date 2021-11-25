@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:50:34
- * @LastEditTime: 2021-11-24 15:38:48
+ * @LastEditTime: 2021-11-25 17:36:19
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoCell/InfoCell.vue
@@ -20,8 +20,8 @@
                 </div>
                 <div class="cell-last flexRowCenter">
                     <div class="cell-last-item flexRowCenter">
-                        <div class="cell-item-title defaultFont">接口ID:</div>
-                        <div class="cell-id defaultFont">{{ id || '-' }}</div>
+                        <div class="cell-item-title defaultFont">接口CODE:</div>
+                        <div class="cell-id defaultFont">{{ code || '-' }}</div>
                     </div>
                     <div class="cell-last-item flexRowCenter" style="margin-left: 30px">
                         <div class="cell-item-title defaultFont">价格:</div>
@@ -53,6 +53,10 @@ export default defineComponent({
             default: '-',
         },
         text: {
+            type: String,
+            default: '-',
+        },
+        code: {
             type: String,
             default: '-',
         },

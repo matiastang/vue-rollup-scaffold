@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 16:30:44
+ * @LastEditTime: 2021-11-25 17:25:29
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -36,7 +36,9 @@
                         <div class="content-title defaultFont">{{ childrenItem.categoryName }}</div>
                         <div class="content-bottom borderBox flexRowCenter">
                             <div
-                                v-for="item in childrenItem.apiInfoList"
+                                v-for="item in childrenItem.apiInfoList.sort(
+                                    (left, right) => left.apiOrderNum - right.apiOrderNum
+                                )"
                                 :key="item.apiCode"
                                 class="content-cell defaultFont"
                                 @click="apiInfoAction(item.apiInfoId)"
@@ -53,7 +55,9 @@
                         </div>
                         <div class="content-bottom flexRowCenter">
                             <div
-                                v-for="item in selectedCategory.apiInfoList"
+                                v-for="item in selectedCategory.apiInfoList.sort(
+                                    (left, right) => left.apiOrderNum - right.apiOrderNum
+                                )"
                                 :key="item.apiCode"
                                 class="content-cell defaultFont"
                                 @click="apiInfoAction(item.apiInfoId)"
@@ -128,7 +132,8 @@ export default defineComponent({
             banners: Array<string>(),
         })
         watchSyncEffect(async () => {
-            bannerList.banners = await homeBanner()
+            let res = await homeBanner()
+            bannerList.banners = res.map((item) => item.content)
         })
         // 接口导航树
         const iNavTree = reactive({
@@ -214,7 +219,8 @@ export default defineComponent({
             partners: Array<string>(),
         })
         watchSyncEffect(async () => {
-            partnerList.partners = await homePartner()
+            let res = await homePartner()
+            partnerList.partners = res.map((item) => item.content)
         })
         return {
             bannerList,

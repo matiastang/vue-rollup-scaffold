@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-24 19:18:29
+ * @LastEditTime: 2021-11-25 15:45:27
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -133,12 +133,12 @@ const routes: Array<RouteRecordRaw> = [
                 component: InterfaceStatement,
             },
             {
-                path: 'data/discount/info/:id(\\d+)',
+                path: 'data/discount/info/:time*',
                 name: 'discountInfo',
                 component: DiscountInfo,
             },
             {
-                path: 'data/recharge/info/:id(\\d+)',
+                path: 'data/recharge/info/:time*',
                 name: 'rechargeInfo',
                 component: RechargeInfo,
             },

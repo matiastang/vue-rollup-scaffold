@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:06:17
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 17:30:33
+ * @LastEditTime: 2021-11-25 12:07:59
  * @FilePath: /datumwealth-openalpha-front/src/components/changePhoneModel/ChangePhoneModel.vue
  * @Description: 修改手机号
 -->
@@ -41,7 +41,7 @@ import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'store/index'
-import { sendSMS, changeMobile } from '@/common/request/modules/user'
+import { sendSMS, changeMobile } from '@/common/request/modules/user/user'
 import { phone_check, code_check } from 'utils/check/index'
 
 export default defineComponent({

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-22 19:18:31
+ * @LastEditTime: 2021-11-25 12:07:56
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -85,7 +85,7 @@ import { ElMessage } from 'element-plus'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
 import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
-import { sendSMS, forget } from '@/common/request/modules/user'
+import { sendSMS, forget } from '@/common/request/modules/user/user'
 import { phone_check, code_check, password_check } from 'utils/check/index'
 import { useStore } from 'store/index'
 import { routerToUserCenter } from 'utils/router/index'
