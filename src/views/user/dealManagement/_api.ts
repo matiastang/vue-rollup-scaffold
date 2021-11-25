@@ -49,7 +49,7 @@ export function postAddOrder(data: Order.QueryList) {
         data,
     })
 }
-// 新增订单
+// 添加支付凭证
 export function postAddOrderVoucher(data: Order.Voucher) {
     return request({
         url: `/api/trade/od/voucher`,
@@ -68,14 +68,14 @@ export function postAddInv(data: Invoic.AddQuery) {
 }
 
 // 发票信息
-export function getInv(invId: String) {
+export function getInv(invId: number) {
     return request({
         url: `/api/trade/inv/${invId}`,
         method: RequestMethod.get,
     })
 }
 // 删除发票
-export function deleteInv(invId: String) {
+export function deleteInv(invId: number) {
     return request({
         url: `/api/trade/inv/${invId}`,
         method: RequestMethod.delete,
@@ -83,21 +83,21 @@ export function deleteInv(invId: String) {
 }
 
 // 查询发票列表
-export function postInvList(data: Order.QueryList) {
+export function postInvList(data: Invoic.Query) {
     return request({
         url: `/api/trade/inv/list`,
         method: RequestMethod.post,
         data,
         params: {
             ...data,
-            orderByColumn: 'addTime',
+            orderByColumn: 'applyTime',
             isAsc: 'desc',
         },
     })
 }
 
 // 修改发票信息
-export function postInvUpdate(data: Order.QueryList) {
+export function postInvUpdate(data: Invoic.Update) {
     return request({
         url: `/api/trade/inv/update`,
         method: RequestMethod.post,

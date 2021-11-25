@@ -55,4 +55,26 @@ export declare namespace Invoic {
         zipcode?: Maybe<string>
         // 邮编
     }
+    export type Query = {
+        beginTime?: Maybe<string>
+        endTime?: Maybe<string>
+        pageNum?: Maybe<number>
+        pageSize?: Maybe<number>
+    }
+    export type Update = {
+        address?: Maybe<string>
+        bank?: Maybe<string>
+        bankNo?: Maybe<string>
+        companyAddress?: Maybe<string>
+        consignee?: Maybe<string>
+        contact?: Maybe<string>
+        invContent?: Maybe<string>
+        invId?: Maybe<number>
+        invPayee?: Maybe<string>
+        invPayeeNumber?: Maybe<string>
+        invType?: Maybe<number>
+        orderSn?: Maybe<string>
+        tel?: Maybe<string>
+        zipcode?: Maybe<string>
+    }
 }

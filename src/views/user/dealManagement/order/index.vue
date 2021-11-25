@@ -1,47 +1,66 @@
 <template>
     <div class="order">
         <el-form ref="form" :model="queryParams" inline label-width="80px">
-            <el-form-item label="" label-width="0">
-                <el-input
-                    v-model="queryParams.orderSn"
-                    placeholder="订单编号"
-                    @keyup.enter="doQuery"
-                    size="mini"
-                    @keyup.capture.enter="doQuery"
-                />
-            </el-form-item>
-            <el-form-item label="查询日期">
-                <el-date-picker
-                    size="mini"
-                    v-model="date"
-                    type="datetimerange"
-                    range-separator="-"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
-                    format="YYYY-MM-DD HH:mm:ss"
-                    value-format="YYYY-MM-DD HH:mm:ss"
-                    @change="doQuery"
-                >
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="支付方式">
-                <el-select
-                    size="mini"
-                    @change="doQuery"
-                    v-model="queryParams.payId"
-                    placeholder="Select"
-                >
-                    <el-option label="全部" value=""> </el-option>
-                    <el-option label="微信" :value="1"> </el-option>
-                    <el-option label="支付宝" :value="2"> </el-option>
-                    <el-option label="对公转账" :value="3"> </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="" label-width="0">
-                <el-button size="mini" @click="doQuery" type="primary" plain>查询</el-button>
-                <el-button size="mini" @click="doReset" plain>重置</el-button>
-                <el-button size="mini" type="primary" plain>开发票</el-button>
-            </el-form-item>
+            <el-row type="flex" justify="center" align="middle">
+                <el-col :span="22">
+                    <el-form-item label="" label-width="0">
+                        <el-input
+                            v-model="queryParams.orderSn"
+                            placeholder="订单编号"
+                            @keyup.enter="doQuery"
+                            size="mini"
+                            @keyup.capture.enter="doQuery"
+                        />
+                    </el-form-item>
+                    <el-form-item label="查询日期">
+                        <el-date-picker
+                            size="mini"
+                            v-model="date"
+                            type="datetimerange"
+                            range-separator="-"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期"
+                            style="width: 250px"
+                            format="YYYY-MM-DD HH:mm:ss"
+                            value-format="YYYY-MM-DD HH:mm:ss"
+                            @change="doQuery"
+                        >
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="支付方式">
+                        <el-select
+                            size="mini"
+                            @change="doQuery"
+                            v-model="queryParams.payId"
+                            placeholder="Select"
+                        >
+                            <el-option label="全部" value=""> </el-option>
+                            <el-option label="微信" :value="1"> </el-option>
+                            <el-option label="支付宝" :value="2"> </el-option>
+                            <el-option label="对公转账" :value="3"> </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="" label-width="0">
+                        <el-button size="mini" @click="doQuery" type="primary" plain
+                            >查询</el-button
+                        >
+                        <el-button size="mini" @click="doReset" plain>重置</el-button>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="2">
+                    <el-row type="flex" justify="end"></el-row>
+                    <el-form-item>
+                        <el-button
+                            size="mini"
+                            :disabled="currentOrder.orderSn"
+                            @click="currentOrder.open = true"
+                            type="primary"
+                            plain
+                            >开发票</el-button
+                        >
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-form>
         <el-card shadow="never">
             <template #header>
@@ -53,11 +72,14 @@
                 :header-cell-style="{
                     background: '#e9e9e9',
                 }"
+                size="mini"
                 height="60vh"
                 :data="list"
                 class="table"
                 stripe
+                @selection-change="handleSelectionChange"
             >
+                <el-table-column :selectable="disableSelect" type="selection" width="55" />
                 <el-table-column
                     prop="orderSn"
                     label="账单编号"
@@ -102,7 +124,7 @@
                                 payStatusToText(
                                     Number(scope.row.payId),
                                     Number(scope.row.payStatus),
-                                    Number(scope.row.payVoucher)
+                                    scope.row.payVoucher
                                 )
                             }}
                         </span>
@@ -112,7 +134,13 @@
                     <template #default="scope">
                         <template v-if="isPayStatusInUpload(scope.row)">
                             <!-- <el-button type="text">下载采购单 </el-button> -->
-                            <el-button class="paystatus-primary" type="text">上传凭证 </el-button>
+                            <el-button
+                                class="paystatus-primary"
+                                style="margin-right: 10px"
+                                type="text"
+                                @click="handleShowUpload(scope.row)"
+                                >上传凭证
+                            </el-button>
                         </template>
                         <template v-if="isPayStatusNotPay(scope.row)">
                             <el-button class="paystatus-primary" type="text">去支付 </el-button>
@@ -216,14 +244,21 @@ const payVoucher = reactive({
     open: false,
     orderId: 0,
 })
+onMounted(() => {
+    doQuery()
+})
 const handleShowUpload = (row: Order.AsObject) => {
     Object.assign(payVoucher, row)
     payVoucher.open = true
 }
+const disableSelect = (row: Order.AsObject) => Boolean(!row.invId) && isPayStatusFinish(row)
 
-onMounted(() => {
-    doQuery()
-})
+const handleSelectionChange = (row: Array<Order.AsObject>) => {
+    currentOrder.orderSn = row.map((it) => it.orderSn).toString()
+    currentOrder.orderAmount = row
+        .map((it) => it.orderAmount || 0)
+        .reduce((curr, next) => curr + next, 0)
+}
 const handleNext = () => {
     currentOrder.open = false
     payVoucher.open = false

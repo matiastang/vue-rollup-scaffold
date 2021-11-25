@@ -6,7 +6,7 @@
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/index.ts
  * @Description: 工具函数
  */
-import { Exact, Maybe, OrderTypeEnum, PayStatusEnum, Order } from '@/@types'
+import { Exact, Maybe, OrderTypeEnum, PayStatusEnum, InvTypeEnum, InvStatusEnum } from '@/@types'
 /**
  * 手机号脱敏
  * @param phone
@@ -104,7 +104,7 @@ export function payStatusToText(
     if (Number(payId) === 3) {
         switch (Number(payStatus)) {
             case 0:
-                result = payVoucher ? '未上传凭证' : '审核未通过'
+                result = payVoucher ? '审核未通过' : '未上传凭证'
                 break
             case 1:
                 result = '已上传待审核'
@@ -117,4 +117,35 @@ export function payStatusToText(
         result = PayStatusEnum[payStatus]
     }
     return result
+}
+/**
+ *
+ * @param type
+ * @returns
+ */
+export function invTypeToText(type: InvTypeEnum) {
+    //发票类型1：增值税普通发票\r\n2：增值税专用发票 3 电子发票
+    const result = {
+        1: '增值税普通发票',
+        2: '增值税专用发票',
+        3: '电子发票',
+    }
+    return result[type] || ''
+}
+/**
+ *
+ * @param type
+ * @returns
+ */
+export function invStatesToText(type: InvStatusEnum) {
+    const result = {
+        0: '待审核',
+        1: '订单号不存在',
+        2: '已开票',
+        3: '开票中',
+        4: '待邮寄',
+        5: '已邮寄',
+        6: '未通过',
+    }
+    return result[type] || ''
 }

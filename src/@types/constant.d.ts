@@ -36,6 +36,16 @@ export enum InvTypeEnum {
 }
 // 发票状态0：待开发票\r\n1：已开发票
 export enum InvStatusEnum {
-    READY = 0,
-    ALREADY = 1,
+    WITE_CHECK = 0,
+    ORDER_SN_INVI = 1,
+    INV_DONE = 2,
+    INV_DOINE = 3,
+    WITE_SFXPRESS = 4,
+    SFXPRESS_DONE = 5,
+    NOT_INVI = 6,
+}
+
+export type UploadFile = {
+    name: string
+    url: string
 }

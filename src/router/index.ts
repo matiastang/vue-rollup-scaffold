@@ -29,6 +29,7 @@ import DataStatistics from '@/views/user/dataCenter/dataStatistics/DataStatistic
 import Order from '@/views/user/dealManagement/order/index.vue'
 import OrderDetail from '@/views/user/dealManagement/order/detail.vue'
 import Invoice from '@/views/user/dealManagement/invoice/index.vue'
+import InvoiceDetail from '@/views/user/dealManagement/invoice/detail.vue'
 import Setting from '@/views/user/accountManagement/setting/Setting.vue'
 import Certification from '@/views/user/accountManagement/certification/Certification.vue'
 // 帮助中心
@@ -160,6 +161,11 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'deal/invoice',
                 name: 'dealInvoice',
                 component: Invoice,
+            },
+            {
+                path: 'deal/invoice/:id(\\d+)',
+                name: 'dealInvoiceDetail',
+                component: InvoiceDetail,
             },
             {
                 path: 'account/setting',

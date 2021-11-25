@@ -14,8 +14,12 @@
                     order.orderStatus
                 }}</el-descriptions-item>
                 <el-descriptions-item label="支付方式">{{ order.payName }}</el-descriptions-item>
-                <el-descriptions-item label="下单时间">{{ order.addTime }}</el-descriptions-item>
-                <el-descriptions-item label="支付时间">{{ order.payTime }}</el-descriptions-item>
+                <el-descriptions-item label="下单时间">{{
+                    order.addTime || '-'
+                }}</el-descriptions-item>
+                <el-descriptions-item label="支付时间">{{
+                    order.payTime || '-'
+                }}</el-descriptions-item>
                 <el-descriptions-item label="支付凭证">
                     <a :href="order.payVoucher" target="_blank" rel="noopener noreferrer">
                         <img style="max-height: 200px" :src="order.payVoucher" alt="" />
@@ -47,10 +51,10 @@ const loading = ref(true)
 const order = reactive<Order.AsObject>({})
 const router = useRoute()
 onMounted(() => {
-    init()
+    doFetchDetail()
 })
 
-const init = () => {
+const doFetchDetail = () => {
     const id = Number(router.params.id)
     loading.value = true
     getOrderDetail(id).then((response) => {

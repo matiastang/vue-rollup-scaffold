@@ -36,8 +36,8 @@ export declare namespace Order {
         payId?: Maybe<number>
         PayStatus?: Maybe<PayStatusEnum>
         userName?: Maybe<string>
-        pageNum?: Maybe<string>
-        pageSize?: Maybe<string>
+        pageNum?: Maybe<number>
+        pageSize?: Maybe<number>
     }
     export type OrderResponse = {
         total?: Maybe<number>
