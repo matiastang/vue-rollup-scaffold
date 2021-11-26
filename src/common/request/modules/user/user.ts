@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 11:36:04
- * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user.ts
+ * @LastEditTime: 2021-11-26 15:12:15
+ * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user/user.ts
  * @Description: 用户相关接口
  */
 import http from '@/common/request/request'
@@ -42,7 +42,7 @@ function login(parameters: LoginParameters) {
  * @returns
  */
 function logout() {
-    return http.get<string>(`${memberPrefix}/logout`)
+    return http.get<null>(`${memberPrefix}/logout`)
 }
 
 /**
@@ -153,6 +153,18 @@ const checkAvailable = (type: number) => {
     return http.get<boolean>(`${memberPrefix}/check/account/balance/available?type=${type}`)
 }
 
+/**
+ * 意见反馈提交
+ * @param userId
+ * @returns
+ */
+const feedback = (phone: string, content: string) => {
+    return http.post<boolean>(`${memberPrefix}/opinion/add`, {
+        mobile: phone,
+        opinion: content,
+    })
+}
+
 export {
     login,
     logout,
@@ -168,4 +180,5 @@ export {
     certificationLast,
     resetToken,
     checkAvailable,
+    feedback,
 }

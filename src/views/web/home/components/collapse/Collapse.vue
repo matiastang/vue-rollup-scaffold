@@ -1,19 +1,18 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 20:01:27
- * @LastEditTime: 2021-11-25 19:59:27
+ * @LastEditTime: 2021-11-26 16:05:31
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapse/Collapse.vue
 -->
 <template>
     <div class="flexColumnCenter collapse">
-        <!-- :text="categoryItem.categoryDescribe" -->
         <CollapseCell
             v-for="(categoryItem, index) in data"
             class="collapse-cell"
             :key="categoryItem.id"
-            :url="categoryItem.categoryIconUrl"
+            :url="categoryItem.navBarIcon"
             :title="categoryItem.categoryName"
             :data="getSubData(categoryItem)"
             :selected="selectedIndex === index"
@@ -79,11 +78,6 @@ export default defineComponent({
                 .sort((left, right) => left.categoryOrderNum - right.categoryOrderNum)
                 .filter((item, index) => index < 2)
                 .map((item) => {
-                    // return {
-                    //     isCategory: true,
-                    //     name: item.categoryName,
-                    //     id: item.categoryId,
-                    // } as CollapseCellDataType
                     return {
                         isCategory: true,
                         name: category.categoryName,

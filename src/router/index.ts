@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-25 15:45:27
+ * @LastEditTime: 2021-11-26 13:57:23
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -37,6 +37,13 @@ import LoginRegister from '@/views/user/helpCenter/loginRegister/LoginRegister.v
 import Test from '@/views/user/helpCenter/test/Test.vue'
 import Pay from '@/views/user/helpCenter/pay/Pay.vue'
 import Issue from '@/views/user/helpCenter/issue/Issue.vue'
+// 关于我们
+import AboutUs from '@/views/web/about/aboutUs/AboutUs.vue'
+import Agreement from '@/views/web/about/agreement/Agreement.vue'
+import Copyright from '@/views/web/about/copyright/Copyright.vue'
+import Feedback from '@/views/web/about/feedback/Feedback.vue'
+import RightNotify from '@/views/web/about/rightNotify/RightNotify.vue'
+import Statement from '@/views/web/about/statement/Statement.vue'
 
 // NotFound
 import NotFound from '@/views/NotFound.vue'
@@ -211,6 +218,47 @@ const routes: Array<RouteRecordRaw> = [
         ],
         beforeEnter: (to, from) => {
             console.log(`help路由卫士：即将从${from.path}跳转到${to.path}`)
+            return true
+        },
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: HelpLayout,
+        children: [
+            {
+                path: 'aboutUs',
+                name: 'AboutUs',
+                component: AboutUs,
+            },
+            {
+                path: 'agreement',
+                name: 'aboutAgreement',
+                component: Agreement,
+            },
+            {
+                path: 'copyright',
+                name: 'aboutCopyright',
+                component: Copyright,
+            },
+            {
+                path: 'feedback',
+                name: 'aboutFeedback',
+                component: Feedback,
+            },
+            {
+                path: 'rightNotify',
+                name: 'aboutRightNotify',
+                component: RightNotify,
+            },
+            {
+                path: 'statement',
+                name: 'aboutStatement',
+                component: Statement,
+            },
+        ],
+        beforeEnter: (to, from) => {
+            console.log(`about路由卫士：即将从${from.path}跳转到${to.path}`)
             return true
         },
     },

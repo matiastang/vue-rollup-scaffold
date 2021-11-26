@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-11-25 20:13:34
+ * @LastEditTime: 2021-11-26 16:06:33
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
@@ -35,10 +35,8 @@
                 </div>
             </div>
         </div>
-        <img
-            class="collapse-cell-right-icon"
-            :src="selected ? 'static/api/category_on.svg' : 'static/api/category_off.svg'"
-        />
+        <img v-if="selected" class="collapse-cell-right-icon" src="static/api/category_on.svg" />
+        <img v-else class="collapse-cell-right-icon" src="static/api/category_off.svg" />
     </div>
 </template>
 
@@ -120,12 +118,11 @@ export default defineComponent({
         align-items: flex-start;
         flex-grow: 1;
         .collapse-cell-left-icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             color: white;
-            margin-top: 3px;
+            flex-shrink: 0;
         }
-
         .collapse-cell-center {
             flex-grow: 1;
             align-items: flex-start;

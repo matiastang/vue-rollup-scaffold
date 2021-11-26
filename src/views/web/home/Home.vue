@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:25:29
+ * @LastEditTime: 2021-11-26 16:17:52
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -74,9 +74,10 @@
             <div class="solution-bottom flexRowCenter">
                 <SolutionCell
                     class="solution-cell"
-                    v-for="item in solutionList.solutions"
+                    v-for="(item, index) in solutionList.solutions"
                     :key="item.title"
                     :data="item"
+                    :index="index"
                 />
             </div>
         </div>
@@ -140,19 +141,20 @@ export default defineComponent({
             tree: Array<HotType>(),
         })
         // 首页需要显示的分类
-        const homeCategory = reactive([
-            '基金基本信息',
-            '基金净值',
-            '基金业绩表现',
-            '基金投资组合',
-            '基金财务数据',
-            '基金风险',
-            '基金业绩归因',
-        ])
+        // const homeCategory = reactive([
+        //     '基金基本信息',
+        //     '基金净值',
+        //     '基金业绩表现',
+        //     '基金投资组合',
+        //     '基金财务数据',
+        //     '基金风险',
+        //     '基金业绩归因',
+        // ])
         watchSyncEffect(async () => {
             let categoryTree = await homeInterfaceNavigationTree()
-            iNavTree.tree = categoryTree.filter((item: HotType) => {
-                return homeCategory.includes(item.categoryName)
+            iNavTree.tree = categoryTree.filter((item: HotType, index) => {
+                // return homeCategory.includes(item.categoryName)
+                return index < 7
             })
         })
         // 当前选中的category
@@ -394,7 +396,8 @@ export default defineComponent({
     width: 100%;
     .home-top {
         width: 100%;
-        background: #fff2ee;
+        background-image: url('./static/home/banner-bg.svg');
+        object-fit: cover;
         padding: 20px 10% 30px 10%;
         align-items: stretch;
         position: relative;
@@ -458,7 +461,8 @@ export default defineComponent({
     .solution {
         width: 100%;
         padding: 60px calc(10% - 8px) 40px calc(10% - 8px);
-        background: #fbfbfb;
+        background-image: url('./static/home/scheme-bg.png');
+        object-fit: cover;
         .solution-bottom {
             width: 100%;
             justify-content: space-between;
@@ -484,6 +488,8 @@ export default defineComponent({
     }
     .partners {
         width: 100%;
+        background-image: url('./static/home/partners-bg.png');
+        object-fit: cover;
         padding: 0px calc(10% - 8px) 60px calc(10% - 8px);
         .partners-content {
             width: 100%;

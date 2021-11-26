@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 14:24:39
+ * @LastEditTime: 2021-11-26 14:01:14
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watchEffect } from 'vue'
+import { computed, defineComponent, reactive, watchEffect } from 'vue'
 import Header from '@/components/header/Header.vue'
 import Footer from '@/components/footer/Footer.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -46,33 +46,70 @@ export default defineComponent({
     setup() {
         const route = useRoute()
         const router = useRouter()
-        const helpList = reactive([
-            {
-                title: '登录注册',
-                selected: true,
-                url: '/help/login',
-            },
-            {
-                title: '测试流程',
-                selected: false,
-                url: '/help/test',
-            },
-            {
-                title: '支付方式',
-                selected: false,
-                url: '/help/pay',
-            },
-            {
-                title: '常见问题',
-                selected: false,
-                url: '/help/issue',
-            },
-        ])
+        // const helpList = reactive()
+        const helpList = computed(() => {
+            if (route.path.startsWith('/help/')) {
+                return [
+                    {
+                        title: '登录注册',
+                        selected: true,
+                        url: '/help/login',
+                    },
+                    {
+                        title: '测试流程',
+                        selected: false,
+                        url: '/help/test',
+                    },
+                    {
+                        title: '支付方式',
+                        selected: false,
+                        url: '/help/pay',
+                    },
+                    {
+                        title: '常见问题',
+                        selected: false,
+                        url: '/help/issue',
+                    },
+                ]
+            }
+            return [
+                {
+                    title: '关于我们',
+                    selected: false,
+                    url: '/about/aboutUs',
+                },
+                {
+                    title: '用户协议',
+                    selected: false,
+                    url: '/about/agreement',
+                },
+                {
+                    title: '版本政策',
+                    selected: false,
+                    url: '/about/copyright',
+                },
+                {
+                    title: '免责声明',
+                    selected: false,
+                    url: '/about/statement',
+                },
+                {
+                    title: '权利通知',
+                    selected: false,
+                    url: '/about/rightNotify',
+                },
+                {
+                    title: '意见反馈',
+                    selected: true,
+                    url: '/about/feedback',
+                },
+            ]
+        })
         // 检测路由变化时更新header选中状态
         watchEffect(() => {
             let path = route.path
-            for (let i = 0; i < helpList.length; i++) {
-                helpList[i].selected = path === helpList[i].url
+            for (let i = 0; i < helpList.value.length; i++) {
+                helpList.value[i].selected = path === helpList.value[i].url
             }
         })
         /**

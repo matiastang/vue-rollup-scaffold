@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 19:38:43
+ * @LastEditTime: 2021-11-26 15:06:52
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -77,6 +77,7 @@ import { useStore } from 'store/index'
 import { checkLoginPath } from '@/router/loginInterceptor'
 import { logout } from '@/common/request/index'
 import { routerToUserCenter } from 'utils/router/index'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'Header',
@@ -235,6 +236,7 @@ export default defineComponent({
             if (index === 2) {
                 // 退出登录
                 let _ = await logout()
+                ElMessage.success('退出成功')
                 store.commit('setUserLoginInfo', null)
                 store.commit('setToken', null)
                 const findItem = checkLoginPath.find(({ path }) => {
