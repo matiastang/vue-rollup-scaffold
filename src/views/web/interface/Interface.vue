@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-24 19:42:55
+ * @LastEditTime: 2021-11-26 18:03:28
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -196,7 +196,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .interface {
     position: relative;
-    padding: 20px 10% 60px 10%;
+    padding: 20px calc(50% - 712px) 60px calc(50% - 712px);
     .interface-hot {
         width: 100%;
         background: $themeBgColor;
@@ -272,9 +272,9 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .interface {
-        padding: 20px 5% 60px 5%;
+        padding: 20px 30px 60px 30px;
     }
 }
 </style>

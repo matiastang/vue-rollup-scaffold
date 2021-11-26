@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-11-03 20:02:04
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-26 17:18:08
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/Layout.vue
+ * @FilePath: /datumwealth-openalpha-front/src/components/layout/Layout.vue
 -->
 <template>
     <div class="layout">
@@ -37,6 +37,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .layout {
     width: 100vw;
+    min-width: 1000px;
     height: 100vh;
     display: flex;
     flex-direction: column;

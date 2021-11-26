@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-22 19:20:46
+ * @LastEditTime: 2021-11-26 18:04:54
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -314,7 +314,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .recharge {
     width: 100%;
-    padding: 20px 10% 60px 10%;
+    padding: 20px calc(50% - 712px) 60px calc(50% - 712px);
     .recharge-top-content {
         width: 100%;
         background: $themeBgColor;
@@ -469,9 +469,9 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .recharge {
-        padding: 20px 5% 60px 5%;
+        padding: 20px 30px 60px 30px;
     }
 }
 </style>

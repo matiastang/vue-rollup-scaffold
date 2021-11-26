@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 14:01:14
+ * @LastEditTime: 2021-11-26 17:59:27
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
@@ -46,7 +46,6 @@ export default defineComponent({
     setup() {
         const route = useRoute()
         const router = useRouter()
-        // const helpList = reactive()
         const helpList = computed(() => {
             if (route.path.startsWith('/help/')) {
                 return [
@@ -132,6 +131,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .help-layout {
     width: 100vw;
+    min-width: 1000px;
     justify-content: flex-start;
     .header {
         width: 100%;
@@ -144,7 +144,8 @@ export default defineComponent({
         justify-content: flex-start;
         .help-layout-top-content {
             width: 100%;
-            padding: 20px 10% 20px 10%;
+            min-height: calc(100vh - 96px);
+            padding: 20px calc(50% - 712px);
             box-sizing: border-box;
             align-items: flex-start;
             .menu-content {
@@ -192,11 +193,11 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .help-layout {
         .help-layout-content {
             .help-layout-top-content {
-                padding: 20px 5% 30px 5%;
+                padding: 20px 30px 30px 30px;
             }
         }
     }

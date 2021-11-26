@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-25 18:41:51
+ * @LastEditTime: 2021-11-26 18:04:04
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -43,9 +43,9 @@
                                 </div>
                             </div>
                             <div class="parameters-item flexRowCenter">
-                                <div class="parameters-item-title defaultFont">接口ID:</div>
+                                <div class="parameters-item-title defaultFont">接口code:</div>
                                 <div class="parameters-item-text defaultFont">
-                                    {{ getApiInfo ? getApiInfo.apiInfoId : '-' }}
+                                    {{ getApiInfo ? getApiInfo.apiCode : '-' }}
                                 </div>
                             </div>
                             <div class="parameters-item flexRowCenter">
@@ -497,7 +497,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .interface-call {
     position: relative;
-    padding: 20px 10% 60px 10%;
+    padding: 20px calc(50% - 712px) 60px calc(50% - 712px);
     align-items: flex-start;
     .call-top {
         width: 100%;
@@ -661,9 +661,9 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .interface-call {
-        padding: 20px 5% 60px 5%;
+        padding: 20px 30px 60px 30px;
     }
 }
 </style>

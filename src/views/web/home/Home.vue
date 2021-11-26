@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 16:17:52
+ * @LastEditTime: 2021-11-26 17:18:13
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -398,7 +398,7 @@ export default defineComponent({
         width: 100%;
         background-image: url('./static/home/banner-bg.svg');
         object-fit: cover;
-        padding: 20px 10% 30px 10%;
+        padding: 20px calc(50% - 712px) 30px calc(50% - 712px);
         align-items: stretch;
         position: relative;
         .home-top-left {
@@ -414,10 +414,10 @@ export default defineComponent({
         }
         .home-category-content {
             position: absolute;
-            right: 10%;
+            right: calc(50% - 712px);
             top: 0px;
             padding: 20px 60px;
-            width: calc(56% + 16px);
+            width: calc(997px + 16px);
             height: 628px;
             box-sizing: border-box;
             background: $themeBgColor;
@@ -460,7 +460,7 @@ export default defineComponent({
     }
     .solution {
         width: 100%;
-        padding: 60px calc(10% - 8px) 40px calc(10% - 8px);
+        padding: 60px calc(50% - 720px) 40px calc(50% - 720px);
         background-image: url('./static/home/scheme-bg.png');
         object-fit: cover;
         .solution-bottom {
@@ -476,7 +476,7 @@ export default defineComponent({
     .home-hot {
         width: 100%;
         box-sizing: border-box;
-        padding: 60px calc(10% - 8px) 60px calc(10% - 8px);
+        padding: 60px calc(50% - 720px) 60px calc(50% - 720px);
         .home-hot-bottom {
             width: 100%;
             flex-wrap: wrap;
@@ -490,7 +490,7 @@ export default defineComponent({
         width: 100%;
         background-image: url('./static/home/partners-bg.png');
         object-fit: cover;
-        padding: 0px calc(10% - 8px) 60px calc(10% - 8px);
+        padding: 0px calc(50% - 720px) 60px calc(50% - 720px);
         .partners-content {
             width: 100%;
             flex-wrap: wrap;
@@ -506,29 +506,23 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .home {
         .home-top {
-            padding: 20px 5% 30px 5%;
-            .home-top-left {
-                width: 35%;
-            }
-            .home-top-right {
-                width: 65%;
-            }
+            padding: 20px 30px 30px 30px;
             .home-category-content {
-                right: 5%;
-                width: calc(58.5% + 16px);
+                right: 30px;
+                width: calc(70% - 26px);
             }
         }
         .solution {
-            padding: 60px calc(5% - 8px) 40px calc(5% - 8px);
+            padding: 60px 22px 40px 22px;
         }
         .home-hot {
-            padding: 0px calc(5% - 8px) 60px calc(5% - 8px);
+            padding: 0px 22px 60px 22px;
         }
         .partners {
-            padding: 60px calc(5% - 8px) 60px calc(5% - 8px);
+            padding: 60px 22px 60px 22px;
         }
     }
 }

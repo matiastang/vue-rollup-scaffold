@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 15:06:52
+ * @LastEditTime: 2021-11-26 17:52:25
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -269,8 +269,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
     width: 100%;
+    box-sizing: border-box;
     height: 96px;
-    padding: 0px 5%;
+    padding: 0px 80px;
     background: $themeBgColor;
     box-shadow: 0px 4px 4px -4px rgba(218, 218, 218, 0.5);
     justify-content: space-between;
@@ -292,7 +293,7 @@ export default defineComponent({
     }
     .header-right {
         .header-right-button {
-            margin: 16px;
+            margin: 0px 16px;
             .header-right-title {
                 font-size: 16px;
                 font-family: PingFangSC-Medium, PingFang SC;
@@ -360,18 +361,37 @@ export default defineComponent({
 }
 @media screen and (max-width: 1500px) {
     .header {
-        padding: 0px 4%;
+        padding: 0px 30px;
         .header-left {
-            .header-left-input,
-            .header-name-button {
+            .header-left-input {
                 margin: 0px 60px;
+            }
+        }
+        .header-right {
+            .header-right-button,
+            .header-name-button {
+                margin: 0px 14px;
             }
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1400px) {
     .header {
-        padding: 0px 3%;
+        .header-left {
+            .header-left-input {
+                margin: 0px 50px;
+            }
+        }
+        .header-right {
+            .header-right-button,
+            .header-name-button {
+                margin: 0px 12px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1300px) {
+    .header {
         .header-left {
             .header-left-input {
                 margin: 0px 40px;
@@ -380,14 +400,28 @@ export default defineComponent({
         .header-right {
             .header-right-button,
             .header-name-button {
-                margin: 16px;
+                margin: 0px 10px;
             }
         }
     }
 }
 @media screen and (max-width: 1200px) {
     .header {
-        padding: 0px 2%;
+        .header-left {
+            .header-left-input {
+                margin: 0px 30px;
+            }
+        }
+        .header-right {
+            .header-right-button,
+            .header-name-button {
+                margin: 0px 8px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1100px) {
+    .header {
         .header-left {
             .header-left-input {
                 margin: 0px 20px;
@@ -396,14 +430,13 @@ export default defineComponent({
         .header-right {
             .header-right-button,
             .header-name-button {
-                margin: 16px 8px;
+                margin: 0px 6px;
             }
         }
     }
 }
 @media screen and (max-width: 1000px) {
     .header {
-        padding: 0px 1%;
         .header-left {
             .header-left-input {
                 margin: 0px 10px;
@@ -412,7 +445,7 @@ export default defineComponent({
         .header-right {
             .header-right-button,
             .header-name-button {
-                margin: 16px 6px;
+                margin: 0px 4px;
             }
         }
     }

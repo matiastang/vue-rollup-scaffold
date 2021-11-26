@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:50:48
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 18:49:59
+ * @LastEditTime: 2021-11-26 16:56:18
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/api.ts
  * @Description: 开放接口
  */
@@ -31,7 +31,8 @@ const apiSearch = (keyword: string) => {
  */
 const apiTool = (parameters: ApiToolParameterType) => {
     return http.toolRequest({
-        url: `${apiPrefix}/apiTool`,
+        url: `${apiPrefix}/apiTool/exeToolQuery`,
+        method: 'POST',
         data: parameters,
     })
 }

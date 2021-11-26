@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-11-11 13:48:25
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-26 18:05:43
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/solution/Solution.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
 -->
 <template>
     <div class="solution">
@@ -270,7 +270,7 @@ export default defineComponent({
     width: 100%;
     .solution-content {
         width: 100%;
-        padding: 96px 10% 0px 10%;
+        padding: 96px calc(50% - 712px) 0px calc(50% - 712px);
         background: #fbfbfb;
         .solution-top {
             width: 100%;
@@ -369,7 +369,7 @@ export default defineComponent({
         width: 100%;
         .bottom-content {
             width: 100%;
-            padding: 32px 10% 48px 10%;
+            padding: 32px calc(50% - 712px) 48px calc(50% - 712px);
             .partners-content {
                 width: 100%;
                 flex-wrap: wrap;
@@ -385,14 +385,14 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .solution {
         .solution-content {
-            padding: 96px 5% 0px 5%;
+            padding: 96px 30px 0px 30px;
         }
         .solution-bottom {
             .bottom-content {
-                padding: 32px 5% 48px 5%;
+                padding: 32px 30px 48px 30px;
             }
         }
     }
