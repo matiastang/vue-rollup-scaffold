@@ -193,9 +193,9 @@ const handleDeleteInv = (row) => {
 }
 const doQuery = () => {
     postInvList(queryParams)
-        .then((response) => {
-            Object.assign(list, { value: response.data.rows })
-            total.value = response.data.total
+        .then((data) => {
+            Object.assign(list, { value: data.rows })
+            total.value = data.total
             loading.value = false
         })
         .catch((err) => {

@@ -238,8 +238,8 @@ const handleUpdateInv = () => {
 const doFetchInvLastInfo = () => {
     loadingInv.value = true
     postInvList({ pageSize: 1 })
-        .then((response) => {
-            Object.assign(lastInvoice, response.data.rows[0])
+        .then((data) => {
+            Object.assign(lastInvoice, data.rows[0])
             loadingInv.value = false
         })
         .catch((err) => {
@@ -268,8 +268,8 @@ const doQuery = async () => {
         const query = addDateRange(queryParams, date.value)
         const response = await getOrderList(query)
         loading.value = false
-        Object.assign(list, { value: response.data.rows })
-        total.value = response.data.total
+        Object.assign(list, { value: response.rows })
+        total.value = response.total
     } catch (error) {
         loading.value = false
         throw error

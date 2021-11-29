@@ -229,6 +229,7 @@ import { getOrderList, getOrderCancel } from '@/api'
 import WeixinModel from '@/components/weixinModel/WeixinModel.vue'
 import DialogAddInvoice from '@/views/user/dealManagement/invoice/DialogAddInv.vue'
 import DialogWithPayVou from '@/views/user/dealManagement/order/DialogWithPayVou.vue'
+import { RejectType } from '@/common/request/request'
 
 const loading = ref(true)
 const openAdd = ref(false)
@@ -283,8 +284,8 @@ const doQuery = async () => {
         const query = addDateRange(queryParams, date.value)
         const response = await getOrderList(query)
         loading.value = false
-        list.value = response.data.rows
-        total.value = response.data.total
+        list.value = response.rows
+        total.value = response.total
     } catch (error) {
         loading.value = false
         throw error
@@ -325,7 +326,9 @@ const handleCancel = async (id: number, name?: string) => {
             })
             doQuery()
         })
-        .catch(() => {})
+        .catch((err: RejectType) => {
+            ElMessage.error(err.msg)
+        })
 }
 
 const doReset = () => {

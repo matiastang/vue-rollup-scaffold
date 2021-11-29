@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:09:26
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 16:47:28
+ * @LastEditTime: 2021-11-29 16:39:47
  * @FilePath: /datumwealth-openalpha-front/src/components/menu/menu.ts
  * @Description:
  */
@@ -40,13 +40,21 @@ const menuData = [
                 title: '我的订单',
                 path: '/user/deal/order',
                 selected: false,
-                children: [],
+                children: [
+                    {
+                        path: '/user/deal/order/',
+                    },
+                ],
             },
             {
                 title: '我的发票',
                 path: '/user/deal/invoice',
                 selected: false,
-                children: [],
+                children: [
+                    {
+                        path: '/user/deal/invoice/',
+                    },
+                ],
             },
         ],
     },

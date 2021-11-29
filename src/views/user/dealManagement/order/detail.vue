@@ -1,3 +1,11 @@
+<!--
+ * @Author: matiastang
+ * @Date: 2021-11-25 19:11:12
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-29 16:08:00
+ * @FilePath: /datumwealth-openalpha-front/src/views/user/dealManagement/order/detail.vue
+ * @Description: 
+-->
 <template>
     <div class="order-detail">
         <el-card shadow="never" v-loading="loading">
@@ -57,9 +65,9 @@ onMounted(() => {
 const doFetchDetail = () => {
     const id = Number(router.params.id)
     loading.value = true
-    getOrderDetail(id).then((response) => {
+    getOrderDetail(id).then((data) => {
         loading.value = false
-        Object.assign(order, response.data)
+        Object.assign(order, data)
     })
 }
 </script>
