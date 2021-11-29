@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 18:04:54
+ * @LastEditTime: 2021-11-29 11:28:53
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -57,7 +57,7 @@
                         <div class="recharge-service-item-img-content flexRowCenter">
                             <img
                                 class="recharge-service-item-img"
-                                :src="`static/pay/advantage_${index + 1}.svg`"
+                                :src="getAdvantageUrl(index + 1)"
                             />
                         </div>
                         <div class="recharge-service-item-title defaultFont">{{ item.title }}</div>
@@ -268,6 +268,12 @@ export default defineComponent({
                 title: '优质售后服务',
             },
         ]
+        /**
+         * 导入图片
+         */
+        const getAdvantageUrl = (index: number) => {
+            return new URL(`/static/pay/advantage_${index}.svg`, import.meta.url).href
+        }
         // 使用流程
         const courseArr = [
             {
@@ -300,6 +306,7 @@ export default defineComponent({
             loginDialogVisible,
             weixinDialogVisible,
             transferDialogVisible,
+            getAdvantageUrl,
         }
     },
     components: {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 17:18:13
+ * @LastEditTime: 2021-11-29 09:57:56
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -396,7 +396,7 @@ export default defineComponent({
     width: 100%;
     .home-top {
         width: 100%;
-        background-image: url('./static/home/banner-bg.svg');
+        background-image: url('static/home/banner-bg.svg');
         object-fit: cover;
         padding: 20px calc(50% - 712px) 30px calc(50% - 712px);
         align-items: stretch;
@@ -461,7 +461,7 @@ export default defineComponent({
     .solution {
         width: 100%;
         padding: 60px calc(50% - 720px) 40px calc(50% - 720px);
-        background-image: url('./static/home/scheme-bg.png');
+        background-image: url('static/home/scheme-bg.png');
         object-fit: cover;
         .solution-bottom {
             width: 100%;
@@ -488,7 +488,7 @@ export default defineComponent({
     }
     .partners {
         width: 100%;
-        background-image: url('./static/home/partners-bg.png');
+        background-image: url('static/home/partners-bg.png');
         object-fit: cover;
         padding: 0px calc(50% - 720px) 60px calc(50% - 720px);
         .partners-content {
