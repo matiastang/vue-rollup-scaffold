@@ -1,3 +1,11 @@
+/*
+ * @Author: matiastang
+ * @Date: 2021-11-25 19:11:12
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-29 15:26:17
+ * @FilePath: /datumwealth-openalpha-front/src/@types/order.d.ts
+ * @Description:
+ */
 import { Maybe, Exact, OrderTypeEnum, OrderStstusEnum, PayStatusEnum, Invoic } from '@/@types'
 
 export declare namespace Order {
@@ -53,5 +61,14 @@ export declare namespace Order {
     export type Voucher = {
         orderId: Maybe<number>
         payVoucher: Maybe<string>
+    }
+    /**
+     * 订单信息
+     */
+    export type OrderObject = {
+        orderId: number
+        orderType?: OrderTypeEnum
+        orderAmount?: Maybe<number>
+        codeUrl: string
     }
 }

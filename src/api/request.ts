@@ -1,3 +1,11 @@
+/*
+ * @Author: matiastang
+ * @Date: 2021-11-24 17:53:57
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-29 14:05:27
+ * @FilePath: /datumwealth-openalpha-front/src/api/request.ts
+ * @Description:
+ */
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { Response } from '@/@types'
@@ -9,7 +17,7 @@ import {
 // 创建axios实例
 const service = axios.create({
     // axios vite 配置文档 https://cn.vitejs.dev/guide/env-and-mode.html
-    baseURL: import.meta.env.VITE_APP_BASE_API,
+    baseURL: import.meta.env.VITE_APP_BASE_HOST,
     // 超时
     timeout: 10000,
 })
