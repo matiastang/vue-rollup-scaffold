@@ -116,7 +116,7 @@
                 background: '#e9e9e9',
             }"
             height="45vh"
-            :data="list"
+            :data="list.value"
             class="table"
             stripe
             size="mini"
@@ -194,7 +194,7 @@ const loadingInv = ref(true)
 const open = ref(false)
 const openAction = ref(false)
 const openAdd = ref(false)
-const list = reactive([])
+const list = reactive({ value: [] })
 const date = ref([])
 const total = ref([])
 const queryParams = reactive({
@@ -268,7 +268,7 @@ const doQuery = async () => {
         const query = addDateRange(queryParams, date.value)
         const response = await getOrderList(query)
         loading.value = false
-        Object.assign(list, response.data.rows)
+        Object.assign(list, { value: response.data.rows })
         total.value = response.data.total
     } catch (error) {
         loading.value = false

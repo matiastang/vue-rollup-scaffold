@@ -8,28 +8,25 @@
                             v-model="queryParams.orderSn"
                             placeholder="订单编号"
                             @keyup.enter="doQuery"
-                            size="mini"
                             @keyup.capture.enter="doQuery"
                         />
                     </el-form-item>
                     <el-form-item label="查询日期">
                         <el-date-picker
-                            size="mini"
                             v-model="date"
-                            type="datetimerange"
+                            type="daterange"
                             range-separator="-"
                             start-placeholder="开始日期"
                             end-placeholder="结束日期"
-                            style="width: 250px"
-                            format="YYYY-MM-DD HH:mm:ss"
-                            value-format="YYYY-MM-DD HH:mm:ss"
+                            style="width: 240px"
+                            format="YYYY-MM-DD"
+                            value-format="YYYY-MM-DD"
                             @change="doQuery"
                         >
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="支付方式">
                         <el-select
-                            size="mini"
                             @change="doQuery"
                             v-model="queryParams.payId"
                             placeholder="Select"
@@ -41,24 +38,22 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="" label-width="0">
-                        <el-button size="mini" @click="doQuery" type="primary" plain
-                            >查询</el-button
-                        >
-                        <el-button size="mini" @click="doReset" plain>重置</el-button>
+                        <el-button @click="doQuery" type="primary" plain>查询</el-button>
+                        <el-button @click="doReset" plain>重置</el-button>
                     </el-form-item>
                 </el-col>
                 <el-col :span="2">
-                    <el-row type="flex" justify="end"></el-row>
-                    <el-form-item>
-                        <el-button
-                            size="mini"
-                            :disabled="currentOrder.orderSn"
-                            @click="currentOrder.open = true"
-                            type="primary"
-                            plain
-                            >开发票</el-button
-                        >
-                    </el-form-item>
+                    <el-row style="align-self: flex-start" type="flex" justify="end" align="start">
+                        <el-form-item>
+                            <el-button
+                                :disabled="currentOrder.orderSn"
+                                @click="currentOrder.open = true"
+                                type="primary"
+                                plain
+                                >开发票</el-button
+                            >
+                        </el-form-item>
+                    </el-row>
                 </el-col>
             </el-row>
         </el-form>
