@@ -9,7 +9,9 @@
 <template>
     <div class="header borderBox flexRowCenter">
         <div class="header-left flexRowCenter">
-            <img class="header-left-logo" src="static/header/logo.png" />
+            <router-link to="/">
+                <img class="header-left-logo" src="static/header/logo.png" />
+            </router-link>
             <Search class="header-left-input" />
         </div>
         <div class="header-right flexRowCenter">

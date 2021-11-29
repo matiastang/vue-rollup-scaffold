@@ -7,7 +7,7 @@
  * @Description: 配置
  */
 import { AxiosRequestConfig } from 'axios'
-const baseURL = `${import.meta.env.VITE_APP_BASE_HOST}${import.meta.env.VITE_APP_BASE_API}`
+const baseURL = `${import.meta.env.VITE_APP_BASE_API}`
 const config: AxiosRequestConfig = {
     baseURL,
     timeout: 10000,
