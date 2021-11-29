@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-11-29 13:54:33
+ * @LastEditTime: 2021-11-29 18:56:34
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/vite.config.ts
@@ -89,6 +89,7 @@ export default defineConfig({
     // 构建配置
     build: {
         outDir: './build',
+        assetsInlineLimit: 10240,
         // rollupOptions: {
         //     input:'src/pages/default/index.html'
         // }
