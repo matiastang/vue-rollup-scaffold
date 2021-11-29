@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-25 18:41:51
+ * @LastEditTime: 2021-11-29 10:31:04
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -43,9 +43,9 @@
                                 </div>
                             </div>
                             <div class="parameters-item flexRowCenter">
-                                <div class="parameters-item-title defaultFont">接口ID:</div>
+                                <div class="parameters-item-title defaultFont">接口code:</div>
                                 <div class="parameters-item-text defaultFont">
-                                    {{ getApiInfo ? getApiInfo.apiInfoId : '-' }}
+                                    {{ getApiInfo ? getApiInfo.apiCode : '-' }}
                                 </div>
                             </div>
                             <div class="parameters-item flexRowCenter">
@@ -94,12 +94,19 @@
                                     />
                                 </div>
                             </div>
-                            <div
+                            <el-button
+                                type="primary"
+                                :loading="testLoading"
+                                class="apply-trial-button borderBox defaultFont"
+                                @click="apiCallAction"
+                                >调用接口</el-button
+                            >
+                            <!-- <div
                                 class="apply-trial-button borderBox defaultFont"
                                 @click="apiCallAction"
                             >
                                 调用接口
-                            </div>
+                            </div> -->
                         </div>
                         <div class="bottom-right-json borderBox flexColumnCenter">
                             <div class="json-content borderBox flexColumnCenter">
@@ -378,6 +385,7 @@ export default defineComponent({
             }
             return true
         }
+        const testLoading = ref(false)
         /**
          * 测试接口
          */
@@ -391,6 +399,7 @@ export default defineComponent({
                     })
                     return
                 }
+                testLoading.value = true
                 apiTool({
                     apiCode: info.apiCode,
                     apiVersion: 'v1',
@@ -408,6 +417,9 @@ export default defineComponent({
                         resultJson.result = {
                             err,
                         }
+                    })
+                    .finally(() => {
+                        testLoading.value = false
                     })
                 return
             }
@@ -483,6 +495,7 @@ export default defineComponent({
             applyTrialDialogVisible,
             showApplyTrialModel,
             isApplyTry,
+            testLoading,
         }
     },
     components: {
@@ -497,7 +510,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .interface-call {
     position: relative;
-    padding: 20px 10% 60px 10%;
+    padding: 20px calc(50% - 712px) 60px calc(50% - 712px);
     align-items: flex-start;
     .call-top {
         width: 100%;
@@ -620,7 +633,6 @@ export default defineComponent({
                             border-radius: 4px;
                             font-size: 16px;
                             color: $themeBgColor;
-                            line-height: 42px;
                             margin-top: 24px;
                             align-self: flex-end;
                             margin-right: 24px;
@@ -661,9 +673,9 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .interface-call {
-        padding: 20px 5% 60px 5%;
+        padding: 20px 30px 60px 30px;
     }
 }
 </style>

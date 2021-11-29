@@ -1,13 +1,17 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-05 11:33:07
- * @LastEditTime: 2021-11-24 15:21:15
+ * @LastEditTime: 2021-11-26 15:49:40
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/solutionCell/SolutionCell.vue
 -->
 <template>
     <div class="borderBox solution-cell">
+        <img v-if="index === 0" class="solution-icon" src="static/home/zq-icon.svg" />
+        <img v-if="index === 1" class="solution-icon" src="static/home/yh-icon.svg" />
+        <img v-if="index === 2" class="solution-icon" src="static/home/dx-icon.svg" />
+        <img v-if="index === 3" class="solution-icon" src="static/home/dw-icon.svg" />
         <div class="solution-cell-top-content">
             <OpenalphaTitle class="solution-cell-top" :title="data.title" :fontSize="18" />
             <div v-for="item in sceneList" :key="item" class="solution-cell-text defaultFont">
@@ -32,6 +36,10 @@ export default defineComponent({
             default: () => {
                 return {}
             },
+        },
+        index: {
+            type: Number,
+            default: 0,
         },
     },
     setup(props) {
@@ -70,6 +78,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .solution-cell {
+    position: relative;
+    min-width: 200px;
+    min-height: 200px;
     padding: 24px 24px 18px 24px;
     display: flex;
     flex-direction: column;
@@ -78,11 +89,19 @@ export default defineComponent({
     background: linear-gradient(135deg, #ffffff 0%, #fffaf8 100%);
     box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
     border-radius: 4px;
+    .solution-icon {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        right: 0px;
+        bottom: 0px;
+    }
     .solution-cell-top-content {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
+        z-index: 1;
         .solution-cell-top {
             margin-bottom: 34px;
         }
@@ -94,6 +113,7 @@ export default defineComponent({
         }
     }
     .solution-cell-details {
+        z-index: 1;
         width: 118px;
         height: 42px;
         border-radius: 4px;

@@ -53,7 +53,7 @@
             :header-cell-style="{
                 background: '#e9e9e9',
             }"
-            :data="list"
+            :data="list.value"
             stripe
             class="table"
         >
@@ -140,7 +140,7 @@ import DialogTips from '@/views/user/dealManagement/invoice/DialogTips.vue'
 import InvoiceActionDialog from '@/views/user/dealManagement/invoice/DialogAction.vue'
 
 const loading = ref(true)
-const list = reactive([])
+const list = reactive({ value: [] })
 const date = reactive([])
 const open = ref(false)
 const total = ref(false)
@@ -193,9 +193,9 @@ const handleDeleteInv = (row) => {
 }
 const doQuery = () => {
     postInvList(queryParams)
-        .then((response) => {
-            Object.assign(list, response.data.rows)
-            total.value = response.data.total
+        .then((data) => {
+            Object.assign(list, { value: data.rows })
+            total.value = data.total
             loading.value = false
         })
         .catch((err) => {

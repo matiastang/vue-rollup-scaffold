@@ -8,28 +8,25 @@
                             v-model="queryParams.orderSn"
                             placeholder="订单编号"
                             @keyup.enter="doQuery"
-                            size="mini"
                             @keyup.capture.enter="doQuery"
                         />
                     </el-form-item>
                     <el-form-item label="查询日期">
                         <el-date-picker
-                            size="mini"
                             v-model="date"
-                            type="datetimerange"
+                            type="daterange"
                             range-separator="-"
                             start-placeholder="开始日期"
                             end-placeholder="结束日期"
-                            style="width: 250px"
-                            format="YYYY-MM-DD HH:mm:ss"
-                            value-format="YYYY-MM-DD HH:mm:ss"
+                            style="width: 240px"
+                            format="YYYY-MM-DD"
+                            value-format="YYYY-MM-DD"
                             @change="doQuery"
                         >
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="支付方式">
                         <el-select
-                            size="mini"
                             @change="doQuery"
                             v-model="queryParams.payId"
                             placeholder="Select"
@@ -41,24 +38,22 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="" label-width="0">
-                        <el-button size="mini" @click="doQuery" type="primary" plain
-                            >查询</el-button
-                        >
-                        <el-button size="mini" @click="doReset" plain>重置</el-button>
+                        <el-button @click="doQuery" type="primary" plain>查询</el-button>
+                        <el-button @click="doReset" plain>重置</el-button>
                     </el-form-item>
                 </el-col>
                 <el-col :span="2">
-                    <el-row type="flex" justify="end"></el-row>
-                    <el-form-item>
-                        <el-button
-                            size="mini"
-                            :disabled="currentOrder.orderSn"
-                            @click="currentOrder.open = true"
-                            type="primary"
-                            plain
-                            >开发票</el-button
-                        >
-                    </el-form-item>
+                    <el-row style="align-self: flex-start" type="flex" justify="end" align="start">
+                        <el-form-item>
+                            <el-button
+                                :disabled="currentOrder.orderSn"
+                                @click="currentOrder.open = true"
+                                type="primary"
+                                plain
+                                >开发票</el-button
+                            >
+                        </el-form-item>
+                    </el-row>
                 </el-col>
             </el-row>
         </el-form>
@@ -143,7 +138,12 @@
                             </el-button>
                         </template>
                         <template v-if="isPayStatusNotPay(scope.row)">
-                            <el-button class="paystatus-primary" type="text">去支付 </el-button>
+                            <el-button
+                                class="paystatus-primary"
+                                type="text"
+                                @click="payAction(scope.row)"
+                                >去支付
+                            </el-button>
                             <el-button
                                 @click="handleCancel(scope.row.orderId, scope.row.orderSn)"
                                 class="paystatus-red"
@@ -208,6 +208,15 @@
         @on-close="payVoucher.open = false"
         @on-next="handleNext"
     />
+    <WeixinModel
+        :price="orderInfo.orderAmount"
+        :order="orderInfo.orderId"
+        :codeUrl="orderInfo.codeUrl"
+        :orderType="orderInfo.orderType"
+        v-model="weixinDialogVisible"
+        @statusChange="doQuery"
+        @close="weixinPayClose"
+    />
 </template>
 
 <script setup lang="ts">
@@ -217,8 +226,10 @@ import { Order } from '@/@types'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { addDateRange, orderTypeToText, payStatusToText } from '@/common/utils'
 import { getOrderList, getOrderCancel } from '@/api'
+import WeixinModel from '@/components/weixinModel/WeixinModel.vue'
 import DialogAddInvoice from '@/views/user/dealManagement/invoice/DialogAddInv.vue'
 import DialogWithPayVou from '@/views/user/dealManagement/order/DialogWithPayVou.vue'
+import { RejectType } from '@/common/request/request'
 
 const loading = ref(true)
 const openAdd = ref(false)
@@ -273,8 +284,8 @@ const doQuery = async () => {
         const query = addDateRange(queryParams, date.value)
         const response = await getOrderList(query)
         loading.value = false
-        list.value = response.data.rows
-        total.value = response.data.total
+        list.value = response.rows
+        total.value = response.total
     } catch (error) {
         loading.value = false
         throw error
@@ -315,7 +326,9 @@ const handleCancel = async (id: number, name?: string) => {
             })
             doQuery()
         })
-        .catch(() => {})
+        .catch((err: RejectType) => {
+            ElMessage.error(err.msg)
+        })
 }
 
 const doReset = () => {
@@ -332,6 +345,68 @@ const handlePagination = (params: Order.Pagination) => {
         queryParams.pageSize = params.limit
     }
     doQuery()
+}
+/**
+ * 支付相关
+ */
+import { paySubmit } from '@/common/request'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const weixinDialogVisible = ref(false)
+// 支付信息
+const orderInfo = reactive({} as Order.OrderObject)
+// 去支付
+const payAction = async (order: Order.AsObject) => {
+    const orderId = order.orderId
+    const payId = order.payId
+    if (!orderId || !payId) {
+        ElMessage.error('支付id或订单id错误')
+        return
+    }
+    try {
+        const info = await paySubmit(orderId, payId)
+        if (order.payId === 1) {
+            const codeUrl = info.codeUrl
+            if (!codeUrl) {
+                ElMessage.error('支付地址错误')
+                return
+            }
+            orderInfo.orderId = orderId
+            orderInfo.orderAmount = order.orderAmount
+            orderInfo.orderAmount = order.OrderType
+            orderInfo.codeUrl = codeUrl
+            weixinPay()
+        } else {
+            const payUrl = info.payUrl
+            if (!payUrl) {
+                ElMessage.error('支付地址错误')
+                return
+            }
+            alipay(payUrl)
+        }
+    } catch (error: any) {
+        ElMessage.error(error.msg || '支付错误')
+    }
+}
+/**
+ * 微信支付相关
+ */
+const weixinPay = () => {
+    weixinDialogVisible.value = true
+}
+const weixinPayClose = () => {
+    orderInfo.codeUrl = ''
+    orderInfo.orderId = -1
+}
+/**
+ * 支付宝支付相关
+ */
+const alipay = (payUrl: string) => {
+    let routerData = router.resolve({
+        path: '/alipay',
+        query: { payUrl },
+    })
+    window.open(routerData.href, '_blank')
 }
 </script>
 

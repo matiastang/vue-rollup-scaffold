@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-22 10:02:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 19:04:01
+ * @LastEditTime: 2021-11-29 15:05:40
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/pay/pay.ts
  * @Description: 支付相关接口
  */
@@ -77,6 +77,17 @@ const payList = () => {
  */
 const payStatus = (orderId: number) => {
     return http.get<boolean>(`${tradePrefix}/pay/status?orderId=${orderId}`)
+}
+
+/**
+ * 支付提交
+ * @returns
+ */
+const paySubmit = (orderId: number, payId: number) => {
+    return http.get<WeiXinOdResponse>(`${tradePrefix}/pay/submit`, {
+        orderId, // 订单Id
+        payId, // 支付id
+    })
 }
 
 /**
@@ -177,6 +188,7 @@ export {
     getOdInfo,
     payList,
     payStatus,
+    paySubmit,
     userRechargeInfo,
     userRechargeList,
     userRechargeDetail,

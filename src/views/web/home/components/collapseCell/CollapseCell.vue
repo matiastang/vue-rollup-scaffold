@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-11-25 20:13:34
+ * @LastEditTime: 2021-11-29 10:21:52
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
@@ -35,9 +35,11 @@
                 </div>
             </div>
         </div>
+        <img v-show="selected" class="collapse-cell-right-icon" src="static/api/category_on.svg" />
         <img
+            v-show="!selected"
             class="collapse-cell-right-icon"
-            :src="selected ? 'static/api/category_on.svg' : 'static/api/category_off.svg'"
+            src="static/api/category_off.svg"
         />
     </div>
 </template>
@@ -120,12 +122,11 @@ export default defineComponent({
         align-items: flex-start;
         flex-grow: 1;
         .collapse-cell-left-icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             color: white;
-            margin-top: 3px;
+            flex-shrink: 0;
         }
-
         .collapse-cell-center {
             flex-grow: 1;
             align-items: flex-start;
@@ -136,6 +137,7 @@ export default defineComponent({
                 color: $themeBgColor;
                 line-height: 26px;
                 text-align: left;
+                margin-bottom: 6px;
             }
             .collapse-cell-sub-content {
                 width: 100%;
@@ -160,9 +162,11 @@ export default defineComponent({
         }
     }
     .collapse-cell-right-icon {
+        display: block;
+        align-self: flex-start;
         width: 16px;
         height: 16px;
-        margin-top: 4px;
+        margin-top: 5px;
     }
 }
 .collapse-cell-selected,

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 15:36:48
- * @LastEditTime: 2021-11-24 15:52:34
+ * @LastEditTime: 2021-11-29 10:21:10
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoListGroup/InfoListGroup.vue
@@ -19,10 +19,8 @@
             </div>
             <div class="cell-right flexRowCenter">
                 <div class="cell-value defaultFont">{{ `(${count})` }}</div>
-                <img
-                    class="cell-right-icon"
-                    :src="selectedGroup ? 'static/api/api_off.svg' : 'static/api/api_on.svg'"
-                />
+                <img v-show="selectedGroup" class="cell-right-icon" src="static/api/api_off.svg" />
+                <img v-show="!selectedGroup" class="cell-right-icon" src="static/api/api_on.svg" />
             </div>
         </div>
         <div v-show="selectedGroup" class="slot-content">

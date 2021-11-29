@@ -1,15 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-11 11:31:53
- * @LastEditTime: 2021-11-11 11:54:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-29 18:13:28
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/solution/components/interfaceCell/InterfaceCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/components/interfaceCell/InterfaceCell.vue
 -->
 <template>
     <div class="interface-cell borderBox cursorP flexRowCenter">
         <div class="interface-cell-content flexRowCenter">
-            <div class="cell-icon"></div>
+            <img class="cell-icon" :src="url" />
             <div class="cell-content flexColumnCenter">
                 <div class="cell-title">{{ title }}</div>
                 <div class="cell-text defaultFont textLine1">{{ text }}</div>
@@ -30,6 +30,10 @@ export default defineComponent({
         text: {
             type: String,
             default: '描述',
+        },
+        url: {
+            type: String,
+            default: '',
         },
     },
 })

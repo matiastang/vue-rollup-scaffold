@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-22 19:20:46
+ * @LastEditTime: 2021-11-29 15:40:29
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -57,7 +57,7 @@
                         <div class="recharge-service-item-img-content flexRowCenter">
                             <img
                                 class="recharge-service-item-img"
-                                :src="`static/pay/advantage_${index + 1}.svg`"
+                                :src="getAdvantageUrl(index + 1)"
                             />
                         </div>
                         <div class="recharge-service-item-title defaultFont">{{ item.title }}</div>
@@ -136,32 +136,32 @@ export default defineComponent({
     name: 'Recharge',
     setup() {
         const router = useRouter()
-        const selectedMoney = ref(0.01)
+        const selectedMoney = ref(500)
         const loginDialogVisible = ref(false)
         const moneyArr = reactive([
             {
                 title: '500',
-                value: 0.01,
+                value: 500,
                 selected: true,
             },
             {
                 title: '1000',
-                value: 0.01,
+                value: 1000,
                 selected: false,
             },
             {
                 title: '2000',
-                value: 0.01,
+                value: 2000,
                 selected: false,
             },
             {
                 title: '5000',
-                value: 0.01,
+                value: 5000,
                 selected: false,
             },
             {
                 title: '10000',
-                value: 0.01,
+                value: 10000,
                 selected: false,
             },
         ])
@@ -219,7 +219,7 @@ export default defineComponent({
                         transferDialogVisible.value = true
                     } else {
                         addOd({
-                            goodsAmount: selectedMoney.value,
+                            goodsAmount: import.meta.env.VITE_PAY_TEST ? 0.01 : selectedMoney.value,
                             orderType: orderType.recharge,
                             payId: paymentData.payments[i].payId,
                         }).then((oreder) => {
@@ -268,6 +268,12 @@ export default defineComponent({
                 title: '优质售后服务',
             },
         ]
+        /**
+         * 导入图片
+         */
+        const getAdvantageUrl = (index: number) => {
+            return new URL(`/static/pay/advantage_${index}.svg`, import.meta.url).href
+        }
         // 使用流程
         const courseArr = [
             {
@@ -300,6 +306,7 @@ export default defineComponent({
             loginDialogVisible,
             weixinDialogVisible,
             transferDialogVisible,
+            getAdvantageUrl,
         }
     },
     components: {
@@ -314,7 +321,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .recharge {
     width: 100%;
-    padding: 20px 10% 60px 10%;
+    padding: 20px calc(50% - 712px) 60px calc(50% - 712px);
     .recharge-top-content {
         width: 100%;
         background: $themeBgColor;
@@ -469,9 +476,9 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .recharge {
-        padding: 20px 5% 60px 5%;
+        padding: 20px 30px 60px 30px;
     }
 }
 </style>

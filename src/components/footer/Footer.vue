@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-11-18 15:02:41
+ * @LastEditTime: 2021-11-26 17:06:10
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
@@ -119,27 +119,27 @@ export default defineComponent({
         const aboutUs = [
             {
                 title: '关于我们',
-                url: '/',
+                url: '/about/aboutUs',
             },
             {
                 title: '用户协议',
-                url: '/',
+                url: '/about/agreement',
             },
             {
                 title: '版权政策',
-                url: '/',
+                url: '/about/copyright',
             },
             {
                 title: '免责声明',
-                url: '/',
+                url: '/about/statement',
             },
             {
                 title: '权利通知',
-                url: '/',
+                url: '/about/rightNotify',
             },
             {
                 title: '意见反馈',
-                url: '/',
+                url: '/about/feedback',
             },
         ]
         const contact = [
@@ -189,15 +189,17 @@ export default defineComponent({
 <style lang="scss" scoped>
 .footer {
     width: 100%;
-    height: 412px;
+    min-height: 412px;
     background: #281d19;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     .footer-content {
-        width: 80%;
+        width: 100%;
+        box-sizing: border-box;
         height: 100%;
+        padding: 20px calc(50% - 712px) 30px calc(50% - 712px);
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -213,15 +215,17 @@ export default defineComponent({
             .footer-help-center,
             .footer-about-us,
             .footer-contact {
+                width: 25%;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: flex-start;
                 .footer-title {
+                    width: 100%;
                     font-size: 14px;
                     font-family: PingFangSC-Medium, PingFang SC;
                     font-weight: 500;
-                    color: #ffffff;
+                    color: $themeBgColor;
                     line-height: 20px;
                     letter-spacing: 1px;
                     margin-bottom: 24px;
@@ -230,7 +234,7 @@ export default defineComponent({
                     font-size: 12px;
                     font-family: PingFangSC-Medium, PingFang SC;
                     font-weight: 500;
-                    color: #ffffff;
+                    color: $themeBgColor;
                     line-height: 20px;
                     letter-spacing: 1px;
                     margin-bottom: 8px;
@@ -245,17 +249,18 @@ export default defineComponent({
         }
         .footer-bottom {
             width: 100%;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-top: 1px solid #ffffff;
-            padding: 23px 0px 42px 0px;
+            border-top: 1px solid $themeBgColor;
+            padding-top: 23px;
             .footer-bottom-title {
                 font-size: 12px;
                 font-family: PingFangSC-Medium, PingFang SC;
                 font-weight: 500;
-                color: #ffffff;
+                color: $themeBgColor;
                 line-height: 17px;
                 letter-spacing: 1px;
             }
@@ -264,17 +269,17 @@ export default defineComponent({
                 font-size: 12px;
                 font-family: PingFangSC-Medium, PingFang SC;
                 font-weight: 500;
-                color: #ffffff;
+                color: $themeBgColor;
                 line-height: 17px;
                 letter-spacing: 1px;
             }
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .footer {
         .footer-content {
-            width: 90%;
+            padding: 20px 30px 30px 30px;
         }
     }
 }

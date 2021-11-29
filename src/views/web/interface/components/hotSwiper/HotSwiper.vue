@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 10:25:09
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 15:25:38
+ * @LastEditTime: 2021-11-29 11:01:23
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/hotSwiper/HotSwiper.vue
  * @Description: 接口热榜列表
 -->
@@ -19,9 +19,9 @@
         <swiper-slide v-for="item in data" :key="item.apiCode" class="swiper-slide">
             <HotCell
                 class="hot-cell"
-                :url="item.apiIconUrl"
+                :url="item.listRecoIcon"
                 :title="item.apiName"
-                :text="item.apiDescribe"
+                :text="item.listRecoDesc"
                 :id="item.apiInfoId"
             />
         </swiper-slide>

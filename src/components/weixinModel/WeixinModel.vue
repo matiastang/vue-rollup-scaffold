@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-22 16:59:40
+ * @LastEditTime: 2021-11-29 15:33:01
  * @FilePath: /datumwealth-openalpha-front/src/components/weixinModel/WeixinModel.vue
  * @Description: 微信支付
 -->
@@ -59,7 +59,7 @@ export default defineComponent({
             default: 0,
         },
     },
-    emits: ['close'],
+    emits: ['statusChange', 'close'],
     setup(props, context) {
         const size = 370
         // 支付状态
@@ -76,6 +76,8 @@ export default defineComponent({
                         status.value = res
                         if (!res) {
                             getOrderStatus(orderId)
+                        } else {
+                            context.emit('statusChange')
                         }
                     })
                     .catch((err) => {

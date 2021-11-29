@@ -1,3 +1,11 @@
+<!--
+ * @Author: matiastang
+ * @Date: 2021-11-25 19:11:12
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-11-29 16:32:08
+ * @FilePath: /datumwealth-openalpha-front/src/views/user/dealManagement/invoice/detail.vue
+ * @Description: 
+-->
 <template>
     <el-skeleton v-if="loading" :rows="8" animated />
     <div class="app-container" v-else>
@@ -63,7 +71,7 @@ const doFetchDetail = () => {
     getInv(id)
         .then((response) => {
             loading.value = false
-            Object.assign(detail, response.data)
+            Object.assign(detail, response)
         })
         .catch((err) => {
             throw err

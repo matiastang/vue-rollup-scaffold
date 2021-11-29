@@ -6,15 +6,15 @@
  * @FilePath: /datumwealth-openalpha-front/src/common/request/prefix.ts
  * @Description: 前缀
  */
-const systemPrefix = '/sys'
+const systemPrefix = '/api/sys'
 /**
  * api接口前缀
  */
-const apiPrefix = '/api'
+const apiPrefix = '/api/api'
 /**
  * 用户接口前缀
  */
-const memberPrefix = '/member'
-const tradePrefix = '/trade'
-const contentPrefix = '/content'
+const memberPrefix = '/api/member'
+const tradePrefix = '/api/trade'
+const contentPrefix = '/api/content'
 export { systemPrefix, apiPrefix, memberPrefix, tradePrefix, contentPrefix }

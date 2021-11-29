@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 16:30:00
+ * @LastEditTime: 2021-11-26 15:56:32
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotLeftCell/HotLeftCell.vue
  * @Description: 首页热榜分类cell
 -->
@@ -80,6 +80,9 @@ export default defineComponent({
         color: $themeBgColor;
     }
     .hot-left-cell-title {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 5px;
         font-size: 26px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
@@ -90,6 +93,9 @@ export default defineComponent({
         text-align: center;
     }
     .hot-left-cell-text {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 5px;
         font-size: 14px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;

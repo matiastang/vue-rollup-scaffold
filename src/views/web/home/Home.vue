@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:25:29
+ * @LastEditTime: 2021-11-29 09:57:56
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -74,9 +74,10 @@
             <div class="solution-bottom flexRowCenter">
                 <SolutionCell
                     class="solution-cell"
-                    v-for="item in solutionList.solutions"
+                    v-for="(item, index) in solutionList.solutions"
                     :key="item.title"
                     :data="item"
+                    :index="index"
                 />
             </div>
         </div>
@@ -140,19 +141,20 @@ export default defineComponent({
             tree: Array<HotType>(),
         })
         // 首页需要显示的分类
-        const homeCategory = reactive([
-            '基金基本信息',
-            '基金净值',
-            '基金业绩表现',
-            '基金投资组合',
-            '基金财务数据',
-            '基金风险',
-            '基金业绩归因',
-        ])
+        // const homeCategory = reactive([
+        //     '基金基本信息',
+        //     '基金净值',
+        //     '基金业绩表现',
+        //     '基金投资组合',
+        //     '基金财务数据',
+        //     '基金风险',
+        //     '基金业绩归因',
+        // ])
         watchSyncEffect(async () => {
             let categoryTree = await homeInterfaceNavigationTree()
-            iNavTree.tree = categoryTree.filter((item: HotType) => {
-                return homeCategory.includes(item.categoryName)
+            iNavTree.tree = categoryTree.filter((item: HotType, index) => {
+                // return homeCategory.includes(item.categoryName)
+                return index < 7
             })
         })
         // 当前选中的category
@@ -394,8 +396,9 @@ export default defineComponent({
     width: 100%;
     .home-top {
         width: 100%;
-        background: #fff2ee;
-        padding: 20px 10% 30px 10%;
+        background-image: url('static/home/banner-bg.svg');
+        object-fit: cover;
+        padding: 20px calc(50% - 712px) 30px calc(50% - 712px);
         align-items: stretch;
         position: relative;
         .home-top-left {
@@ -411,10 +414,10 @@ export default defineComponent({
         }
         .home-category-content {
             position: absolute;
-            right: 10%;
+            right: calc(50% - 712px);
             top: 0px;
             padding: 20px 60px;
-            width: calc(56% + 16px);
+            width: calc(997px + 16px);
             height: 628px;
             box-sizing: border-box;
             background: $themeBgColor;
@@ -457,8 +460,9 @@ export default defineComponent({
     }
     .solution {
         width: 100%;
-        padding: 60px calc(10% - 8px) 40px calc(10% - 8px);
-        background: #fbfbfb;
+        padding: 60px calc(50% - 720px) 40px calc(50% - 720px);
+        background-image: url('static/home/scheme-bg.png');
+        object-fit: cover;
         .solution-bottom {
             width: 100%;
             justify-content: space-between;
@@ -472,7 +476,7 @@ export default defineComponent({
     .home-hot {
         width: 100%;
         box-sizing: border-box;
-        padding: 60px calc(10% - 8px) 60px calc(10% - 8px);
+        padding: 60px calc(50% - 720px) 60px calc(50% - 720px);
         .home-hot-bottom {
             width: 100%;
             flex-wrap: wrap;
@@ -484,7 +488,9 @@ export default defineComponent({
     }
     .partners {
         width: 100%;
-        padding: 0px calc(10% - 8px) 60px calc(10% - 8px);
+        background-image: url('static/home/partners-bg.png');
+        object-fit: cover;
+        padding: 0px calc(50% - 720px) 60px calc(50% - 720px);
         .partners-content {
             width: 100%;
             flex-wrap: wrap;
@@ -500,29 +506,23 @@ export default defineComponent({
         }
     }
 }
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1500px) {
     .home {
         .home-top {
-            padding: 20px 5% 30px 5%;
-            .home-top-left {
-                width: 35%;
-            }
-            .home-top-right {
-                width: 65%;
-            }
+            padding: 20px 30px 30px 30px;
             .home-category-content {
-                right: 5%;
-                width: calc(58.5% + 16px);
+                right: 30px;
+                width: calc(70% - 26px);
             }
         }
         .solution {
-            padding: 60px calc(5% - 8px) 40px calc(5% - 8px);
+            padding: 60px 22px 40px 22px;
         }
         .home-hot {
-            padding: 0px calc(5% - 8px) 60px calc(5% - 8px);
+            padding: 0px 22px 60px 22px;
         }
         .partners {
-            padding: 60px calc(5% - 8px) 60px calc(5% - 8px);
+            padding: 60px 22px 60px 22px;
         }
     }
 }

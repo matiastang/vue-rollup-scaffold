@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 2</title>
+    <defs>
+        <linearGradient x1="-1.58198313e-13%" y1="50%" x2="92.0233709%" y2="19.1482433%" id="linearGradient-1">
+            <stop stop-color="#F3F4F5" offset="0%"></stop>
+            <stop stop-color="#FEFEFE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="60.9419277%" x2="50%" y2="-25.5337859%" id="linearGradient-2">
+            <stop stop-color="#FFE7DE" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="32.9770925%" y1="50%" x2="64.3071991%" y2="19.1482433%" id="linearGradient-3">
+            <stop stop-color="#F3F4F5" offset="0%"></stop>
+            <stop stop-color="#FEFEFE" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="14.8972466%" cy="31.8243553%" fx="14.8972466%" fy="31.8243553%" r="99.0186385%" gradientTransform="translate(0.148972,0.318244),scale(1.000000,0.577389),rotate(30.743774),translate(-0.148972,-0.318244)" id="radialGradient-4">
+            <stop stop-color="#FEFEFE" offset="0%"></stop>
+            <stop stop-color="#F3F4F5" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="1.1970686e-13%" cy="29.6206264%" fx="1.1970686e-13%" fy="29.6206264%" r="120.974193%" gradientTransform="translate(0.000000,0.296206),scale(1.000000,0.577389),rotate(16.963496),translate(-0.000000,-0.296206)" id="radialGradient-5">
+            <stop stop-color="#FEFEFE" offset="0%"></stop>
+            <stop stop-color="#F3F4F5" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="图片/插画" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="解决方案-图片" transform="translate(-392.000000, -214.000000)">
+            <g id="编组-2" transform="translate(392.000000, 214.000000)">
+                <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="200" height="200"></rect>
+                <polygon id="多边形备份" fill="url(#linearGradient-1)" points="44 105 61.3205081 115 61.3205081 135 44 145 26.6794919 135 26.6794919 115"></polygon>
+                <polygon id="多边形备份-2" fill="url(#linearGradient-2)" points="156 105 173.320508 115 173.320508 135 156 145 138.679492 135 138.679492 115"></polygon>
+                <path d="M125.885507,102.501526 L125.885507,132.501526 L99.3545948,147.657526 L99.355,177.5 L73.3715948,192.501526 L73.3715948,132.501526 L99.355,117.5 L99.3545948,117.657526 L125.885507,102.501526 Z" id="形状结合备份-2" fill="url(#linearGradient-3)" transform="translate(99.628551, 147.501526) rotate(-120.000000) translate(-99.628551, -147.501526) "></path>
+                <path d="M172.885507,20.501526 L172.885507,50.501526 L146.354595,65.657526 L146.355,95.5 L120.371595,110.501526 L120.371595,50.501526 L146.355,35.5 L146.354595,35.657526 L172.885507,20.501526 Z" id="形状结合备份" fill="url(#linearGradient-3)" transform="translate(146.628551, 65.501526) scale(-1, 1) translate(-146.628551, -65.501526) "></path>
+                <polygon id="矩形备份-2" fill="url(#radialGradient-4)" points="102.371595 92.501526 128.355 77.5 128.355 107.5 102.371595 122.501526"></polygon>
+                <polygon id="矩形备份-2" fill="url(#radialGradient-5)" transform="translate(85.363297, 100.000763) scale(-1, 1) translate(-85.363297, -100.000763) " points="72.3715948 92.501526 98.355 77.5 98.355 107.5 72.3715948 122.501526"></polygon>
+                <polygon id="路径-6" fill="#D65928" points="74.3715948 74.5 100.355 59.5386472 126.355 74.5 100.371595 89.501526"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

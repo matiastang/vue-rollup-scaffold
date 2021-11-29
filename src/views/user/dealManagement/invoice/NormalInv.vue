@@ -134,9 +134,9 @@ const handleClose = () => {
 }
 const doFetchDetail = () => {
     getInv(props.id).then((response) => {
-        Object.assign(form, response.data)
+        Object.assign(form, response)
         form.address = ''
-        Object.assign(form, response.data.address)
+        Object.assign(form, response.address)
     })
 }
 </script>

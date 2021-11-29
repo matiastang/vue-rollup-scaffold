@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-22 10:03:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:57:20
+ * @LastEditTime: 2021-11-29 15:05:33
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/pay/payInterface.d.ts
  * @Description: 支付相关类型
  */
