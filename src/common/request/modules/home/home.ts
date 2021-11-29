@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:23:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 11:59:48
+ * @LastEditTime: 2021-11-29 16:53:07
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/home.ts
  * @Description: 首页相关接口
  */
@@ -68,6 +68,14 @@ const homePartner = () => {
     )
 }
 
+/**
+ * 解决方案列表-查询所有
+ * @returns
+ */
+const solutionList = () => {
+    return http.get<BannerType[]>(`${contentPrefix}/solution/lise`)
+}
+
 export {
     homeBanner,
     homeInterfaceNavigationTree,
@@ -75,4 +83,5 @@ export {
     homeSolution,
     homeHotInterface,
     homePartner,
+    solutionList,
 }
