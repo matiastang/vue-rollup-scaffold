@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-11-29 18:19:24
+ * @LastEditTime: 2021-11-29 18:46:49
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
@@ -424,6 +424,7 @@ export default defineComponent({
             }
             .tab-zq-scene-content {
                 width: 100%;
+                margin-top: 30px;
                 .scene-bottom {
                     width: 100%;
                     margin: 24px 0px 40px 0px;
