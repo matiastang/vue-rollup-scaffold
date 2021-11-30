@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 17:38:24
+ * @LastEditTime: 2021-11-30 16:59:43
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -35,7 +35,10 @@
                     v-if="!certStatus || certStatus !== 1"
                     class="setting-info-right-authentication flexRowCenter"
                 >
-                    <img class="setting-authentication-left" />
+                    <img
+                        class="setting-authentication-left"
+                        src="static/user/authentication_off.svg"
+                    />
                     <div class="setting-authentication-right flexColumnCenter">
                         <div class="setting-authentication-title defaultFont">
                             您还没有实名认证哦~
@@ -442,9 +445,6 @@ export default defineComponent({
                 .setting-authentication-left {
                     width: 142px;
                     height: 96px;
-                    background: #d8d8d8;
-                    border-radius: 9px;
-                    border: 1px solid #979797;
                     margin-right: 20px;
                 }
                 .setting-authentication-right {

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-11-29 10:21:52
+ * @LastEditTime: 2021-11-30 15:16:59
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
@@ -35,11 +35,15 @@
                 </div>
             </div>
         </div>
-        <img v-show="selected" class="collapse-cell-right-icon" src="static/api/category_on.svg" />
+        <img
+            v-show="selected"
+            class="collapse-cell-right-icon"
+            src="static/home/home_category_on.svg"
+        />
         <img
             v-show="!selected"
             class="collapse-cell-right-icon"
-            src="static/api/category_off.svg"
+            src="static/home/home_category_off.svg"
         />
     </div>
 </template>
@@ -164,8 +168,8 @@ export default defineComponent({
     .collapse-cell-right-icon {
         display: block;
         align-self: flex-start;
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
         margin-top: 5px;
     }
 }

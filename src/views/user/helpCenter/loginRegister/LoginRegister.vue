@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:13:15
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 13:41:38
+ * @LastEditTime: 2021-11-30 19:20:52
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/loginRegister/LoginRegister.vue
  * @Description: 帮组中心-登录注册
 -->
@@ -12,8 +12,10 @@
         <div class="login-register-item flexColumnCenter">
             <div class="login-register-item-title defaultFont">1、进入登录/注册页面</div>
             <div class="login-register-item-text defaultFont">
-                打开西筹数据接口平台首页：<span class="login-register-item-home defaultFont"
-                    >https://open.datumwealth.com</span
+                打开西筹数据接口平台首页：<span
+                    class="login-register-item-home defaultFont"
+                    @click="loginActiono"
+                    >{{ host }}</span
                 >，点击导航栏右上角的“登录/注册”按钮。
             </div>
             <img class="login-register-item-img" />
@@ -41,12 +43,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
     name: 'LoginRegister',
     setup() {
-        return {}
+        const router = useRouter()
+        const host = ref(window.location.host)
+        const loginActiono = () => {
+            router.push({
+                path: '/login',
+            })
+        }
+        return {
+            host,
+            loginActiono,
+        }
     },
 })
 </script>
@@ -77,11 +90,6 @@ export default defineComponent({
             color: $titleColor;
             line-height: 20px;
             margin-top: 19px;
-            .login-register-item-home {
-                color: rgba(78, 154, 235, 1);
-                font-size: 14px;
-                line-height: 20px;
-            }
         }
         .login-register-item-text {
             margin: 12px 0px 12px 24px;
@@ -89,6 +97,12 @@ export default defineComponent({
             color: #595959;
             line-height: 20px;
             text-align: left;
+            .login-register-item-home {
+                color: #4e9aeb;
+                font-size: 14px;
+                line-height: 20px;
+                cursor: pointer;
+            }
         }
         .login-register-item-img {
             width: calc(100% - 24px);

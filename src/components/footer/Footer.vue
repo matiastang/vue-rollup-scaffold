@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-11-26 17:06:10
+ * @LastEditTime: 2021-11-30 17:41:52
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
@@ -130,13 +130,17 @@ export default defineComponent({
                 url: '/about/copyright',
             },
             {
-                title: '免责声明',
-                url: '/about/statement',
+                title: '认证服务协议',
+                url: '/about/authProtocol',
             },
-            {
-                title: '权利通知',
-                url: '/about/rightNotify',
-            },
+            // {
+            //     title: '免责声明',
+            //     url: '/about/statement',
+            // },
+            // {
+            //     title: '权利通知',
+            //     url: '/about/rightNotify',
+            // },
             {
                 title: '意见反馈',
                 url: '/about/feedback',

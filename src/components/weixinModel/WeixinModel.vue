@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-29 15:33:01
+ * @LastEditTime: 2021-11-30 12:15:33
  * @FilePath: /datumwealth-openalpha-front/src/components/weixinModel/WeixinModel.vue
  * @Description: 微信支付
 -->
@@ -19,7 +19,7 @@
             </div>
             <div class="model-Price-content flexRowCenter">
                 <div class="model-Price-title defaultFont">单据编号:</div>
-                <div class="model-Price-order">{{ order }}</div>
+                <div class="model-Price-order">{{ orderSn }}</div>
             </div>
             <div class="model-code-content flexRowCenter">
                 <img
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, watchEffect } from 'vue'
+import { defineComponent, ref, Ref, watchEffect, onUnmounted } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 import { payStatus } from '@/common/request/modules/pay/pay'
 
@@ -45,6 +45,10 @@ export default defineComponent({
         price: {
             type: Number,
             default: 0,
+        },
+        orderSn: {
+            type: String,
+            default: '',
         },
         order: {
             type: Number,
@@ -68,26 +72,26 @@ export default defineComponent({
         const timerId: Ref<number | null> = ref(null)
         // 查询支付状态
         const getOrderStatus = (orderId: number) => {
-            timerId.value = window.setTimeout(() => {
-                timerId.value = null
-                console.log('定时调用')
+            timerId.value = window.setInterval(() => {
                 payStatus(orderId)
                     .then((res) => {
                         status.value = res
-                        if (!res) {
-                            getOrderStatus(orderId)
-                        } else {
+                        if (res) {
+                            if (timerId.value) {
+                                window.clearInterval(timerId.value)
+                            }
                             context.emit('statusChange')
                         }
                     })
                     .catch((err) => {
-                        if (!status.value) {
-                            getOrderStatus(orderId)
-                        }
+                        console.error(err)
                     })
             }, 3000)
         }
         watchEffect(() => {
+            if (timerId.value) {
+                window.clearInterval(timerId.value)
+            }
             if (props.order > 0) {
                 getOrderStatus(props.order)
             }
@@ -95,10 +99,15 @@ export default defineComponent({
         // 销毁定时器
         const dialogCloseAction = () => {
             if (timerId.value) {
-                window.clearTimeout(timerId.value)
+                window.clearInterval(timerId.value)
             }
             context.emit('close')
         }
+        onUnmounted(() => {
+            if (timerId.value) {
+                window.clearInterval(timerId.value)
+            }
+        })
         return {
             size,
             status,

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-29 10:31:04
+ * @LastEditTime: 2021-11-30 16:31:43
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -20,16 +20,18 @@
                 </el-option>
             </el-select>
             <div class="call-top-token-title defaultFont">API KEY:</div>
-            <div class="call-top-token defaultFont">{{ appSecret ? appSecret : '-' }}</div>
+            <div v-if="appSecret" class="call-top-token defaultFont">{{ appSecret }}</div>
         </div>
         <div class="call-bottom borderBox flexRowCenter">
             <div class="call-bottom-left borderBox">
                 <InfoList
                     class="left-list"
+                    v-if="interfaceTree.tree.length > 0"
                     :data="interfaceTree.tree"
                     :selectedId="selectApiId"
                     @select="selectApiAction"
                 />
+                <el-skeleton v-else class="left-list-skeleton" :rows="20" animated />
             </div>
             <div class="call-bottom-right borderBox flexRowCenter">
                 <div class="call-bottom-right-content">
@@ -38,34 +40,93 @@
                         <div class="bottom-right-parameters borderBox flexColumnCenter">
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">接口名称:</div>
-                                <div class="parameters-item-text defaultFont">
-                                    {{ getApiInfo ? getApiInfo.apiName : '-' }}
+                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
+                                    {{ getApiInfo.apiName }}
                                 </div>
+                                <el-skeleton v-else style="padding-right: 12px">
+                                    <template #template>
+                                        <el-skeleton-item variant="p" />
+                                    </template>
+                                </el-skeleton>
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">接口code:</div>
-                                <div class="parameters-item-text defaultFont">
-                                    {{ getApiInfo ? getApiInfo.apiCode : '-' }}
+                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
+                                    {{ getApiInfo.apiCode }}
                                 </div>
+                                <el-skeleton v-else style="padding-right: 12px">
+                                    <template #template>
+                                        <el-skeleton-item variant="p" />
+                                    </template>
+                                </el-skeleton>
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">请求方式:</div>
-                                <div class="parameters-item-text defaultFont">
-                                    {{ getApiInfo ? getApiInfo.requestMethod : '-' }}
+                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
+                                    {{ getApiInfo.requestMethod }}
                                 </div>
+                                <el-skeleton v-else style="padding-right: 12px">
+                                    <template #template>
+                                        <el-skeleton-item variant="p" />
+                                    </template>
+                                </el-skeleton>
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">返回格式:</div>
-                                <div class="parameters-item-text defaultFont">
-                                    {{ getApiInfo ? getApiInfo.returnFormat : '-' }}
+                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
+                                    {{ getApiInfo.returnFormat }}
                                 </div>
+                                <el-skeleton v-else style="padding-right: 12px">
+                                    <template #template>
+                                        <el-skeleton-item variant="p" />
+                                    </template>
+                                </el-skeleton>
                             </div>
                             <div
                                 v-if="getApiInfo && getApiInfo.apiParamList.length > 0"
                                 class="parameters-content"
                             >
                                 <div class="parameters-title borderBox defaultFont">API参数:</div>
-                                <div
+                                <div class="parameters-list-content borderBox flexRowCenter">
+                                    <div class="parameters-key-content borderBox flexColumnCenter">
+                                        <div
+                                            v-for="item in getApiInfo.apiParamList.sort(
+                                                (left, right) => left.paramId - right.paramId
+                                            )"
+                                            :key="item.paramKey"
+                                            class="
+                                                parameters-item-key-content
+                                                borderBox
+                                                flexRowCenter
+                                            "
+                                        >
+                                            <div
+                                                v-show="item.paramIsRequired === 1"
+                                                class="parameters-item-must defaultFont"
+                                            >
+                                                *
+                                            </div>
+                                            <div class="parameters-item-key defaultFont">
+                                                {{ `${item.paramKey}:` }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="parameters-input-content borderBox flexColumnCenter"
+                                    >
+                                        <el-input
+                                            v-for="item in getApiInfo.apiParamList.sort(
+                                                (left, right) => left.paramId - right.paramId
+                                            )"
+                                            :key="item.paramKey"
+                                            class="parameters-item-input defaultFont"
+                                            v-model="item.paramValue"
+                                            :placeholder="`请输入${item.paramKey}`"
+                                            clearable
+                                        />
+                                    </div>
+                                </div>
+                                <!-- <div
                                     v-for="item in getApiInfo.apiParamList.sort(
                                         (left, right) => left.paramId - right.paramId
                                     )"
@@ -92,35 +153,46 @@
                                         :placeholder="`请输入${item.paramKey}`"
                                         clearable
                                     />
-                                </div>
+                                </div> -->
                             </div>
                             <el-button
+                                v-if="getApiInfo"
                                 type="primary"
                                 :loading="testLoading"
                                 class="apply-trial-button borderBox defaultFont"
                                 @click="apiCallAction"
                                 >调用接口</el-button
                             >
-                            <!-- <div
-                                class="apply-trial-button borderBox defaultFont"
-                                @click="apiCallAction"
-                            >
-                                调用接口
-                            </div> -->
                         </div>
                         <div class="bottom-right-json borderBox flexColumnCenter">
                             <div class="json-content borderBox flexColumnCenter">
                                 <div class="json-title defaultFont">请求内容:</div>
-                                <div class="request-json">
+                                <div v-if="getApiInfo" class="request-json">
                                     <JsonView class="request-json" :data="requestJson" />
                                 </div>
+                                <el-skeleton
+                                    v-else
+                                    :rows="5"
+                                    animated
+                                    style="padding: 12px; box-sizing: border-box"
+                                />
                             </div>
                             <div
                                 class="json-content borderBox flexColumnCenter"
                                 style="margin-top: 42px"
                             >
                                 <div class="json-title defaultFont">返回内容:</div>
-                                <JsonView class="result-json" :data="resultJson.result" />
+                                <JsonView
+                                    v-if="getApiInfo"
+                                    class="result-json"
+                                    :data="resultJson.result"
+                                />
+                                <el-skeleton
+                                    v-else
+                                    :rows="5"
+                                    animated
+                                    style="padding: 12px; box-sizing: border-box"
+                                />
                             </div>
                         </div>
                     </div>
@@ -205,9 +277,14 @@ export default defineComponent({
         watchSyncEffect(async () => {
             interfaceTree.tree = await homeInterfaceTree()
         })
+        // 返回类型
+        const resultJson = reactive({
+            result: {} as { res: any } | { err: any },
+        })
         // 选择了api
         const selectApiId = ref(1)
         watchEffect(() => {
+            resultJson.result = { res: {} }
             if (route.params.id) {
                 selectApiId.value = Number(route.params.id)
                 return
@@ -263,10 +340,7 @@ export default defineComponent({
             }
             return json
         })
-        // 返回类型
-        const resultJson = reactive({
-            result: {} as { res: any } | { err: any },
-        })
+
         // token选择
         const selectOptions = reactive([
             {
@@ -364,7 +438,11 @@ export default defineComponent({
             const obj = requestJson.value
             for (const key in obj) {
                 if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                    params += `${key}=${obj[key]}`
+                    if (params === '') {
+                        params += `${key}=${obj[key]}`
+                    } else {
+                        params += `&${key}=${obj[key]}`
+                    }
                 }
             }
             return params
@@ -544,6 +622,10 @@ export default defineComponent({
             .left-list {
                 width: 100%;
             }
+            .left-list-skeleton {
+                padding: 12px;
+                box-sizing: border-box;
+            }
         }
         .call-bottom-right {
             width: 75.3%;
@@ -581,6 +663,7 @@ export default defineComponent({
                                 width: 90px;
                                 text-align: right;
                                 margin-right: 12px;
+                                flex-shrink: 0;
                             }
                             .parameters-item-text {
                                 font-size: 16px;
@@ -624,6 +707,35 @@ export default defineComponent({
                                 color: $themeColor;
                                 line-height: 24px;
                                 text-align: left;
+                            }
+                            .parameters-list-content {
+                                justify-content: space-between;
+                                .parameters-key-content {
+                                    flex-grow: 0;
+                                    flex-shrink: 0;
+                                    align-items: flex-end;
+                                    .parameters-item-key-content {
+                                        height: 40px;
+                                        margin: 12px 0px;
+                                        .parameters-item-must,
+                                        .parameters-item-key {
+                                            font-size: 16px;
+                                            color: $titleColor;
+                                            line-height: 24px;
+                                            margin-right: 8px;
+                                        }
+                                        .parameters-item-must {
+                                            color: $themeColor;
+                                        }
+                                    }
+                                }
+                                .parameters-input-content {
+                                    flex-grow: 1;
+                                    padding-right: 8px;
+                                    .parameters-item-input {
+                                        margin: 12px 0px;
+                                    }
+                                }
                             }
                         }
                         .apply-trial-button {

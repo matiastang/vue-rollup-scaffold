@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-25 19:11:12
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-29 15:26:17
+ * @LastEditTime: 2021-11-30 12:12:08
  * @FilePath: /datumwealth-openalpha-front/src/@types/order.d.ts
  * @Description:
  */
@@ -67,6 +67,7 @@ export declare namespace Order {
      */
     export type OrderObject = {
         orderId: number
+        orderSn: string
         orderType?: OrderTypeEnum
         orderAmount?: Maybe<number>
         codeUrl: string

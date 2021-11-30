@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:23:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-29 16:53:07
+ * @LastEditTime: 2021-11-30 14:41:14
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/home.ts
  * @Description: 首页相关接口
  */

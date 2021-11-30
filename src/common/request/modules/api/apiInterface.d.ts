@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:51:15
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 18:37:31
+ * @LastEditTime: 2021-11-30 14:51:17
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/apiInterface.d.ts
  * @Description: 开放接口类型声明
  */
@@ -27,4 +27,23 @@ export interface ApiToolParameterType {
     requestType: string //接口请求方式GET/POST
     requestUrl: string //接口请求地址
     billingMethod: string //计费方式 1-余额扣减 2-套餐次数
+}
+
+/**
+ * 解决方案-接口类型
+ */
+export interface SolutionInterfaceType {
+    apiCategoryId: number
+    apiDescribe: string //'可以通过基金名称或基金代码获取基金基本信息，基金基本信息包含基金名称、基金代码、成立日期、管理人、托管人、管理费、托管费、投资风格、投资策略、业绩基准等字段信息。'
+    apiIconUrl: string //'icon-A0001_D'
+    apiId: number
+    apiIsShow: number
+    apiName: string //'基金基本信息'
+    apiOrderNum: number
+    createBy: string //'admin'
+    createTime: string //'2021-11-30T02:59:15.000+08:00'
+    deletedFlag: number
+    id: number
+    solutionId: number
+    updateTime: string //'2021-11-30T02:59:15.000+08:00'
 }

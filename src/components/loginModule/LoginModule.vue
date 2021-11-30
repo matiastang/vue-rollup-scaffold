@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-25 12:07:56
+ * @LastEditTime: 2021-11-30 17:48:46
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -27,7 +27,11 @@
                 />
                 <div class="login" @click="registerAction">登录/注册</div>
                 <div class="text">
-                    使用手机短信验证码登录，无账号时将自动注册<br />登录即表示同意《服务协议》
+                    使用手机短信验证码登录，无账号时将自动注册<br />登录即表示同意<span
+                        class="text-protocol cursorP"
+                        @click="protocolAction"
+                        >《服务协议》</span
+                    >
                 </div>
             </el-tab-pane>
             <el-tab-pane class="login-module-login" label="密码登录" name="login">
@@ -43,7 +47,11 @@
                 />
                 <div class="forgot-password" @click="gotoFindPassword">忘记密码?</div>
                 <div class="login" @click="loginAction">登录</div>
-                <div class="text">登录即表示同意《服务协议》</div>
+                <div class="text">
+                    登录即表示同意<span class="text-protocol cursorP" @click="protocolAction"
+                        >《服务协议》</span
+                    >
+                </div>
             </el-tab-pane>
         </el-tabs>
         <div v-if="findPassword" class="find-password-content">
@@ -316,6 +324,15 @@ export default defineComponent({
                 })
         }
 
+        /**
+         * 服务协议跳转
+         */
+        const protocolAction = () => {
+            router.push({
+                path: '/about/agreement',
+            })
+        }
+
         return {
             inputPhone,
             findPassword,
@@ -332,6 +349,7 @@ export default defineComponent({
             findPasswordAction,
             registerCodeRef,
             findCodeRef,
+            protocolAction,
         }
     },
     components: {
@@ -402,6 +420,9 @@ export default defineComponent({
             line-height: 20px;
             letter-spacing: 1px;
             text-align: center;
+            .text-protocol {
+                color: #4e9aeb;
+            }
         }
     }
     .login-module-login {
@@ -442,6 +463,9 @@ export default defineComponent({
             line-height: 20px;
             letter-spacing: 1px;
             text-align: center;
+            .text-protocol {
+                color: #4e9aeb;
+            }
         }
     }
     ::v-deep(#tab-register) {

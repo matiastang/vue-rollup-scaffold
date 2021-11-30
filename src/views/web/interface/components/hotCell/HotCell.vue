@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 16:15:59
+ * @LastEditTime: 2021-11-30 15:18:14
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/hotCell/HotCell.vue
  * @Description: 接口列表热榜cell
 -->
@@ -85,9 +85,10 @@ export default defineComponent({
         .cell-icon {
             width: 24px;
             height: 24px;
-            background: $themeColor;
             margin-right: 6px;
             color: $themeBgColor;
+            background: linear-gradient(180deg, #ed9251 0%, #d65928 100%);
+            border-radius: 2px;
         }
         .cell-title {
             font-size: 16px;

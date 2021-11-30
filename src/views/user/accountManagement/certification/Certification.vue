@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 10:25:10
+ * @LastEditTime: 2021-11-30 17:12:35
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -83,13 +83,11 @@
             <div class="certification-auditing-title defaultFont">认证申请</div>
             <div class="certification-auditing-content flexRowCenter">
                 <img
+                    v-if="certStatus && certStatus === 3"
                     class="certification-auditing-img"
-                    :src="
-                        certStatus && certStatus === 3
-                            ? 'static/user/reviewing.svg'
-                            : 'static/user/revie_err.svg'
-                    "
+                    :src="'static/user/reviewing.svg'"
                 />
+                <img v-else class="certification-auditing-img" :src="'static/user/revie_err.svg'" />
                 <div class="certification-auditing-right flexColumnCenter">
                     <div v-if="userType === 1" class="certification-auditing-item flexRowCenter">
                         <div class="certification-auditing-item-title defaultFont">姓名:</div>
@@ -523,7 +521,13 @@
             <div class="certification-post-bottom flexColumnCenter">
                 <div class="certification-post-bottom-text defaultFont">西筹开放平台提示：</div>
                 <div class="certification-post-bottom-text defaultFont">
-                    1、身份证号必须与身份证照片一致，且为有效期限
+                    {{
+                        `1、${
+                            activeName === 'company'
+                                ? '营业执照号必须与营业执照照片一致'
+                                : '身份证号必须与身份证照片一致'
+                        }，且为有效期限`
+                    }}
                 </div>
                 <div class="certification-post-bottom-text defaultFont">
                     2、上传材料支持原件照片，扫描件
@@ -580,10 +584,6 @@ export default defineComponent({
         // 营业执照
         const companyImageUrl: Ref<string | null> = ref(null)
         const businessLicenseRoot: Ref<uploadType | null> = ref(null)
-        // onMounted(() => {
-        //     // DOM 元素将在初始渲染后分配给 ref
-        //     console.log(root.value)
-        // })
         const companyImageAvatarSuccess = (res: any, file: any) => {
             let url = res.data
             if (url) {
@@ -595,22 +595,23 @@ export default defineComponent({
             }
         }
         const companyImageBeforeAvatarUpload = (file: any) => {
-            // const isJPG = file.type === 'image/jpeg'
-            // const isLt2M = file.size / 1024 / 1024 < 2
-            // if (!isJPG) {
-            //     ElMessage({
-            //         message: '只能选择JPG格式的图片',
-            //         type: 'error',
-            //     })
-            //     return false
-            // }
-            // if (!isLt2M) {
-            //     ElMessage({
-            //         message: '图片大小不能超过2MB!',
-            //         type: 'error',
-            //     })
-            //     return false
-            // }
+            const isJPG = file.type === 'image/jpeg'
+            const isPNG = file.type === 'image/png'
+            const isLt5M = file.size / 1024 / 1024 < 5
+            if (!isJPG && !isPNG) {
+                ElMessage({
+                    message: '只能选择jpg、jpeg、png格式的图片',
+                    type: 'error',
+                })
+                return false
+            }
+            if (!isLt5M) {
+                ElMessage({
+                    message: '图片大小不能超过5MB!',
+                    type: 'error',
+                })
+                return false
+            }
             return true
         }
         // 公司认证提交
@@ -742,22 +743,23 @@ export default defineComponent({
             }
         }
         const personageImageFrontBeforeAvatarUpload = (file: any) => {
-            // const isJPG = file.type === 'image/jpeg'
-            // const isLt2M = file.size / 1024 / 1024 < 2
-            // if (!isJPG) {
-            //     ElMessage({
-            //         message: '只能选择JPG格式的图片',
-            //         type: 'error',
-            //     })
-            //     return false
-            // }
-            // if (!isLt2M) {
-            //     ElMessage({
-            //         message: '图片大小不能超过2MB!',
-            //         type: 'error',
-            //     })
-            //     return false
-            // }
+            const isJPG = file.type === 'image/jpeg'
+            const isPNG = file.type === 'image/png'
+            const isLt5M = file.size / 1024 / 1024 < 5
+            if (!isJPG && !isPNG) {
+                ElMessage({
+                    message: '只能选择jpg、jpeg、png格式的图片',
+                    type: 'error',
+                })
+                return false
+            }
+            if (!isLt5M) {
+                ElMessage({
+                    message: '图片大小不能超过5MB!',
+                    type: 'error',
+                })
+                return false
+            }
             return true
         }
         // 身份证反面
@@ -774,22 +776,23 @@ export default defineComponent({
             }
         }
         const personageImageBgBeforeAvatarUpload = (file: any) => {
-            // const isJPG = file.type === 'image/jpeg'
-            // const isLt2M = file.size / 1024 / 1024 < 2
-            // if (!isJPG) {
-            //     ElMessage({
-            //         message: '只能选择JPG格式的图片',
-            //         type: 'error',
-            //     })
-            //     return false
-            // }
-            // if (!isLt2M) {
-            //     ElMessage({
-            //         message: '图片大小不能超过2MB!',
-            //         type: 'error',
-            //     })
-            //     return false
-            // }
+            const isJPG = file.type === 'image/jpeg'
+            const isPNG = file.type === 'image/png'
+            const isLt5M = file.size / 1024 / 1024 < 5
+            if (!isJPG && !isPNG) {
+                ElMessage({
+                    message: '只能选择jpg、jpeg、png格式的图片',
+                    type: 'error',
+                })
+                return false
+            }
+            if (!isLt5M) {
+                ElMessage({
+                    message: '图片大小不能超过5MB!',
+                    type: 'error',
+                })
+                return false
+            }
             return true
         }
         // 个人认证提交

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 17:59:27
+ * @LastEditTime: 2021-11-30 17:40:34
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
@@ -87,15 +87,20 @@ export default defineComponent({
                     selected: false,
                     url: '/about/copyright',
                 },
+                // {
+                //     title: '免责声明',
+                //     selected: false,
+                //     url: '/about/statement',
+                // },
+                // {
+                //     title: '权利通知',
+                //     selected: false,
+                //     url: '/about/rightNotify',
+                // },
                 {
-                    title: '免责声明',
+                    title: '认证服务协议',
                     selected: false,
-                    url: '/about/statement',
-                },
-                {
-                    title: '权利通知',
-                    selected: false,
-                    url: '/about/rightNotify',
+                    url: '/about/authProtocol',
                 },
                 {
                     title: '意见反馈',
@@ -141,10 +146,9 @@ export default defineComponent({
         width: 100%;
         height: calc(100vh - 96px);
         overflow-y: scroll;
-        justify-content: flex-start;
+        justify-content: space-between;
         .help-layout-top-content {
             width: 100%;
-            min-height: calc(100vh - 96px);
             padding: 20px calc(50% - 712px);
             box-sizing: border-box;
             align-items: flex-start;
@@ -186,6 +190,7 @@ export default defineComponent({
             }
             .router-content {
                 width: 74%;
+                min-height: calc(100vh - 96px - 40px);
             }
         }
         .footer {

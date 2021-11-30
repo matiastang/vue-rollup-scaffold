@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-26 18:03:28
+ * @LastEditTime: 2021-11-30 14:19:57
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -14,13 +14,18 @@
         <div class="interface-bottom flexRowCenter">
             <div class="interface-left borderBox flexRowCenter">
                 <InterfaceList
+                    v-if="interfaceTree.tree.length > 0"
                     class="interface-list"
                     :data="interfaceTree.tree"
                     :seletedCategoryId="seletedCategoryId"
                     @seletedCategoryAction="seletedCategoryAction"
                 />
+                <el-skeleton v-else class="interface-list-skeleton" :rows="20" animated />
             </div>
-            <div v-if="seletedCategoryId !== 0" class="interface-right borderBox flexColumnCenter">
+            <div
+                v-if="interfaceTree.tree.length > 0 && seletedCategoryId !== 0"
+                class="interface-right borderBox flexColumnCenter"
+            >
                 <div class="interface-right-title defaultFont">
                     {{ `${selectInterfaceData && selectInterfaceData.categoryName}(${allCount})` }}
                 </div>
@@ -51,7 +56,11 @@
                 </div>
             </div>
             <div
-                v-if="seletedCategoryId === 0 && searchRes.list.length > 0"
+                v-if="
+                    interfaceTree.tree.length > 0 &&
+                    seletedCategoryId === 0 &&
+                    searchRes.list.length > 0
+                "
                 class="interface-right borderBox flexColumnCenter"
             >
                 <div class="interface-right-title defaultFont">
@@ -60,11 +69,21 @@
                 <BaseInfoCell v-for="item in searchRes.list" :key="item.apiInfoId" :data="item" />
             </div>
             <div
-                v-if="seletedCategoryId === 0 && searchRes.list.length === 0"
+                v-if="
+                    interfaceTree.tree.length > 0 &&
+                    seletedCategoryId === 0 &&
+                    searchRes.list.length === 0
+                "
                 class="interface-right borderBox flexColumnCenter"
             >
                 <div class="interface-right-title defaultFont">未搜索到接口</div>
             </div>
+            <el-skeleton
+                v-if="interfaceTree.tree.length <= 0"
+                class="interface-right-skeleton"
+                :rows="5"
+                animated
+            />
         </div>
     </div>
 </template>
@@ -79,6 +98,7 @@ import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { HotType, ApiInfoType } from '@/common/request/modules/home/homeInterface'
 import { ListRecoType } from '@/common/request/modules/api/apiInterface'
 import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'Interface',
@@ -96,7 +116,11 @@ export default defineComponent({
             tree: Array<HotType>(),
         })
         watchSyncEffect(async () => {
-            interfaceTree.tree = await homeInterfaceTree()
+            try {
+                interfaceTree.tree = await homeInterfaceTree()
+            } catch (error: any) {
+                ElMessage.error(error.msg || '请求错误')
+            }
         })
         // 选择的分类
         let seletedCategoryId = ref(0)
@@ -215,6 +239,10 @@ export default defineComponent({
                 background: $themeBgColor;
                 justify-content: flex-start;
             }
+            .interface-list-skeleton {
+                background: $themeBgColor;
+                padding: 12px;
+            }
         }
         .interface-right {
             width: 74.2%;
@@ -248,6 +276,11 @@ export default defineComponent({
                     letter-spacing: 1px;
                 }
             }
+        }
+        .interface-right-skeleton {
+            width: 74.2%;
+            background: $themeBgColor;
+            padding: 12px 24px;
         }
     }
     .apply-trial-affix {

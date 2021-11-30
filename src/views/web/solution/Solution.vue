@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-11-29 18:46:49
+ * @LastEditTime: 2021-11-30 17:24:26
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
@@ -49,23 +49,26 @@
                             :key="item.title"
                             :title="item.title"
                             :text="item.text"
+                            :url="getSceneUrl(index)"
                             class="scene-cell"
                             :style="{
                                 'margin-left': `${index % 4 === 0 ? 0 : 16}px`,
-                                'background-image': `url(${getSceneUrl(index)})`,
                             }"
                         />
+                        <!-- background-image': `url(${getSceneUrl(index)})`, -->
                     </div>
                 </div>
                 <div class="tab-zq-interface-content">
                     <OpenalphaTitle title="常用接口" />
                     <div class="interface-bottom flexRowCenter">
                         <InterfaceCell
-                            v-for="item in interfaceData"
-                            :key="item.title"
-                            :title="item.title"
-                            :text="item.text"
+                            v-for="item in interfaceData.list"
+                            :key="item.apiId"
+                            :title="item.apiName"
+                            :text="item.apiDescribe"
+                            :url="item.apiIconUrl"
                             class="interface-cell"
+                            @click="interfaceAction(item.apiId)"
                         />
                     </div>
                 </div>
@@ -91,19 +94,19 @@
     </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, watchEffect, watchSyncEffect } from 'vue'
+import { computed, defineComponent, reactive, ref, watchSyncEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import OpenalphaTitle from '@/components/openalphaTitle/OpenalphaTitle.vue'
 import SceneCell from './components/sceneCell/SceneCell.vue'
 import InterfaceCell from './components/interfaceCell/InterfaceCell.vue'
-import { solutionList, homePartner } from '@/common/request'
+import { homePartner, solutionInterfaceList } from '@/common/request'
+import { SolutionInterfaceType } from '@/common/request/modules/api/apiInterface'
+import { interface_id_check } from 'utils/check/interfaceCheck'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
     name: 'Solution',
     setup() {
-        // watchSyncEffect(async () => {
-        //     let res = await solutionList()
-        // })
         const activeName = ref('0')
         // 场景
         const sceneList = [
@@ -237,96 +240,29 @@ export default defineComponent({
                 import.meta.url
             ).href
         }
-        let interfaceData = reactive([
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-            {
-                title: '股票行情',
-                text: '票行情数据包括股票名、股票号、总市值、流通市值等',
-            },
-        ])
+        const interfaceData = reactive({
+            list: [] as SolutionInterfaceType[],
+        })
+        watchSyncEffect(async () => {
+            const res = await solutionInterfaceList(Number(activeName.value) + 10)
+            interfaceData.list = res.rows
+        })
         const router = useRouter()
         const moreAction = () => {
             router.push({
                 path: '/interface',
+            })
+        }
+        const interfaceAction = (id: number) => {
+            if (interface_id_check(id)) {
+                router.push({
+                    path: `/interface/info/${id}`,
+                })
+                return
+            }
+            ElMessage({
+                message: '接口id错误',
+                type: 'error',
             })
         }
         // 合作伙伴
@@ -345,6 +281,7 @@ export default defineComponent({
             getSolutionIconUrl,
             moreAction,
             getSceneUrl,
+            interfaceAction,
         }
     },
     components: {
@@ -421,6 +358,9 @@ export default defineComponent({
                 ::v-deep(.el-tabs__active-bar) {
                     background: $themeColor;
                 }
+                :deep(.el-tabs__nav-wrap::after) {
+                    width: 800px;
+                }
             }
             .tab-zq-scene-content {
                 width: 100%;
@@ -440,6 +380,7 @@ export default defineComponent({
                     width: 100%;
                     flex-wrap: wrap;
                     justify-content: flex-start;
+                    margin-top: 24px;
                     .interface-cell {
                         width: 25%;
                         flex-grow: 0;
@@ -484,6 +425,7 @@ export default defineComponent({
                 width: 100%;
                 flex-wrap: wrap;
                 justify-content: flex-start;
+                margin-top: 24px;
                 .partners-cell {
                     width: calc(20% - 16px);
                     min-width: 224px;
@@ -491,6 +433,7 @@ export default defineComponent({
                     background: #ffffff;
                     box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
                     margin: 8px;
+                    object-fit: cover;
                 }
             }
         }

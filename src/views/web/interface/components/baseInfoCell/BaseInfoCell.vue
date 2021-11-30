@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 17:16:04
- * @LastEditTime: 2021-11-24 15:34:05
+ * @LastEditTime: 2021-11-30 10:32:04
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/baseInfoCell/BaseInfoCell.vue
@@ -19,8 +19,8 @@
                     <div class="cell-text defaultFont">{{ data.apiDescribe }}</div>
                 </div>
                 <div class="cell-item flexRowCenter">
-                    <div class="cell-item-title defaultFont">接口ID:</div>
-                    <div class="cell-id defaultFont">{{ data.apiInfoId }}</div>
+                    <div class="cell-item-title defaultFont">接口CODE:</div>
+                    <div class="cell-id defaultFont">{{ data.apiCode }}</div>
                 </div>
                 <div class="cell-item cell-item-last flexRowCenter">
                     <div class="cell-item-title defaultFont">价格:</div>

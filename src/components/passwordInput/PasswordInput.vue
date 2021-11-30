@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 14:22:27
- * @LastEditTime: 2021-11-24 10:00:40
+ * @LastEditTime: 2021-11-30 17:55:23
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/passwordInput/PasswordInput.vue
@@ -61,8 +61,11 @@ export default defineComponent({
     width: 100%;
     height: 56px;
     justify-content: flex-start;
+    :deep(.el-input__suffix) {
+        padding-right: 0px !important;
+    }
     .password-button {
-        width: 76px;
+        width: 56px;
         height: 100%;
         .password-icon {
             width: 16px;
