@@ -2,19 +2,19 @@
  * @Author: matiastang
  * @Date: 2021-11-19 10:02:46
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-19 10:09:08
+ * @LastEditTime: 2021-11-30 09:46:40
  * @FilePath: /datumwealth-openalpha-front/src/common/request/prefix.ts
  * @Description: 前缀
  */
-const systemPrefix = '/api/sys'
+const systemPrefix = '/sys'
 /**
  * api接口前缀
  */
-const apiPrefix = '/api/api'
+const apiPrefix = '/api'
 /**
  * 用户接口前缀
  */
-const memberPrefix = '/api/member'
-const tradePrefix = '/api/trade'
-const contentPrefix = '/api/content'
+const memberPrefix = '/member'
+const tradePrefix = '/trade'
+const contentPrefix = '/content'
 export { systemPrefix, apiPrefix, memberPrefix, tradePrefix, contentPrefix }

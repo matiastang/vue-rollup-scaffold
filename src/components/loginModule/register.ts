@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 17:56:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:07:41
+ * @LastEditTime: 2021-11-30 09:47:53
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/register.ts
  * @Description: 注册逻辑
  */
@@ -57,7 +57,6 @@ const registerPhoneCode = (phone: string): MessageParams | Promise<string> => {
  * 注册登录
  */
 const register = (store: Store<AllStateTypes>, router: Router, phone: string) => {
-    debugger
     // 手机校验
     const phoneError = phone_check(phone)
     if (phoneError) {
