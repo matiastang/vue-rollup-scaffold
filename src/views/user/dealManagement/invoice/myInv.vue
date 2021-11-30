@@ -3,7 +3,7 @@
         <el-col :span="8" class="cell">
             <el-skeleton v-if="loadingInv" :rows="5" animated />
             <el-descriptions v-else title="发票信息" :column="1">
-                <template #extra>
+                <!-- <template #extra>
                     <el-button
                         class="status-primary"
                         type="text"
@@ -11,7 +11,7 @@
                         @click="handleUpdateInv"
                         >修改发票信息</el-button
                     >
-                </template>
+                </template> -->
                 <el-descriptions-item label="发票抬头">{{
                     lastInvoice.invPayee
                 }}</el-descriptions-item>
@@ -29,7 +29,7 @@
         <el-col :span="8" class="cell">
             <el-skeleton v-if="loadingInv" :rows="5" animated />
             <el-descriptions v-else v-show="lastInvoice.address" title="收件信息" :column="1">
-                <template #extra>
+                <!-- <template #extra>
                     <el-button
                         class="status-primary"
                         type="text"
@@ -37,7 +37,7 @@
                         @click="handleUpdateInv"
                         >修改收件信息</el-button
                     >
-                </template>
+                </template> -->
                 <el-descriptions-item label="收件人">{{
                     lastInvoice.address.consignee
                 }}</el-descriptions-item>
@@ -57,8 +57,8 @@
         </div> -->
     </el-row>
     <p class="tips">
-        当页全选<strong class="order-count">{{ currentOrder.orderSn }}</strong
-        >个订单，发票金额共计: <strong>{{ currentOrder.orderAmount }}元</strong>
+        <strong class="order-count">{{ currentOrder.orderSn }}</strong
+        >，发票金额共计: <strong>{{ currentOrder.orderAmount }}元</strong>
     </p>
 
     <el-form ref="form" :model="queryParams" inline label-width="70px">
@@ -328,12 +328,12 @@ const doQuery = async () => {
         font-weight: 500;
         color: #d65928;
     }
-    .order-count::before {
-        content: ' | ';
-        color: #8c8c8c;
-        font-size: 14px;
-        font-weight: 400;
-    }
+    // .order-count::before {
+    //     content: ' | ';
+    //     color: #8c8c8c;
+    //     font-size: 14px;
+    //     font-weight: 400;
+    // }
 }
 .status-primary {
     color: #4e9aeb;
