@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-30 14:28:28
+ * @LastEditTime: 2021-11-30 16:03:47
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -87,7 +87,46 @@
                                 class="parameters-content"
                             >
                                 <div class="parameters-title borderBox defaultFont">API参数:</div>
-                                <div
+                                <div class="parameters-list-content borderBox flexRowCenter">
+                                    <div class="parameters-key-content borderBox flexColumnCenter">
+                                        <div
+                                            v-for="item in getApiInfo.apiParamList.sort(
+                                                (left, right) => left.paramId - right.paramId
+                                            )"
+                                            :key="item.paramKey"
+                                            class="
+                                                parameters-item-key-content
+                                                borderBox
+                                                flexRowCenter
+                                            "
+                                        >
+                                            <div
+                                                v-show="item.paramIsRequired === 1"
+                                                class="parameters-item-must defaultFont"
+                                            >
+                                                *
+                                            </div>
+                                            <div class="parameters-item-key defaultFont">
+                                                {{ `${item.paramKey}:` }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="parameters-input-content borderBox flexColumnCenter"
+                                    >
+                                        <el-input
+                                            v-for="item in getApiInfo.apiParamList.sort(
+                                                (left, right) => left.paramId - right.paramId
+                                            )"
+                                            :key="item.paramKey"
+                                            class="parameters-item-input defaultFont"
+                                            v-model="item.paramValue"
+                                            :placeholder="`请输入${item.paramKey}`"
+                                            clearable
+                                        />
+                                    </div>
+                                </div>
+                                <!-- <div
                                     v-for="item in getApiInfo.apiParamList.sort(
                                         (left, right) => left.paramId - right.paramId
                                     )"
@@ -114,7 +153,7 @@
                                         :placeholder="`请输入${item.paramKey}`"
                                         clearable
                                     />
-                                </div>
+                                </div> -->
                             </div>
                             <el-button
                                 v-if="getApiInfo"
@@ -662,6 +701,35 @@ export default defineComponent({
                                 color: $themeColor;
                                 line-height: 24px;
                                 text-align: left;
+                            }
+                            .parameters-list-content {
+                                justify-content: space-between;
+                                .parameters-key-content {
+                                    flex-grow: 0;
+                                    flex-shrink: 0;
+                                    align-items: flex-end;
+                                    .parameters-item-key-content {
+                                        height: 40px;
+                                        margin: 12px 0px;
+                                        .parameters-item-must,
+                                        .parameters-item-key {
+                                            font-size: 16px;
+                                            color: $titleColor;
+                                            line-height: 24px;
+                                            margin-right: 8px;
+                                        }
+                                        .parameters-item-must {
+                                            color: $themeColor;
+                                        }
+                                    }
+                                }
+                                .parameters-input-content {
+                                    flex-grow: 1;
+                                    padding-right: 8px;
+                                    .parameters-item-input {
+                                        margin: 12px 0px;
+                                    }
+                                }
                             }
                         }
                         .apply-trial-button {
