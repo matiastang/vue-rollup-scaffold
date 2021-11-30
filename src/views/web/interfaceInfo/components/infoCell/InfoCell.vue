@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:50:34
- * @LastEditTime: 2021-11-30 13:43:19
+ * @LastEditTime: 2021-11-30 14:05:43
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoCell/InfoCell.vue
 -->
 <template>
-    <div v-if="title !== ''" class="info-cell borderBox flexRowCenter">
+    <div v-if="id > 0" class="info-cell borderBox flexRowCenter">
         <div class="cell-left flexRowCenter">
             <svg class="icon cell-icon" aria-hidden="true">
                 <use :xlink:href="`#${url}`"></use>
@@ -34,7 +34,7 @@
         </div>
         <div class="cell-button cursorP defaultFont" @click.stop="cellButtonAction">试用接口</div>
     </div>
-    <el-skeleton v-else class="info-cell-skeleton borderBox">
+    <el-skeleton v-else class="info-cell-skeleton borderBox" animated>
         <template #template>
             <div class="info-cell borderBox flexRowCenter">
                 <div class="cell-left flexRowCenter">
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <el-skeleton-item class="cell-button" variant="button" />
+                <el-skeleton-item class="cell-button-skeleton-item" variant="button" />
             </div>
         </template>
     </el-skeleton>
@@ -77,15 +77,15 @@ export default defineComponent({
         },
         title: {
             type: String,
-            default: '-',
+            default: '',
         },
         text: {
             type: String,
-            default: '-',
+            default: '',
         },
         code: {
             type: String,
-            default: '-',
+            default: '',
         },
         id: {
             type: Number,
@@ -150,7 +150,6 @@ export default defineComponent({
                 margin-bottom: 8px;
                 align-items: flex-start;
                 .cell-item-title {
-                    width: 50px;
                     font-size: 14px;
                     font-family: PingFangSC-Medium, PingFang SC;
                     font-weight: 500;
@@ -162,7 +161,6 @@ export default defineComponent({
                 }
                 .cell-text,
                 .cell-id {
-                    width: calc(100% - 50px);
                     font-size: 14px;
                     color: #595959;
                     line-height: 20px;
@@ -287,8 +285,10 @@ export default defineComponent({
                 }
                 .cell-last {
                     .cell-last-item {
+                        width: 100%;
                         align-items: flex-start;
                         .cell-item-title {
+                            width: 50px;
                             font-size: 14px;
                             font-family: PingFangSC-Medium, PingFang SC;
                             font-weight: 500;
@@ -300,12 +300,14 @@ export default defineComponent({
                         }
                         .cell-text,
                         .cell-id {
+                            width: calc(100% - 50px);
                             font-size: 14px;
                             color: #595959;
                             line-height: 20px;
                             text-align: left;
                         }
                         .cell-price {
+                            width: calc(100% - 50px);
                             font-size: 14px;
                             color: #e62412;
                             line-height: 20px;
@@ -319,7 +321,7 @@ export default defineComponent({
                 line-height: 24px;
             }
         }
-        .cell-button {
+        .cell-button-skeleton-item {
             width: 118px;
             height: 42px;
             align-self: flex-end;

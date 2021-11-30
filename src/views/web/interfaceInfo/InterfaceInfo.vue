@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-11-30 10:48:45
+ * @LastEditTime: 2021-11-30 14:19:44
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -16,7 +16,7 @@
                 :selectedId="selectApiId"
                 @select="selectApiAction"
             />
-            <el-skeleton v-else class="left-list-skeleton" :rows="5" animated />
+            <el-skeleton v-else class="left-list-skeleton" :rows="20" animated />
         </div>
         <div class="info-right flexColumnCenter">
             <InfoCell
@@ -35,33 +35,62 @@
                             <div class="base-info-fold borderBox flexColumnCenter">
                                 <div class="base-info-item flexRowCenter">
                                     <div class="base-info-item-title defaultFont">接口地址:</div>
-                                    <div class="base-info-item-text defaultFont">
-                                        {{ getApiInfo ? getApiInfo.apiAddress : '-' }}
+                                    <div v-if="getApiInfo" class="base-info-item-text defaultFont">
+                                        {{ getApiInfo.apiAddress }}
                                     </div>
+                                    <el-skeleton v-else>
+                                        <template #template>
+                                            <el-skeleton-item variant="p" />
+                                        </template>
+                                    </el-skeleton>
                                 </div>
                                 <div class="base-info-item flexRowCenter">
                                     <div class="base-info-item-title defaultFont">请求方式:</div>
-                                    <div class="base-info-item-text defaultFont">
-                                        {{ getApiInfo ? getApiInfo.requestMethod : '-' }}
+                                    <div v-if="getApiInfo" class="base-info-item-text defaultFont">
+                                        {{ getApiInfo.requestMethod }}
                                     </div>
+                                    <el-skeleton v-else>
+                                        <template #template>
+                                            <el-skeleton-item variant="p" />
+                                        </template>
+                                    </el-skeleton>
                                 </div>
                                 <div class="base-info-item flexRowCenter">
                                     <div class="base-info-item-title defaultFont">返回格式:</div>
-                                    <div class="base-info-item-text defaultFont">
-                                        {{ getApiInfo ? getApiInfo.returnFormat : '-' }}
+                                    <div v-if="getApiInfo" class="base-info-item-text defaultFont">
+                                        {{ getApiInfo.returnFormat }}
                                     </div>
+                                    <el-skeleton v-else>
+                                        <template #template>
+                                            <el-skeleton-item variant="p" />
+                                        </template>
+                                    </el-skeleton>
                                 </div>
                                 <div class="base-info-item flexRowCenter">
                                     <div class="base-info-item-title defaultFont">请求示例:</div>
-                                    <div class="base-info-item-text base-info-item-url defaultFont">
-                                        {{ getApiInfo ? getApiInfo.apiDocAddress : '-' }}
+                                    <div
+                                        v-if="getApiInfo"
+                                        class="base-info-item-text base-info-item-url defaultFont"
+                                    >
+                                        {{ getApiInfo.apiDocAddress }}
                                     </div>
+                                    <el-skeleton v-else>
+                                        <template #template>
+                                            <el-skeleton-item variant="p" />
+                                        </template>
+                                    </el-skeleton>
                                 </div>
                             </div>
                         </FoldInfo>
                         <FoldInfo class="tab-info-fold" :show="true" title="请求参数">
+                            <el-skeleton
+                                v-if="!getApiInfo"
+                                :rows="5"
+                                animated
+                                style="padding: 12px; box-sizing: border-box"
+                            />
                             <div
-                                v-if="getApiInfo && getApiInfo.apiParamList.length > 0"
+                                v-else-if="getApiInfo.apiParamList.length > 0"
                                 class="base-info-parameter borderBox flexRowCenter"
                             >
                                 <InfoTable
@@ -78,7 +107,17 @@
                         <FoldInfo class="tab-info-fold" :show="true" title="返回结果">
                             <div class="base-info-result borderBox flexColumnCenter">
                                 <div class="base-info-item-title defaultFont">JSON示例:</div>
-                                <JsonView class="base-info-item-text" :data="returnResult" />
+                                <JsonView
+                                    v-if="getApiInfo"
+                                    class="base-info-item-text"
+                                    :data="returnResult"
+                                />
+                                <el-skeleton
+                                    v-else
+                                    :rows="5"
+                                    animated
+                                    style="padding: 12px; box-sizing: border-box"
+                                />
                             </div>
                         </FoldInfo>
                     </el-tab-pane>
@@ -344,6 +383,7 @@ export default defineComponent({
                                 color: $titleColor;
                                 line-height: 20px;
                                 margin-right: 12px;
+                                flex-shrink: 0;
                             }
                             .base-info-item-text {
                                 font-size: 14px;

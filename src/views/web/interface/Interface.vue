@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-30 10:45:14
+ * @LastEditTime: 2021-11-30 14:19:57
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -20,7 +20,7 @@
                     :seletedCategoryId="seletedCategoryId"
                     @seletedCategoryAction="seletedCategoryAction"
                 />
-                <el-skeleton v-else class="interface-list-skeleton" :rows="5" animated />
+                <el-skeleton v-else class="interface-list-skeleton" :rows="20" animated />
             </div>
             <div
                 v-if="interfaceTree.tree.length > 0 && seletedCategoryId !== 0"
