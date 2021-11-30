@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 18:02:28
+ * @LastEditTime: 2021-11-30 17:30:36
  * @FilePath: /datumwealth-openalpha-front/src/views/web/companyTransfer/CompanyTransfer.vue
  * @Description: 对公转账成功
 -->
@@ -189,7 +189,7 @@ export default defineComponent({
          */
         const orderAction = () => {
             router.push({
-                path: '/user/data/statement',
+                path: '/user/deal/order',
             })
         }
         const downloadAction = () => {

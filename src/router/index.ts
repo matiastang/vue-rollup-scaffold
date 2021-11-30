@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-26 13:57:23
+ * @LastEditTime: 2021-11-30 17:38:50
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -44,6 +44,7 @@ import Copyright from '@/views/web/about/copyright/Copyright.vue'
 import Feedback from '@/views/web/about/feedback/Feedback.vue'
 import RightNotify from '@/views/web/about/rightNotify/RightNotify.vue'
 import Statement from '@/views/web/about/statement/Statement.vue'
+import AuthProtocol from '@/views/web/about/authProtocol/AuthProtocol.vue'
 
 // NotFound
 import NotFound from '@/views/NotFound.vue'
@@ -255,6 +256,11 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'statement',
                 name: 'aboutStatement',
                 component: Statement,
+            },
+            {
+                path: 'authProtocol',
+                name: 'aboutAuthProtocol',
+                component: AuthProtocol,
             },
         ],
         beforeEnter: (to, from) => {

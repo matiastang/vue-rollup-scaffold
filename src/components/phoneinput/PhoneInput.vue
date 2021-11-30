@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:12:34
- * @LastEditTime: 2021-11-15 09:52:20
+ * @LastEditTime: 2021-11-30 17:52:56
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/phoneinput/PhoneInput.vue
@@ -41,5 +41,8 @@ export default defineComponent({
     width: 100%;
     height: 56px;
     justify-content: flex-start;
+    :deep(.el-input__suffix) {
+        padding-right: 10px !important;
+    }
 }
 </style>

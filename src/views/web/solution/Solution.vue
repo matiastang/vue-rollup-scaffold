@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-11-30 15:26:24
+ * @LastEditTime: 2021-11-30 17:24:26
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
@@ -49,12 +49,13 @@
                             :key="item.title"
                             :title="item.title"
                             :text="item.text"
+                            :url="getSceneUrl(index)"
                             class="scene-cell"
                             :style="{
                                 'margin-left': `${index % 4 === 0 ? 0 : 16}px`,
-                                'background-image': `url(${getSceneUrl(index)})`,
                             }"
                         />
+                        <!-- background-image': `url(${getSceneUrl(index)})`, -->
                     </div>
                 </div>
                 <div class="tab-zq-interface-content">
@@ -379,6 +380,7 @@ export default defineComponent({
                     width: 100%;
                     flex-wrap: wrap;
                     justify-content: flex-start;
+                    margin-top: 24px;
                     .interface-cell {
                         width: 25%;
                         flex-grow: 0;
@@ -423,6 +425,7 @@ export default defineComponent({
                 width: 100%;
                 flex-wrap: wrap;
                 justify-content: flex-start;
+                margin-top: 24px;
                 .partners-cell {
                     width: calc(20% - 16px);
                     min-width: 224px;
@@ -430,6 +433,7 @@ export default defineComponent({
                     background: #ffffff;
                     box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
                     margin: 8px;
+                    object-fit: cover;
                 }
             }
         }

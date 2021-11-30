@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-11 11:31:53
- * @LastEditTime: 2021-11-30 15:03:55
+ * @LastEditTime: 2021-11-30 17:17:25
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/components/interfaceCell/InterfaceCell.vue
@@ -54,7 +54,7 @@ export default defineComponent({
         .cell-icon {
             width: 48px;
             height: 48px;
-            background: $themeColor;
+            color: $themeColor;
             flex-shrink: 0;
         }
         .cell-content {

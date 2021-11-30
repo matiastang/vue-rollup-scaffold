@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:54:19
- * @LastEditTime: 2021-11-16 17:16:39
+ * @LastEditTime: 2021-11-30 17:56:04
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/codeInput/CodeInput.vue
@@ -91,6 +91,9 @@ export default defineComponent({
     width: 100%;
     height: 56px;
     justify-content: flex-start;
+    :deep(.el-input__suffix) {
+        padding-right: 10px !important;
+    }
     .code-button {
         width: 148px;
         height: 100%;

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 13:53:36
+ * @LastEditTime: 2021-11-30 16:43:28
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -44,15 +44,11 @@
                 <div class="header-name textLine1">
                     {{ userName }}
                 </div>
-                <img
-                    v-show="isDropdown"
-                    class="header-name-icon"
-                    :src="'static/user/login_on.svg'"
-                />
+                <img v-show="isDropdown" class="header-name-icon" src="static/user/login_on.svg" />
                 <img
                     v-show="!isDropdown"
                     class="header-name-icon"
-                    :src="'static/user/login_off.svg'"
+                    src="static/user/login_off.svg"
                 />
                 <div class="name-dropdown">
                     <div

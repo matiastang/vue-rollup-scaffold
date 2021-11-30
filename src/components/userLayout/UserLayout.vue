@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:00:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 15:57:11
+ * @LastEditTime: 2021-11-30 17:01:55
  * @FilePath: /datumwealth-openalpha-front/src/components/userLayout/UserLayout.vue
  * @Description: 
 -->
@@ -38,6 +38,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .urer-layout {
     width: 100vw;
+    min-width: 1000px;
     height: 100vh;
     .header {
         width: 100%;

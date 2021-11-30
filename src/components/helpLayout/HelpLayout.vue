@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 16:16:21
+ * @LastEditTime: 2021-11-30 17:40:34
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
@@ -87,15 +87,20 @@ export default defineComponent({
                     selected: false,
                     url: '/about/copyright',
                 },
+                // {
+                //     title: '免责声明',
+                //     selected: false,
+                //     url: '/about/statement',
+                // },
+                // {
+                //     title: '权利通知',
+                //     selected: false,
+                //     url: '/about/rightNotify',
+                // },
                 {
-                    title: '免责声明',
+                    title: '认证服务协议',
                     selected: false,
-                    url: '/about/statement',
-                },
-                {
-                    title: '权利通知',
-                    selected: false,
-                    url: '/about/rightNotify',
+                    url: '/about/authProtocol',
                 },
                 {
                     title: '意见反馈',
