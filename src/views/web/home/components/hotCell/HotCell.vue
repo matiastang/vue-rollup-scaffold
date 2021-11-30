@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 15:14:25
+ * @LastEditTime: 2021-11-30 19:33:59
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
  * @Description: 热榜接口cell
 -->
@@ -77,6 +77,7 @@ export default defineComponent({
             letter-spacing: 1px;
             text-align: center;
             margin: 27px 0px 18px 0px;
+            padding: 0px 12px;
         }
         .hot-cell-text {
             font-size: 14px;
@@ -84,6 +85,7 @@ export default defineComponent({
             line-height: 20px;
             text-align: center;
             margin-bottom: 16px;
+            padding: 0px 12px;
         }
     }
     .hot-cell-value {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 20:12:48
+ * @LastEditTime: 2021-11-30 19:35:29
  * @FilePath: /datumwealth-openalpha-front/src/components/swiperSlider/SwiperSlider.vue
  * @Description: 首页banner
 -->
@@ -71,7 +71,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .swiper {
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
     background: $themeBgColor;
     .swiper-slide {
