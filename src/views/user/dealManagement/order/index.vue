@@ -213,6 +213,7 @@
         :order="orderInfo.orderId"
         :codeUrl="orderInfo.codeUrl"
         :orderType="orderInfo.orderType"
+        :orderSn="orderInfo.orderSn"
         v-model="weixinDialogVisible"
         @statusChange="doQuery"
         @close="weixinPayClose"
@@ -373,7 +374,8 @@ const payAction = async (order: Order.AsObject) => {
             }
             orderInfo.orderId = orderId
             orderInfo.orderAmount = order.orderAmount
-            orderInfo.orderAmount = order.OrderType
+            orderInfo.orderType = order.OrderType
+            orderInfo.orderSn = info.orderSn
             orderInfo.codeUrl = codeUrl
             weixinPay()
         } else {
@@ -396,6 +398,7 @@ const weixinPay = () => {
 }
 const weixinPayClose = () => {
     orderInfo.codeUrl = ''
+    orderInfo.orderSn = ''
     orderInfo.orderId = -1
 }
 /**

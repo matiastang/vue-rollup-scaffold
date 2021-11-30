@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 10:25:10
+ * @LastEditTime: 2021-11-30 11:41:33
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -523,7 +523,13 @@
             <div class="certification-post-bottom flexColumnCenter">
                 <div class="certification-post-bottom-text defaultFont">西筹开放平台提示：</div>
                 <div class="certification-post-bottom-text defaultFont">
-                    1、身份证号必须与身份证照片一致，且为有效期限
+                    {{
+                        `1、${
+                            activeName === 'company'
+                                ? '营业执照号必须与营业执照照片一致'
+                                : '身份证号必须与身份证照片一致'
+                        }，且为有效期限`
+                    }}
                 </div>
                 <div class="certification-post-bottom-text defaultFont">
                     2、上传材料支持原件照片，扫描件

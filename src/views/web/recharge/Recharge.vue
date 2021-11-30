@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-29 15:40:29
+ * @LastEditTime: 2021-11-30 12:10:11
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -108,6 +108,7 @@
             :orderType="orderType.recharge"
             :order="orederData.order.orderId"
             :codeUrl="orederData.order.codeUrl"
+            :orderSn="orederData.order.orderSn"
             v-model="weixinDialogVisible"
             @close="weixinPayClose"
         />
@@ -222,18 +223,22 @@ export default defineComponent({
                             goodsAmount: import.meta.env.VITE_PAY_TEST ? 0.01 : selectedMoney.value,
                             orderType: orderType.recharge,
                             payId: paymentData.payments[i].payId,
-                        }).then((oreder) => {
-                            orederData.order = oreder
-                            if (paymentData.payments[i].payId === 1) {
-                                weixinDialogVisible.value = true
-                            } else {
-                                let routerData = router.resolve({
-                                    path: '/alipay',
-                                    query: { payUrl: oreder.payUrl },
-                                })
-                                window.open(routerData.href, '_blank')
-                            }
                         })
+                            .then((oreder) => {
+                                if (paymentData.payments[i].payId === 1) {
+                                    orederData.order = oreder
+                                    weixinDialogVisible.value = true
+                                } else {
+                                    let routerData = router.resolve({
+                                        path: '/alipay',
+                                        query: { payUrl: oreder.payUrl },
+                                    })
+                                    window.open(routerData.href, '_blank')
+                                }
+                            })
+                            .catch((err: any) => {
+                                ElMessage.error(err.msg || '生成订单错误')
+                            })
                     }
                     return
                 }
@@ -250,6 +255,7 @@ export default defineComponent({
             orederData.order = {
                 payUrl: '',
                 codeUrl: '',
+                orderSn: '',
                 orderId: -1,
             }
         }

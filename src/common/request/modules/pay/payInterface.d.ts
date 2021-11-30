@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-22 10:03:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-29 15:05:33
+ * @LastEditTime: 2021-11-30 12:08:42
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/pay/payInterface.d.ts
  * @Description: 支付相关类型
  */
@@ -39,6 +39,7 @@ export interface OdParameters {
  */
 export interface WeiXinOdResponse {
     payUrl: string
+    orderSn: string
     codeUrl: string // "weixin://wxpay/bizpayurl?pr=j1lOIc5zz",
     orderId: number // 19
 }
