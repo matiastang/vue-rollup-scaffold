@@ -30,8 +30,6 @@
             <el-descriptions-item label="开具内容"
                 ><el-input
                     style="width: 300px"
-                    type="textarea"
-                    rows="3"
                     size="mini"
                     v-model="form.invContent"
                     placeholder="请输入内容"
@@ -153,20 +151,6 @@ const rules = reactive({
         {
             required: true,
             message: '请输入联系电话',
-            trigger: 'blur',
-        },
-    ],
-    bankNo: [
-        {
-            required: true,
-            message: '请输入银行账号',
-            trigger: 'blur',
-        },
-    ],
-    bank: [
-        {
-            required: true,
-            message: '请输入开户银行',
             trigger: 'blur',
         },
     ],
