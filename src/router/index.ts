@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-30 17:38:50
+ * @LastEditTime: 2021-11-30 19:09:49
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -114,6 +114,9 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'login',
                 name: 'login',
                 component: Login,
+                meta: {
+                    notLogin: true,
+                },
             },
         ],
         beforeEnter: (to, from) => {
@@ -134,6 +137,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/user',
         name: 'user',
         component: UserLayout,
+        meta: { requiresAuth: true },
         children: [
             {
                 path: 'data/statement',
@@ -288,6 +292,7 @@ const router = createRouter({
  */
 router.beforeEach((to, from, next) => {
     console.log(`即将从${from.path}跳转到${to.path}`)
+    console.log(to.matched)
     if (to.path === '/') {
         next({
             path: '/home',
@@ -295,43 +300,75 @@ router.beforeEach((to, from, next) => {
         })
         return
     }
-    // 登录校验
-    const toPath = to.path
-    const findItem = checkLoginPath.find(({ path }) => {
-        return path === toPath
-    })
-    if (findItem) {
+    // 非登录校验
+    if (to.matched.some((record) => record.meta.notLogin)) {
         // 用户token
         const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
         if (userToken && userToken.trim() !== '') {
-            // 已登录
-            if (findItem.mustLogin) {
-                next()
-            } else {
-                console.info(
-                    `访问${findItem.path}页面要求必须未登录，但已登录，重定向到登录${findItem.redirectPath}页面`
-                )
-                next({
-                    path: findItem.redirectPath,
-                    replace: true,
-                })
-            }
+            console.info(
+                `访问${to.path}页面要求必须未登录，但已登录，重定向到/user/data/statement页面`
+            )
+            next({
+                path: '/user/data/statement',
+                replace: true,
+            })
         } else {
-            // 未登录
-            if (findItem.mustLogin) {
-                console.info(
-                    `访问${findItem.path}页面要求必须登录，但未登录，重定向到登录${findItem.redirectPath}页面`
-                )
-                next({
-                    path: findItem.redirectPath,
-                    replace: true,
-                })
-            } else {
-                next()
-            }
+            next()
         }
         return
     }
+    // 登录校验
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        // 用户token
+        const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
+        if (!userToken || userToken.trim() === '') {
+            // 未登录
+            console.info(`访问${to.path}页面要求必须登录，但未登录，重定向到登录页面`)
+            next({
+                path: '/login',
+                replace: true,
+            })
+            return
+        }
+    }
+    next()
+    // // 登录校验
+    // const toPath = to.path
+    // const findItem = checkLoginPath.find(({ path }) => {
+    //     return path === toPath
+    // })
+    // if (findItem) {
+    //     // 用户token
+    //     const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
+    //     if (userToken && userToken.trim() !== '') {
+    //         // 已登录
+    //         if (findItem.mustLogin) {
+    //             next()
+    //         } else {
+    //             console.info(
+    //                 `访问${findItem.path}页面要求必须未登录，但已登录，重定向到登录${findItem.redirectPath}页面`
+    //             )
+    //             next({
+    //                 path: findItem.redirectPath,
+    //                 replace: true,
+    //             })
+    //         }
+    //     } else {
+    //         // 未登录
+    //         if (findItem.mustLogin) {
+    //             console.info(
+    //                 `访问${findItem.path}页面要求必须登录，但未登录，重定向到登录${findItem.redirectPath}页面`
+    //             )
+    //             next({
+    //                 path: findItem.redirectPath,
+    //                 replace: true,
+    //             })
+    //         } else {
+    //             next()
+    //         }
+    //     }
+    //     return
+    // }
     next()
 })
 
