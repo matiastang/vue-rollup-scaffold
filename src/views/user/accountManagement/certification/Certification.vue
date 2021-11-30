@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:08:15
+ * @LastEditTime: 2021-11-30 10:25:10
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -324,6 +324,7 @@
                                 </div>
                                 <el-upload
                                     class="tab-company-img"
+                                    ref="businessLicenseRoot"
                                     :action="uploadURL"
                                     :show-file-list="false"
                                     :limit="1"
@@ -441,6 +442,7 @@
                                 <div class="tab-personage-item-img-right flexRowCenter">
                                     <el-upload
                                         class="tab-personage-img-front"
+                                        ref="personageFrontRoot"
                                         :action="uploadURL"
                                         :show-file-list="false"
                                         :limit="1"
@@ -464,6 +466,7 @@
                                     </el-upload>
                                     <el-upload
                                         class="tab-personage-img-bg"
+                                        ref="personageBgRoot"
                                         :action="uploadURL"
                                         :show-file-list="false"
                                         :limit="1"
@@ -546,6 +549,7 @@ import {
 } from '@/common/request/modules/user/user'
 import { certificationLog } from './certification'
 import { email_check } from 'utils/check/index'
+import { ElUpload } from 'element-plus'
 
 export default defineComponent({
     name: 'Certification',
@@ -571,18 +575,28 @@ export default defineComponent({
         let companyEmail = ref('')
         let companyNote = ref('')
         const companyChecked = ref(false)
+        // 上传组件类型
+        type uploadType = InstanceType<typeof ElUpload>
         // 营业执照
         const companyImageUrl: Ref<string | null> = ref(null)
+        const businessLicenseRoot: Ref<uploadType | null> = ref(null)
+        // onMounted(() => {
+        //     // DOM 元素将在初始渲染后分配给 ref
+        //     console.log(root.value)
+        // })
         const companyImageAvatarSuccess = (res: any, file: any) => {
             let url = res.data
             if (url) {
                 companyImageUrl.value = url
             }
+            const blRoot = businessLicenseRoot.value
+            if (blRoot) {
+                blRoot.clearFiles()
+            }
         }
         const companyImageBeforeAvatarUpload = (file: any) => {
-            const isJPG = file.type === 'image/jpeg'
-            const isLt2M = file.size / 1024 / 1024 < 2
-
+            // const isJPG = file.type === 'image/jpeg'
+            // const isLt2M = file.size / 1024 / 1024 < 2
             // if (!isJPG) {
             //     ElMessage({
             //         message: '只能选择JPG格式的图片',
@@ -590,13 +604,13 @@ export default defineComponent({
             //     })
             //     return false
             // }
-            if (!isLt2M) {
-                ElMessage({
-                    message: '图片大小不能超过2MB!',
-                    type: 'error',
-                })
-                return false
-            }
+            // if (!isLt2M) {
+            //     ElMessage({
+            //         message: '图片大小不能超过2MB!',
+            //         type: 'error',
+            //     })
+            //     return false
+            // }
             return true
         }
         // 公司认证提交
@@ -716,16 +730,20 @@ export default defineComponent({
         const personageChecked = ref(false)
         // 身份证正面
         const personageImageFrontUrl: Ref<string | null> = ref(null)
+        const personageFrontRoot: Ref<uploadType | null> = ref(null)
         const personageImageFrontAvatarSuccess = (res: any, file: any) => {
             let url = res.data
             if (url) {
                 personageImageFrontUrl.value = url
             }
+            const pfRoot = personageFrontRoot.value
+            if (pfRoot) {
+                pfRoot.clearFiles()
+            }
         }
         const personageImageFrontBeforeAvatarUpload = (file: any) => {
-            const isJPG = file.type === 'image/jpeg'
-            const isLt2M = file.size / 1024 / 1024 < 2
-
+            // const isJPG = file.type === 'image/jpeg'
+            // const isLt2M = file.size / 1024 / 1024 < 2
             // if (!isJPG) {
             //     ElMessage({
             //         message: '只能选择JPG格式的图片',
@@ -733,28 +751,31 @@ export default defineComponent({
             //     })
             //     return false
             // }
-            debugger
-            if (!isLt2M) {
-                ElMessage({
-                    message: '图片大小不能超过2MB!',
-                    type: 'error',
-                })
-                return false
-            }
+            // if (!isLt2M) {
+            //     ElMessage({
+            //         message: '图片大小不能超过2MB!',
+            //         type: 'error',
+            //     })
+            //     return false
+            // }
             return true
         }
         // 身份证反面
         const personageImageBgUrl: Ref<string | null> = ref(null)
+        const personageBgRoot: Ref<uploadType | null> = ref(null)
         const personageImageBgAvatarSuccess = (res: any, file: any) => {
             let url = res.data
             if (url) {
                 personageImageBgUrl.value = url
             }
+            const pbRoot = personageBgRoot.value
+            if (pbRoot) {
+                pbRoot.clearFiles()
+            }
         }
         const personageImageBgBeforeAvatarUpload = (file: any) => {
-            const isJPG = file.type === 'image/jpeg'
-            const isLt2M = file.size / 1024 / 1024 < 2
-
+            // const isJPG = file.type === 'image/jpeg'
+            // const isLt2M = file.size / 1024 / 1024 < 2
             // if (!isJPG) {
             //     ElMessage({
             //         message: '只能选择JPG格式的图片',
@@ -762,13 +783,13 @@ export default defineComponent({
             //     })
             //     return false
             // }
-            if (!isLt2M) {
-                ElMessage({
-                    message: '图片大小不能超过2MB!',
-                    type: 'error',
-                })
-                return false
-            }
+            // if (!isLt2M) {
+            //     ElMessage({
+            //         message: '图片大小不能超过2MB!',
+            //         type: 'error',
+            //     })
+            //     return false
+            // }
             return true
         }
         // 个人认证提交
@@ -963,6 +984,7 @@ export default defineComponent({
             // 公司认证
             companyChecked,
             companyImageUrl,
+            businessLicenseRoot,
             companyImageAvatarSuccess,
             companyImageBeforeAvatarUpload,
             companyName,
@@ -980,9 +1002,11 @@ export default defineComponent({
             personageChecked,
             uploadURL,
             personageImageFrontUrl,
+            personageFrontRoot,
             personageImageFrontAvatarSuccess,
             personageImageFrontBeforeAvatarUpload,
             personageImageBgUrl,
+            personageBgRoot,
             personageImageBgAvatarSuccess,
             personageImageBgBeforeAvatarUpload,
             personageOkAction,
@@ -1262,7 +1286,8 @@ export default defineComponent({
                                     .avatar {
                                         width: 152px;
                                         height: 134px;
-                                        background: $themeColor;
+                                        // background: $themeColor;
+                                        object-fit: contain;
                                     }
                                     .personage-img-content {
                                         width: 152px;
@@ -1273,7 +1298,8 @@ export default defineComponent({
                                         .personage-image-bg-icon {
                                             width: 128px;
                                             height: 82px;
-                                            background: $themeColor;
+                                            // background: $themeColor;
+                                            object-fit: contain;
                                         }
                                         .personage-image-title {
                                             margin-top: 11px;
@@ -1345,7 +1371,8 @@ export default defineComponent({
                             .avatar {
                                 width: 120px;
                                 height: 180px;
-                                background: $themeColor;
+                                // background: $themeColor;
+                                object-fit: contain;
                             }
                             .company-img-content {
                                 width: 100%;
@@ -1356,6 +1383,7 @@ export default defineComponent({
                                     width: 96px;
                                     height: 128px;
                                     background: #e7f3fd;
+                                    object-fit: contain;
                                 }
                                 .company-image-title {
                                     margin-top: 11px;
