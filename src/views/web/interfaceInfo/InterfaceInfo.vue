@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-11-26 18:04:26
+ * @LastEditTime: 2021-11-30 10:48:45
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -11,10 +11,12 @@
         <div class="info-left borderBox">
             <InfoList
                 class="left-list"
+                v-if="interfaceTree.tree.length > 0"
                 :data="interfaceTree.tree"
                 :selectedId="selectApiId"
                 @select="selectApiAction"
             />
+            <el-skeleton v-else class="left-list-skeleton" :rows="5" animated />
         </div>
         <div class="info-right flexColumnCenter">
             <InfoCell
@@ -297,6 +299,11 @@ export default defineComponent({
         background: $themeBgColor;
         .left-list {
             width: 100%;
+        }
+        .left-list-skeleton {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
         }
     }
     .info-right {
