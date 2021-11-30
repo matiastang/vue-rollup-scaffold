@@ -10,7 +10,7 @@ import { Maybe, Exact, OrderTypeEnum, OrderStstusEnum, PayStatusEnum, Invoic } f
 
 export declare namespace Order {
     export type AsObject = {
-        orderId?: number
+        orderId: number
         orderSn?: Maybe<string>
         userId?: number
         OrderType?: OrderTypeEnum
@@ -70,5 +70,8 @@ export declare namespace Order {
         orderType?: OrderTypeEnum
         orderAmount?: Maybe<number>
         codeUrl: string
+    }
+    export type DeletQuery = {
+        orderId: number
     }
 }

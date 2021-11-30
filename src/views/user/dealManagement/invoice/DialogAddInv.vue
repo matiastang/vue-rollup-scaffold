@@ -116,15 +116,20 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, toRefs } from 'vue'
+import { reactive, ref, computed, watchEffect } from 'vue'
+import { useStore } from 'vuex'
+import { key } from '@/store'
+
 import { Invoic } from '@/@types'
 import { postAddInv } from '@/api'
 import { ElMessage } from 'element-plus'
 const SpecialOnvoice = ref()
 const loading = ref(false)
+const store = useStore(key)
 const form = reactive<Invoic.AddQuery>({
     invType: 1,
 })
+const lastInvoice = reactive(computed(() => store.state?.invModule.last))
 const rules = reactive({
     invPayee: [
         {
@@ -176,6 +181,22 @@ const props = defineProps({
     orderId: String,
     addTime: String,
 })
+watchEffect(() => {
+    form.invPayee = lastInvoice.value.invPayee
+    form.invPayeeNumber = lastInvoice.value.invPayeeNumber
+    form.consignee = lastInvoice.value?.address?.consignee
+    form.contact = lastInvoice.value?.address?.contact
+    form.address = lastInvoice.value?.address?.address
+    form.zipcode = lastInvoice.value?.address?.zipcode
+    form.bankNo = lastInvoice.value?.bankNo
+    form.bank = lastInvoice.value?.bank
+
+    // Object.assign(form, lastInvoice.value)
+    // console.log(form, lastInvoice)
+    // form.invPayeeNumber = lastInvoice.invPayeeNumber
+    return lastInvoice
+})
+
 const data = reactive(props)
 const emit = defineEmits(['on-close', 'on-next'])
 

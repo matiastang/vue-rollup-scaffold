@@ -1,7 +1,7 @@
 <template>
     <el-row :gutter="20" class="row">
         <el-col :span="8" class="cell">
-            <el-skeleton v-if="loadingInv" :rows="5" animated />
+            <el-skeleton v-if="updateInv.invId" :rows="5" animated />
             <el-descriptions v-else title="发票信息" :column="1">
                 <!-- <template #extra>
                     <el-button
@@ -27,7 +27,7 @@
             </el-descriptions>
         </el-col>
         <el-col :span="8" class="cell">
-            <el-skeleton v-if="loadingInv" :rows="5" animated />
+            <el-skeleton v-if="updateInv.invId" :rows="5" animated />
             <el-descriptions v-else v-show="lastInvoice.address" title="收件信息" :column="1">
                 <!-- <template #extra>
                     <el-button
@@ -57,8 +57,9 @@
         </div> -->
     </el-row>
     <p class="tips">
-        <strong class="order-count">{{ currentOrder.orderSn }}</strong
-        >，发票金额共计: <strong>{{ currentOrder.orderAmount }}元</strong>
+        <strong class="order-count">{{ computedSnLength(currentOrder.orderSn) }}</strong>
+        个订单，发票金额共计:
+        <strong>{{ currentOrder.orderAmount }}元</strong>
     </p>
 
     <el-form ref="form" :model="queryParams" inline label-width="70px">
@@ -115,6 +116,7 @@
             :header-cell-style="{
                 background: '#e9e9e9',
             }"
+            ref="orderTable"
             height="45vh"
             :data="list.value"
             class="table"
@@ -157,9 +159,9 @@
             :total="total"
             :page="queryParams.pageNum"
             :limit="queryParams.pageSize"
-            @update:page="asyncPageNumber"
-            @update:limit="asyncPageSize"
-            @pagination="doQuery"
+            @page="asyncPageNumber"
+            @limit="asyncPageSize"
+            @pagination="handlePagination"
         />
     </div>
     <InvoiceTipsDialog :open="open" @on-close="open = false" />
@@ -180,7 +182,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, computed } from 'vue'
+import { key } from '@/store'
+import { useStore } from 'vuex'
 import { Order } from '@/@types'
 import { Plus } from '@element-plus/icons'
 import InvoiceTipsDialog from '@/views/user/dealManagement/invoice/DialogTips.vue'
@@ -188,15 +192,16 @@ import InvoiceActionDialog from '@/views/user/dealManagement/invoice/DialogActio
 import DialogAddInvoice from '@/views/user/dealManagement/invoice/DialogAddInv.vue'
 import { addDateRange, orderTypeToText, payStatusToText } from '@/common/utils'
 import { getOrderList, postInvList } from '@/api'
-
+const store = useStore(key)
 const loading = ref(true)
-const loadingInv = ref(true)
+const loadingInv = ref(false)
 const open = ref(false)
 const openAction = ref(false)
 const openAdd = ref(false)
 const list = reactive({ value: [] })
 const date = ref([])
-const total = ref([])
+const total = ref(0)
+const orderTable = ref()
 const queryParams = reactive({
     orderSn: '',
     type: '',
@@ -211,16 +216,25 @@ const currentOrder = reactive({
     orderSn: '',
     orderAmount: 0,
 })
-const lastInvoice = reactive({})
+// const lastInvoice = reactive({})
 const updateInv = reactive({
     open: false,
     invId: '',
 })
+const lastInvoice = computed(() => store.state.invModule.last)
 
 onMounted(() => {
     doQuery()
-    doFetchInvLastInfo()
+    // doFetchInvLastInfo()
 })
+const computedSnLength = (val: string) => {
+    let result = 0
+    const list = val.split(',')
+    if (list[0]) {
+        result = list.length
+    }
+    return result
+}
 const handleNextInv = () => {
     handleCloseInv()
     doFetchInvLastInfo()
@@ -263,6 +277,17 @@ const handleOpenInvoice = (row: Order.AsObject) => {
     Object.assign(currentOrder, row)
     currentOrder.open = true
 }
+
+const handlePagination = (params: Order.Pagination) => {
+    if (params.page) {
+        queryParams.pageNum = params.page
+    }
+    if (params.limit) {
+        queryParams.pageSize = params.limit
+    }
+    doQuery()
+}
+
 const doQuery = async () => {
     try {
         const query = addDateRange(queryParams, date.value)
