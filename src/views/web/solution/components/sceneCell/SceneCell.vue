@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-11 11:15:40
- * @LastEditTime: 2021-11-11 11:27:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-30 15:29:35
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /datumwealth-openalpha-front/src/views/solution/sceneCell/SceneCell.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/components/sceneCell/SceneCell.vue
 -->
 <template>
     <div class="scene-cell borderBox flexColumnCenter">
@@ -36,7 +36,7 @@ export default defineComponent({
     width: 100%;
     padding: 24px;
     background: $themeColor;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
     align-items: flex-start !important;
     .scene-cell-title {
         font-size: 18px;
