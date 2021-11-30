@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-30 16:03:47
+ * @LastEditTime: 2021-11-30 16:31:43
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -277,9 +277,14 @@ export default defineComponent({
         watchSyncEffect(async () => {
             interfaceTree.tree = await homeInterfaceTree()
         })
+        // 返回类型
+        const resultJson = reactive({
+            result: {} as { res: any } | { err: any },
+        })
         // 选择了api
         const selectApiId = ref(1)
         watchEffect(() => {
+            resultJson.result = { res: {} }
             if (route.params.id) {
                 selectApiId.value = Number(route.params.id)
                 return
@@ -335,10 +340,7 @@ export default defineComponent({
             }
             return json
         })
-        // 返回类型
-        const resultJson = reactive({
-            result: {} as { res: any } | { err: any },
-        })
+
         // token选择
         const selectOptions = reactive([
             {
@@ -436,7 +438,11 @@ export default defineComponent({
             const obj = requestJson.value
             for (const key in obj) {
                 if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                    params += `${key}=${obj[key]}`
+                    if (params === '') {
+                        params += `${key}=${obj[key]}`
+                    } else {
+                        params += `&${key}=${obj[key]}`
+                    }
                 }
             }
             return params
