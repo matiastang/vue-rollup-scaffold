@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 16:59:43
+ * @LastEditTime: 2021-12-01 16:06:12
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -417,6 +417,12 @@ export default defineComponent({
                         height: 42px;
                         border-radius: 2px;
                         border: 1px solid #bfbfbf;
+                        :deep(.el-input) {
+                            height: 40px;
+                            .el-input__inner {
+                                height: 40px;
+                            }
+                        }
                     }
                     .setting-copy-content {
                         margin-left: 14px;

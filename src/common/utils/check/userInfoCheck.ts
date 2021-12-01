@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 09:49:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 16:28:33
+ * @LastEditTime: 2021-12-01 16:20:58
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/check/userInfoCheck.ts
  * @Description: 用户信息校验
  */
@@ -75,4 +75,31 @@ function password_check(password: string): string | null {
     return null
 }
 
-export { phone_check, code_check, password_check, email_check }
+/**
+ * 身份证校验
+ * @param identityCard 身份证号
+ * @returns 结果
+ */
+function identity_card_check(identityCard: string): string | null {
+    if (identityCard.trim() == '') {
+        return '请输入身份证号'
+    }
+    if (identityCard.length !== 15 && identityCard.length !== 18) {
+        return '请输入十五位或十八位身份证号'
+    }
+    // 正则表达式
+    // 十八位： ^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$
+    // 十五位： ^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$
+    const regOne =
+        /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+    if (!regOne.test(identityCard)) {
+        return '身份证号格式错误'
+    }
+    const regTwo = /^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$$/
+    if (!regTwo.test(identityCard)) {
+        return '身份证号格式错误'
+    }
+    return null
+}
+
+export { phone_check, code_check, password_check, email_check, identity_card_check }

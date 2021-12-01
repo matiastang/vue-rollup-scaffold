@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 19:16:48
+ * @LastEditTime: 2021-12-01 16:29:26
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -71,7 +71,7 @@
                                 <div class="account-information-left flexRowCenter">
                                     <div
                                         v-for="(item, index) in discountInfo"
-                                        :key="item.count"
+                                        :key="item.text"
                                         class="discount-item flexColumnCenter"
                                         :style="{
                                             'border-right': `${
@@ -278,10 +278,10 @@ export default defineComponent({
         watchSyncEffect(() => {
             userDiscountInfo()
                 .then((res) => {
-                    rechargeInfo[0].count = res.totalTimes || 0
-                    rechargeInfo[1].count = res.totalConsume || 0
-                    rechargeInfo[2].count = res.effectiveUseNum || 0
-                    rechargeInfo[2].count = res.times || 0
+                    discountInfo[0].count = res.totalTimes || 0
+                    discountInfo[1].count = res.totalConsume || 0
+                    discountInfo[2].count = res.effectiveUseNum || 0
+                    discountInfo[3].count = res.times || 0
                 })
                 .catch((err: RejectType) => {
                     ElMessage({
@@ -315,9 +315,9 @@ export default defineComponent({
         watchSyncEffect(() => {
             userRechargeInfo()
                 .then((res) => {
-                    rechargeInfo[0].count = res.balance || 0
-                    rechargeInfo[1].count = res.totalAmount || 0
-                    rechargeInfo[2].count = res.totalConsume || 0
+                    rechargeInfo[0].count = res.totalAmount || 0
+                    rechargeInfo[1].count = res.totalConsume || 0
+                    rechargeInfo[2].count = res.balance || 0
                 })
                 .catch((err: RejectType) => {
                     ElMessage({

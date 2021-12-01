@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 17:12:35
+ * @LastEditTime: 2021-12-01 16:13:38
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -552,7 +552,7 @@ import {
     certificationLast,
 } from '@/common/request/modules/user/user'
 import { certificationLog } from './certification'
-import { email_check } from 'utils/check/index'
+import { email_check, identity_card_check } from 'utils/check/index'
 import { ElUpload } from 'element-plus'
 
 export default defineComponent({
@@ -815,17 +815,19 @@ export default defineComponent({
                 })
                 return
             }
+            const idCardError = identity_card_check(idNumber)
+            if (idCardError) {
+                ElMessage.error(idCardError)
+                return
+            }
             // 邮箱账号校验
             let email = personageEmail.value
             let emailErr = email_check(email)
             if (emailErr) {
-                ElMessage({
-                    message: emailErr,
-                    type: 'warning',
-                })
+                ElMessage.error(emailErr)
                 return
             }
-            // 身份证号校验
+            // 场景校验
             let note = personageNote.value
             if (note.trim() === '') {
                 ElMessage({
