@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 13:38:22
- * @LastEditTime: 2021-11-23 16:15:29
+ * @LastEditTime: 2021-12-01 18:06:29
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/foldInfo/FoldInfo.vue
@@ -10,10 +10,8 @@
     <div class="fold-info borderBox flexColumnCenter">
         <div class="fold-info-header borderBox cursorP flexRowCenter" @click="foldAction">
             <div class="header-title defaultFont">{{ title }}</div>
-            <img
-                class="header-img"
-                :src="!hidden ? 'static/user/login_on.svg' : 'static/user/login_off.svg'"
-            />
+            <img v-if="hidden" class="header-img" src="static/user/login_off.svg" />
+            <img v-else class="header-img" src="static/user/login_on.svg" />
         </div>
         <div v-show="!hidden" class="fold-content">
             <slot></slot>
