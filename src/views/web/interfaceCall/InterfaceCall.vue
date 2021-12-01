@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-11-30 16:31:43
+ * @LastEditTime: 2021-12-01 19:08:46
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
 -->
 <template>
     <div class="interface-call borderBox flexColumnCenter">
-        <div class="call-top borderBox flexRowCenter">
+        <!-- <div class="call-top borderBox flexRowCenter">
             <div class="call-top-type defaultFont">订单类型:</div>
             <el-select class="token-type-select" v-model="selectTokenType" placeholder="请选择">
                 <el-option
@@ -21,7 +21,7 @@
             </el-select>
             <div class="call-top-token-title defaultFont">API KEY:</div>
             <div v-if="appSecret" class="call-top-token defaultFont">{{ appSecret }}</div>
-        </div>
+        </div> -->
         <div class="call-bottom borderBox flexRowCenter">
             <div class="call-bottom-left borderBox">
                 <InfoList
@@ -38,6 +38,28 @@
                     <div class="bottom-right-header-title defaultFont">接口测试</div>
                     <div class="bottom-right-content borderBox flexRowCenter">
                         <div class="bottom-right-parameters borderBox flexColumnCenter">
+                            <div class="parameters-item flexRowCenter">
+                                <div class="parameters-item-title defaultFont">订单类型:</div>
+                                <el-radio
+                                    v-if="getApiInfo"
+                                    class="type-radio"
+                                    v-model="selectTokenType"
+                                    label="1"
+                                    >充值调用</el-radio
+                                >
+                                <el-radio
+                                    v-if="getApiInfo"
+                                    class="type-radio"
+                                    v-model="selectTokenType"
+                                    label="2"
+                                    >优惠调用</el-radio
+                                >
+                                <el-skeleton v-if="!getApiInfo" style="padding-right: 12px">
+                                    <template #template>
+                                        <el-skeleton-item variant="p" />
+                                    </template>
+                                </el-skeleton>
+                            </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">接口名称:</div>
                                 <div v-if="getApiInfo" class="parameters-item-text defaultFont">
@@ -342,17 +364,7 @@ export default defineComponent({
         })
 
         // token选择
-        const selectOptions = reactive([
-            {
-                value: 0,
-                label: '充值调用',
-            },
-            {
-                value: 1,
-                label: '优惠调用',
-            },
-        ])
-        const selectTokenType = ref(0)
+        const selectTokenType = ref('1')
         const loginDialogVisible = ref(false)
         const loginAction = () => {
             loginDialogVisible.value = false
@@ -484,7 +496,7 @@ export default defineComponent({
                     requestParams: getRequestParams(),
                     requestType: info.requestMethod,
                     requestUrl: info.apiAddress,
-                    billingMethod: selectTokenType.value === 0 ? '1' : '2',
+                    billingMethod: selectTokenType.value,
                 })
                     .then((res: any) => {
                         resultJson.result = {
@@ -522,13 +534,13 @@ export default defineComponent({
                 authenticationDialogVisible.value = true
                 return
             }
-            checkAvailable(selectTokenType.value + 1)
+            checkAvailable(selectTokenType.value)
                 .then((can: boolean) => {
                     if (!can) {
-                        if (selectTokenType.value === 0) {
+                        if (selectTokenType.value === '1') {
                             nsfDialogVisible.value = true
                         }
-                        if (selectTokenType.value === 1) {
+                        if (selectTokenType.value === '2') {
                             buyDialogVisible.value = true
                         }
                         return
@@ -550,7 +562,6 @@ export default defineComponent({
             selectApiAction,
             requestJson,
             resultJson,
-            selectOptions,
             selectTokenType,
             applyTrialOkAction,
             applyTrialCancelAction,
@@ -664,6 +675,22 @@ export default defineComponent({
                                 text-align: right;
                                 margin-right: 12px;
                                 flex-shrink: 0;
+                            }
+                            .type-radio {
+                                height: 24px;
+                                :deep(.el-radio__label) {
+                                    font-size: 16px;
+                                    line-height: 24px;
+                                    font-family: 'PingFang SC', 'Helvetica Neue', Helvetica,
+                                        'Nimbus Sans L', Arial, 'Liberation Sans',
+                                        'Hiragino Sans GB', 'Source Han Sans CN Normal',
+                                        'Microsoft YaHei', 'Wenquanyi Micro Hei',
+                                        'WenQuanYi Zen Hei', 'ST Heiti', SimHei,
+                                        'WenQuanYi Zen Hei Sharp', sans-serif;
+                                    font-weight: 400;
+                                    letter-spacing: 1px;
+                                    text-align: center;
+                                }
                             }
                             .parameters-item-text {
                                 font-size: 16px;

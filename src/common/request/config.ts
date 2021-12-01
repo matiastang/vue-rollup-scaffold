@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:41:42
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 09:46:47
+ * @LastEditTime: 2021-12-01 18:51:54
  * @FilePath: /datumwealth-openalpha-front/src/common/request/config.ts
  * @Description: 配置
  */

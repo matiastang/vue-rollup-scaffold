@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 16:43:28
+ * @LastEditTime: 2021-12-01 18:44:02
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -10,7 +10,7 @@
     <div class="header borderBox flexRowCenter">
         <div class="header-left flexRowCenter">
             <router-link to="/">
-                <img class="header-left-logo" src="static/header/logo.png" />
+                <img class="header-left-logo" src="static/header/datum-wealth-logo.svg" />
             </router-link>
             <Search class="header-left-input" />
         </div>
@@ -283,7 +283,7 @@ export default defineComponent({
         justify-content: flex-start;
         flex: 1 1 auto;
         .header-left-logo {
-            width: 173px;
+            width: 174px;
             height: 60px;
             flex-shrink: 0;
         }

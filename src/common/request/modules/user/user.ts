@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 17:50:54
+ * @LastEditTime: 2021-12-01 18:51:49
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user/user.ts
  * @Description: 用户相关接口
  */
@@ -149,7 +149,7 @@ const resetToken = () => {
  * @param userId
  * @returns
  */
-const checkAvailable = (type: number) => {
+const checkAvailable = (type: string) => {
     return http.get<boolean>(`${memberPrefix}/check/account/balance/available?type=${type}`)
 }
 
