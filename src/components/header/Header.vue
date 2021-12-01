@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 18:44:02
+ * @LastEditTime: 2021-12-01 19:46:52
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -277,8 +277,9 @@ export default defineComponent({
     height: 96px;
     padding: 0px 80px;
     background: $themeBgColor;
-    box-shadow: 0px 4px 4px -4px rgba(218, 218, 218, 0.5);
+    box-shadow: 0px 4px 4px -4px #dadada; //rgba(218, 218, 218, 0.5);
     justify-content: space-between;
+    z-index: 50;
     .header-left {
         justify-content: flex-start;
         flex: 1 1 auto;

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 15:18:14
+ * @LastEditTime: 2021-12-01 20:12:59
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/hotCell/HotCell.vue
  * @Description: 接口列表热榜cell
 -->
@@ -16,7 +16,7 @@
         </div>
         <div
             class="cell-bottom borderBox flexColumnCenter"
-            :style="{ 'border-left': `${showLine ? 0 : 1}px solid #dfdfdf` }"
+            :style="{ 'border-left': `${!showLine ? 0 : 1}px solid #dfdfdf` }"
         >
             <div class="cell-text textLine2 defaultFont">{{ text || '-' }}</div>
             <div class="cell-button cursorP defaultFont" @click="clickAction">查看接口</div>

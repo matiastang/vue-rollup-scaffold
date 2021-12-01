@@ -2,34 +2,35 @@
  * @Author: matiastang
  * @Date: 2021-11-23 10:25:09
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-29 11:01:23
+ * @LastEditTime: 2021-12-01 20:14:08
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/hotSwiper/HotSwiper.vue
  * @Description: 接口热榜列表
 -->
 <template>
     <swiper
         class="swiper"
-        loop="true"
+        :loop="true"
         :modules="modules"
         :slides-per-view="4"
         :pagination="pagination"
         :autoplay="autoplay"
         @slideChange="onSlideChange"
     >
-        <swiper-slide v-for="item in data" :key="item.apiCode" class="swiper-slide">
+        <swiper-slide v-for="(item, index) in data" :key="item.apiCode" class="swiper-slide">
             <HotCell
                 class="hot-cell"
                 :url="item.listRecoIcon"
                 :title="item.apiName"
                 :text="item.listRecoDesc"
                 :id="item.apiInfoId"
+                :showLine="activeIndex !== index"
             />
         </swiper-slide>
     </swiper>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, PropType, reactive, ref } from 'vue'
 // import Swiper core and required modules
 import { Pagination, Autoplay } from 'swiper'
 // Import Swiper Vue.js components
@@ -53,8 +54,9 @@ export default defineComponent({
         },
     },
     setup() {
-        const onSlideChange = () => {
-            // TODO: - 切换处理
+        const activeIndex = ref(0)
+        const onSlideChange = (value: any) => {
+            activeIndex.value = value.activeIndex - 4
         }
         const autoplay = reactive({
             disableOnInteraction: false,
@@ -65,6 +67,7 @@ export default defineComponent({
         })
         return {
             onSlideChange,
+            activeIndex,
             autoplay,
             pagination,
             modules: [Pagination, Autoplay],
@@ -83,6 +86,10 @@ export default defineComponent({
     border-radius: 10px;
     overflow: hidden;
     background: $themeBgColor;
+    // :deep(.swiper-wrapper) {
+    //     margin-left: -2px;
+    //     box-sizing: border-box;
+    // }
     .swiper-slide {
         width: 25% !important;
         height: 100%;
