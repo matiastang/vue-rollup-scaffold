@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-11-15 10:11:30
+ * @LastEditTime: 2021-12-01 10:04:05
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/user/login/Login.vue
@@ -37,7 +37,7 @@ export default defineComponent({
 .login {
     width: 100%;
     height: calc(100vh - 96px);
-    background-image: url('static/login/login-bg.png');
+    background-image: url('static/login/login-bg.jpg');
     background-size: cover;
     .login-content {
         width: 100%;
