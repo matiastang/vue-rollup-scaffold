@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-11-29 18:56:34
+ * @LastEditTime: 2021-12-01 15:31:59
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/vite.config.ts
@@ -23,7 +23,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 const proxyPath = '/dev-api'
-const target = 'https://test.mini.datumwealth.cn/open'
+const target = 'https://test.openalpha.cn/open' //'https://test.mini.datumwealth.cn/open'
 
 export default defineConfig({
     // 共享配置

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 17:30:36
+ * @LastEditTime: 2021-12-01 15:40:16
  * @FilePath: /datumwealth-openalpha-front/src/views/web/companyTransfer/CompanyTransfer.vue
  * @Description: 对公转账成功
 -->
@@ -101,11 +101,11 @@ export default defineComponent({
             },
             {
                 title: '开户银行:',
-                value: '中国工商银行股份有限公司北京成府路支行',
+                value: '招商银行股份有限公司北京自贸试验区商务中心区支行',
             },
             {
                 title: '银行账号:',
-                value: '0200 0957 0920 0214 091',
+                value: '1109 4435 7310 101',
             },
             {
                 title: '汇款用途:',

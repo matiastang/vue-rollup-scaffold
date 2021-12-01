@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-11-30 17:41:52
+ * @LastEditTime: 2021-12-01 15:58:15
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
@@ -16,7 +16,7 @@
                         v-for="item in dataSource"
                         :key="item.title"
                         :class="['footer-text', { 'footer-text-url': item.url !== undefined }]"
-                        @click="footerAction(item)"
+                        @click="openAction(item)"
                     >
                         {{ item.title }}
                     </div>
@@ -43,14 +43,9 @@
                         {{ item.title }}
                     </div>
                 </div>
-                <div class="footer-contact">
+                <div class="footer-contact footer-last-content">
                     <div class="footer-title">联系方式</div>
-                    <div
-                        v-for="item in contact"
-                        :key="item.title"
-                        :class="['footer-text', { 'footer-text-url': item.url !== undefined }]"
-                        @click="footerAction(item)"
-                    >
+                    <div v-for="item in contact" :key="item.title" class="footer-text">
                         {{ item.title }}
                     </div>
                 </div>
@@ -59,7 +54,7 @@
                 <div class="footer-bottom-title">
                     Copyright © 成都西筹金融科技有限公司 All Rights Reserved.
                 </div>
-                <div class="footer-bottom-text">备案号：蜀ICP备2021002963号-1</div>
+                <div class="footer-bottom-text">备案号：蜀ICP备2021002963号-3</div>
             </div>
         </div>
     </div>
@@ -87,15 +82,15 @@ export default defineComponent({
         const dataSource = [
             {
                 title: '西筹金融科技',
-                url: '/',
+                url: 'http://www.datumwealth.com/',
             },
             {
                 title: '况客科技',
-                url: '/',
+                url: 'https://www.qutke.com/',
             },
             {
                 title: '汇迪投资',
-                url: '/',
+                url: 'http://www.hdinvesting.cn/',
             },
         ]
         const helpCenter = [
@@ -148,10 +143,7 @@ export default defineComponent({
         ]
         const contact = [
             {
-                title: '联系电话：400-200-0000',
-            },
-            {
-                title: '售前咨询：400-200-0000转1',
+                title: '联系电话：010-85794515',
             },
             {
                 title: '服务时间：周一至周五 9:00-18:00',
@@ -169,6 +161,9 @@ export default defineComponent({
                 title: '成都：成都市高新区天府大道北段1677号交子金融科技中心B座306 ',
             },
         ]
+        const openAction = (data: FooterData) => {
+            window.open(data.url)
+        }
         /**
          * 点击跳转
          */
@@ -185,6 +180,7 @@ export default defineComponent({
             aboutUs,
             contact,
             footerAction,
+            openAction,
         }
     },
 })
@@ -219,7 +215,7 @@ export default defineComponent({
             .footer-help-center,
             .footer-about-us,
             .footer-contact {
-                width: 25%;
+                min-width: 150px;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -248,6 +244,12 @@ export default defineComponent({
                 }
                 .footer-text-url {
                     cursor: pointer;
+                }
+            }
+            .footer-last-content {
+                min-width: 400px;
+                .footer-text:hover {
+                    font-size: 12px;
                 }
             }
         }
