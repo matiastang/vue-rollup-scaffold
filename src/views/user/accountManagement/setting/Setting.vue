@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 16:06:12
+ * @LastEditTime: 2021-12-01 18:03:56
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -122,6 +122,22 @@
                 </div>
                 <div class="setting-info-right cursorP defaultFont" @click="resetAction">重置</div>
             </div>
+            <div class="setting-info-content setting-info-type-content flexRowCenter">
+                <div class="setting-info-type-title defaultFont">优先扣款类型</div>
+                <el-select
+                    class="setting-info-type-select"
+                    v-model="selectType"
+                    placeholder="请选择扣款类型"
+                >
+                    <el-option
+                        v-for="item in selectOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    >
+                    </el-option>
+                </el-select>
+            </div>
             <div class="setting-info-content flexRowCenter">
                 <div class="setting-info-left flexColumnCenter">
                     <div class="setting-info-title defaultFont">登录密码</div>
@@ -187,7 +203,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, reactive, watchEffect, watchSyncEffect } from 'vue'
 import ChangePasswordModel from '@/components/changePasswordModel/ChangePasswordModel.vue'
 import ChangePhoneModel from '@/components/changePhoneModel/ChangePhoneModel.vue'
 import ChangeMailModel from '@/components/changeMailModel/ChangeMailModel.vue'
@@ -199,6 +215,7 @@ import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import useClipboard from 'vue-clipboard3'
 import { resetToken } from '@/common/request/modules/user/user'
+import { chargingSequence } from '@/common/request'
 
 export default defineComponent({
     name: 'Setting',
@@ -292,11 +309,53 @@ export default defineComponent({
                 })
             }
         }
+        // 扣款顺序设置
+        // setDeductionSequence
+        const selectOptions = reactive([
+            {
+                value: 'BALANCE',
+                label: '账号余额',
+            },
+            {
+                value: 'COMBO',
+                label: '优惠套餐',
+            },
+        ])
+        const deductionSequence = userInfo.value.deductionSequence
+        const type =
+            deductionSequence && deductionSequence.startsWith('BALANCE') ? 'BALANCE' : 'COMBO'
+        const selectType = ref(type)
+        watchSyncEffect(async () => {
+            if (
+                userInfo.value.deductionSequence &&
+                userInfo.value.deductionSequence.startsWith(selectType.value)
+            ) {
+                return
+            }
+            try {
+                const res = await chargingSequence(
+                    selectType.value === 'BALANCE' ? ['BALANCE', 'COMBO'] : ['COMBO', 'BALANCE']
+                )
+                if (res) {
+                    store.commit(
+                        'setDeductionSequence',
+                        selectType.value === 'BALANCE' ? 'BALANCE,COMBO' : 'COMBO,BALANCE'
+                    )
+                    ElMessage.success('设置成功')
+                    return
+                }
+                ElMessage.error('设置失败')
+            } catch (error: any) {
+                ElMessage.error(error.msg || '设置失败')
+            }
+        })
         // 充值token
         const resetAction = () => {
             explainDialogVisible.value = true
         }
         return {
+            selectOptions,
+            selectType,
             appSecret,
             userInfo,
             desensitizationPhone,
@@ -363,7 +422,7 @@ export default defineComponent({
             justify-content: space-between;
             .setting-info-left {
                 align-items: flex-start;
-                .etting-info-title {
+                .setting-info-title {
                     font-size: 16px;
                     color: $titleColor;
                     line-height: 24px;
@@ -494,6 +553,17 @@ export default defineComponent({
                     }
                 }
             }
+            .setting-info-type-title {
+                font-size: 16px;
+                color: $titleColor;
+                line-height: 24px;
+            }
+            .setting-info-type-select {
+                margin-left: 12px;
+            }
+        }
+        .setting-info-type-content {
+            justify-content: flex-start;
         }
     }
 }

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:13:57
+ * @LastEditTime: 2021-12-01 17:05:13
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -38,6 +38,8 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                 company: null,
                 // 创建时间
                 createTime: null,
+                // 扣款顺序
+                deductionSequence: null,
                 // 所在部门
                 dept: null,
                 // 邮箱
@@ -83,6 +85,14 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
     getters: {},
     mutations: {
         /**
+         * 设置扣款顺序
+         * @param state
+         * @param value
+         */
+        setDeductionSequence(state, value: string) {
+            state.userLoginInfo.member.deductionSequence = value
+        },
+        /**
          * 设置是否试用
          * @param state
          * @param statue
@@ -98,8 +108,17 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
         setAuthInfo(state, info: MbMemberAuthLogs) {
             state.userLoginInfo.member.certStatus = info.certStatus
             if (state.userLoginInfo.member.mbMemberAuthLogs) {
-                state.userLoginInfo.member.mbMemberAuthLogs.certStatus = info.certStatus
+                state.userLoginInfo.member.mbMemberAuthLogs.applyDate = info.applyDate
+                state.userLoginInfo.member.mbMemberAuthLogs.certDate = info.certDate
+                state.userLoginInfo.member.mbMemberAuthLogs.certMaterials = info.certMaterials
                 state.userLoginInfo.member.mbMemberAuthLogs.certResult = info.certResult
+                state.userLoginInfo.member.mbMemberAuthLogs.certStatus = info.certStatus
+                state.userLoginInfo.member.mbMemberAuthLogs.expireDate = info.expireDate
+                state.userLoginInfo.member.mbMemberAuthLogs.id = info.id
+                state.userLoginInfo.member.mbMemberAuthLogs.useScenario = info.useScenario
+                state.userLoginInfo.member.mbMemberAuthLogs.userId = info.userId
+            } else {
+                state.userLoginInfo.member.mbMemberAuthLogs = info
             }
         },
         /**
@@ -190,6 +209,7 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                     code: null,
                     company: null,
                     createTime: null,
+                    deductionSequence: null,
                     dept: null,
                     email: null,
                     expireDate: null,

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 15:12:15
+ * @LastEditTime: 2021-12-01 17:50:54
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user/user.ts
  * @Description: 用户相关接口
  */
@@ -164,6 +164,14 @@ const feedback = (phone: string, content: string) => {
         opinion: content,
     })
 }
+/**
+ * 设置扣款顺序：BALANCE-余额,COMBO-套餐
+ * @param sequence
+ * @returns
+ */
+const chargingSequence = (sequence: string[]) => {
+    return http.post<boolean>(`${memberPrefix}/charging/sequence/set`, sequence)
+}
 
 export {
     login,
@@ -181,4 +189,5 @@ export {
     resetToken,
     checkAvailable,
     feedback,
+    chargingSequence,
 }

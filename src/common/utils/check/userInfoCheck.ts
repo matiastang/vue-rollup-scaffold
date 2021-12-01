@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 09:49:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 16:20:58
+ * @LastEditTime: 2021-12-01 16:41:29
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/check/userInfoCheck.ts
  * @Description: 用户信息校验
  */
@@ -92,11 +92,8 @@ function identity_card_check(identityCard: string): string | null {
     // 十五位： ^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$
     const regOne =
         /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
-    if (!regOne.test(identityCard)) {
-        return '身份证号格式错误'
-    }
     const regTwo = /^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$$/
-    if (!regTwo.test(identityCard)) {
+    if (!regOne.test(identityCard) && !regTwo.test(identityCard)) {
         return '身份证号格式错误'
     }
     return null

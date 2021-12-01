@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:42:33
- * @LastEditTime: 2021-11-24 19:05:29
+ * @LastEditTime: 2021-12-01 17:03:15
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/user.d.ts
@@ -32,6 +32,7 @@ export interface UserInfo {
     code: string | null
     company: string | null
     createTime: string | null
+    deductionSequence: string | null
     dept: string | null
     email: string | null
     expireDate: string | null
