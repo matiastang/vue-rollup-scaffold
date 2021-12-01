@@ -27,7 +27,7 @@
             }}</el-descriptions-item>
             <el-descriptions-item label="发票抬头">{{ detail.invPayee }}</el-descriptions-item>
             <el-descriptions-item label="发票税号">{{
-                detail.inv_payee_number
+                detail.invPayeeNumber
             }}</el-descriptions-item>
             <el-descriptions-item v-if="detail.invType === 2" label="银行账号">{{
                 detail.blankNo

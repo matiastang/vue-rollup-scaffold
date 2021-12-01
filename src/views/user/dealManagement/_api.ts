@@ -8,13 +8,37 @@ interface OrderListResponse {
     total: number
 }
 
+// 删除订单
+export function getDownloadOrder(orderSn: string, id: number) {
+    return http.download(
+        `${orderSn}.pdf`,
+        {
+            url: `${tradePrefix}/od/download`,
+            method: 'GET',
+            params: { orderId: id },
+        },
+        true
+    )
+    // return request({
+    //     url: '/api/trade/od/delete',
+    //     method: RequestMethod.get,
+    //     params: query,
+    // })
+}
+
 // 查询订单列表
 export function getOrderList(data: Order.QueryList) {
-    return http.post<OrderListResponse>(`${tradePrefix}/od/list`, {
-        ...data,
-        orderByColumn: 'addTime',
-        isAsc: 'desc',
-    })
+    return http.post<OrderListResponse>(
+        `${tradePrefix}/od/list`,
+        {},
+        {
+            params: {
+                ...data,
+                orderByColumn: 'addTime',
+                isAsc: 'desc',
+            },
+        }
+    )
     // return request({
     //     url: '/api/trade/od/list',
     //     method: RequestMethod.post,
@@ -28,7 +52,7 @@ export function getOrderList(data: Order.QueryList) {
 }
 
 // 删除订单
-export function getDeleteOrder(query: Order.QueryList) {
+export function getDeleteOrder(query: Order.DeletQuery) {
     return http.get<string>(`${tradePrefix}/od/delete`, query)
     // return request({
     //     url: '/api/trade/od/delete',
@@ -104,11 +128,17 @@ export function deleteInv(invId: number) {
 
 // 查询发票列表
 export function postInvList(data: Invoic.Query) {
-    return http.post<any>(`${tradePrefix}/inv/list`, {
-        ...data,
-        orderByColumn: 'applyTime',
-        isAsc: 'desc',
-    })
+    return http.post<any>(
+        `${tradePrefix}/inv/list`,
+        {},
+        {
+            params: {
+                ...data,
+                orderByColumn: 'applyTime',
+                isAsc: 'desc',
+            },
+        }
+    )
     // return request({
     //     url: `/api/trade/inv/list`,
     //     method: RequestMethod.post,

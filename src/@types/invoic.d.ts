@@ -1,6 +1,33 @@
 import { Maybe, Exact, InvTypeEnum, InvStatusEnum } from '@/@types'
 
 export declare namespace Invoic {
+    export type address = Maybe<{
+        addressId?: Maybe<number>
+        addressName?: Maybe<string>
+        userId?: Maybe<number>
+        consignee?: Maybe<string>
+        contact?: Maybe<string>
+        country?: Maybe<string>
+        province?: Maybe<string>
+        city?: Maybe<string>
+        district?: Maybe<string>
+        address?: Maybe<string>
+        zipcode?: Maybe<string>
+    }>
+    export type member = Maybe<{
+        addressId?: Maybe<number>
+        addressName?: Maybe<string>
+        userId?: Maybe<number>
+        consignee?: Maybe<string>
+        contact?: Maybe<string>
+        country?: Maybe<string>
+        province?: Maybe<string>
+        city?: Maybe<string>
+        district?: Maybe<string>
+        address?: Maybe<string>
+        zipcode?: Maybe<string>
+    }>
+
     export type AsObject = {
         invId?: Maybe<number>
         userId?: Maybe<number>
@@ -11,11 +38,11 @@ export declare namespace Invoic {
         invNo?: Maybe<string>
         invPayee?: Maybe<string>
         invContent?: Maybe<string>
-        invPayeeNumber?: Maybe<number>
+        invPayeeNumber?: Maybe<string>
         companyAddress?: Maybe<string>
         tel?: Maybe<number>
-        blank?: Maybe<string>
-        blankNo?: Maybe<string>
+        bank?: Maybe<string>
+        bankNo?: Maybe<string>
         tax?: Maybe<string>
         addressId?: Maybe<string>
         invoiceInfo?: Maybe<string>
@@ -23,6 +50,8 @@ export declare namespace Invoic {
         status?: Maybe<InvStatusEnum>
         applyTime?: Maybe<string>
         addTime?: Maybe<string>
+        address?: Maybe<address>
+        member?: Maybe<member>
     }
     // 新增发票信息
     export type AddQuery = {
@@ -76,5 +105,10 @@ export declare namespace Invoic {
         orderSn?: Maybe<string>
         tel?: Maybe<string>
         zipcode?: Maybe<string>
+    }
+    export type InvoicState = {
+        list: Array<AsObject>
+        last: AsObject
+        namespace?: boolean
     }
 }

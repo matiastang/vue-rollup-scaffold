@@ -57,7 +57,7 @@
             stripe
             class="table"
         >
-            <el-table-column label="发票编号" :min-width="120" align="center" prop="invNo" />
+            <el-table-column label="订单编号" :min-width="120" align="center" prop="target" />
             <el-table-column label="发票抬头" align="center" prop="invPayee" />
             <el-table-column
                 label="发票类型"
@@ -116,9 +116,7 @@
             :total="total"
             :page="queryParams.pageNum"
             :limit="queryParams.pageSize"
-            @update:page="asyncPageNumber"
-            @update:limit="asyncPageSize"
-            @pagination="doQuery"
+            @pagination="handlePagination"
         />
     </div>
     <DialogTips :open="open" @on-close="open = false" />
@@ -131,19 +129,26 @@
     />
 </template>
 
-<script setup>
-import { ref, onMounted, reactive } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted, reactive, computed } from 'vue'
+import { useStore } from 'vuex'
+import { key } from '@/store'
 import { postInvList, deleteInv } from '@/api'
-import { ElMessageBox } from 'element-plus'
+import { ElMessageBox, ElMessage } from 'element-plus'
 import { invTypeToText, invStatesToText } from '@/common/utils'
 import DialogTips from '@/views/user/dealManagement/invoice/DialogTips.vue'
 import InvoiceActionDialog from '@/views/user/dealManagement/invoice/DialogAction.vue'
+import { ActionTypes } from '../_store'
+import { Invoic, Order } from '@/@types'
 
+const store = useStore(key)
 const loading = ref(true)
 const list = reactive({ value: [] })
 const date = reactive([])
 const open = ref(false)
 const total = ref(false)
+
+// const list = computed(() => store.state.invModule.list)
 
 const queryParams = reactive({
     orderSn: '',
@@ -163,7 +168,6 @@ onMounted(() => {
 
 const handleNextInv = () => {
     handleCloseInv()
-    doFetchInvLastInfo()
 }
 const handleCloseInv = () => {
     Object.assign(updateInv, {
@@ -171,17 +175,17 @@ const handleCloseInv = () => {
         invId: '',
     })
 }
-const handleUpdateInv = (row) => {
+const handleUpdateInv = (row: Invoic.AsObject) => {
     Object.assign(updateInv, row)
     updateInv.open = true
 }
-const handleDeleteInv = (row) => {
+const handleDeleteInv = (row: Invoic.AsObject) => {
     ElMessageBox.confirm(`确定删除${row.invNo ?? row.target}?`, '警告', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning',
     })
-        .then(() => deleteInv(row.invId))
+        .then(() => deleteInv(row.invId || 0))
         .then((response) => {
             ElMessage({
                 message: '操作成功',
@@ -191,8 +195,21 @@ const handleDeleteInv = (row) => {
         })
         .catch(() => {})
 }
+
+const handlePagination = (params: Order.Pagination) => {
+    if (params.page) {
+        queryParams.pageNum = params.page
+    }
+    if (params.limit) {
+        queryParams.pageSize = params.limit
+    }
+    doQuery()
+}
+
 const doQuery = () => {
-    postInvList(queryParams)
+    store
+        .dispatch(`invModule/${ActionTypes.fetchPostInvList}`, queryParams)
+        // postInvList(queryParams)
         .then((data) => {
             Object.assign(list, { value: data.rows })
             total.value = data.total

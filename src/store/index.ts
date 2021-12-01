@@ -12,18 +12,17 @@ import createPersistedState from 'vuex-persistedstate'
 import { RootStateTypes, AllStateTypes } from './indexInterface'
 // 用户信息
 import userModule from './modules/userModule/userModule'
+import invModule from '@/views/user/dealManagement/_store'
 
 // key
 export const key: InjectionKey<Store<RootStateTypes>> = Symbol()
 
 export const store = createStore<RootStateTypes>({
-    state: {
-        name: 'store root state',
-    },
     mutations: {},
     actions: {},
     modules: {
         userModule,
+        invModule,
     },
     plugins: [createPersistedState()],
 })

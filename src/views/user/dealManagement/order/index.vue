@@ -128,7 +128,12 @@
                 <el-table-column prop="address" label="操作" width="200px">
                     <template #default="scope">
                         <template v-if="isPayStatusInUpload(scope.row)">
-                            <!-- <el-button type="text">下载采购单 </el-button> -->
+                            <el-button
+                                type="text"
+                                style="margin-right: 10px"
+                                @click="handleDownload(scope.row)"
+                                >下载采购单
+                            </el-button>
                             <el-button
                                 class="paystatus-primary"
                                 style="margin-right: 10px"
@@ -175,6 +180,15 @@
                                 >重新上传
                             </el-button>
                         </template>
+                        <el-button
+                            class="paystatus-red"
+                            style="margin-right: 10px"
+                            type="text"
+                            v-if="scope.row.orderStatus === 2"
+                            @click="handleDeleteInvoice(scope.row)"
+                        >
+                            删除
+                        </el-button>
                         <router-link
                             class="paystatus-primary"
                             :to="`/user/deal/order/${scope.row.orderId}`"
@@ -226,7 +240,7 @@ import { Search } from '@element-plus/icons'
 import { Order } from '@/@types'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { addDateRange, orderTypeToText, payStatusToText } from '@/common/utils'
-import { getOrderList, getOrderCancel } from '@/api'
+import { getOrderList, getOrderCancel, getDeleteOrder, getDownloadOrder } from '@/api'
 import WeixinModel from '@/components/weixinModel/WeixinModel.vue'
 import DialogAddInvoice from '@/views/user/dealManagement/invoice/DialogAddInv.vue'
 import DialogWithPayVou from '@/views/user/dealManagement/order/DialogWithPayVou.vue'
@@ -243,7 +257,6 @@ const initQueryParams = {
     payId: '',
     pageNum: 1,
     pageSize: 10,
-    total: 0,
 }
 const queryParams = reactive(initQueryParams)
 const currentOrder = reactive({
@@ -259,6 +272,44 @@ const payVoucher = reactive({
 onMounted(() => {
     doQuery()
 })
+const handleDeleteInvoice = (row: Order.AsObject) => {
+    ElMessageBox.confirm(`确定删除订单${row.orderSn}?`, '警告', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+    })
+        .then(() => getDeleteOrder({ orderId: row.orderId }))
+        .then((response) => {
+            ElMessage({
+                message: '操作成功',
+                type: 'success',
+            })
+            doQuery()
+        })
+        .catch((err: RejectType) => {
+            ElMessage.error(err.msg)
+        })
+}
+const handleDownload = (row: Order.AsObject) => {
+    console.log(row)
+    debugger
+    if (row.orderId) {
+        getDownloadOrder(row.orderSn || '', row.orderId).then((response) => {
+            if (response) {
+                const blob = new Blob([response as BlobPart])
+                // 3.创建一个临时的url指向blob对象
+                const url = window.URL.createObjectURL(blob)
+                // 4.创建url之后可以模拟对此文件对象的一系列操作，例如：预览、下载
+                const a = document.createElement('a')
+                a.href = url
+                a.download = `${row.orderSn}.pdf`
+                a.click()
+                // 5.释放这个临时的对象url
+                window.URL.revokeObjectURL(url)
+            }
+        })
+    }
+}
 const handleShowUpload = (row: Order.AsObject) => {
     Object.assign(payVoucher, row)
     payVoucher.open = true
