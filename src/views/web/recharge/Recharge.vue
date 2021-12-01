@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 12:10:11
+ * @LastEditTime: 2021-12-01 15:25:23
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -19,6 +19,12 @@
                         :select="item.selected"
                         @selectAction="moneySelectAction(index)"
                     />
+                    <MoneyInput
+                        v-model="inputMoney"
+                        :isFocus="inputMoneyFocus"
+                        @focus="focusAction"
+                        @blur="blurAction"
+                    ></MoneyInput>
                 </div>
             </div>
             <div class="recharge-money-content flexRowCenter" style="margin: 24px 0px">
@@ -132,6 +138,7 @@ import { ElMessage } from 'element-plus'
 import { orderType, addOd, payList } from '@/common/request/modules/pay/pay'
 import { PaymentType, WeiXinOdResponse } from '@/common/request/modules/pay/payInterface'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
+import MoneyInput from './components/moneyInput/MoneyInput.vue'
 
 export default defineComponent({
     name: 'Recharge',
@@ -166,7 +173,13 @@ export default defineComponent({
                 selected: false,
             },
         ])
+        const inputMoney = ref(NaN)
+        const inputMoneyFocus = ref(false)
+        const lastSelectIndex = ref(0)
         const moneySelectAction = (index: number) => {
+            inputMoney.value = NaN
+            inputMoneyFocus.value = false
+            lastSelectIndex.value = index
             for (let i = 0; i < moneyArr.length; i++) {
                 if (i === index) {
                     moneyArr[i].selected = true
@@ -174,6 +187,28 @@ export default defineComponent({
                 } else {
                     moneyArr[i].selected = false
                 }
+            }
+        }
+        const focusAction = () => {
+            inputMoneyFocus.value = true
+            for (let i = 0; i < moneyArr.length; i++) {
+                moneyArr[i].selected = false
+            }
+        }
+        const blurAction = () => {
+            console.log(inputMoney.value)
+            inputMoneyFocus.value = !isNaN(inputMoney.value)
+            if (isNaN(inputMoney.value)) {
+                for (let i = 0; i < moneyArr.length; i++) {
+                    if (i === lastSelectIndex.value) {
+                        moneyArr[i].selected = true
+                        selectedMoney.value = moneyArr[i].value
+                    } else {
+                        moneyArr[i].selected = false
+                    }
+                }
+            } else {
+                selectedMoney.value = inputMoney.value
             }
         }
         const paymentSeleted = reactive({
@@ -313,6 +348,10 @@ export default defineComponent({
             weixinDialogVisible,
             transferDialogVisible,
             getAdvantageUrl,
+            inputMoney,
+            inputMoneyFocus,
+            focusAction,
+            blurAction,
         }
     },
     components: {
@@ -320,6 +359,7 @@ export default defineComponent({
         Payment,
         WeixinModel,
         TransferModel,
+        MoneyInput,
     },
 })
 </script>
