@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-11-30 19:09:49
+ * @LastEditTime: 2021-11-30 20:08:40
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -285,6 +285,25 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
     history: createWebHashHistory(),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+        // if (savedPosition && to.meta.keepAlive) {
+        //     return savedPosition
+        // }
+        // return { x: 0, y: 0 }
+        // 平滑滚动
+        if (to.hash) {
+            return {
+                selector: to.hash,
+                behavior: 'smooth',
+            }
+        }
+        // if (savedPosition) {
+        //     return savedPosition
+        // } else {
+        //     return { x: 0, y: 0 }
+        // }
+        return { x: 0, y: 0 }
+    },
 })
 
 /**
