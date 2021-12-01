@@ -2,14 +2,14 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 19:35:29
+ * @LastEditTime: 2021-12-01 19:22:35
  * @FilePath: /datumwealth-openalpha-front/src/components/swiperSlider/SwiperSlider.vue
  * @Description: 首页banner
 -->
 <template>
     <swiper
         class="swiper"
-        loop="true"
+        :loop="true"
         :modules="modules"
         :slides-per-view="1"
         :pagination="pagination"

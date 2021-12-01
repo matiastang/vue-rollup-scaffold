@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 17:38:30
+ * @LastEditTime: 2021-12-01 19:20:57
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -234,18 +234,18 @@ export default defineComponent({
             billType.value = type
         }
         // 日期选择
-        const dateSelected: Ref<string[]> = ref([])
+        const dateSelected: Ref<Date[]> = ref([])
         const startDate = computed(() => {
             if (dateSelected.value.length > 0) {
                 return dateSelected.value[0]
             }
-            return ''
+            return undefined
         })
         const endDate = computed(() => {
             if (dateSelected.value.length > 1) {
                 return dateSelected.value[1]
             }
-            return ''
+            return undefined
         })
         // 页码
         const totalPage = ref(1)
@@ -347,11 +347,11 @@ export default defineComponent({
                 pageNum: pageNum.value,
                 pageSize: pageSize.value,
             }
-            if (startDate.value !== '') {
-                parameter.startDate = startDate.value
+            if (startDate.value) {
+                parameter.startDate = startDate.value.toString()
             }
-            if (endDate.value !== '') {
-                parameter.endDate = endDate.value
+            if (endDate.value) {
+                parameter.endDate = endDate.value.toString()
             }
             parameterData.parameter = parameter
         })

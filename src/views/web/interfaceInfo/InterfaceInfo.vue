@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-11-30 14:19:44
+ * @LastEditTime: 2021-12-01 19:25:11
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -250,59 +250,59 @@ export default defineComponent({
         ])
         const errorTableData = reactive([
             {
-                key: '0',
+                key: '0000',
                 value: '查询成功',
             },
             {
-                key: '101',
+                key: '1001',
                 value: '查询无结果',
             },
             {
-                key: '102',
+                key: '1002',
                 value: '查询参数错误',
             },
             {
-                key: '103',
+                key: '1003',
                 value: '请求数据的条目数超过上限（5000）',
             },
             {
-                key: '104',
+                key: '1004',
                 value: '无权限访问此api',
             },
             {
-                key: '105',
+                key: '1005',
                 value: 'TOKEN无效',
             },
             {
-                key: '106',
+                key: '1006',
                 value: '账号异常',
             },
             {
-                key: '107',
+                key: '1007',
                 value: '访问频率过快',
             },
             {
-                key: '108',
+                key: '1008',
                 value: '余额不足',
             },
             {
-                key: '109',
+                key: '1009',
                 value: '剩余次数不足',
             },
             {
-                key: '110',
+                key: '1010',
                 value: '请求超过每日调用总量限制',
             },
             {
-                key: '111',
+                key: '1011',
                 value: '账号信息有误',
             },
             {
-                key: '112',
+                key: '1012',
                 value: 'URL不存在',
             },
             {
-                key: '113',
+                key: '1013',
                 value: '此IP已被禁用',
             },
         ])

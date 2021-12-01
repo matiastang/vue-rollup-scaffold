@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-01 19:08:46
+ * @LastEditTime: 2021-12-01 19:13:38
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -255,9 +255,9 @@
         />
         <ApplyTrialModel
             v-model="applyTrialDialogVisible"
-            :name="userName"
-            :phone="userPhone"
-            :email="userEmail"
+            :name="userName ? userName : undefined"
+            :phone="userPhone ? userPhone : undefined"
+            :email="userEmail ? userEmail : undefined"
             @okAction="applyTrialOkAction"
             @cancelAction="applyTrialCancelAction"
         />
