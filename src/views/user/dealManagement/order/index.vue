@@ -128,7 +128,12 @@
                 <el-table-column prop="address" label="操作" width="200px">
                     <template #default="scope">
                         <template v-if="isPayStatusInUpload(scope.row)">
-                            <el-button type="text" @click="handleDownload">下载采购单 </el-button>
+                            <el-button
+                                type="text"
+                                style="margin-right: 10px"
+                                @click="handleDownload(scope.row)"
+                                >下载采购单
+                            </el-button>
                             <el-button
                                 class="paystatus-primary"
                                 style="margin-right: 10px"
@@ -286,9 +291,22 @@ const handleDeleteInvoice = (row: Order.AsObject) => {
         })
 }
 const handleDownload = (row: Order.AsObject) => {
+    console.log(row)
+    debugger
     if (row.orderId) {
-        getDownloadOrder(row.orderId).then((response) => {
-            console.log(response)
+        getDownloadOrder(row.orderSn || '', row.orderId).then((response) => {
+            if (response) {
+                const blob = new Blob([response as BlobPart])
+                // 3.创建一个临时的url指向blob对象
+                const url = window.URL.createObjectURL(blob)
+                // 4.创建url之后可以模拟对此文件对象的一系列操作，例如：预览、下载
+                const a = document.createElement('a')
+                a.href = url
+                a.download = `${row.orderSn}.pdf`
+                a.click()
+                // 5.释放这个临时的对象url
+                window.URL.revokeObjectURL(url)
+            }
         })
     }
 }

@@ -9,8 +9,16 @@ interface OrderListResponse {
 }
 
 // 删除订单
-export function getDownloadOrder(id: number) {
-    return http.get<string>(`${tradePrefix}/od/download`, { orderId: id })
+export function getDownloadOrder(orderSn: string, id: number) {
+    return http.download(
+        `${orderSn}.pdf`,
+        {
+            url: `${tradePrefix}/od/download`,
+            method: 'GET',
+            params: { orderId: id },
+        },
+        true
+    )
     // return request({
     //     url: '/api/trade/od/delete',
     //     method: RequestMethod.get,
