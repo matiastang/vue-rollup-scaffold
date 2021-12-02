@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 15:43:39
- * @LastEditTime: 2021-11-18 15:49:02
+ * @LastEditTime: 2021-12-02 16:50:38
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/index.html
@@ -43,8 +43,70 @@
                 overflow: hidden;
             }
         </style>
+        <style type="text/css">
+            #Loading {
+                top:50% ;
+                left:50%;
+                position: absolute;
+                -webkit-transform: translateY(-50%) translateX(-50%);
+                transform: translateY(-50%) translateX(-50%);
+                z-index:100;
+            }
+            @-webkit-keyframes ball-beat {
+                50% {
+                    opacity: 0.2;
+                    -webkit-transform: scale(0.75);
+                    transform: scale(0.75);
+                }
+        
+                100% {
+                    opacity: 1;
+                    -webkit-transform: scale(1);
+                    transform: scale(1);
+                }
+            }
+      
+            @keyframes ball-beat {
+                50% {
+                    opacity: 0.2;
+                    -webkit-transform: scale(0.75);
+                    transform: scale(0.75);
+                }
+        
+                100% {
+                    opacity: 1;
+                    -webkit-transform: scale(1);
+                    transform: scale(1);
+                }
+            }
+      
+            .ball-beat > div {
+                background-color: #4999ff;
+                width: 10px;
+                height: 10px;
+                border-radius: 100% !important;
+                margin: 2px;
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+                display: inline-block;
+                -webkit-animation: ball-beat 0.7s 0s infinite linear;
+                animation: ball-beat 0.7s 0s infinite linear;
+            }
+            .ball-beat > div:nth-child(2n-1) {
+                -webkit-animation-delay: 0.35s !important;
+                animation-delay: 0.35s !important;
+            }
+        </style>
+
     </head>
     <body>
+        <div id="Loading">
+            <div class="loader-inner ball-beat">
+               <div></div>
+               <div></div>
+               <div></div>
+            </div>
+        </div>
         <div id="app"></div>
         <!-- iconfont symbol document: https://www.iconfont.cn/help/detail?spm=a313x.7781069.1998910419.d8cf4382a&helptype=code -->
         <script src="//datumwealth.oss-cn-chengdu.aliyuncs.com/dw/icon/font.js"></script>
