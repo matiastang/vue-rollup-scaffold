@@ -89,7 +89,14 @@
                 </el-form-item>
 
                 <el-form-item label="" label-width="0">
-                    <el-button size="mini" @click="doQuery" type="primary" plain>查询</el-button>
+                    <el-button
+                        size="mini"
+                        class="search-button"
+                        @click="doQuery"
+                        type="primary"
+                        plain
+                        >查询</el-button
+                    >
                     <el-button size="mini" @click="doReset" plain>重置</el-button>
                 </el-form-item>
             </el-col>
@@ -102,6 +109,7 @@
                             :disabled="currentOrder.orderSn"
                             type="primary"
                             @click="currentOrder.open = true"
+                            style="color: white; background: #d65928"
                             >开发票</el-button
                         >
                     </el-form-item>
@@ -367,5 +375,13 @@ const doQuery = async () => {
 .status-primary {
     color: #4e9aeb;
     font-weight: normal;
+}
+:deep(.search-button) {
+    color: $themeColor;
+    background: transparent;
+}
+:deep(.search-button:hover) {
+    color: $themeBgColor;
+    background: $themeColor;
 }
 </style>

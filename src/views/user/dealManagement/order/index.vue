@@ -38,7 +38,9 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="" label-width="0">
-                        <el-button @click="doQuery" type="primary" plain>查询</el-button>
+                        <el-button class="search-button" @click="doQuery" type="primary" plain
+                            >查询</el-button
+                        >
                         <el-button @click="doReset" plain>重置</el-button>
                     </el-form-item>
                 </el-col>
@@ -49,6 +51,7 @@
                                 :disabled="currentOrder.orderSn"
                                 @click="currentOrder.open = true"
                                 type="primary"
+                                style="color: white; background: #d65928"
                                 plain
                                 >开发票</el-button
                             >
@@ -488,6 +491,14 @@ const alipay = (payUrl: string) => {
     .paystatus-yellow {
         color: #ffa941;
         font-weight: normal;
+    }
+    :deep(.search-button) {
+        color: $themeColor;
+        background: transparent;
+    }
+    :deep(.search-button:hover) {
+        color: $themeBgColor;
+        background: $themeColor;
     }
 }
 </style>
