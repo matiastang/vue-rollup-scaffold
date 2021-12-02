@@ -150,7 +150,7 @@
                         v-if="scope.row.invId"
                         class="paystatus-primary"
                         style="margin-right: 10px"
-                        :to="`/user/deal/order/${scope.row.orderId}`"
+                        :to="`/user/deal/invoice/${scope.row.invId}`"
                     >
                         <el-button class="paystatus-primary" type="text"> 详情 </el-button>
                     </router-link>
