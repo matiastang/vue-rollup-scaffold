@@ -1,3 +1,11 @@
+<!--
+ * @Author: matiastang
+ * @Date: 2021-11-18 17:44:47
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-12-02 13:50:39
+ * @FilePath: /datumwealth-openalpha-front/src/views/user/dealManagement/invoice/DialogTips.vue
+ * @Description: 
+-->
 <template>
     <el-dialog
         v-model="open"
@@ -11,20 +19,32 @@
         </template>
         <ol>
             <li>充值金额大于500元即可开具发票。</li>
-            <li>个人用户若需要开具增值税专用发票需下开具增值税专用发票.doc 加盖公章，即可申请</li>
+            <li>
+                个人用户若需要开具增值税专用发票需下<span
+                    class="cursorP"
+                    style="color: #4e9aeb"
+                    @click="downloadAction"
+                    >开具增值税专用发票.doc</span
+                >加盖公章，即可申请
+            </li>
             <li>用户在提交开票申请之后，相关财务人员会在七个工作日内审核开具</li>
             <li>增值税专用发票请填写与上传附件内容一致的发票</li>
         </ol>
     </el-dialog>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps({
     open: Boolean,
 })
 const emit = defineEmits(['on-close'])
 
 const handleClose = () => emit('on-close')
+const downloadAction = () => {
+    window.open(
+        'https://datumwealth.oss-cn-chengdu.aliyuncs.com/doc/%E5%BC%80%E5%85%B7%E5%A2%9E%E5%80%BC%E7%A8%8E%E4%B8%93%E7%94%A8%E5%8F%91%E7%A5%A8%E4%BF%A1%E6%81%AF%E8%A1%A8.doc'
+    )
+}
 </script>
 
 <style lang="scss" scope>
