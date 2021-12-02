@@ -19,13 +19,20 @@
         </template>
         <ol>
             <li>充值金额大于500元即可开具发票。</li>
+
             <li>
-                个人用户若需要开具增值税专用发票需下<span
-                    class="cursorP"
-                    style="color: #4e9aeb"
-                    @click="downloadAction"
-                    >开具增值税专用发票.doc</span
-                >加盖公章，即可申请
+                <el-row type="flex" justify="start" align="middle">
+                    个人用户若需要开具增值税专用发票需下开具
+                    <el-link
+                        href="https://datumwealth.oss-cn-chengdu.aliyuncs.com/doc/%E5%BC%80%E5%85%B7%E5%A2%9E%E5%80%BC%E7%A8%8E%E4%B8%93%E7%94%A8%E5%8F%91%E7%A5%A8%E4%BF%A1%E6%81%AF%E8%A1%A8.doc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        type="primary"
+                    >
+                        增值税专用发票.doc
+                    </el-link>
+                    加盖公章，即可申请
+                </el-row>
             </li>
             <li>用户在提交开票申请之后，相关财务人员会在七个工作日内审核开具</li>
             <li>增值税专用发票请填写与上传附件内容一致的发票</li>

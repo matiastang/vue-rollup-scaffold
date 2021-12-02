@@ -108,6 +108,7 @@
                             size="mini"
                             :disabled="currentOrder.orderSn"
                             type="primary"
+                            plain
                             @click="currentOrder.open = true"
                             style="color: white; background: #d65928"
                             >开发票</el-button
@@ -134,7 +135,7 @@
         >
             <el-table-column type="selection" :selectable="disableSelect" width="55" />
             <el-table-column prop="orderSn" label="账单编号" show-overflow-tooltip width="180" />
-            <el-table-column prop="orderType" label="类型" show-overflow-tooltip>
+            <el-table-column prop="orderType" label="类型" width="80" show-overflow-tooltip>
                 <template #default="scope">{{ orderTypeToText(scope.row.orderType) }} </template>
             </el-table-column>
             <el-table-column
@@ -153,6 +154,14 @@
             <el-table-column prop="addTime" :width="180" label="订单时间" show-overflow-tooltip />
             <el-table-column prop="address" label="操作">
                 <template #default="scope">
+                    <router-link
+                        v-if="scope.row.invId"
+                        class="paystatus-primary"
+                        style="margin-right: 10px"
+                        :to="`/user/deal/invoice/${scope.row.invId}`"
+                    >
+                        <el-button class="paystatus-primary" type="text"> 详情 </el-button>
+                    </router-link>
                     <el-button
                         v-if="isPayStatusFinish(scope.row) && !scope.row.invId"
                         type="text"
@@ -249,7 +258,7 @@ const computedSnLength = (val: string) => {
 }
 const handleNextInv = () => {
     handleCloseInv()
-    doFetchInvLastInfo()
+    // doFetchInvLastInfo()
 }
 const handleCloseInv = () => {
     Object.assign(updateInv, {

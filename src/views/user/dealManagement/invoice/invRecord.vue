@@ -176,6 +176,7 @@ const isShowEdit = (row: Invoic.AsObject) => {
 }
 const handleNextInv = () => {
     handleCloseInv()
+    doQuery()
 }
 const handleCloseInv = () => {
     Object.assign(updateInv, {

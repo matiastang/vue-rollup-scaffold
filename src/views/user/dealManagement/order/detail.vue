@@ -32,6 +32,9 @@
                 <el-descriptions-item label="支付时间">{{
                     order.payTime || '-'
                 }}</el-descriptions-item>
+                <el-descriptions-item v-if="order.toBuyer" label="订单备注">{{
+                    order.toBuyer || '-'
+                }}</el-descriptions-item>
                 <el-descriptions-item label="支付凭证">
                     <a :href="order.payVoucher" target="_blank" rel="noopener noreferrer">
                         <img style="max-height: 200px" :src="order.payVoucher" alt="" />
@@ -81,5 +84,8 @@ const doFetchDetail = () => {
 <style lang="scss" scoped>
 .order-detail {
     padding: 20px;
+    ::v-deep(.el-descriptions__label)::after {
+        content: ':';
+    }
 }
 </style>

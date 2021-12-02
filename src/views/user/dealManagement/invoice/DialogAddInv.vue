@@ -56,14 +56,14 @@
                             placeholder="请输入发票税号"
                         ></el-input>
                     </el-form-item>
-                    <el-form-item label="银行账号" prop="bankNo">
+                    <el-form-item label="银行账号" :prop="form.invType === 2 && 'bankNo'">
                         <el-input
                             size="mini"
                             v-model="form.bankNo"
                             placeholder="请输入银行账号"
                         ></el-input>
                     </el-form-item>
-                    <el-form-item label="开户银行" prop="bank">
+                    <el-form-item label="开户银行" :prop="form.invType === 2 && 'bank'">
                         <el-input
                             size="mini"
                             v-model="form.bank"
@@ -170,6 +170,20 @@ const rules = reactive({
         {
             required: true,
             message: '请输入邮寄编号',
+            trigger: 'blur',
+        },
+    ],
+    bankNo: [
+        {
+            required: true,
+            message: '请输入银行账号',
+            trigger: 'blur',
+        },
+    ],
+    bank: [
+        {
+            required: true,
+            message: '请输入开户银行',
             trigger: 'blur',
         },
     ],

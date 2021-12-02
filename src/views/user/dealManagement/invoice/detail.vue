@@ -9,10 +9,16 @@
 <template>
     <el-skeleton v-if="loading" :rows="8" animated />
     <div class="app-container" v-else>
-        <el-descriptions title="发票申请审核" :column="1">
-            <el-descriptions-item label="客户账号">{{ detail.userName }}</el-descriptions-item>
-            <el-descriptions-item label="企业名称/姓名">{{
-                detail.userType === 1 ? detail.realName : detail.company
+        <el-descriptions title="发票信息" :column="1">
+            <el-descriptions-item label="客户账号">{{
+                detail.member.userName
+            }}</el-descriptions-item>
+
+            <el-descriptions-item v-if="detail.member.realName" label="企业名称/姓名">{{
+                detail.member.realName
+            }}</el-descriptions-item>
+            <el-descriptions-item v-if="detail.company" label="企业名称/姓名">{{
+                detail.company
             }}</el-descriptions-item>
             <el-descriptions-item label="订单编号"> {{ detail.target }}</el-descriptions-item>
             <el-descriptions-item label="发票编号">{{ detail.invNo }}</el-descriptions-item>
@@ -30,10 +36,10 @@
                 detail.invPayeeNumber
             }}</el-descriptions-item>
             <el-descriptions-item v-if="detail.invType === 2" label="银行账号">{{
-                detail.blankNo
+                detail.bankNo
             }}</el-descriptions-item>
             <el-descriptions-item v-if="detail.invType === 2" label="开户银行">{{
-                detail.blank
+                detail.bank
             }}</el-descriptions-item>
         </el-descriptions>
         <el-divider v-if="detail.address"></el-divider>

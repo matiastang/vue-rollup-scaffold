@@ -7,6 +7,20 @@
         <el-form-item label="发票税号" prop="invPayeeNumber">
             <el-input v-model="form.invPayeeNumber" placeholder="请输入发票税号"></el-input>
         </el-form-item>
+        <el-form-item
+            v-if="form.invType === 2"
+            label="银行账号"
+            :prop="form.invType === 2 && 'bankNo'"
+        >
+            <el-input v-model="form.bankNo" placeholder="请输入银行账号"></el-input>
+        </el-form-item>
+        <el-form-item
+            v-if="form.invType === 2"
+            label="开户银行"
+            :prop="form.invType === 2 && 'bank'"
+        >
+            <el-input v-model="form.bank" placeholder="请输入开户银行"></el-input>
+        </el-form-item>
         <el-form-item label-width="0">
             <div class="tips">
                 <strong>收件信息</strong>
@@ -15,8 +29,8 @@
         <el-form-item label="收件人" prop="consignee">
             <el-input v-model="form.consignee" placeholder="请输入收件人"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话" prop="tel">
-            <el-input v-model="form.tel" placeholder="请输入联系电话"></el-input>
+        <el-form-item label="联系电话" prop="contact">
+            <el-input v-model="form.contact" placeholder="请输入联系电话"></el-input>
         </el-form-item>
         <el-form-item label="邮寄地址" prop="address">
             <el-input v-model="form.address" placeholder="请输入邮寄地址"></el-input>
@@ -65,7 +79,7 @@ const rules = ref({
             trigger: 'blur',
         },
     ],
-    tel: [
+    contact: [
         {
             required: true,
             message: '请输入联系电话',
@@ -83,6 +97,20 @@ const rules = ref({
         {
             required: true,
             message: '请输入邮寄编号',
+            trigger: 'blur',
+        },
+    ],
+    bankNo: [
+        {
+            required: true,
+            message: '请输入银行账号',
+            trigger: 'blur',
+        },
+    ],
+    bank: [
+        {
+            required: true,
+            message: '请输入开户银行',
             trigger: 'blur',
         },
     ],

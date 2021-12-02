@@ -84,7 +84,27 @@
                     show-overflow-tooltip
                     width="180"
                 />
-                <el-table-column prop="orderType" label="类型" show-overflow-tooltip>
+                <el-table-column prop="PayStatus" :width="120" label="支付状态">
+                    <template #default="scope">
+                        <span
+                            :class="{
+                                'paystatus-red':
+                                    isPayStatusInUpload(scope.row) || isPayStatusNotPay(scope.row),
+                                'paystatus-black': isPayStatusNotPay(scope.row),
+                                'paystatus-yellow': isPayStatusChecking(scope.row),
+                            }"
+                        >
+                            {{
+                                payStatusToText(
+                                    Number(scope.row.payId),
+                                    Number(scope.row.payStatus),
+                                    scope.row.payVoucher
+                                )
+                            }}
+                        </span>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="orderType" label="类型" width="120" show-overflow-tooltip>
                     <template #default="scope"
                         >{{ orderTypeToText(scope.row.orderType) }}
                     </template>
@@ -108,28 +128,16 @@
                     label="订单时间"
                     show-overflow-tooltip
                 />
-                <el-table-column prop="PayStatus" :width="120" label="支付状态">
+
+                <el-table-column prop="address" fixed="right" label="操作" width="250px">
                     <template #default="scope">
-                        <span
-                            :class="{
-                                'paystatus-red':
-                                    isPayStatusInUpload(scope.row) || isPayStatusNotPay(scope.row),
-                                'paystatus-black': isPayStatusNotPay(scope.row),
-                                'paystatus-yellow': isPayStatusChecking(scope.row),
-                            }"
+                        <router-link
+                            class="paystatus-primary"
+                            style="margin-right: 10px"
+                            :to="`/user/deal/order/${scope.row.orderId}`"
                         >
-                            {{
-                                payStatusToText(
-                                    Number(scope.row.payId),
-                                    Number(scope.row.payStatus),
-                                    scope.row.payVoucher
-                                )
-                            }}
-                        </span>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="address" label="操作" width="200px">
-                    <template #default="scope">
+                            <el-button class="paystatus-primary" type="text"> 详情 </el-button>
+                        </router-link>
                         <template v-if="isPayStatusInUpload(scope.row)">
                             <el-button
                                 type="text"
@@ -192,12 +200,6 @@
                         >
                             删除
                         </el-button>
-                        <router-link
-                            class="paystatus-primary"
-                            :to="`/user/deal/order/${scope.row.orderId}`"
-                        >
-                            <el-button class="paystatus-primary" type="text"> 查看详情 </el-button>
-                        </router-link>
                     </template>
                 </el-table-column>
             </el-table>
