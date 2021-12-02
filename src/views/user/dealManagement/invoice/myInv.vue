@@ -56,13 +56,13 @@
             <Plus class="icon" />&nbsp;新增开票信息
         </div> -->
     </el-row>
-    <p class="tips">
+    <p class="tips" v-if="currentOrder.orderAmount">
         <strong class="order-count">{{ computedSnLength(currentOrder.orderSn) }}</strong>
         个订单，发票金额共计:
         <strong>{{ currentOrder.orderAmount }}元</strong>
     </p>
 
-    <el-form ref="form" :model="queryParams" inline label-width="70px">
+    <el-form ref="form" style="margin-top: 10px" :model="queryParams" inline label-width="70px">
         <el-row type="flex" justify="center" align="middle">
             <el-col :span="20">
                 <el-form-item label="" label-width="0">
@@ -284,6 +284,7 @@ const doFetchInvLastInfo = () => {
 }
 const handleNext = () => {
     currentOrder.open = false
+    currentOrder.orderSn = ''
     doQuery()
 }
 const disableSelect = (row: Order.AsObject) => Boolean(!row.invId) && isPayStatusFinish(row)
