@@ -2,14 +2,14 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-02 10:48:19
+ * @LastEditTime: 2021-12-02 17:02:40
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
 <template>
     <div class="home">
         <div class="collapse-popover-bound home-top borderBox flexRowCenter">
-            <div class="borderBox home-top-left">
+            <div v-if="iNavTree.tree.length > 0" class="borderBox home-top-left">
                 <Collapse
                     class="dw-collapse"
                     :data="iNavTree.tree"
@@ -18,7 +18,7 @@
                     @mouseoutIndex="mouseoutIndex"
                 />
             </div>
-            <div class="home-top-right">
+            <div v-if="bannerList.banners.length > 0" class="home-top-right">
                 <SwiperSlider class="swiper-slide-content" :banners="bannerList.banners" />
             </div>
             <div
@@ -141,19 +141,9 @@ export default defineComponent({
             tree: Array<HotType>(),
         })
         // 首页需要显示的分类
-        // const homeCategory = reactive([
-        //     '基金基本信息',
-        //     '基金净值',
-        //     '基金业绩表现',
-        //     '基金投资组合',
-        //     '基金财务数据',
-        //     '基金风险',
-        //     '基金业绩归因',
-        // ])
         watchSyncEffect(async () => {
             let categoryTree = await homeInterfaceNavigationTree()
             iNavTree.tree = categoryTree.filter((item: HotType, index) => {
-                // return homeCategory.includes(item.categoryName)
                 return index < 7
             })
         })
@@ -401,6 +391,7 @@ export default defineComponent({
         padding: 20px calc(50% - 712px) 30px calc(50% - 712px);
         align-items: stretch;
         position: relative;
+        justify-content: flex-start;
         .home-top-left {
             width: 30%;
             padding-right: 16px;
