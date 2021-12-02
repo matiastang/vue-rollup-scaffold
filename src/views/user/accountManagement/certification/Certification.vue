@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 16:13:38
+ * @LastEditTime: 2021-12-02 10:53:57
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -85,9 +85,9 @@
                 <img
                     v-if="certStatus && certStatus === 3"
                     class="certification-auditing-img"
-                    :src="'static/user/reviewing.svg'"
+                    src="static/user/reviewing.svg"
                 />
-                <img v-else class="certification-auditing-img" :src="'static/user/revie_err.svg'" />
+                <img v-else class="certification-auditing-img" src="static/user/revie_err.svg" />
                 <div class="certification-auditing-right flexColumnCenter">
                     <div v-if="userType === 1" class="certification-auditing-item flexRowCenter">
                         <div class="certification-auditing-item-title defaultFont">姓名:</div>

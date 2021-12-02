@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-29 09:57:56
+ * @LastEditTime: 2021-12-02 10:48:19
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -418,10 +418,10 @@ export default defineComponent({
             top: 0px;
             padding: 20px 60px;
             width: calc(997px + 16px);
-            height: 628px;
+            height: 630px;
             box-sizing: border-box;
             background: $themeBgColor;
-            z-index: 100;
+            z-index: 9;
             overflow-y: scroll;
             .content-item {
                 border-bottom: 1px solid #dfdfdf;

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-12-01 15:58:15
+ * @LastEditTime: 2021-12-02 10:40:03
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
@@ -149,7 +149,8 @@ export default defineComponent({
                 title: '服务时间：周一至周五 9:00-18:00',
             },
             {
-                title: '电子邮箱：info@qutke.com',
+                title: '电子邮箱：service@datumwealth.com',
+                // title: '电子邮箱：info@qutke.com',
             },
             {
                 title: '工作地址：',
@@ -233,7 +234,7 @@ export default defineComponent({
                 .footer-text {
                     font-size: 12px;
                     font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
+                    font-weight: 400;
                     color: $themeBgColor;
                     line-height: 20px;
                     letter-spacing: 1px;
