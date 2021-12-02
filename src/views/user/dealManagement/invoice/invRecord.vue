@@ -94,20 +94,26 @@
             </el-table-column>
             <el-table-column label="操作" :width="140" align="center" prop="status">
                 <template #default="scope">
+                    <el-button type="text">
+                        <router-link
+                            class="status-primary link"
+                            :to="`/user/deal/invoice/${scope.row.invId}`"
+                            >详情</router-link
+                        >
+                    </el-button>
                     <el-button
+                        v-if="isShowEdit(scope.row)"
                         class="status-primary"
                         @click="handleUpdateInv(scope.row)"
                         type="text"
                         >修改</el-button
                     >
-                    <el-button type="text">
-                        <router-link
-                            class="status-primary"
-                            :to="`/user/deal/invoice/${scope.row.invId}`"
-                            >详情</router-link
-                        >
-                    </el-button>
-                    <el-button @click="handleDeleteInv(scope.row)" type="text">删除</el-button>
+                    <el-button
+                        v-if="isShowEdit(scope.row)"
+                        @click="handleDeleteInv(scope.row)"
+                        type="text"
+                        >删除</el-button
+                    >
                 </template>
             </el-table-column>
         </el-table>
@@ -165,7 +171,9 @@ const updateInv = reactive({
 onMounted(() => {
     doQuery()
 })
-
+const isShowEdit = (row: Invoic.AsObject) => {
+    return row.status === 0 || row.status === 6
+}
 const handleNextInv = () => {
     handleCloseInv()
 }
@@ -225,7 +233,11 @@ const doQuery = () => {
 <style lang="scss" scoped>
 .table {
     border: 1px solid #ddd;
+    .link {
+        text-decoration: none;
+    }
 }
+
 .status-primary {
     color: #4e9aeb;
     font-weight: normal;

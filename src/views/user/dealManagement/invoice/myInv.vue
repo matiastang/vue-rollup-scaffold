@@ -146,7 +146,7 @@
             <el-table-column prop="address" label="操作">
                 <template #default="scope">
                     <el-button
-                        v-if="!scope.row.invId"
+                        v-if="isPayStatusFinish(scope.row) && !scope.row.invId"
                         type="text"
                         @click="handleOpenInvoice(scope.row)"
                         >去开票
@@ -227,6 +227,10 @@ onMounted(() => {
     doQuery()
     // doFetchInvLastInfo()
 })
+const isPayStatusFinish = (row: Order.AsObject) => {
+    const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
+    return payText === '已支付'
+}
 const computedSnLength = (val: string) => {
     let result = 0
     const list = val.split(',')
@@ -265,7 +269,7 @@ const handleNext = () => {
     currentOrder.open = false
     doQuery()
 }
-const disableSelect = (row: Order.AsObject) => Boolean(!row.invId)
+const disableSelect = (row: Order.AsObject) => Boolean(!row.invId) && isPayStatusFinish(row)
 
 const handleSelectionChange = (row: Array<Order.AsObject>) => {
     currentOrder.orderSn = row.map((it) => it.orderSn).toString()

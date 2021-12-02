@@ -14,12 +14,16 @@
                 <el-descriptions-item v-if="order.orderType" label="订单类型">{{
                     order.orderType === 1 ? '充值' : '套餐'
                 }}</el-descriptions-item>
-                <el-descriptions-item label="套餐内容">{{ order.channel }}</el-descriptions-item>
+                <el-descriptions-item label="套餐内容">{{ order.postscript }}</el-descriptions-item>
                 <el-descriptions-item label="订单金额">
                     {{ order.orderAmount }}
                 </el-descriptions-item>
                 <el-descriptions-item label="支付状态">{{
-                    order.orderStatus
+                    payStatusToText(
+                        Number(order.payId),
+                        Number(order.payStatus),
+                        order.payVoucher || ''
+                    )
                 }}</el-descriptions-item>
                 <el-descriptions-item label="支付方式">{{ order.payName }}</el-descriptions-item>
                 <el-descriptions-item label="下单时间">{{
@@ -55,8 +59,10 @@ import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getOrderDetail } from '@/api'
 import { Order } from '@/@types'
+import { payStatusToText } from '@/common/utils'
+
 const loading = ref(true)
-const order = reactive<Order.AsObject>({})
+const order = reactive({})
 const router = useRoute()
 onMounted(() => {
     doFetchDetail()
