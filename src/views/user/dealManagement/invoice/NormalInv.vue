@@ -16,7 +16,7 @@
             <el-input v-model="form.consignee" placeholder="请输入收件人"></el-input>
         </el-form-item>
         <el-form-item label="联系电话" prop="tel">
-            <el-input v-model="form.tel" placeholder="请输入联系电话"></el-input>
+            <el-input v-model="form.contact" placeholder="请输入联系电话"></el-input>
         </el-form-item>
         <el-form-item label="邮寄地址" prop="address">
             <el-input v-model="form.address" placeholder="请输入邮寄地址"></el-input>
