@@ -30,7 +30,11 @@ export function getDownloadOrder(orderSn: string, id: number) {
 export function getOrderList(data: Order.QueryList) {
     return http.post<OrderListResponse>(
         `${tradePrefix}/od/list`,
-        {},
+        {
+            ...data,
+            orderByColumn: 'addTime',
+            isAsc: 'desc',
+        },
         {
             params: {
                 ...data,
@@ -130,7 +134,11 @@ export function deleteInv(invId: number) {
 export function postInvList(data: Invoic.Query) {
     return http.post<any>(
         `${tradePrefix}/inv/list`,
-        {},
+        {
+            ...data,
+            orderByColumn: 'addTime',
+            isAsc: 'desc',
+        },
         {
             params: {
                 ...data,
