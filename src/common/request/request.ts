@@ -2,14 +2,14 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 19:25:22
+ * @LastEditTime: 2021-12-02 16:15:28
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
 import { AxiosRequestConfig } from 'axios'
 import initInstance from '@/common/request/axiosInterceptors'
 // import { requestDebounce } from './requestDebounce.js'
-
+import requestThrottle from './requestThrottle'
 /**
  * 失败返回类型
  */
@@ -38,8 +38,9 @@ const http = {
             msg: string
         }
         return new Promise<ResolveType>((resolve, reject: (reason: RejectType) => void) => {
-            httpAxios
-                .request(requestConfig)
+            // httpAxios
+            //     .request(requestConfig)
+            requestThrottle(httpAxios, requestConfig)
                 .then((response) => {
                     const status = response.status
                     if (status !== 200) {
@@ -163,7 +164,7 @@ const http = {
      * 下载
      * @param options
      */
-    download(fileName: string, options: AxiosRequestConfig, isResolve: boolean = false) {
+    download(fileName: string, options: AxiosRequestConfig, isResolve: boolean) {
         const httpAxios = initInstance()
         if (options.responseType !== 'blob') {
             options.responseType = 'blob' // 1.首先设置responseType对象格式为 blob:二进制流
