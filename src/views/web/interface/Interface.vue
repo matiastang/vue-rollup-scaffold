@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-12-03 11:25:21
+ * @LastEditTime: 2021-12-03 13:59:20
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -144,7 +144,19 @@ export default defineComponent({
         const searchRes = reactive({
             list: [] as ApiInfoType[],
         })
+        const selectInterfaceData = reactive({
+            categoryId: 0,
+            categoryName: '',
+            categoryType: 0,
+            count: 0,
+            data: Array<CategoryApiType>(),
+        })
         if (route.path.startsWith('/search')) {
+            selectInterfaceData.categoryId = 0
+            selectInterfaceData.categoryName = ''
+            selectInterfaceData.categoryType = 0
+            selectInterfaceData.count = 0
+            selectInterfaceData.data = []
             watchSyncEffect(async () => {
                 const keyword = route.params.id
                 seletedCategoryId.value = 0
@@ -182,13 +194,6 @@ export default defineComponent({
         //     }
         //     return {} as HotType
         // })
-        const selectInterfaceData = reactive({
-            categoryId: 0,
-            categoryName: '',
-            categoryType: 0,
-            count: 0,
-            data: Array<CategoryApiType>(),
-        })
         watchSyncEffect(async () => {
             const category = interfaceTree.tree.find((item) => {
                 return item.categoryId === seletedCategoryId.value
