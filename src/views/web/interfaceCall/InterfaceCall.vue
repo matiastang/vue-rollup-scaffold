@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-01 19:13:38
+ * @LastEditTime: 2021-12-03 15:08:35
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -41,20 +41,23 @@
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">订单类型:</div>
                                 <el-radio
-                                    v-if="getApiInfo"
+                                    v-if="getApiInfoData.data.apiInfoId"
                                     class="type-radio"
                                     v-model="selectTokenType"
                                     label="1"
                                     >充值调用</el-radio
                                 >
                                 <el-radio
-                                    v-if="getApiInfo"
+                                    v-if="getApiInfoData.data.apiInfoId"
                                     class="type-radio"
                                     v-model="selectTokenType"
                                     label="2"
-                                    >优惠调用</el-radio
+                                    >套餐调用</el-radio
                                 >
-                                <el-skeleton v-if="!getApiInfo" style="padding-right: 12px">
+                                <el-skeleton
+                                    v-if="!getApiInfoData.data.apiInfoId"
+                                    style="padding-right: 12px"
+                                >
                                     <template #template>
                                         <el-skeleton-item variant="p" />
                                     </template>
@@ -62,8 +65,11 @@
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">接口名称:</div>
-                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
-                                    {{ getApiInfo.apiName }}
+                                <div
+                                    v-if="getApiInfoData.data.apiName"
+                                    class="parameters-item-text defaultFont"
+                                >
+                                    {{ getApiInfoData.data.apiName }}
                                 </div>
                                 <el-skeleton v-else style="padding-right: 12px">
                                     <template #template>
@@ -73,8 +79,11 @@
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">接口code:</div>
-                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
-                                    {{ getApiInfo.apiCode }}
+                                <div
+                                    v-if="getApiInfoData.data.apiCode"
+                                    class="parameters-item-text defaultFont"
+                                >
+                                    {{ getApiInfoData.data.apiCode }}
                                 </div>
                                 <el-skeleton v-else style="padding-right: 12px">
                                     <template #template>
@@ -84,8 +93,11 @@
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">请求方式:</div>
-                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
-                                    {{ getApiInfo.requestMethod }}
+                                <div
+                                    v-if="getApiInfoData.data.requestMethod"
+                                    class="parameters-item-text defaultFont"
+                                >
+                                    {{ getApiInfoData.data.requestMethod }}
                                 </div>
                                 <el-skeleton v-else style="padding-right: 12px">
                                     <template #template>
@@ -95,8 +107,11 @@
                             </div>
                             <div class="parameters-item flexRowCenter">
                                 <div class="parameters-item-title defaultFont">返回格式:</div>
-                                <div v-if="getApiInfo" class="parameters-item-text defaultFont">
-                                    {{ getApiInfo.returnFormat }}
+                                <div
+                                    v-if="getApiInfoData.data.returnFormat"
+                                    class="parameters-item-text defaultFont"
+                                >
+                                    {{ getApiInfoData.data.returnFormat }}
                                 </div>
                                 <el-skeleton v-else style="padding-right: 12px">
                                     <template #template>
@@ -105,14 +120,17 @@
                                 </el-skeleton>
                             </div>
                             <div
-                                v-if="getApiInfo && getApiInfo.apiParamList.length > 0"
+                                v-if="
+                                    Array.isArray(getApiInfoData.data.apiParamList) &&
+                                    getApiInfoData.data.apiParamList.length > 0
+                                "
                                 class="parameters-content"
                             >
                                 <div class="parameters-title borderBox defaultFont">API参数:</div>
                                 <div class="parameters-list-content borderBox flexRowCenter">
                                     <div class="parameters-key-content borderBox flexColumnCenter">
                                         <div
-                                            v-for="item in getApiInfo.apiParamList.sort(
+                                            v-for="item in getApiInfoData.data.apiParamList.sort(
                                                 (left, right) => left.paramId - right.paramId
                                             )"
                                             :key="item.paramKey"
@@ -137,7 +155,7 @@
                                         class="parameters-input-content borderBox flexColumnCenter"
                                     >
                                         <el-input
-                                            v-for="item in getApiInfo.apiParamList.sort(
+                                            v-for="item in getApiInfoData.data.apiParamList.sort(
                                                 (left, right) => left.paramId - right.paramId
                                             )"
                                             :key="item.paramKey"
@@ -178,7 +196,7 @@
                                 </div> -->
                             </div>
                             <el-button
-                                v-if="getApiInfo"
+                                v-if="getApiInfoData.data.apiInfoId"
                                 type="primary"
                                 :loading="testLoading"
                                 class="apply-trial-button borderBox defaultFont"
@@ -189,7 +207,7 @@
                         <div class="bottom-right-json borderBox flexColumnCenter">
                             <div class="json-content borderBox flexColumnCenter">
                                 <div class="json-title defaultFont">请求内容:</div>
-                                <div v-if="getApiInfo" class="request-json">
+                                <div v-if="getApiInfoData.data.apiInfoId" class="request-json">
                                     <JsonView class="request-json" :data="requestJson" />
                                 </div>
                                 <el-skeleton
@@ -205,7 +223,7 @@
                             >
                                 <div class="json-title defaultFont">返回内容:</div>
                                 <JsonView
-                                    v-if="getApiInfo"
+                                    v-if="getApiInfoData.data.apiInfoId"
                                     class="result-json"
                                     :data="resultJson.result"
                                 />
@@ -275,10 +293,11 @@ import { ElMessage } from 'element-plus'
 import { checkAvailable } from '@/common/request/modules/user/user'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { apiTool } from '@/common/request/modules/api/api'
-import { HotType, ApiParamType } from '@/common/request/modules/home/homeInterface'
+import { HotType, ApiParamType, ApiInfoType } from '@/common/request/modules/home/homeInterface'
 import { useStore } from 'store/index'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 import { addOd, orderType } from '@/common/request/modules/pay/pay'
+import { detailCategoryList, detailInterfaceInfo } from '@/common/request/modules/api/api'
 
 export default defineComponent({
     name: 'InterfaceCall',
@@ -297,7 +316,8 @@ export default defineComponent({
             tree: Array<HotType>(),
         })
         watchSyncEffect(async () => {
-            interfaceTree.tree = await homeInterfaceTree()
+            // interfaceTree.tree = await homeInterfaceTree()
+            interfaceTree.tree = await detailCategoryList()
         })
         // 返回类型
         const resultJson = reactive({
@@ -314,35 +334,44 @@ export default defineComponent({
             selectApiId.value = 1
         })
         // 选择的api信息
-        const getApiInfo = computed(() => {
-            const apiTree = interfaceTree.tree
-            for (let i = 0; i < apiTree.length; i++) {
-                const item = apiTree[i]
-                if (item.categoryType === 1) {
-                    const apiList = item.apiInfoList
-                    for (let j = 0; j < apiList.length; j++) {
-                        if (apiList[j].apiInfoId === selectApiId.value) {
-                            return apiList[j]
-                        }
-                    }
-                } else {
-                    const children = item.children
-                    if (children) {
-                        for (let j = 0; j < children.length; j++) {
-                            const element = children[j]
-                            if (element.categoryType === 1) {
-                                const apiList = element.apiInfoList
-                                for (let k = 0; k < apiList.length; k++) {
-                                    if (apiList[k].apiInfoId === selectApiId.value) {
-                                        return apiList[k]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        // const getApiInfo = computed(() => {
+        //     const apiTree = interfaceTree.tree
+        //     for (let i = 0; i < apiTree.length; i++) {
+        //         const item = apiTree[i]
+        //         if (item.categoryType === 1) {
+        //             const apiList = item.apiInfoList
+        //             for (let j = 0; j < apiList.length; j++) {
+        //                 if (apiList[j].apiInfoId === selectApiId.value) {
+        //                     return apiList[j]
+        //                 }
+        //             }
+        //         } else {
+        //             const children = item.children
+        //             if (children) {
+        //                 for (let j = 0; j < children.length; j++) {
+        //                     const element = children[j]
+        //                     if (element.categoryType === 1) {
+        //                         const apiList = element.apiInfoList
+        //                         for (let k = 0; k < apiList.length; k++) {
+        //                             if (apiList[k].apiInfoId === selectApiId.value) {
+        //                                 return apiList[k]
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     return null
+        // })
+        const getApiInfoData = reactive({
+            data: {} as ApiInfoType,
+        })
+        watchSyncEffect(async () => {
+            if (selectApiId.value <= 0) {
+                return
             }
-            return null
+            getApiInfoData.data = await detailInterfaceInfo(selectApiId.value)
         })
         // 切换选择
         const selectApiAction = (id: number) => {
@@ -351,8 +380,9 @@ export default defineComponent({
         // 请求参数
         const requestJson = computed(() => {
             let json = Object.create(null)
-            const info = getApiInfo.value
-            if (info) {
+            // const info = getApiInfo.value
+            const info = getApiInfoData.data
+            if (info && info.apiParamList) {
                 for (let i = 0; i < info.apiParamList.length; i++) {
                     const item = info.apiParamList[i]
                     if (item.paramValue) {
@@ -480,8 +510,9 @@ export default defineComponent({
          * 测试接口
          */
         const apiTest = () => {
-            const info = getApiInfo.value
-            if (info) {
+            // const info = getApiInfo.value
+            const info = getApiInfoData.data
+            if (info && info.apiParamList) {
                 if (!checkParams(info.apiParamList)) {
                     ElMessage({
                         message: '必填参数项为空',
@@ -557,7 +588,7 @@ export default defineComponent({
         return {
             appSecret,
             interfaceTree,
-            getApiInfo,
+            getApiInfoData,
             selectApiId,
             selectApiAction,
             requestJson,
@@ -801,9 +832,10 @@ export default defineComponent({
                             }
                             .result-json {
                                 width: 100%;
-                                min-height: 360px;
+                                height: 360px;
                                 background: #ededed;
                                 border: 1px solid #dfdfdf;
+                                overflow-y: scroll;
                             }
                         }
                     }

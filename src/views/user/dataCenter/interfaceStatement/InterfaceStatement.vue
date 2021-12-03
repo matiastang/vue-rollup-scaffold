@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 19:20:57
+ * @LastEditTime: 2021-12-03 15:03:46
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -254,6 +254,7 @@ export default defineComponent({
         const activeAction = () => {
             pageNum.value = 1
             pageSize.value = 10
+            searchAction()
         }
         // 优惠套餐
         const discountInfo = reactive([

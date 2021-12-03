@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 17:12:36
+ * @LastEditTime: 2021-12-03 15:14:53
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoList/InfoList.vue
  * @Description: 详情接口列表树
 -->
@@ -30,7 +30,9 @@
                     :selected="secondSelectedGroup && dataItem.categoryId === secondSelectedGroup"
                 >
                     <InfoListCell
-                        v-for="item in dataItem.apiInfoList"
+                        v-for="item in dataItem.apiInfoList.sort(
+                            (left, right) => left.apiOrderNum - right.apiOrderNum
+                        )"
                         :key="item.apiInfoId"
                         :title="item.apiName"
                         :selected="selectedApiId === item.apiInfoId"
@@ -40,7 +42,9 @@
             </div>
             <div v-else-if="groupItem.categoryType === 1">
                 <InfoListCell
-                    v-for="item in groupItem.apiInfoList"
+                    v-for="item in groupItem.apiInfoList.sort(
+                        (left, right) => left.apiOrderNum - right.apiOrderNum
+                    )"
                     :key="item.apiInfoId"
                     :title="item.apiName"
                     :selected="selectedApiId === item.apiInfoId"
@@ -76,6 +80,7 @@ export default defineComponent({
         const selectedApiId: Ref<number> = ref(props.selectedId)
         watchEffect(() => {
             selectedApiId.value = props.selectedId
+            console.log(`selectedApiId=${selectedApiId.value}`)
         })
         // Group是否展开
         const firstSelectedGroup: Ref<number | null> = ref(null)

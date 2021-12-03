@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:50:48
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 10:52:27
+ * @LastEditTime: 2021-12-03 14:08:23
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/api.ts
  * @Description: 开放接口
  */
@@ -14,7 +14,7 @@ import {
     CategoryType,
     CategoryApiType,
 } from './apiInterface'
-import { ApiInfoType } from '../home/homeInterface'
+import { ApiInfoType, HotType } from '../home/homeInterface'
 import { apiPrefix } from '@/common/request/prefix'
 /**
  * 获取列表页热门推荐接口
@@ -74,6 +74,22 @@ const categoryInterfaceList = (categoryId: number, categoryType: number) => {
     })
 }
 
+/**
+ * 获取接口详情-分类目录
+ * @returns
+ */
+const detailCategoryList = () => {
+    return http.get<HotType[]>(`${apiPrefix}/openApi/detail/menu`)
+}
+
+/**
+ * 获取接口详情
+ * @returns
+ */
+const detailInterfaceInfo = (id: number) => {
+    return http.get<ApiInfoType>(`${apiPrefix}/openApi/detail/${id}`)
+}
+
 export {
     apiHotInterface,
     apiTool,
@@ -81,4 +97,6 @@ export {
     solutionInterfaceList,
     categoryList,
     categoryInterfaceList,
+    detailCategoryList,
+    detailInterfaceInfo,
 }
