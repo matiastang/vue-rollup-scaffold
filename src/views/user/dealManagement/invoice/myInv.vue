@@ -108,9 +108,7 @@
                             size="mini"
                             :disabled="currentOrder.orderSn"
                             type="primary"
-                            plain
                             @click="currentOrder.open = true"
-                            style="color: white; background: #d65928"
                             >开发票</el-button
                         >
                     </el-form-item>
@@ -239,7 +237,6 @@ const updateInv = reactive({
     invId: '',
 })
 const lastInvoice = computed(() => store.state.invModule.last)
-
 onMounted(() => {
     doQuery()
     // doFetchInvLastInfo()

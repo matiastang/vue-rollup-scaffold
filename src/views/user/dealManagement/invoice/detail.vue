@@ -13,7 +13,6 @@
             <el-descriptions-item label="客户账号">{{
                 detail.member.userName
             }}</el-descriptions-item>
-
             <el-descriptions-item v-if="detail.member.realName" label="企业名称/姓名">{{
                 detail.member.realName
             }}</el-descriptions-item>
@@ -23,6 +22,11 @@
             <el-descriptions-item label="订单编号"> {{ detail.target }}</el-descriptions-item>
             <el-descriptions-item label="发票编号">{{ detail.invNo }}</el-descriptions-item>
             <el-descriptions-item label="提交日期">{{ detail.applyTime }}</el-descriptions-item>
+            <el-descriptions-item
+                v-if="detail.invoiceInfo"
+                :label="detail.status === 5 ? '物流编号' : '未通过原因'"
+                >{{ detail.invoiceInfo }}</el-descriptions-item
+            >
         </el-descriptions>
         <el-divider></el-divider>
         <el-descriptions :column="1">
@@ -89,5 +93,8 @@ const doFetchDetail = () => {
 .app-container {
     padding: 20px;
     background-color: white;
+    ::v-deep(.el-descriptions__label)::after {
+        content: ':';
+    }
 }
 </style>

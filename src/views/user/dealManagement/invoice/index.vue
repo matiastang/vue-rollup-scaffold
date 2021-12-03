@@ -2,9 +2,11 @@
     <div class="Invoice">
         <el-card shadow="never">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="我的发票" name="first"><MyInvoice /></el-tab-pane>
-                <el-tab-pane label="开票记录" name="second"><InvoiceRecord /></el-tab-pane>
+                <el-tab-pane label="我的发票" name="first"></el-tab-pane>
+                <el-tab-pane label="开票记录" name="second"></el-tab-pane>
             </el-tabs>
+            <MyInvoice v-if="activeName === 'first'" />
+            <InvoiceRecord v-else-if="activeName === 'second'" />
         </el-card>
     </div>
 </template>

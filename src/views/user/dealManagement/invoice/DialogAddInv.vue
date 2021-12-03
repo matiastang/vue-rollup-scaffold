@@ -26,7 +26,9 @@
             <el-descriptions-item label="发票金额"
                 ><strong class="orderAmount">{{ orderAmount }}</strong></el-descriptions-item
             >
-            <el-descriptions-item v-if="addTime" label="发票时间">{{ addTime || '-' }}</el-descriptions-item>
+            <el-descriptions-item v-if="addTime" label="发票时间">{{
+                addTime || '-'
+            }}</el-descriptions-item>
             <el-descriptions-item label="开具内容"
                 ><el-input
                     style="width: 300px"
@@ -226,8 +228,9 @@ const handleSumbit = () => {
                     ElMessage.success('操作成功')
                     emit('on-next')
                 })
-                .catch(() => {
+                .catch((error) => {
                     loading.value = false
+                    ElMessage.error(error?.msg)
                 })
         }
     })
