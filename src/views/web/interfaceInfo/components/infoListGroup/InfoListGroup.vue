@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 15:36:48
- * @LastEditTime: 2021-11-29 10:21:10
+ * @LastEditTime: 2021-12-03 16:06:43
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoListGroup/InfoListGroup.vue
@@ -29,7 +29,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watchEffect } from 'vue'
 
 export default defineComponent({
     name: 'InfoListGroup',
@@ -53,6 +53,9 @@ export default defineComponent({
     },
     setup(props) {
         const selectedGroup = ref(props.selected)
+        watchEffect(() => {
+            selectedGroup.value = props.selected
+        })
         const selectAction = () => {
             selectedGroup.value = !selectedGroup.value
         }
