@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-02 17:56:52
+ * @LastEditTime: 2021-12-03 11:31:55
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -1051,7 +1051,7 @@ export default defineComponent({
             text-align: left;
         }
         .certification-through-top-content {
-            width: 100%;
+            width: 375px;
             box-sizing: border-box;
             padding: 30px 24px;
             border: 1px solid $themeColor;
