@@ -21,6 +21,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // 自动导入使用 unplugin-vue-components
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// 开启GZIP压缩
+import compressPlugin from 'vite-plugin-compression'
+// 图片压缩
+import viteImagemin from 'vite-plugin-imagemin'
 
 const proxyPath = '/dev-api'
 const target = 'https://test.openalpha.cn/open' //'https://test.mini.datumwealth.cn/open'
@@ -42,6 +46,31 @@ export default defineConfig({
         // ElementPlus({
         //     useSource: true,
         // }),
+
+        compressPlugin({
+            ext: '.gz', //gz br
+            algorithm: 'gzip', //brotliCompress gzip
+            deleteOriginFile: false,
+        }),
+        viteImagemin({
+            gifsicle: {
+                optimizationLevel: 7,
+                interlaced: false,
+            },
+            optipng: {
+                optimizationLevel: 7,
+            },
+            webp: {
+                quality: 75,
+            },
+            mozjpeg: {
+                quality: 65,
+            },
+            pngquant: {
+                quality: [0.65, 0.9],
+                speed: 4,
+            },
+        }),
     ],
     resolve: {
         // 别名
