@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-02 17:02:40
+ * @LastEditTime: 2021-12-03 16:42:17
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div v-if="hotList.hots.length > 0" class="home-hot borderBox flexColumnCenter">
-            <HomeTitle data="热门接口推荐" />
+            <HomeTitle data="热门接口推荐" style="padding-top: 60px" />
             <div class="home-hot-bottom flexColumnCenter">
                 <Hot
                     class="home-hot-content"

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 18:03:56
+ * @LastEditTime: 2021-12-03 16:18:28
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -393,7 +393,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .setting {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding: 20px 16px;
     box-sizing: border-box;
     .setting-content {

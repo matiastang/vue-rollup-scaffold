@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:13:15
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 19:20:52
+ * @LastEditTime: 2021-12-03 16:43:36
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/loginRegister/LoginRegister.vue
  * @Description: 帮组中心-登录注册
 -->
@@ -18,7 +18,7 @@
                     >{{ host }}</span
                 >，点击导航栏右上角的“登录/注册”按钮。
             </div>
-            <img class="login-register-item-img" />
+            <img class="login-register-item-img" src="static/help/login-1.png" />
         </div>
         <div class="login-register-item flexColumnCenter">
             <div class="login-register-item-title defaultFont">
@@ -27,7 +27,7 @@
             <div class="login-register-item-text defaultFont">
                 按照登录的默认提示填写自己的账号或者手机号码，以账号的密码进行账号密码登录，或者通过短信验证的方式登录。未注册的用户可直接通过短信验证码登录。
             </div>
-            <img class="login-register-item-img" />
+            <img class="login-register-item-img" src="static/help/login-2.png" />
         </div>
         <div class="login-register-item flexColumnCenter">
             <div class="login-register-item-title defaultFont">
@@ -36,8 +36,8 @@
             <div class="login-register-item-text defaultFont">
                 按照登录的默认提示填写自己的账号或者手机号码，以账号的密码进行账号密码登录，或者通过短信验证的方式登录。未注册的用户可直接通过短信验证码登录。
             </div>
-            <img class="login-register-item-img" />
-            <img class="login-register-item-img" />
+            <img class="login-register-item-img" src="static/help/login-3.png" />
+            <img class="login-register-item-img" src="static/help/login-4.png" />
         </div>
     </div>
 </template>
@@ -106,7 +106,7 @@ export default defineComponent({
         }
         .login-register-item-img {
             width: calc(100% - 24px);
-            height: 362px;
+            // height: 362px;
             background: $themeColor;
             margin-bottom: 12px;
             margin-left: 24px;

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:15:42
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 13:45:00
+ * @LastEditTime: 2021-12-03 16:43:48
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/test/Test.vue
  * @Description: 帮助中心-测试流程
 -->
@@ -14,18 +14,18 @@
             <div class="test-item-text defaultFont">
                 进入“数据接口”,根据客户业务所需，选择不同接口,点击“试用接口”按钮,开始测试接口
             </div>
-            <img class="test-item-img" />
+            <img class="test-item-img" src="static/help/test-1.png" />
         </div>
         <div class="test-item flexColumnCenter">
             <div class="test-item-title defaultFont">2、接口测试</div>
             <div class="test-item-text defaultFont">
                 选择完接口后，点击“调用接口”按钮，填写必要的API参数，点击“调用接口”完成数据测试。
             </div>
-            <img class="test-item-img" />
+            <img class="test-item-img" src="static/help/test-2.png" />
             <div class="test-item-text defaultFont">
                 在浏览接口文档的过程中，您可随时通过点击接口文档中的“试用接口”按钮直接进入数据测试页面。
             </div>
-            <img class="test-item-img" />
+            <img class="test-item-img" src="static/help/test-3.png" />
         </div>
     </div>
 </template>
@@ -82,8 +82,8 @@ export default defineComponent({
         }
         .test-item-img {
             width: calc(100% - 24px);
-            height: 362px;
-            background: $themeColor;
+            // height: 362px;
+            // background: $themeColor;
             margin-bottom: 12px;
             margin-left: 24px;
         }

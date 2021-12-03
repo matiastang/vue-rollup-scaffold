@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:15:02
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-18 13:45:58
+ * @LastEditTime: 2021-12-03 16:43:42
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/pay/Pay.vue
  * @Description: 帮助中心-支付方式
 -->
@@ -14,14 +14,14 @@
             <div class="pay-item-text defaultFont">
                 西筹数据开放平台目前支持“微信支付”、“支付宝支付”和“对公转账”三种支付方式
             </div>
-            <img class="pay-item-img" />
+            <img class="pay-item-img" src="static/help/pay-1.png" />
         </div>
         <div class="pay-item flexColumnCenter">
             <div class="pay-item-title defaultFont">2、优惠套餐</div>
             <div class="pay-item-text defaultFont">
                 西筹数据开放平台目前支持“微信支付”、“支付宝支付”和“对公转账”三种支付方式
             </div>
-            <img class="pay-item-img" />
+            <img class="pay-item-img" src="static/help/pay-2.png" />
         </div>
     </div>
 </template>
@@ -78,7 +78,7 @@ export default defineComponent({
         }
         .pay-item-img {
             width: calc(100% - 24px);
-            height: 362px;
+            // height: 362px;
             background: $themeColor;
             margin-bottom: 12px;
             margin-left: 24px;

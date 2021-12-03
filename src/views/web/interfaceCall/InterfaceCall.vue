@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-03 15:08:35
+ * @LastEditTime: 2021-12-03 16:27:44
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -279,7 +279,7 @@
             @okAction="applyTrialOkAction"
             @cancelAction="applyTrialCancelAction"
         />
-        <InterfaceAffix v-if="isApplyTry === 0" @click="showApplyTrialModel" />
+        <InterfaceAffix v-if="certStatus === 1 && isApplyTry === 0" @click="showApplyTrialModel" />
     </div>
 </template>
 <script lang="ts">
@@ -307,7 +307,7 @@ export default defineComponent({
         const router = useRouter()
         const appSecret = computed(() => store.state.userModule.userLoginInfo.member.appSecret)
         const certStatus = computed(() => store.state.userModule.userLoginInfo.member.certStatus)
-        const userName = computed(() => store.state.userModule.userLoginInfo.member.realName)
+        const userName = computed(() => store.state.userModule.userLoginInfo.member.userName)
         const userPhone = computed(() => store.state.userModule.userLoginInfo.member.phone)
         const userEmail = computed(() => store.state.userModule.userLoginInfo.member.email)
         const isApplyTry = computed(() => store.state.userModule.userLoginInfo.member.isApplyTry)
@@ -587,6 +587,7 @@ export default defineComponent({
         }
         return {
             appSecret,
+            certStatus,
             interfaceTree,
             getApiInfoData,
             selectApiId,
