@@ -136,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, computed } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { postInvList, deleteInv } from '@/api'
@@ -146,7 +146,6 @@ import DialogTips from '@/views/user/dealManagement/invoice/DialogTips.vue'
 import InvoiceActionDialog from '@/views/user/dealManagement/invoice/DialogAction.vue'
 import { ActionTypes } from '../_store'
 import { Invoic, Order } from '@/@types'
-
 const store = useStore(key)
 const loading = ref(true)
 const list = reactive({ value: [] })
