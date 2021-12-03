@@ -152,6 +152,13 @@
                                 @click="handleShowUpload(scope.row)"
                                 >上传凭证
                             </el-button>
+                            <el-button
+                                @click="handleCancel(scope.row.orderId, scope.row.orderSn)"
+                                class="paystatus-red"
+                                type="text"
+                                style="margin-right: 10px"
+                                >取消
+                            </el-button>
                         </template>
                         <template v-if="isPayStatusNotPay(scope.row)">
                             <el-button
