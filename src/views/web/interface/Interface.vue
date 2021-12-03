@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-12-03 11:16:59
+ * @LastEditTime: 2021-12-03 11:25:21
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -168,21 +168,6 @@ export default defineComponent({
                 }
                 searchRes.list = await apiSearch(searchKeyword)
             })
-        } else {
-            watchSyncEffect(async () => {
-                const category = interfaceTree.tree.find((item) => {
-                    return item.categoryId === seletedCategoryId.value
-                })
-                if (!category) {
-                    return
-                }
-                const res = await categoryInterfaceList(category.categoryId, category.categoryType)
-                selectInterfaceData.categoryId = category.categoryId
-                selectInterfaceData.categoryName = category.categoryName
-                selectInterfaceData.categoryType = category.categoryType
-                selectInterfaceData.count = category.cnt
-                selectInterfaceData.data = res
-            })
         }
         // 切换分类
         const seletedCategoryAction = (id: number) => {
@@ -204,7 +189,20 @@ export default defineComponent({
             count: 0,
             data: Array<CategoryApiType>(),
         })
-
+        watchSyncEffect(async () => {
+            const category = interfaceTree.tree.find((item) => {
+                return item.categoryId === seletedCategoryId.value
+            })
+            if (!category) {
+                return
+            }
+            const res = await categoryInterfaceList(category.categoryId, category.categoryType)
+            selectInterfaceData.categoryId = category.categoryId
+            selectInterfaceData.categoryName = category.categoryName
+            selectInterfaceData.categoryType = category.categoryType
+            selectInterfaceData.count = category.cnt
+            selectInterfaceData.data = res
+        })
         // const allCount = computed(() => {
         //     let num = 0
         //     const data = selectInterfaceData.value
