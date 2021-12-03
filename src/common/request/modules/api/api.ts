@@ -2,12 +2,18 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:50:48
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 15:00:22
+ * @LastEditTime: 2021-12-03 10:52:27
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/api.ts
  * @Description: 开放接口
  */
 import http from '@/common/request/request'
-import { ListRecoType, ApiToolParameterType, SolutionInterfaceType } from './apiInterface'
+import {
+    ListRecoType,
+    ApiToolParameterType,
+    SolutionInterfaceType,
+    CategoryType,
+    CategoryApiType,
+} from './apiInterface'
 import { ApiInfoType } from '../home/homeInterface'
 import { apiPrefix } from '@/common/request/prefix'
 /**
@@ -38,9 +44,7 @@ const apiTool = (parameters: ApiToolParameterType) => {
 }
 
 /**
- * 解决方案接口列表
- * 
-获取解决方案关联接口详细信息
+ * 获取解决方案关联接口详细信息
  * @returns
  */
 const solutionInterfaceList = (solutionId: number) => {
@@ -51,4 +55,30 @@ const solutionInterfaceList = (solutionId: number) => {
     })
 }
 
-export { apiHotInterface, apiTool, apiSearch, solutionInterfaceList }
+/**
+ * 获取列表页左边接口分类
+ * @returns
+ */
+const categoryList = () => {
+    return http.get<CategoryType[]>(`${apiPrefix}/openApi/list/menu`)
+}
+
+/**
+ * 获取接口列表
+ * @returns
+ */
+const categoryInterfaceList = (categoryId: number, categoryType: number) => {
+    return http.get<CategoryApiType[]>(`${apiPrefix}/openApi/list`, {
+        categoryId,
+        categoryType,
+    })
+}
+
+export {
+    apiHotInterface,
+    apiTool,
+    apiSearch,
+    solutionInterfaceList,
+    categoryList,
+    categoryInterfaceList,
+}

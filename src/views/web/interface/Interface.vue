@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-11-30 14:19:57
+ * @LastEditTime: 2021-12-03 11:16:59
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -27,13 +27,10 @@
                 class="interface-right borderBox flexColumnCenter"
             >
                 <div class="interface-right-title defaultFont">
-                    {{ `${selectInterfaceData && selectInterfaceData.categoryName}(${allCount})` }}
+                    {{ `${selectInterfaceData.categoryName}(${selectInterfaceData.count})` }}
                 </div>
-                <div v-if="selectInterfaceData && selectInterfaceData.categoryType === 0">
-                    <div
-                        v-for="dataItem in selectInterfaceData.children"
-                        :key="dataItem.categoryId"
-                    >
+                <div v-if="selectInterfaceData.categoryType === 0">
+                    <div v-for="dataItem in selectInterfaceData.data" :key="dataItem.categoryId">
                         <div class="interface-next-content flexRowCenter">
                             <div class="interface-next-line"></div>
                             <div class="interface-next-title">
@@ -47,9 +44,9 @@
                         />
                     </div>
                 </div>
-                <div v-else-if="selectInterfaceData && selectInterfaceData.categoryType === 1">
+                <div v-else-if="selectInterfaceData.categoryType === 1">
                     <BaseInfoCell
-                        v-for="item in selectInterfaceData.apiInfoList"
+                        v-for="item in selectInterfaceData.data[0].apiInfoList"
                         :key="item.apiInfoId"
                         :data="item"
                     />
@@ -93,10 +90,19 @@ import InterfaceList from './components/interfaceList/InterfaceList.vue'
 import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
 import InterfaceHot from './components/interfaceHot/InterfaceHot.vue'
 // import { ElMessage } from 'element-plus'
-import { apiHotInterface, apiSearch } from '@/common/request/modules/api/api'
+import {
+    apiHotInterface,
+    apiSearch,
+    categoryList,
+    categoryInterfaceList,
+} from '@/common/request/modules/api/api'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { HotType, ApiInfoType } from '@/common/request/modules/home/homeInterface'
-import { ListRecoType } from '@/common/request/modules/api/apiInterface'
+import {
+    ListRecoType,
+    CategoryType,
+    CategoryApiType,
+} from '@/common/request/modules/api/apiInterface'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
@@ -113,11 +119,13 @@ export default defineComponent({
         })
         // 接口列表树
         const interfaceTree = reactive({
-            tree: Array<HotType>(),
+            // tree: Array<HotType>(),
+            tree: Array<CategoryType>(),
         })
         watchSyncEffect(async () => {
             try {
-                interfaceTree.tree = await homeInterfaceTree()
+                // interfaceTree.tree = await homeInterfaceTree()
+                interfaceTree.tree = await categoryList()
             } catch (error: any) {
                 ElMessage.error(error.msg || '请求错误')
             }
@@ -160,51 +168,74 @@ export default defineComponent({
                 }
                 searchRes.list = await apiSearch(searchKeyword)
             })
+        } else {
+            watchSyncEffect(async () => {
+                const category = interfaceTree.tree.find((item) => {
+                    return item.categoryId === seletedCategoryId.value
+                })
+                if (!category) {
+                    return
+                }
+                const res = await categoryInterfaceList(category.categoryId, category.categoryType)
+                selectInterfaceData.categoryId = category.categoryId
+                selectInterfaceData.categoryName = category.categoryName
+                selectInterfaceData.categoryType = category.categoryType
+                selectInterfaceData.count = category.cnt
+                selectInterfaceData.data = res
+            })
         }
         // 切换分类
         const seletedCategoryAction = (id: number) => {
             seletedCategoryId.value = id
         }
-        const selectInterfaceData = computed(() => {
-            for (let i = 0; i < interfaceTree.tree.length; i++) {
-                const element = interfaceTree.tree[i]
-                if (element.categoryId === seletedCategoryId.value) {
-                    return element
-                }
-            }
-            return {} as HotType
+        // const selectInterfaceData = computed(() => {
+        //     for (let i = 0; i < interfaceTree.tree.length; i++) {
+        //         const element = interfaceTree.tree[i]
+        //         if (element.categoryId === seletedCategoryId.value) {
+        //             return element
+        //         }
+        //     }
+        //     return {} as HotType
+        // })
+        const selectInterfaceData = reactive({
+            categoryId: 0,
+            categoryName: '',
+            categoryType: 0,
+            count: 0,
+            data: Array<CategoryApiType>(),
         })
-        const allCount = computed(() => {
-            let num = 0
-            const data = selectInterfaceData.value
-            if (!data) {
-                return num
-            }
-            if (data.categoryType === 1) {
-                // 叶子节点
-                let apiList = data.apiInfoList
-                num += apiList.length
-            } else {
-                const children = data.children
-                if (children) {
-                    for (let j = 0; j < children.length; j++) {
-                        const element = children[j]
-                        if (element.categoryType === 1) {
-                            // 叶子节点
-                            let childrenApiList = element.apiInfoList
-                            num += childrenApiList.length
-                        }
-                    }
-                }
-            }
-            return num
-        })
+
+        // const allCount = computed(() => {
+        //     let num = 0
+        //     const data = selectInterfaceData.value
+        //     if (!data) {
+        //         return num
+        //     }
+        //     if (data.categoryType === 1) {
+        //         // 叶子节点
+        //         let apiList = data.apiInfoList
+        //         num += apiList.length
+        //     } else {
+        //         const children = data.children
+        //         if (children) {
+        //             for (let j = 0; j < children.length; j++) {
+        //                 const element = children[j]
+        //                 if (element.categoryType === 1) {
+        //                     // 叶子节点
+        //                     let childrenApiList = element.apiInfoList
+        //                     num += childrenApiList.length
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     return num
+        // })
         return {
             hotListData,
             interfaceTree,
             seletedCategoryId,
             seletedCategoryAction,
-            allCount,
+            // allCount,
             selectInterfaceData,
             searchRes,
         }

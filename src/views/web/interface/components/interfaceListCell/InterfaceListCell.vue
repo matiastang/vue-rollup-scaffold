@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 16:53:09
- * @LastEditTime: 2021-11-26 16:53:19
+ * @LastEditTime: 2021-12-03 10:11:46
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/interfaceListCell/InterfaceListCell.vue
@@ -26,18 +26,20 @@
 
             <div class="cell-title defaultFont">{{ data.categoryName }}</div>
         </div>
-        <div class="cell-value defaultFont">{{ `(${count})` }}</div>
+        <div class="cell-value defaultFont">{{ `(${data.cnt})` }}</div>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { HotType } from '@/common/request/modules/home/homeInterface'
+// import { HotType } from '@/common/request/modules/home/homeInterface'
+import { CategoryType } from '@/common/request/modules/api/apiInterface'
 
 export default defineComponent({
     name: 'InterfaceListCell',
     props: {
         data: {
-            type: Object as PropType<HotType>,
+            // type: Object as PropType<HotType>,
+            type: Object as PropType<CategoryType>,
             default: () => {
                 return {}
             },
@@ -51,30 +53,30 @@ export default defineComponent({
         /**
          * 接口总数
          */
-        const count = computed(() => {
-            let num = 0
-            if (props.data.categoryType === 1) {
-                // 叶子节点
-                let apiList = props.data.apiInfoList
-                num += apiList.length
-            } else {
-                const children = props.data.children
-                if (children) {
-                    for (let j = 0; j < children.length; j++) {
-                        const element = children[j]
-                        if (element.categoryType === 1) {
-                            // 叶子节点
-                            let childrenApiList = element.apiInfoList
-                            num += childrenApiList.length
-                        }
-                    }
-                }
-            }
-            return num
-        })
+        // const count = computed(() => {
+        //     let num = 0
+        //     if (props.data.categoryType === 1) {
+        //         // 叶子节点
+        //         let apiList = props.data.apiInfoList
+        //         num += apiList.length
+        //     } else {
+        //         const children = props.data.children
+        //         if (children) {
+        //             for (let j = 0; j < children.length; j++) {
+        //                 const element = children[j]
+        //                 if (element.categoryType === 1) {
+        //                     // 叶子节点
+        //                     let childrenApiList = element.apiInfoList
+        //                     num += childrenApiList.length
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     return num
+        // })
         // 选中的列表
         return {
-            count,
+            // count,
         }
     },
 })

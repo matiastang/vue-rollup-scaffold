@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:51:15
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 14:51:17
+ * @LastEditTime: 2021-12-03 10:52:08
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/apiInterface.d.ts
  * @Description: 开放接口类型声明
  */
@@ -46,4 +46,30 @@ export interface SolutionInterfaceType {
     id: number
     solutionId: number
     updateTime: string //'2021-11-30T02:59:15.000+08:00'
+}
+
+/**
+ * 分类类型
+ */
+export interface CategoryType {
+    categoryIconUrl: string //分类图标
+    categoryId: number //分类id
+    categoryName: string //分类名称
+    categoryType: number //0：非叶子节点 1：叶子节点
+    cnt: number //分类接口数量
+    parentId: string //父ID
+}
+
+/**
+ * 分类接口
+ */
+export interface CategoryApiType {
+    apiInfoList: ApiInfoType[]
+    categoryIconUrl: string
+    categoryId: number
+    categoryName: string
+    categoryPath: string
+    categoryType: number
+    id: number
+    parentId: number
 }

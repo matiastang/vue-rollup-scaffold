@@ -2,11 +2,11 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-02 16:15:28
+ * @LastEditTime: 2021-12-03 10:40:45
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
-import { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import initInstance from '@/common/request/axiosInterceptors'
 // import { requestDebounce } from './requestDebounce.js'
 import requestThrottle from './requestThrottle'
@@ -73,7 +73,13 @@ const http = {
                         })
                         return
                     }
-                    if (typeof errMessage === 'string' && errMessage.endsWith('abort')) {
+                    // if (typeof errMessage === 'string' && errMessage.endsWith('abort')) {
+                    //     reject({
+                    //         msg: '取消请求',
+                    //     })
+                    //     return
+                    // }
+                    if (axios.isCancel(err)) {
                         reject({
                             msg: '取消请求',
                         })
