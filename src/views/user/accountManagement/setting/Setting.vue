@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 16:18:28
+ * @LastEditTime: 2021-12-06 11:34:26
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -216,6 +216,7 @@ import { ElMessage } from 'element-plus'
 import useClipboard from 'vue-clipboard3'
 import { resetToken } from '@/common/request/modules/user/user'
 import { chargingSequence } from '@/common/request'
+import { watch } from 'fs'
 
 export default defineComponent({
     name: 'Setting',
@@ -327,7 +328,7 @@ export default defineComponent({
         const selectType = ref(type)
         watchSyncEffect(async () => {
             if (
-                userInfo.value.deductionSequence &&
+                !userInfo.value.deductionSequence ||
                 userInfo.value.deductionSequence.startsWith(selectType.value)
             ) {
                 return

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:54:19
- * @LastEditTime: 2021-11-30 19:49:17
+ * @LastEditTime: 2021-12-06 10:31:03
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/codeInput/CodeInput.vue
@@ -64,6 +64,10 @@ export default defineComponent({
          * 获取验证码
          */
         const getCode = () => {
+            if (codeText.value !== '获取验证码') {
+                console.warn('倒计时中')
+                return
+            }
             content.emit('CodeInputGetCode')
         }
         // 倒计时
