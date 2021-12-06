@@ -10,6 +10,9 @@
     <el-skeleton v-if="loading" :rows="8" animated />
     <div class="app-container" v-else>
         <el-descriptions title="发票信息" :column="1">
+            <template #extra>
+                <el-button type="primary" size="mini" plain @click="handleGoBack">返回</el-button>
+            </template>
             <el-descriptions-item label="客户账号">{{
                 detail.member.userName
             }}</el-descriptions-item>
@@ -66,10 +69,11 @@
 
 <script setup lang="ts">
 import { reactive, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { getInv } from '@/api'
 import { invTypeToText } from '@/common/utils'
 const route = useRoute()
+const router = useRouter()
 const detail = reactive({})
 const loading = ref(true)
 onMounted(() => {
@@ -86,6 +90,9 @@ const doFetchDetail = () => {
         .catch((err) => {
             throw err
         })
+}
+const handleGoBack = () => {
+    router.back()
 }
 </script>
 

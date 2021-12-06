@@ -129,7 +129,7 @@
                     show-overflow-tooltip
                 />
 
-                <el-table-column prop="address" fixed="right" label="操作" width="250px">
+                <el-table-column prop="address" fixed="right" label="操作" width="280px">
                     <template #default="scope">
                         <router-link
                             class="paystatus-primary"

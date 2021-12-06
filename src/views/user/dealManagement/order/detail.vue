@@ -10,6 +10,11 @@
     <div class="order-detail">
         <el-card shadow="never" v-loading="loading">
             <el-descriptions title="订单详情" :column="1">
+                <template #extra>
+                    <el-button type="primary" size="mini" plain @click="handleGoBack"
+                        >返回</el-button
+                    >
+                </template>
                 <el-descriptions-item label="订单编号"> {{ order.orderSn }}</el-descriptions-item>
                 <el-descriptions-item v-if="order.orderType" label="订单类型">{{
                     order.orderType === 1 ? '充值' : '套餐'
@@ -59,25 +64,29 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { getOrderDetail } from '@/api'
 import { Order } from '@/@types'
 import { payStatusToText } from '@/common/utils'
 
 const loading = ref(true)
 const order = reactive({})
-const router = useRoute()
+const route = useRoute()
+const router = useRouter()
 onMounted(() => {
     doFetchDetail()
 })
 
 const doFetchDetail = () => {
-    const id = Number(router.params.id)
+    const id = Number(route.params.id)
     loading.value = true
     getOrderDetail(id).then((data) => {
         loading.value = false
         Object.assign(order, data)
     })
+}
+const handleGoBack = () => {
+    router.back()
 }
 </script>
 
