@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-12-03 15:14:16
+ * @LastEditTime: 2021-12-06 16:36:40
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -136,10 +136,23 @@
                     <el-tab-pane class="right-tab right-error" label="错误代码" name="error">
                         <InfoTable :header="errorTableHeader" :data="errorTableData" />
                     </el-tab-pane>
-                    <!-- <el-tab-pane class="right-tab right-sample" label="示例代码" name="sample">
-                        <div class="text">示例代码功能开发中</div>
+                    <el-tab-pane class="right-tab right-sample" label="示例代码" name="sample">
+                        <pre>
+                            {{ requestExample }}
+                        </pre>
+                        <!-- <JsonView
+                            v-if="requestExample"
+                            class="base-info-item-text"
+                            :data="requestExample"
+                        />
+                        <el-skeleton
+                            v-else
+                            :rows="5"
+                            animated
+                            style="padding: 12px; box-sizing: border-box"
+                        /> -->
                     </el-tab-pane>
-                    <el-tab-pane class="right-tab right-document" label="接口文档" name="document">
+                    <!-- <el-tab-pane class="right-tab right-document" label="接口文档" name="document">
                         <div class="text">接口文档功能开发中</div>
                     </el-tab-pane>
                     <el-tab-pane class="right-tab right-version" label="升级版本" name="version">
@@ -151,7 +164,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, watchEffect, watchSyncEffect, computed } from 'vue'
+import { defineComponent, reactive, ref, watch, watchEffect, watchSyncEffect, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import JsonView from 'vue3-json-view/src'
 import InfoCell from './components/infoCell/InfoCell.vue'
@@ -177,14 +190,30 @@ export default defineComponent({
         })
         // 选择了api
         const selectApiId = ref(0)
-        watchEffect(() => {
-            if (route.params.id) {
-                selectApiId.value = Number(route.params.id)
-                console.log(`selectApiId=${selectApiId.value}`)
-                return
+        watch(
+            () => route.params.id,
+            (newId, oldId) => {
+                try {
+                    selectApiId.value = Number(newId)
+                } catch (error) {
+                    selectApiId.value = 1
+                }
             }
+        )
+        try {
+            selectApiId.value = Number(route.params.id)
+        } catch (error) {
             selectApiId.value = 1
-        })
+        }
+        // watchEffect(() => {
+        //     const id = route.params.id
+        //     if (id) {
+        //         selectApiId.value = Number(route.params.id)
+        //         console.log(`selectApiId=${selectApiId.value}`)
+        //         return
+        //     }
+        //     selectApiId.value = 1
+        // })
         // 选择的api信息
         // const getApiInfo = computed(() => {
         //     const apiTree = interfaceTree.tree
@@ -331,6 +360,21 @@ export default defineComponent({
                 value: '此IP已被禁用',
             },
         ])
+        // 返回json
+        const requestExample = computed(() => {
+            const res = getApiInfoData.data.requestExample
+            return res
+            // console.log(res)
+            // if (!res || res === '') {
+            //     return {} as object
+            // }
+            // try {
+            //     return JSON.parse(res)
+            // } catch (error) {
+            //     console.log(error)
+            //     return {} as object
+            // }
+        })
         return {
             interfaceTree,
             getApiInfoData,
@@ -341,6 +385,7 @@ export default defineComponent({
             returnResult,
             errorTableHeader,
             errorTableData,
+            requestExample,
         }
     },
     components: {

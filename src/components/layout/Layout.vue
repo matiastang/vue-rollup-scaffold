@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-12-06 15:12:17
+ * @LastEditTime: 2021-12-06 16:12:47
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/layout/Layout.vue
@@ -9,7 +9,7 @@
 <template>
     <div class="layout">
         <Header class="header" />
-        <div ref="contentRef" class="content">
+        <div ref="contentRef" class="content" @scroll="scrollAction">
             <div class="router-content">
                 <router-view></router-view>
             </div>
@@ -42,9 +42,14 @@ export default defineComponent({
                 element.scrollTo(0, elementTop - elementTop / 4)
             }
         }
+        // 滑动
+        const scrollAction = () => {
+            // 滑动
+        }
         return {
             contentRef,
             scrollToTop,
+            scrollAction,
         }
     },
     components: {
@@ -85,9 +90,22 @@ export default defineComponent({
         width: 100%;
         height: calc(100% - 96px);
         overflow-y: scroll;
+
         .router-content {
             min-height: 100%;
         }
+    }
+    .content::-webkit-scrollbar {
+        // width: 0px;
+        // display: none;
+        // width: 8px;
+        // height: 8px;
+    }
+    .content::-webkit-scrollbar-button {
+        display: none;
+    }
+    .content::-webkit-scrollbar-thumb {
+        background: #e6e6e6;
     }
     .footer {
         width: 100%;
