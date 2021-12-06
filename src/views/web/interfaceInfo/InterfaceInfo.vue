@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-12-06 16:36:40
+ * @LastEditTime: 2021-12-06 17:09:16
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -137,9 +137,10 @@
                         <InfoTable :header="errorTableHeader" :data="errorTableData" />
                     </el-tab-pane>
                     <el-tab-pane class="right-tab right-sample" label="示例代码" name="sample">
-                        <pre>
+                        <!-- <pre>
                             {{ requestExample }}
-                        </pre>
+                        </pre> -->
+                        <RequestExample />
                         <!-- <JsonView
                             v-if="requestExample"
                             class="base-info-item-text"
@@ -175,6 +176,7 @@ import FoldInfo from '@/components/foldInfo/FoldInfo.vue'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
 import { HotType, ApiInfoType } from '@/common/request/modules/home/homeInterface'
 import { detailCategoryList, detailInterfaceInfo } from '@/common/request/modules/api/api'
+import RequestExample from './components/requestExample/RequestExample.vue'
 
 export default defineComponent({
     name: 'InterfaceInfo',
@@ -394,6 +396,7 @@ export default defineComponent({
         InfoTable,
         JsonView,
         InfoList,
+        RequestExample,
     },
 })
 </script>

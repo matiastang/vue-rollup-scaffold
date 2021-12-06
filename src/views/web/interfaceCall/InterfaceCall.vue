@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-06 14:35:17
+ * @LastEditTime: 2021-12-06 16:50:18
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -414,6 +414,9 @@ export default defineComponent({
 
         // token选择
         const selectTokenType = ref('1')
+        watchEffect(() => {
+            selectTokenType.value = isApplyTry.value === 1 ? '2' : '1'
+        })
         const loginDialogVisible = ref(false)
         const loginAction = () => {
             loginDialogVisible.value = false
