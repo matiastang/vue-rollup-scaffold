@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 16:25:57
+ * @LastEditTime: 2021-12-06 14:20:33
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/check/interfaceCheck.ts
  * @Description: 接口信息校验
  */
@@ -33,4 +33,13 @@ function category_id_check(id: number) {
     return false
 }
 
-export { interface_id_check, category_id_check }
+/**
+ * 是否空对象
+ * @param obj
+ * @returns
+ */
+function is_empty_obj(obj: object) {
+    return Object.keys(obj).length === 0
+}
+
+export { interface_id_check, category_id_check, is_empty_obj }

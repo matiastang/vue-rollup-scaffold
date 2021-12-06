@@ -2,14 +2,14 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 17:40:34
+ * @LastEditTime: 2021-12-06 15:11:12
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
 <template>
     <div class="help-layout flexColumnCenter">
         <Header class="header" />
-        <div class="help-layout-content flexColumnCenter">
+        <div ref="contentRef" class="help-layout-content flexColumnCenter">
             <div class="help-layout-top-content flexRowCenter">
                 <div class="menu-content">
                     <div
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, watchEffect } from 'vue'
+import { computed, defineComponent, ref, Ref, watchEffect } from 'vue'
 import Header from '@/components/header/Header.vue'
 import Footer from '@/components/footer/Footer.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -124,11 +124,39 @@ export default defineComponent({
                 path: url,
             })
         }
-        return { helpList, menuAction }
+        const contentRef: Ref<HTMLElement | null> = ref(null)
+        // 平滑滚动到页面顶部
+        const scrollToTop = () => {
+            // const c = document.documentElement.scrollTop || document.body.scrollTop
+            const element = contentRef.value
+            if (!element) {
+                return
+            }
+            const elementTop = element.scrollTop
+            if (elementTop > 0) {
+                window.requestAnimationFrame(scrollToTop)
+                element.scrollTo(0, elementTop - elementTop / 4)
+            }
+        }
+        return { helpList, menuAction, contentRef, scrollToTop }
     },
     components: {
         Header,
         Footer,
+    },
+    beforeRouteUpdate(to, from, next) {
+        // 在当前路由改变，但是该组件被复用时调用
+        // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+        // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+        // 可以访问组件实例 `this`
+        this.scrollToTop()
+        next()
+    },
+    beforeRouteLeave(to, from, next) {
+        // 导航离开该组件的对应路由时调用
+        // 可以访问组件实例 `this`
+        this.scrollToTop()
+        next()
     },
 })
 </script>

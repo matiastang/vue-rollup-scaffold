@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-11-26 17:18:08
+ * @LastEditTime: 2021-12-06 15:12:17
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/layout/Layout.vue
@@ -9,7 +9,7 @@
 <template>
     <div class="layout">
         <Header class="header" />
-        <div class="content">
+        <div ref="contentRef" class="content">
             <div class="router-content">
                 <router-view></router-view>
             </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, Ref } from 'vue'
 import Header from '@/components/header/Header.vue'
 import Footer from '@/components/footer/Footer.vue'
 
@@ -27,9 +27,43 @@ export default defineComponent({
     data() {
         return {}
     },
+    setup() {
+        const contentRef: Ref<HTMLElement | null> = ref(null)
+        // 平滑滚动到页面顶部
+        const scrollToTop = () => {
+            // const c = document.documentElement.scrollTop || document.body.scrollTop
+            const element = contentRef.value
+            if (!element) {
+                return
+            }
+            const elementTop = element.scrollTop
+            if (elementTop > 0) {
+                window.requestAnimationFrame(scrollToTop)
+                element.scrollTo(0, elementTop - elementTop / 4)
+            }
+        }
+        return {
+            contentRef,
+            scrollToTop,
+        }
+    },
     components: {
         Header,
         Footer,
+    },
+    beforeRouteUpdate(to, from, next) {
+        // 在当前路由改变，但是该组件被复用时调用
+        // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+        // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+        // 可以访问组件实例 `this`
+        this.scrollToTop()
+        next()
+    },
+    beforeRouteLeave(to, from, next) {
+        // 导航离开该组件的对应路由时调用
+        // 可以访问组件实例 `this`
+        this.scrollToTop()
+        next()
     },
 })
 </script>

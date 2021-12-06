@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-06 14:03:09
+ * @LastEditTime: 2021-12-06 14:35:17
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -207,8 +207,15 @@
                         <div class="bottom-right-json borderBox flexColumnCenter">
                             <div class="json-content borderBox flexColumnCenter">
                                 <div class="json-title defaultFont">请求内容:</div>
-                                <div v-if="getApiInfoData.data.apiInfoId" class="request-json">
-                                    <JsonView class="request-json" :data="requestJson" />
+                                <div
+                                    v-if="getApiInfoData.data.apiInfoId"
+                                    class="request-json-content"
+                                >
+                                    <JsonView
+                                        v-if="!requestIsEmpty"
+                                        class="request-json"
+                                        :data="requestJson"
+                                    />
                                 </div>
                                 <el-skeleton
                                     v-else
@@ -222,11 +229,16 @@
                                 style="margin-top: 42px"
                             >
                                 <div class="json-title defaultFont">返回内容:</div>
-                                <JsonView
+                                <div
                                     v-if="getApiInfoData.data.apiInfoId"
-                                    class="result-json"
-                                    :data="resultJson.result"
-                                />
+                                    class="result-json-content"
+                                >
+                                    <JsonView
+                                        v-if="!resIsEmpty"
+                                        class="result-json"
+                                        :data="resultJson.result"
+                                    />
+                                </div>
                                 <el-skeleton
                                     v-else
                                     :rows="5"
@@ -298,6 +310,7 @@ import { useStore } from 'store/index'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 import { addOd, orderType } from '@/common/request/modules/pay/pay'
 import { detailCategoryList, detailInterfaceInfo } from '@/common/request/modules/api/api'
+import { is_empty_obj } from '@/common/utils/check'
 
 export default defineComponent({
     name: 'InterfaceCall',
@@ -323,10 +336,13 @@ export default defineComponent({
         const resultJson = reactive({
             result: {} as { res: any } | { err: any },
         })
+        const resIsEmpty = computed(() => {
+            return is_empty_obj(resultJson.result)
+        })
         // 选择了api
         const selectApiId = ref(1)
         watchEffect(() => {
-            resultJson.result = { res: {} }
+            // resultJson.result = { res: {} }
             if (route.params.id) {
                 selectApiId.value = Number(route.params.id)
                 return
@@ -391,6 +407,9 @@ export default defineComponent({
                 }
             }
             return json
+        })
+        const requestIsEmpty = computed(() => {
+            return is_empty_obj(requestJson.value)
         })
 
         // token选择
@@ -621,6 +640,8 @@ export default defineComponent({
             showApplyTrialModel,
             isApplyTry,
             testLoading,
+            resIsEmpty,
+            requestIsEmpty,
         }
     },
     components: {
@@ -816,6 +837,7 @@ export default defineComponent({
                     .bottom-right-json {
                         width: 50%;
                         padding: 23px 23px 0px 23px;
+                        justify-content: flex-start;
                         .json-content {
                             width: 100%;
                             align-items: flex-start;
@@ -829,18 +851,25 @@ export default defineComponent({
                                 background: #ededed;
                                 padding: 0px;
                             }
-                            .request-json {
+                            .request-json-content,
+                            .result-json-content {
                                 width: 100%;
                                 min-height: 160px;
                                 background: #ededed;
                                 border: 1px solid #dfdfdf;
-                            }
-                            .result-json {
-                                width: 100%;
-                                height: 360px;
-                                background: #ededed;
-                                border: 1px solid #dfdfdf;
-                                overflow-y: scroll;
+                                .request-json {
+                                    width: 100%;
+                                    min-height: 160px;
+                                    background: #ededed;
+                                    border: 1px solid #dfdfdf;
+                                }
+                                .result-json {
+                                    width: 100%;
+                                    height: 360px;
+                                    background: #ededed;
+                                    border: 1px solid #dfdfdf;
+                                    overflow-y: scroll;
+                                }
                             }
                         }
                     }
