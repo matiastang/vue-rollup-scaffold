@@ -37,7 +37,7 @@
                 <el-descriptions-item label="支付时间">{{
                     order.payTime || '-'
                 }}</el-descriptions-item>
-                <el-descriptions-item v-if="order.toBuyer" label="订单备注">{{
+                <el-descriptions-item v-if="order.toBuyer" label="卖家留言">{{
                     order.toBuyer || '-'
                 }}</el-descriptions-item>
                 <el-descriptions-item label="支付凭证">
