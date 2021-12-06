@@ -27,7 +27,7 @@
             <el-descriptions-item label="提交日期">{{ detail.applyTime }}</el-descriptions-item>
             <el-descriptions-item
                 v-if="detail.invoiceInfo"
-                :label="detail.status === 5 ? '物流编号' : '未通过原因'"
+                :label="detail.status === 5 ? '物流编号' : '卖家留言'"
                 >{{ detail.invoiceInfo }}</el-descriptions-item
             >
         </el-descriptions>
