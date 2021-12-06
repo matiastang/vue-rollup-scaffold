@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 16:26:14
+ * @LastEditTime: 2021-12-06 20:11:59
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -323,11 +323,13 @@
                                 <el-upload
                                     class="tab-company-img"
                                     ref="businessLicenseRoot"
+                                    :headers="uploadHeaders"
                                     :action="uploadURL"
                                     :show-file-list="false"
                                     :limit="1"
                                     :multiple="false"
                                     :on-success="companyImageAvatarSuccess"
+                                    :on-error="imageAvatarError"
                                     :before-upload="companyImageBeforeAvatarUpload"
                                 >
                                     <img
@@ -441,12 +443,14 @@
                                     <el-upload
                                         class="tab-personage-img-front"
                                         ref="personageFrontRoot"
+                                        :headers="uploadHeaders"
                                         :action="uploadURL"
                                         :show-file-list="false"
                                         :limit="1"
                                         :multiple="false"
                                         accept=""
                                         :on-success="personageImageFrontAvatarSuccess"
+                                        :on-error="imageAvatarError"
                                         :before-upload="personageImageFrontBeforeAvatarUpload"
                                     >
                                         <img
@@ -465,11 +469,13 @@
                                     <el-upload
                                         class="tab-personage-img-bg"
                                         ref="personageBgRoot"
+                                        :headers="uploadHeaders"
                                         :action="uploadURL"
                                         :show-file-list="false"
                                         :limit="1"
                                         :multiple="false"
                                         :on-success="personageImageBgAvatarSuccess"
+                                        :on-error="imageAvatarError"
                                         :before-upload="personageImageBgBeforeAvatarUpload"
                                     >
                                         <img
@@ -555,6 +561,8 @@ import { certificationLog } from './certification'
 import { email_check, identity_card_check } from 'utils/check/index'
 import { ElUpload } from 'element-plus'
 
+// el-upload
+
 export default defineComponent({
     name: 'Certification',
     setup() {
@@ -571,6 +579,13 @@ export default defineComponent({
         let activeName = ref('company')
         // 图片上传地址
         const uploadURL = ref(`${baseURL}/member/upload`)
+        const userToken = computed(() => store.state.userModule.userLoginInfo.token)
+        const uploadHeaders = computed(() => {
+            return {
+                Authorization: `Bearer ${userToken.value}`,
+                viewType: 'front',
+            }
+        })
         // 公司认证company
         let companyName = ref('')
         let companyUnifiedCreditCode = ref('')
@@ -585,6 +600,11 @@ export default defineComponent({
         const companyImageUrl: Ref<string | null> = ref(null)
         const businessLicenseRoot: Ref<uploadType | null> = ref(null)
         const companyImageAvatarSuccess = (res: any, file: any) => {
+            const code = res.code
+            if (code !== 200) {
+                ElMessage.error(res.msg || '上传失败')
+                return
+            }
             let url = res.data
             if (url) {
                 companyImageUrl.value = url
@@ -593,6 +613,9 @@ export default defineComponent({
             if (blRoot) {
                 blRoot.clearFiles()
             }
+        }
+        const imageAvatarError = (err: any) => {
+            ElMessage.error(err.msg || '上传失败')
         }
         const companyImageBeforeAvatarUpload = (file: any) => {
             const isJPG = file.type === 'image/jpeg'
@@ -733,6 +756,11 @@ export default defineComponent({
         const personageImageFrontUrl: Ref<string | null> = ref(null)
         const personageFrontRoot: Ref<uploadType | null> = ref(null)
         const personageImageFrontAvatarSuccess = (res: any, file: any) => {
+            const code = res.code
+            if (code !== 200) {
+                ElMessage.error(res.msg || '上传失败')
+                return
+            }
             let url = res.data
             if (url) {
                 personageImageFrontUrl.value = url
@@ -766,6 +794,11 @@ export default defineComponent({
         const personageImageBgUrl: Ref<string | null> = ref(null)
         const personageBgRoot: Ref<uploadType | null> = ref(null)
         const personageImageBgAvatarSuccess = (res: any, file: any) => {
+            const code = res.code
+            if (code !== 200) {
+                ElMessage.error(res.msg || '上传失败')
+                return
+            }
             let url = res.data
             if (url) {
                 personageImageBgUrl.value = url
@@ -1019,6 +1052,8 @@ export default defineComponent({
             recertification,
             recertificationAction,
             cancelRecertificationAction,
+            uploadHeaders,
+            imageAvatarError,
         }
     },
 })
