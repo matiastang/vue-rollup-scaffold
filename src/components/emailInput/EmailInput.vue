@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-16 15:35:33
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-16 15:36:47
+ * @LastEditTime: 2021-12-06 10:33:21
  * @FilePath: /datumwealth-openalpha-front/src/components/emailInput/EmailInput.vue
  * @Description: 邮箱输入框
 -->
@@ -34,5 +34,11 @@ export default defineComponent({
     width: 100%;
     height: 56px;
     justify-content: flex-start;
+    :deep(.el-input__inner) {
+        height: 54px;
+    }
+    :deep(.el-input__suffix) {
+        padding-right: 10px !important;
+    }
 }
 </style>

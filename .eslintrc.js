@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 17:15:20
- * @LastEditTime: 2021-10-28 11:37:10
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-06 10:53:56
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/.eslintrc.js
+ * @FilePath: /datumwealth-openalpha-front/.eslintrc.js
  */
 module.exports = {
     root: true,
@@ -31,6 +31,8 @@ module.exports = {
         // 规则
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        // 去除ts类型检测,消除ts函数设置默认值提示错误
+        '@typescript-eslint/no-inferrable-types': 'off',
         'no-unused-variable': 'off',
         // prettier样式规则，需要和配置文件的统一
         'prettier/prettier': [

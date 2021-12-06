@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 16:31:59
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 16:36:26
+ * @LastEditTime: 2021-12-06 11:19:37
  * @FilePath: /datumwealth-openalpha-front/src/components/changePasswordModel/ChangePasswordModel.vue
  * @Description: 修改密码弹窗
 -->
@@ -75,17 +75,17 @@ export default defineComponent({
             if (oldPasswordError) {
                 ElMessage({
                     message: oldPasswordError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
             // 密码校验
             let newPassword = newInputPassword.value
-            let newPasswordError = password_check(newPassword)
+            let newPasswordError = password_check(newPassword, true)
             if (newPasswordError) {
                 ElMessage({
                     message: newPasswordError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -94,7 +94,7 @@ export default defineComponent({
             if (affirmNewPassword !== newPassword) {
                 ElMessage({
                     message: '两次密码不一致',
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -103,7 +103,7 @@ export default defineComponent({
             if (!userId) {
                 ElMessage({
                     message: '用户信息错误',
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }

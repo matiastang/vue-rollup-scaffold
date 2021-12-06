@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 14:59:37
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 18:51:21
+ * @LastEditTime: 2021-12-06 11:17:20
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/discountInfo/DiscountInfo.vue
  * @Description: 优惠套餐详情
 -->
@@ -31,42 +31,42 @@
             <el-table class="discount-info-table" :data="tableData.list" style="width: 100%">
                 <el-table-column prop="apiInfoId" label="接口ID" min-width="80">
                     <template #default="scope">
-                        {{ scope.row.apiInfoId || '-' }}
+                        {{ scope.row.apiInfoId !== null ? scope.row.apiInfoId : '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="apiName" label="接口名称" min-width="80">
                     <template #default="scope">
-                        {{ scope.row.apiName || '-' }}
+                        {{ scope.row.apiName !== null ? scope.row.apiName : '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="apiPrice" label="单价(元/次)" min-width="110">
                     <template #default="scope">
-                        {{ scope.row.apiPrice || '-' }}
+                        {{ scope.row.apiPrice !== null ? scope.row.apiPrice : '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="apiVersion" label="接口最新版本" min-width="105">
                     <template #default="scope">
-                        {{ scope.row.apiVersion || '-' }}
+                        {{ scope.row.apiVersion !== null ? scope.row.apiVersion : '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="costPrice" label="消费金额" min-width="80">
                     <template #default="scope">
-                        {{ scope.row.costPrice || '-' }}
+                        {{ scope.row.costPrice !== null ? scope.row.costPrice : '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="costTimes" label="计费次数" min-width="80">
                     <template #default="scope">
-                        {{ scope.row.costTimes || '-' }}
+                        {{ scope.row.costTimes !== null ? scope.row.costTimes : '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="countSum" label="总调用量" min-width="80">
                     <template #default="scope">
-                        {{ scope.row.countSum || '-' }}
+                        {{ scope.row.countSum !== null ? scope.row.countSum : '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="validSum" label="有效调用量" min-width="90">
                     <template #default="scope">
-                        {{ scope.row.validSum || '-' }}
+                        {{ scope.row.validSum !== null ? scope.row.validSum : '-' }}
                     </template>
                 </el-table-column>
             </el-table>

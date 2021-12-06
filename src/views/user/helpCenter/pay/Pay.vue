@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:15:02
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 16:43:42
+ * @LastEditTime: 2021-12-06 10:11:15
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/pay/Pay.vue
  * @Description: 帮助中心-支付方式
 -->
@@ -79,7 +79,7 @@ export default defineComponent({
         .pay-item-img {
             width: calc(100% - 24px);
             // height: 362px;
-            background: $themeColor;
+            // background: $themeColor;
             margin-bottom: 12px;
             margin-left: 24px;
         }

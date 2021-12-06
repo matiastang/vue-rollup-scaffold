@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 09:49:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 16:41:29
+ * @LastEditTime: 2021-12-06 11:25:39
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/check/userInfoCheck.ts
  * @Description: 用户信息校验
  */
@@ -64,11 +64,18 @@ function code_check(code: string): string | null {
  * @param password 密码
  * @returns 结果
  */
-function password_check(password: string): string | null {
+function password_check(password: string, isChange: boolean = false): string | null {
     if (password.trim() == '') {
         return '请输入密码'
     }
-    const reg = /^[A-Za-z\d]{6,20}$/
+    const loginReg = /^[A-Za-z\d]{6,20}$/
+    if (!loginReg.test(password)) {
+        return '密码为6-20位数字或字母'
+    }
+    if (!isChange) {
+        return null
+    }
+    const reg = /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z\d]{6,30}$/
     if (!reg.test(password)) {
         return '密码格式为6-20位数字与字母组合'
     }

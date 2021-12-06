@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-26 13:37:30
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 09:52:36
+ * @LastEditTime: 2021-12-06 10:25:12
  * @FilePath: /datumwealth-openalpha-front/src/views/web/about/feedback/Feedback.vue
  * @Description: 意见反馈
 -->
@@ -30,7 +30,7 @@
                 placeholder="以便我们及时反馈您"
             />
         </div>
-        <div class="feedback-ok cursorP defaultFont" @click="backAction">意见反馈</div>
+        <div class="feedback-ok cursorP defaultFont" @click="backAction">提交反馈</div>
     </div>
 </template>
 

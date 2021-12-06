@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:13:15
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 16:43:36
+ * @LastEditTime: 2021-12-06 10:11:10
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/loginRegister/LoginRegister.vue
  * @Description: 帮组中心-登录注册
 -->
@@ -107,7 +107,7 @@ export default defineComponent({
         .login-register-item-img {
             width: calc(100% - 24px);
             // height: 362px;
-            background: $themeColor;
+            // background: $themeColor;
             margin-bottom: 12px;
             margin-left: 24px;
         }
