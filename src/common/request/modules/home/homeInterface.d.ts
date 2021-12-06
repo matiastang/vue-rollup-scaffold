@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 19:39:07
+ * @LastEditTime: 2021-12-06 19:31:37
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
@@ -96,6 +96,22 @@ export interface ApiInfoType {
     returnFormat: string
     returnResult: string
     tag: string
+    metaColumnList: MetaType[]
+}
+
+/**
+ * 返回字段说明类型
+ */
+export interface MetaType {
+    columnName: string //'fund_code'
+    columnNameCn: string // '基金代码'
+    columnType: string // 'varchar(20)'
+    createTime: string // '2021-11-12T18:20:54.000+08:00'
+    id: number //37289
+    primaryKeyTag: string // '√'
+    tableName: string // 'bsc_basics'
+    updateTime: string // '2021-11-12T18:20:51.000+08:00'
+    desp: string
 }
 
 /**
