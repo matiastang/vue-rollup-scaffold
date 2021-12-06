@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-12-06 19:31:51
+ * @LastEditTime: 2021-12-06 19:39:07
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -116,6 +116,22 @@
                             </div>
                             <div v-else class="base-info-parameter borderBox flexRowCenter">无</div>
                         </FoldInfo>
+                        <FoldInfo class="tab-info-fold" :show="false" title="返回结果">
+                            <div class="base-info-result borderBox flexColumnCenter">
+                                <div class="base-info-item-title defaultFont">JSON示例:</div>
+                                <JsonView
+                                    v-if="returnResult"
+                                    class="base-info-item-text"
+                                    :data="returnResult"
+                                />
+                                <el-skeleton
+                                    v-else
+                                    :rows="5"
+                                    animated
+                                    style="padding: 12px; box-sizing: border-box"
+                                />
+                            </div>
+                        </FoldInfo>
                         <FoldInfo class="tab-info-fold" :show="false" title="字段释意">
                             <el-skeleton
                                 v-if="!getApiInfoData.data.apiInfoId"
@@ -136,22 +152,6 @@
                                 />
                             </div>
                             <div v-else class="base-info-parameter borderBox flexRowCenter">无</div>
-                        </FoldInfo>
-                        <FoldInfo class="tab-info-fold" :show="false" title="返回结果">
-                            <div class="base-info-result borderBox flexColumnCenter">
-                                <div class="base-info-item-title defaultFont">JSON示例:</div>
-                                <JsonView
-                                    v-if="returnResult"
-                                    class="base-info-item-text"
-                                    :data="returnResult"
-                                />
-                                <el-skeleton
-                                    v-else
-                                    :rows="5"
-                                    animated
-                                    style="padding: 12px; box-sizing: border-box"
-                                />
-                            </div>
                         </FoldInfo>
                     </el-tab-pane>
                     <el-tab-pane class="right-tab right-error" label="错误代码" name="error">
