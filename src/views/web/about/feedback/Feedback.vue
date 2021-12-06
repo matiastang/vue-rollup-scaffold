@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-26 13:37:30
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-26 15:14:30
+ * @LastEditTime: 2021-12-06 09:52:36
  * @FilePath: /datumwealth-openalpha-front/src/views/web/about/feedback/Feedback.vue
  * @Description: 意见反馈
 -->
@@ -157,6 +157,12 @@ export default defineComponent({
             height: 42px;
             border-radius: 2px;
             border: 1px solid #dfdfdf;
+            :deep(.el-input) {
+                height: 40px;
+                .el-input__inner {
+                    height: 40px;
+                }
+            }
         }
     }
     .feedback-ok {
