@@ -168,3 +168,12 @@ export function postInvUpdate(data: Invoic.Update) {
     //     data,
     // })
 }
+// 获取联系人
+export function getInvHistory() {
+    return http.get<Invoic.AsObject>(`${tradePrefix}/inv/history`)
+    // return request({
+    //     url: `/api/trade/inv/update`,
+    //     method: RequestMethod.post,
+    //     data,
+    // })
+}

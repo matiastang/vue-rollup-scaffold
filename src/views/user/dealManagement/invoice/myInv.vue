@@ -38,16 +38,16 @@
                         >修改收件信息</el-button
                     >
                 </template> -->
-                <el-descriptions-item label="收件人">{{
+                <el-descriptions-item label="收件人" v-if="lastInvoice.address">{{
                     lastInvoice.address.consignee
                 }}</el-descriptions-item>
-                <el-descriptions-item label="联系电话">{{
+                <el-descriptions-item v-if="lastInvoice.address" label="联系电话">{{
                     lastInvoice.address.contact
                 }}</el-descriptions-item>
-                <el-descriptions-item label="邮寄地址">{{
+                <el-descriptions-item v-if="lastInvoice.address" label="邮寄地址">{{
                     lastInvoice.address.address
                 }}</el-descriptions-item>
-                <el-descriptions-item label="邮寄编号">
+                <el-descriptions-item v-if="lastInvoice.address" label="邮寄编号">
                     {{ lastInvoice.address.zipcode }}</el-descriptions-item
                 >
             </el-descriptions>
@@ -206,7 +206,7 @@ import InvoiceTipsDialog from '@/views/user/dealManagement/invoice/DialogTips.vu
 import InvoiceActionDialog from '@/views/user/dealManagement/invoice/DialogAction.vue'
 import DialogAddInvoice from '@/views/user/dealManagement/invoice/DialogAddInv.vue'
 import { addDateRange, orderTypeToText, payStatusToText } from '@/common/utils'
-import { getOrderList, postInvList } from '@/api'
+import { getOrderList, postInvList, getInvHistory } from '@/api'
 const store = useStore(key)
 const loading = ref(true)
 const loadingInv = ref(false)
@@ -231,15 +231,15 @@ const currentOrder = reactive({
     orderSn: '',
     orderAmount: 0,
 })
-// const lastInvoice = reactive({})
+const lastInvoice = reactive({})
 const updateInv = reactive({
     open: false,
     invId: '',
 })
-const lastInvoice = computed(() => store.state.invModule.last)
+// const lastInvoice = computed(() => store.state.invModule.last)
 onMounted(() => {
     doQuery()
-    // doFetchInvLastInfo()
+    doFetchInvLastInfo()
 })
 const isPayStatusFinish = (row: Order.AsObject) => {
     const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
@@ -255,7 +255,7 @@ const computedSnLength = (val: string) => {
 }
 const handleNextInv = () => {
     handleCloseInv()
-    // doFetchInvLastInfo()
+    doFetchInvLastInfo()
 }
 const handleCloseInv = () => {
     Object.assign(updateInv, {
@@ -269,9 +269,9 @@ const handleUpdateInv = () => {
 }
 const doFetchInvLastInfo = () => {
     loadingInv.value = true
-    postInvList({ pageSize: 1 })
+    getInvHistory()
         .then((data) => {
-            Object.assign(lastInvoice, data.rows[0])
+            Object.assign(lastInvoice, data)
             loadingInv.value = false
         })
         .catch((err) => {
