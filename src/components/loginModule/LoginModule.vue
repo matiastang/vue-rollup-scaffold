@@ -89,7 +89,7 @@
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
 import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'

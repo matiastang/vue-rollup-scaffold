@@ -209,7 +209,7 @@ import {
 } from 'vue'
 // import TokenView from '@/components/tokenView/TokenView.vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import {
     userRechargeInfo,
     userRechargeList,

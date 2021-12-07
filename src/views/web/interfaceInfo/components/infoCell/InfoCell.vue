@@ -66,7 +66,7 @@
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { interface_id_check } from 'utils/check/index'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'InfoCell',

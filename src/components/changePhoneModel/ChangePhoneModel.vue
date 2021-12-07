@@ -39,7 +39,7 @@
 import { computed, defineComponent, ref, Ref } from 'vue'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { useStore } from 'store/index'
 import { sendSMS, changeMobile } from '@/common/request/modules/user/user'
 import { phone_check, code_check } from 'utils/check/index'

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 11:34:26
+ * @LastEditTime: 2021-12-07 11:02:24
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -212,11 +212,10 @@ import OpenalphaModel from '@/components/openalphaModel/OpenalphaModel.vue'
 import { useStore } from 'store/index'
 import { phoneDesensitization } from 'utils/index'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
 import useClipboard from 'vue-clipboard3'
 import { resetToken } from '@/common/request/modules/user/user'
 import { chargingSequence } from '@/common/request'
-import { watch } from 'fs'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'Setting',

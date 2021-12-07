@@ -42,7 +42,7 @@
 import { defineComponent, ref, computed, Ref } from 'vue'
 import EmailInput from '@/components/emailInput/EmailInput.vue'
 import CodeInput, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { useStore } from 'store/index'
 import { code_check, email_check } from 'utils/check/index'
 import { sendEmail, changeEmail } from '@/common/request/modules/user/user'

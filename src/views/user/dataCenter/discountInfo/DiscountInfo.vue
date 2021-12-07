@@ -91,7 +91,7 @@ import {
     RechargeDetailRequest,
     RechargeDetailItemResponse,
 } from '@/common/request/modules/pay/payInterface'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { RejectType } from '@/common/request/request'
 
 export default defineComponent({

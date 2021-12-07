@@ -40,7 +40,7 @@
 import { defineComponent } from 'vue'
 import { addOd, orderType } from '@/common/request/modules/pay/pay'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'TransferModel',

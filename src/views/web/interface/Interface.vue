@@ -89,7 +89,7 @@ import { defineComponent, reactive, ref, computed, watchSyncEffect, watchEffect 
 import InterfaceList from './components/interfaceList/InterfaceList.vue'
 import BaseInfoCell from './components/baseInfoCell/BaseInfoCell.vue'
 import InterfaceHot from './components/interfaceHot/InterfaceHot.vue'
-// import { ElMessage } from 'element-plus'
+// import ElMessage from '@/common/utils/message'
 import {
     apiHotInterface,
     apiSearch,
@@ -104,7 +104,7 @@ import {
     CategoryApiType,
 } from '@/common/request/modules/api/apiInterface'
 import { useRoute } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'Interface',

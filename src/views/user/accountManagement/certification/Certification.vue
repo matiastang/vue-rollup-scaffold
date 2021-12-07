@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 20:11:59
+ * @LastEditTime: 2021-12-07 10:58:18
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -548,7 +548,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref, computed, watchSyncEffect, reactive } from 'vue'
-import { ElMessage } from 'element-plus'
 import { useStore } from 'store/index'
 import { baseURL } from '@/common/request/config'
 import {
@@ -558,8 +557,9 @@ import {
     certificationLast,
 } from '@/common/request/modules/user/user'
 import { certificationLog } from './certification'
-import { email_check, identity_card_check } from 'utils/check/index'
+import { email_check, identity_card_check, organization_code_check } from 'utils/check/index'
 import { ElUpload } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 // el-upload
 
@@ -622,17 +622,11 @@ export default defineComponent({
             const isPNG = file.type === 'image/png'
             const isLt5M = file.size / 1024 / 1024 < 5
             if (!isJPG && !isPNG) {
-                ElMessage({
-                    message: '只能选择jpg、jpeg、png格式的图片',
-                    type: 'error',
-                })
+                ElMessage.error('只能选择jpg、jpeg、png格式的图片')
                 return false
             }
             if (!isLt5M) {
-                ElMessage({
-                    message: '图片大小不能超过5MB!',
-                    type: 'error',
-                })
+                ElMessage.error('图片大小不能超过5MB!')
                 return false
             }
             return true
@@ -642,82 +636,56 @@ export default defineComponent({
             // 姓名校验
             let name = companyName.value
             if (name.trim() === '') {
-                ElMessage({
-                    message: '请输入企业名称',
-                    type: 'warning',
-                })
+                ElMessage.error('请输入企业名称')
                 return
             }
             // 社会信用校验
-            let unifiedCreditCode = companyUnifiedCreditCode.value
-            if (unifiedCreditCode.trim() === '') {
-                ElMessage({
-                    message: '请输入统一社会信用代码',
-                    type: 'warning',
-                })
+            const unifiedCreditCode = companyUnifiedCreditCode.value
+            const organizationErr = organization_code_check(unifiedCreditCode)
+            if (organizationErr) {
+                ElMessage.error(organizationErr)
                 return
             }
             // 法人校验
             let legalPerson = companyLegalPerson.value
             if (legalPerson.trim() === '') {
-                ElMessage({
-                    message: '请输入法人代表名字',
-                    type: 'warning',
-                })
+                ElMessage.error('请输入法人代表名字')
                 return
             }
             // 邮箱账号校验
             let email = companyEmail.value
             let emailErr = email_check(email)
             if (emailErr) {
-                ElMessage({
-                    message: emailErr,
-                    type: 'warning',
-                })
+                ElMessage.error(emailErr)
                 return
             }
             // 部门校验
             let dept = companyDept.value
             if (dept.trim() === '') {
-                ElMessage({
-                    message: '请输入您所在的部门',
-                    type: 'warning',
-                })
+                ElMessage.error('请输入您所在的部门')
                 return
             }
             // 场景校验
             let note = companyNote.value
             if (note.trim() === '') {
-                ElMessage({
-                    message: '请输入您使用数据的场景',
-                    type: 'warning',
-                })
+                ElMessage.error('请输入您使用数据的场景')
                 return
             }
             let companyUrl = companyImageUrl.value
             if (!companyUrl) {
-                ElMessage({
-                    message: '请上传营业执照',
-                    type: 'warning',
-                })
+                ElMessage.error('请上传营业执照')
                 return
             }
             // 服务协议
             let check = companyChecked.value
             if (!check) {
-                ElMessage({
-                    message: '请阅读并同意《西筹开放平台认证服务协议》',
-                    type: 'warning',
-                })
+                ElMessage.warning('请阅读并同意《西筹开放平台认证服务协议》')
                 return
             }
             // 提交个人认证
             let userId = computed(() => userInfo.value.id)
             if (!userId.value) {
-                ElMessage({
-                    message: '用户信息错误',
-                    type: 'error',
-                })
+                ElMessage.error('用户信息错误')
                 return
             }
             let parameters = {
@@ -732,18 +700,12 @@ export default defineComponent({
             }
             enterprise(parameters)
                 .then((res) => {
-                    ElMessage({
-                        message: res,
-                        type: 'success',
-                    })
+                    ElMessage.success(res)
                     recertification.value = false
                     store.commit('setEnterpriseInfo', parameters)
                 })
                 .catch((err) => {
-                    ElMessage({
-                        message: err.msg || '修改手机号失败',
-                        type: 'error',
-                    })
+                    ElMessage.error(err.msg || '修改手机号失败')
                 })
         }
         // 个人认证personage
@@ -775,17 +737,11 @@ export default defineComponent({
             const isPNG = file.type === 'image/png'
             const isLt5M = file.size / 1024 / 1024 < 5
             if (!isJPG && !isPNG) {
-                ElMessage({
-                    message: '只能选择jpg、jpeg、png格式的图片',
-                    type: 'error',
-                })
+                ElMessage.error('只能选择jpg、jpeg、png格式的图片')
                 return false
             }
             if (!isLt5M) {
-                ElMessage({
-                    message: '图片大小不能超过5MB!',
-                    type: 'error',
-                })
+                ElMessage.error('图片大小不能超过5MB!')
                 return false
             }
             return true
@@ -813,17 +769,11 @@ export default defineComponent({
             const isPNG = file.type === 'image/png'
             const isLt5M = file.size / 1024 / 1024 < 5
             if (!isJPG && !isPNG) {
-                ElMessage({
-                    message: '只能选择jpg、jpeg、png格式的图片',
-                    type: 'error',
-                })
+                ElMessage.error('只能选择jpg、jpeg、png格式的图片')
                 return false
             }
             if (!isLt5M) {
-                ElMessage({
-                    message: '图片大小不能超过5MB!',
-                    type: 'error',
-                })
+                ElMessage.error('图片大小不能超过5MB!')
                 return false
             }
             return true
@@ -833,21 +783,11 @@ export default defineComponent({
             // 姓名校验
             let realName = personageName.value
             if (realName.trim() === '') {
-                ElMessage({
-                    message: '请输入您的姓名',
-                    type: 'warning',
-                })
+                ElMessage.error('请输入您的姓名')
                 return
             }
             // 身份证号校验
             let idNumber = personageIdNumber.value
-            if (idNumber.trim() === '') {
-                ElMessage({
-                    message: '请输入您的身份证号',
-                    type: 'warning',
-                })
-                return
-            }
             const idCardError = identity_card_check(idNumber)
             if (idCardError) {
                 ElMessage.error(idCardError)
@@ -863,44 +803,29 @@ export default defineComponent({
             // 场景校验
             let note = personageNote.value
             if (note.trim() === '') {
-                ElMessage({
-                    message: '请输入您使用数据的场景',
-                    type: 'warning',
-                })
+                ElMessage.error('请输入您使用数据的场景')
                 return
             }
             let frontUrl = personageImageFrontUrl.value
             if (!frontUrl) {
-                ElMessage({
-                    message: '请上传身份证正面照',
-                    type: 'warning',
-                })
+                ElMessage.error('请上传身份证正面照')
                 return
             }
             let bgUrl = personageImageBgUrl.value
             if (!bgUrl) {
-                ElMessage({
-                    message: '请上传身份证反面照',
-                    type: 'warning',
-                })
+                ElMessage.error('请上传身份证反面照')
                 return
             }
             // 服务协议
             let check = personageChecked.value
             if (!check) {
-                ElMessage({
-                    message: '请阅读并同意《西筹开放平台认证服务协议》',
-                    type: 'warning',
-                })
+                ElMessage.warning('请阅读并同意《西筹开放平台认证服务协议》')
                 return
             }
             // 提交个人认证
             let userId = computed(() => userInfo.value.id)
             if (!userId.value) {
-                ElMessage({
-                    message: '用户信息错误',
-                    type: 'error',
-                })
+                ElMessage.error('用户信息错误')
                 return
             }
             let parameters = {
@@ -913,18 +838,12 @@ export default defineComponent({
             }
             personal(parameters)
                 .then((res) => {
-                    ElMessage({
-                        message: res,
-                        type: 'success',
-                    })
+                    ElMessage.success(res)
                     recertification.value = false
                     store.commit('setPersonalInfo', parameters)
                 })
                 .catch((err) => {
-                    ElMessage({
-                        message: err.msg || '修改手机号失败',
-                        type: 'error',
-                    })
+                    ElMessage.error(err.msg || '修改手机号失败')
                 })
         }
         // table数据
@@ -1002,10 +921,7 @@ export default defineComponent({
             let userId = computed(() => userInfo.value.id)
             watchSyncEffect(async () => {
                 if (!userId.value) {
-                    ElMessage({
-                        message: '用户信息错误',
-                        type: 'error',
-                    })
+                    ElMessage.error('用户信息错误')
                     return
                 }
                 let info = await certificationLast(userId.value)

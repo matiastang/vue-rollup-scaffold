@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 17:56:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 09:47:53
+ * @LastEditTime: 2021-12-07 11:04:48
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/register.ts
  * @Description: 注册逻辑
  */
@@ -14,7 +14,8 @@ import { routerToUserCenter } from 'utils/router/index'
 // import _, { CodeInputRefTypes } from '@/components/codeInput/CodeInput.vue'
 import { sendSMS, forget } from '@/common/request/modules/user/user'
 import { phone_check, code_check } from 'utils/check/index'
-import { ElMessage, MessageParams } from 'element-plus'
+import { MessageParams } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 const fegisterCode = ref('')
 // const registerCodeRef: Ref<CodeInputRefTypes | null> = ref(null)

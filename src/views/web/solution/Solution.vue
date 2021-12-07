@@ -105,7 +105,7 @@ import InterfaceCell from './components/interfaceCell/InterfaceCell.vue'
 import { homePartner, solutionInterfaceList } from '@/common/request'
 import { SolutionInterfaceType } from '@/common/request/modules/api/apiInterface'
 import { interface_id_check } from 'utils/check/interfaceCheck'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'Solution',
