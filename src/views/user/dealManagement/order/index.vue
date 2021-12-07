@@ -397,7 +397,9 @@ const handleCancel = async (id: number, name?: string) => {
 }
 
 const doReset = () => {
-    Object.assign(initQueryParams, queryParams)
+    queryParams.orderSn = ''
+    queryParams.payId = ''
+    queryParams.pageNum = 1
     date.value = []
     form.value.resetFields()
     doQuery()

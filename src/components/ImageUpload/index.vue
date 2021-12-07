@@ -80,9 +80,10 @@ const data = reactive({
     dialogVisible: false,
     hideUpload: false,
     baseUrl: import.meta.env.VITE_APP_BASE_API,
-    uploadImgUrl: import.meta.env.VITE_APP_BASE_API + '/api/trade/od/upload', // 上传的图片服务器地址
+    uploadImgUrl: import.meta.env.VITE_APP_BASE_API + '/trade/od/upload', // 上传的图片服务器地址
     headers: {
         Authorization: 'Bearer ' + localStorageRead(localStorageKey.userTokenKey),
+        viewType: 'front',
     },
 })
 const fileList = reactive<Array<UploadFile>>([])
