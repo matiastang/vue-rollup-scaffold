@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 14:22:27
- * @LastEditTime: 2021-11-30 19:44:31
+ * @LastEditTime: 2021-12-07 11:27:45
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/passwordInput/PasswordInput.vue
@@ -13,7 +13,7 @@
             :="$attrs"
             :show-password="passwordHide"
             type="text"
-            maxlength="11"
+            maxlength="20"
             clearable
         >
         </el-input>

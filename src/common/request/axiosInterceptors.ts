@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-16 14:09:39
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 10:34:23
+ * @LastEditTime: 2021-12-07 12:18:31
  * @FilePath: /datumwealth-openalpha-front/src/common/request/axiosInterceptors.ts
  * @Description: axiosInstance | 拦截器
  */
@@ -14,6 +14,7 @@ import {
     localStorageRemoveAll,
 } from 'utils/storage/localStorage'
 import { abortAll } from './task'
+import ElMessage from '@/common/utils/message'
 /**
  * axiosInstance
  */
@@ -60,11 +61,11 @@ const initInstance = () => {
     // 添加响应拦截器
     axiosInstance.interceptors.response.use(
         (response) => {
-            const { code } = response.data
+            const { code, msg } = response.data
             if (code === 401) {
-                // {"msg":"登录已过期，请重新登录","code":401}
                 localStorageRemoveAll()
                 abortAll()
+                ElMessage.error(msg)
                 window.location.href = '#/login'
             }
             return response
