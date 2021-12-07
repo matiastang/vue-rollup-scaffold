@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 15:25:23
+ * @LastEditTime: 2021-12-07 14:13:47
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -177,7 +177,7 @@ export default defineComponent({
         const inputMoneyFocus = ref(false)
         const lastSelectIndex = ref(0)
         const moneySelectAction = (index: number) => {
-            inputMoney.value = NaN
+            // inputMoney.value = NaN
             inputMoneyFocus.value = false
             lastSelectIndex.value = index
             for (let i = 0; i < moneyArr.length; i++) {
