@@ -53,7 +53,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { addOd, orderType } from '@/common/request/modules/pay/pay'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { useStore } from 'store/index'
 
 export default defineComponent({

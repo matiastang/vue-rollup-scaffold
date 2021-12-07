@@ -47,7 +47,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { password_check } from 'utils/check/index'
 import { changePassword } from '@/common/request/modules/user/user'
 import { useStore } from 'store/index'

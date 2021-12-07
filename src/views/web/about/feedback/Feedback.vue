@@ -38,7 +38,7 @@
 import { defineComponent, ref } from 'vue'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import { phone_check } from 'utils/check/index'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { feedback } from '@/common/request/index'
 import { RejectType } from '@/common/request/request'
 

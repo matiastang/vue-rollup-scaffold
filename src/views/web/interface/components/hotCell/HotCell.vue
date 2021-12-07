@@ -27,7 +27,7 @@
 import { defineComponent } from 'vue'
 import { interface_id_check } from 'utils/check/index'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'HotCell',

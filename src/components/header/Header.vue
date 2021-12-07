@@ -81,7 +81,7 @@ import { useStore } from 'store/index'
 import { checkLoginPath } from '@/router/loginInterceptor'
 import { logout } from '@/common/request/index'
 import { routerToUserCenter } from 'utils/router/index'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'Header',

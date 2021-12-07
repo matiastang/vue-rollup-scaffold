@@ -48,7 +48,7 @@
 
 <script setup>
 import { ref, onMounted, reactive, useAttrs, watch } from 'vue'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { getInv, postInvUpdate } from '@/api'
 const attrs = useAttrs()
 const form = reactive({})

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 09:49:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 11:25:39
+ * @LastEditTime: 2021-12-07 10:08:03
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/check/userInfoCheck.ts
  * @Description: 用户信息校验
  */
@@ -106,4 +106,27 @@ function identity_card_check(identityCard: string): string | null {
     return null
 }
 
-export { phone_check, code_check, password_check, email_check, identity_card_check }
+/**
+ * 身份证校验
+ * @param organization 社会信用代码
+ * @returns 结果
+ */
+function organization_code_check(organizationCode: string): string | null {
+    if (organizationCode.trim() == '') {
+        return '请输入社会信用代码'
+    }
+    const reg = /^([0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}|[1-9]\d{14})$/
+    if (!reg.test(organizationCode)) {
+        return '社会信用代码格式错误'
+    }
+    return null
+}
+
+export {
+    phone_check,
+    code_check,
+    password_check,
+    email_check,
+    identity_card_check,
+    organization_code_check,
+}

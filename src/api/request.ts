@@ -7,7 +7,7 @@
  * @Description:
  */
 import axios from 'axios'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { Response } from '@/@types'
 import {
     localStorageKey,

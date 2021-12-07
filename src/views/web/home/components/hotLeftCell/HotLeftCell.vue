@@ -21,7 +21,7 @@
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { category_id_check } from 'utils/check/interfaceCheck'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'hotLeftCell',

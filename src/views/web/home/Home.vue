@@ -123,7 +123,7 @@ import {
 import { HotType, SolutionType } from '@/common/request/modules/home/homeInterface'
 import { useRouter } from 'vue-router'
 import { interface_id_check } from 'utils/check/interfaceCheck'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     setup() {

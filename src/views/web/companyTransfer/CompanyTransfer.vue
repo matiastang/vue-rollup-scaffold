@@ -84,7 +84,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, computed, watchSyncEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { getOdInfo } from '@/common/request/modules/pay/pay'
 import { useStore } from 'store/index'
 

@@ -48,7 +48,8 @@ import { localStorageKey, localStorageRead } from '@/common/utils/storage/localS
 import { reactive, watchEffect, computed, ref } from 'vue'
 import { Response, UploadFile } from '@/@types'
 import { Plus } from '@element-plus/icons'
-import { ElMessage, ElLoading } from 'element-plus'
+import { ElLoading } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 const props = defineProps({
     value: [String, Object, Array],
     // 图片数量限制
