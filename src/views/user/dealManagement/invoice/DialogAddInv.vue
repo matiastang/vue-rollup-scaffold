@@ -124,7 +124,7 @@ import { key } from '@/store'
 
 import { Invoic } from '@/@types'
 import { postAddInv } from '@/api'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 const SpecialOnvoice = ref()
 const loading = ref(false)
 const store = useStore(key)

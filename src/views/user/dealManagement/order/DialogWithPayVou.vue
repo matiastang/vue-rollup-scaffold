@@ -1,3 +1,11 @@
+<!--
+ * @Author: matiastang
+ * @Date: 2021-12-02 10:20:14
+ * @LastEditors: matiastang
+ * @LastEditTime: 2021-12-07 11:14:36
+ * @FilePath: /datumwealth-openalpha-front/src/views/user/dealManagement/order/DialogWithPayVou.vue
+ * @Description: 
+-->
 <template>
     <el-dialog
         v-model="open"
@@ -40,7 +48,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { postAddOrderVoucher } from '@/api'
-import { ElMessage } from 'element-plus'
+import ElMessage from '@/common/utils/message'
 import { Plus } from '@element-plus/icons'
 // import ImageUpload from '@/components/ImageUpload'
 const props = defineProps({

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-12-06 19:39:07
+ * @LastEditTime: 2021-12-07 11:16:42
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -132,7 +132,7 @@
                                 />
                             </div>
                         </FoldInfo>
-                        <FoldInfo class="tab-info-fold" :show="false" title="字段释意">
+                        <FoldInfo class="tab-info-fold" :show="false" title="返回字段说明">
                             <el-skeleton
                                 v-if="!getApiInfoData.data.apiInfoId"
                                 :rows="5"
@@ -315,10 +315,10 @@ export default defineComponent({
             },
         ])
         const metaTableHeader = reactive([
-            {
-                title: '主键',
-                key: 'primaryKeyTag',
-            },
+            // {
+            //     title: '主键',
+            //     key: 'primaryKeyTag',
+            // },
             {
                 title: '字段中文名',
                 key: 'columnNameCn',
