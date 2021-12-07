@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:12:34
- * @LastEditTime: 2021-12-07 12:24:16
+ * @LastEditTime: 2021-12-07 13:55:57
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/phoneinput/PhoneInput.vue
@@ -11,8 +11,10 @@
         <el-input
             class="inputNumber defaultInput"
             :="$attrs"
-            type="number"
+            type="text"
             maxlength="11"
+            v-model="phone"
+            @input="inputAction"
             clearable
         >
         </el-input>
@@ -20,17 +22,46 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
     name: 'PhoneInput',
     inheritAttrs: false,
-    props: ['phoneClass'],
-    data() {
-        return {}
+    props: {
+        modelValue: {
+            type: String,
+            default: '',
+        },
+        phoneClass: {
+            type: String,
+            default: null,
+        },
     },
-    setup() {
-        return {}
+    emits: {
+        'update:modelValue': (value: string) => {
+            return true
+        },
+    },
+    setup(props, content) {
+        const inputReplace = (value: string) => {
+            return value.replace(/[^0-9]/gi, '')
+        }
+        const phone = ref(inputReplace(props.modelValue))
+        watch(
+            () => props.modelValue,
+            (newValue, oldValue) => {
+                phone.value = inputReplace(newValue)
+            }
+        )
+        const inputAction = (value: string) => {
+            const newValue = inputReplace(value)
+            phone.value = newValue
+            content.emit('update:modelValue', newValue)
+        }
+        return {
+            phone,
+            inputAction,
+        }
     },
     methods: {},
 })

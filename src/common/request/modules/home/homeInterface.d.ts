@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 19:31:37
+ * @LastEditTime: 2021-12-07 14:02:34
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
@@ -89,6 +89,7 @@ export interface ApiInfoType {
     appInstance: string
     categoryId: number
     listRecoDesc: string
+    listRecoIcon: string
     listRecoFlag: number
     requestExample: string
     requestMethod: string

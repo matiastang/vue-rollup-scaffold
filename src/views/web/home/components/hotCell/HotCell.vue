@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 19:33:59
+ * @LastEditTime: 2021-12-07 14:01:51
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
  * @Description: 热榜接口cell
 -->
@@ -10,9 +10,9 @@
     <div class="hot-cell borderBox flexColumnCenter">
         <div class="hot-cell-top borderBox flexColumnCenter">
             <svg class="icon hot-cell-img" aria-hidden="true">
-                <use :xlink:href="`#${data.apiHomeRecoIcon}`"></use>
+                <use :xlink:href="`#${data.listRecoIcon}`"></use>
             </svg>
-            <div class="hot-cell-title">{{ data.apiHomeRecoDesc || '标题' }}</div>
+            <div class="hot-cell-title">{{ data.apiName || '标题' }}</div>
             <div v-for="item in texts" :key="item" class="hot-cell-text defaultFont">
                 {{ item || '副标题' }}
             </div>

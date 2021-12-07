@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:54:19
- * @LastEditTime: 2021-12-06 10:31:03
+ * @LastEditTime: 2021-12-07 13:55:52
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/codeInput/CodeInput.vue
@@ -15,8 +15,10 @@
         <el-input
             class="inputNumber defaultInput"
             :="$attrs"
-            type="number"
-            maxlength="4"
+            type="text"
+            maxlength="6"
+            v-model="code"
+            @input="codeAction"
             placeholder="请输入6位验证码"
             clearable
         />
@@ -30,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 interface CodeInputRefTypes {
     runCountDown: (num?: number) => void
@@ -52,13 +54,35 @@ export default defineComponent({
                 return {}
             },
         },
+        modelValue: {
+            type: String,
+            default: '',
+        },
     },
     emits: {
         CodeInputGetCode: (): boolean => {
             return true
         },
+        'update:modelValue': (value: string) => {
+            return true
+        },
     },
     setup(props, content) {
+        const inputReplace = (value: string) => {
+            return value.replace(/[^0-9]/gi, '')
+        }
+        const code = ref(inputReplace(props.modelValue))
+        watch(
+            () => props.modelValue,
+            (newValue, oldValue) => {
+                code.value = inputReplace(newValue)
+            }
+        )
+        const codeAction = (value: string) => {
+            const newValue = inputReplace(value)
+            code.value = newValue
+            content.emit('update:modelValue', newValue)
+        }
         let codeText = ref('获取验证码')
         /**
          * 获取验证码
@@ -88,6 +112,8 @@ export default defineComponent({
             codeText,
             getCode,
             runCountDown,
+            code,
+            codeAction,
         }
     },
 })
