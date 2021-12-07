@@ -2,19 +2,19 @@
  * @Author: matiastang
  * @Date: 2021-12-07 10:13:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 11:12:28
+ * @LastEditTime: 2021-12-07 11:24:33
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/message/index.ts
  * @Description: 提示相关
  */
-import ElMessage from '@/common/utils/message'
+import { ElMessage } from 'element-plus'
 
 /**
  * 提示封装
  */
-function Message(options: { message: string; type: string }) {
+function DWMessage(options: { message: string; type: string }) {
     const { message, type } = options
     if (type === 'error') {
-        ElMessage.error(message)
+        ElMessage
     } else if (type === 'success') {
         ElMessage.success(message)
     } else if (type === 'warning') {
@@ -28,17 +28,17 @@ function Message(options: { message: string; type: string }) {
         ElMessage.info(message)
     }
 }
-Message.success = (message: string) => {
+DWMessage.success = (message: string) => {
     ElMessage.success(message)
 }
-Message.error = (message: string) => {
+DWMessage.error = (message: string) => {
     ElMessage.error(message)
 }
-Message.warning = (message: string) => {
+DWMessage.warning = (message: string) => {
     ElMessage.warning(message)
 }
-Message.info = (message: string) => {
+DWMessage.info = (message: string) => {
     ElMessage.info(message)
 }
 
-export default Message
+export default DWMessage
