@@ -45,12 +45,12 @@
         </style>
         <style type="text/css">
             #Loading {
-                top:50% ;
-                left:50%;
+                top: 50%;
+                left: 50%;
                 position: absolute;
                 -webkit-transform: translateY(-50%) translateX(-50%);
                 transform: translateY(-50%) translateX(-50%);
-                z-index:100;
+                z-index: 100;
             }
             @-webkit-keyframes ball-beat {
                 50% {
@@ -58,28 +58,28 @@
                     -webkit-transform: scale(0.75);
                     transform: scale(0.75);
                 }
-        
+
                 100% {
                     opacity: 1;
                     -webkit-transform: scale(1);
                     transform: scale(1);
                 }
             }
-      
+
             @keyframes ball-beat {
                 50% {
                     opacity: 0.2;
                     -webkit-transform: scale(0.75);
                     transform: scale(0.75);
                 }
-        
+
                 100% {
                     opacity: 1;
                     -webkit-transform: scale(1);
                     transform: scale(1);
                 }
             }
-      
+
             .ball-beat > div {
                 background-color: #d65928;
                 width: 10px;
@@ -97,17 +97,17 @@
                 animation-delay: 0.35s !important;
             }
         </style>
-
     </head>
     <body>
-        <div id="Loading">
-            <div class="loader-inner ball-beat">
-               <div></div>
-               <div></div>
-               <div></div>
+        <div id="app">
+            <div id="Loading">
+                <div class="loader-inner ball-beat">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         </div>
-        <div id="app"></div>
         <!-- iconfont symbol document: https://www.iconfont.cn/help/detail?spm=a313x.7781069.1998910419.d8cf4382a&helptype=code -->
         <script src="//datumwealth.oss-cn-chengdu.aliyuncs.com/dw/icon/font.js"></script>
         <script type="module" src="./src/main.ts"></script>
