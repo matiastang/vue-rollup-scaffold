@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 15:30:33
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 11:14:52
+ * @LastEditTime: 2021-12-07 15:49:01
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/rechargeInfo/RechargeInfo.vue
  * @Description: 充值订单详情
 -->
@@ -103,8 +103,12 @@ export default defineComponent({
         // 类型
         const billType = ref(true)
         watchEffect(() => {
-            billType.value = `${route.query.type}` === 'day'
-            rechargeTime.value = `${route.query.time}`
+            if (route.query.type) {
+                billType.value = `${route.query.type}` === 'day'
+            }
+            if (route.query.time) {
+                rechargeTime.value = `${route.query.time}`
+            }
         })
         // table数据
         const tableData = reactive({

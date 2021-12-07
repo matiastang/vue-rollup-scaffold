@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 19:46:52
+ * @LastEditTime: 2021-12-07 15:28:33
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -243,15 +243,20 @@ export default defineComponent({
                 ElMessage.success('退出成功')
                 store.commit('setUserLoginInfo', null)
                 store.commit('setToken', null)
-                const findItem = checkLoginPath.find(({ path }) => {
-                    return path === route.path
-                })
-                if (findItem && findItem.mustLogin) {
-                    // 在需要登录的页面退出登录，这时更新页面为登录页面
+                if (route.path.startsWith('/user')) {
                     router.replace({
-                        path: findItem.redirectPath,
+                        path: '/login',
                     })
                 }
+                // const findItem = checkLoginPath.find(({ path }) => {
+                //     return path === route.path
+                // })
+                // if (findItem && findItem.mustLogin) {
+                //     // 在需要登录的页面退出登录，这时更新页面为登录页面
+                //     router.replace({
+                //         path: findItem.redirectPath,
+                //     })
+                // }
             }
         }
         return {

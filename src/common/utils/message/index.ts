@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-07 10:13:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 11:24:33
+ * @LastEditTime: 2021-12-07 15:41:39
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/message/index.ts
  * @Description: 提示相关
  */
@@ -14,7 +14,7 @@ import { ElMessage } from 'element-plus'
 function DWMessage(options: { message: string; type: string }) {
     const { message, type } = options
     if (type === 'error') {
-        ElMessage
+        ElMessage.error(message)
     } else if (type === 'success') {
         ElMessage.success(message)
     } else if (type === 'warning') {

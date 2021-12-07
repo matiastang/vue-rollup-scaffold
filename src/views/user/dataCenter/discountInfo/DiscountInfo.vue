@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 14:59:37
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 11:17:20
+ * @LastEditTime: 2021-12-07 15:49:46
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/discountInfo/DiscountInfo.vue
  * @Description: 优惠套餐详情
 -->
@@ -103,8 +103,12 @@ export default defineComponent({
         // 类型
         const billType = ref(true)
         watchEffect(() => {
-            billType.value = `${route.query.type}` === 'day'
-            discountTime.value = `${route.query.time}`
+            if (route.query.type) {
+                billType.value = `${route.query.type}` === 'day'
+            }
+            if (route.query.time) {
+                discountTime.value = `${route.query.time}`
+            }
         })
         // table数据
         const tableData = reactive({

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-11-30 17:48:46
+ * @LastEditTime: 2021-12-07 15:40:56
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -208,10 +208,7 @@ export default defineComponent({
                     }
                 })
                 .catch((err) => {
-                    ElMessage({
-                        message: err.msg || '登录错误',
-                        type: 'error',
-                    })
+                    ElMessage.error(err.msg || '登录错误')
                 })
         }
         // 密码登录
