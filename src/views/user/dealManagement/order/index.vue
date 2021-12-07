@@ -300,7 +300,10 @@ const handleDeleteInvoice = (row: Order.AsObject) => {
             doQuery()
         })
         .catch((err: RejectType) => {
-            ElMessage.error(err.msg)
+            const msg = err.msg
+            if (msg.trim() !== '') {
+                ElMessage.error(msg)
+            }
         })
 }
 const handleDownload = (row: Order.AsObject) => {
@@ -392,7 +395,10 @@ const handleCancel = async (id: number, name?: string) => {
             doQuery()
         })
         .catch((err: RejectType) => {
-            ElMessage.error(err.msg)
+            const msg = err.msg
+            if (msg.trim() !== '') {
+                ElMessage.error(msg)
+            }
         })
 }
 
