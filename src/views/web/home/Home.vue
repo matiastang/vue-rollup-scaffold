@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 16:42:17
+ * @LastEditTime: 2021-12-07 15:01:35
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -70,19 +70,22 @@
             </div>
         </div>
         <div v-if="solutionList.solutions.length > 0" class="solution borderBox flexColumnCenter">
-            <HomeTitle data="解决方案" />
-            <div class="solution-bottom flexRowCenter">
-                <SolutionCell
-                    class="solution-cell"
-                    v-for="(item, index) in solutionList.solutions"
-                    :key="item.title"
-                    :data="item"
-                    :index="index"
-                />
+            <div class="solution-bg-content">
+                <img class="solution-bg" src="static/home/scheme-bg.png" />
+                <HomeTitle data="解决方案" />
+                <div class="solution-bottom flexRowCenter">
+                    <SolutionCell
+                        class="solution-cell"
+                        v-for="(item, index) in solutionList.solutions"
+                        :key="item.title"
+                        :data="item"
+                        :index="index"
+                    />
+                </div>
             </div>
         </div>
         <div v-if="hotList.hots.length > 0" class="home-hot borderBox flexColumnCenter">
-            <HomeTitle data="热门接口推荐" style="padding-top: 60px" />
+            <HomeTitle data="热门接口推荐" />
             <div class="home-hot-bottom flexColumnCenter">
                 <Hot
                     class="home-hot-content"
@@ -93,14 +96,17 @@
             </div>
         </div>
         <div v-if="partnerList.partners.length > 0" class="partners borderBox flexColumnCenter">
-            <HomeTitle data="合作伙伴" />
-            <div class="partners-content flexRowCenter">
-                <img
-                    v-for="item in partnerList.partners"
-                    :key="item"
-                    class="partners-cell"
-                    :src="item"
-                />
+            <div class="partners-bg-content">
+                <img class="partners-bg" src="static/home/partners-bg.png" />
+                <HomeTitle data="合作伙伴" />
+                <div class="partners-content flexRowCenter">
+                    <img
+                        v-for="item in partnerList.partners"
+                        :key="item"
+                        class="partners-cell"
+                        :src="item"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -451,23 +457,38 @@ export default defineComponent({
     }
     .solution {
         width: 100%;
-        padding: 60px calc(50% - 720px) 40px calc(50% - 720px);
-        background-image: url('static/home/scheme-bg.png');
-        object-fit: cover;
-        .solution-bottom {
+        // padding: 60px calc(50% - 720px) 40px calc(50% - 720px);
+        // background-image: url('static/home/scheme-bg.png');
+        // object-fit: cover;
+        .solution-bg-content {
+            position: relative;
             width: 100%;
-            justify-content: space-between;
-            align-items: stretch;
-            .solution-cell {
-                width: 25%;
-                margin: 0px 8px;
+            box-sizing: border-box;
+            padding: 60px calc(50% - 720px) 40px calc(50% - 720px);
+            .solution-bg {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+                object-fit: cover;
+                z-index: -1;
+            }
+            .solution-bottom {
+                width: 100%;
+                justify-content: space-between;
+                align-items: stretch;
+                .solution-cell {
+                    width: 25%;
+                    margin: 0px 8px;
+                }
             }
         }
     }
     .home-hot {
         width: 100%;
         box-sizing: border-box;
-        padding: 60px calc(50% - 720px) 60px calc(50% - 720px);
+        padding: 60px calc(50% - 720px) 30px calc(50% - 720px);
         .home-hot-bottom {
             width: 100%;
             flex-wrap: wrap;
@@ -479,20 +500,35 @@ export default defineComponent({
     }
     .partners {
         width: 100%;
-        background-image: url('static/home/partners-bg.png');
-        object-fit: cover;
-        padding: 0px calc(50% - 720px) 60px calc(50% - 720px);
-        .partners-content {
+        // background-image: url('static/home/partners-bg.png');
+        // object-fit: cover;
+        // padding: 0px calc(50% - 720px) 60px calc(50% - 720px);
+        .partners-bg-content {
+            position: relative;
             width: 100%;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            .partners-cell {
-                width: 224px;
-                height: 80px;
-                background: #ffffff;
-                box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
-                margin: 8px;
+            box-sizing: border-box;
+            padding: 30px calc(50% - 720px) 30px calc(50% - 720px);
+            .partners-bg {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
                 object-fit: cover;
+                z-index: -1;
+            }
+            .partners-content {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                .partners-cell {
+                    width: 224px;
+                    height: 80px;
+                    background: #ffffff;
+                    box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
+                    margin: 8px;
+                    object-fit: cover;
+                }
             }
         }
     }
@@ -507,13 +543,17 @@ export default defineComponent({
             }
         }
         .solution {
-            padding: 60px 22px 40px 22px;
+            .solution-bg-content {
+                padding: 60px 22px 40px 22px;
+            }
         }
         .home-hot {
-            padding: 0px 22px 60px 22px;
+            padding: 60px 22px 30px 22px;
         }
         .partners {
-            padding: 60px 22px 60px 22px;
+            .partners-bg-content {
+                padding: 30px 22px 30px 22px;
+            }
         }
     }
 }
