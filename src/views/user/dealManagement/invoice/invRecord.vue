@@ -14,7 +14,7 @@
                     </el-form-item>
                     <el-form-item label="查询日期">
                         <el-date-picker
-                            v-model="date"
+                            v-model="date.value"
                             type="daterange"
                             range-separator="-"
                             start-placeholder="开始日期"
@@ -22,6 +22,7 @@
                             format="YYYY-MM-DD"
                             value-format="YYYY-MM-DD"
                             size="mini"
+                            @change="doQuery"
                         >
                         </el-date-picker>
                     </el-form-item>
@@ -78,7 +79,7 @@
                 prop="invContent"
             />
             <el-table-column label="发票金额(元)" align="center" prop="tax" />
-            <el-table-column label="开票时间" align="center" prop="applyTime" />
+            <el-table-column label="开票时间" align="center" prop="addTime" />
             <el-table-column label="发票状态" align="center" prop="status">
                 <template #default="scope">
                     <div
@@ -141,7 +142,7 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import { postInvList, deleteInv } from '@/api'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import { invTypeToText, invStatesToText } from '@/common/utils'
+import { addDateRange, invTypeToText, invStatesToText } from '@/common/utils'
 import DialogTips from '@/views/user/dealManagement/invoice/DialogTips.vue'
 import InvoiceActionDialog from '@/views/user/dealManagement/invoice/DialogAction.vue'
 import { ActionTypes } from '../_store'
@@ -149,7 +150,7 @@ import { Invoic, Order } from '@/@types'
 const store = useStore(key)
 const loading = ref(true)
 const list = reactive({ value: [] })
-const date = reactive([])
+const date = reactive({ value: [] })
 const open = ref(false)
 const total = ref(false)
 
@@ -170,6 +171,14 @@ const updateInv = reactive({
 onMounted(() => {
     doQuery()
 })
+const doReset = () => {
+    date.value = []
+    queryParams.orderSn = ''
+    queryParams.type = ''
+    queryParams.pageNum = 1
+    queryParams.total = 1
+    doQuery()
+}
 const isShowEdit = (row: Invoic.AsObject) => {
     return row.status === 0 || row.status === 6
 }
@@ -215,8 +224,9 @@ const handlePagination = (params: Order.Pagination) => {
 }
 
 const doQuery = () => {
+    const query = addDateRange(queryParams, date.value)
     store
-        .dispatch(`invModule/${ActionTypes.fetchPostInvList}`, queryParams)
+        .dispatch(`invModule/${ActionTypes.fetchPostInvList}`, query)
         // postInvList(queryParams)
         .then((data) => {
             Object.assign(list, { value: data.rows })
@@ -241,6 +251,9 @@ const doQuery = () => {
 .status-primary {
     color: #4e9aeb;
     font-weight: normal;
+    span {
+        letter-spacing: 0;
+    }
 }
 .status-red {
     color: #e62412;

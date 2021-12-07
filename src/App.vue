@@ -35,10 +35,6 @@ export default defineComponent({
         } as App
     },
     setup() {
-        const loadingElement = document.getElementById('Loading')
-        if (loadingElement) {
-            loadingElement.remove()
-        }
         return {
             phone: '18380449615',
         }
