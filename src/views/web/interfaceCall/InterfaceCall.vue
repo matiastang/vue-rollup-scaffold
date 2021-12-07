@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-06 16:50:18
+ * @LastEditTime: 2021-12-07 15:54:50
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -334,7 +334,7 @@ export default defineComponent({
         })
         // 返回类型
         const resultJson = reactive({
-            result: {} as { res: any } | { err: any },
+            result: {} as any,
         })
         const resIsEmpty = computed(() => {
             return is_empty_obj(resultJson.result)
@@ -556,14 +556,10 @@ export default defineComponent({
                     billingMethod: selectTokenType.value,
                 })
                     .then((res: any) => {
-                        resultJson.result = {
-                            res,
-                        }
+                        resultJson.result = res
                     })
                     .catch((err: any) => {
-                        resultJson.result = {
-                            err,
-                        }
+                        resultJson.result = err
                     })
                     .finally(() => {
                         testLoading.value = false
