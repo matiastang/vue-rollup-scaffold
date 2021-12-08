@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:36:55
+ * @LastEditTime: 2021-12-08 19:22:02
  * @FilePath: /datumwealth-openalpha-front/src/components/weixinModel/WeixinModel.vue
  * @Description: 微信支付
 -->
@@ -21,13 +21,16 @@
                 <div class="model-Price-title defaultFont">单据编号:</div>
                 <div class="model-Price-order">{{ orderSn }}</div>
             </div>
-            <div class="model-code-content flexRowCenter">
+            <div class="model-code-content flexColumnCenter">
                 <img
                     v-if="status"
                     class="model-code-success"
                     src="static/user/certification_success.svg"
                 />
-                <QrcodeVue v-else class="model-code" :value="codeUrl" :size="size" />
+                <div v-if="status" class="model-jump-title">
+                    <span class="model-jump" @click="jumpAction">订单列表</span>
+                </div>
+                <QrcodeVue v-if="!status" class="model-code" :value="codeUrl" :size="size" />
             </div>
         </el-dialog>
     </div>
@@ -37,6 +40,7 @@
 import { defineComponent, ref, Ref, watchEffect, onUnmounted } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 import { payStatus } from '@/common/request/modules/pay/pay'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
     name: 'WeixinModel',
@@ -65,6 +69,7 @@ export default defineComponent({
     },
     emits: ['statusChange', 'close'],
     setup(props, context) {
+        const router = useRouter()
         const size = 370
         // 支付状态
         const status = ref(false)
@@ -103,6 +108,11 @@ export default defineComponent({
             }
             context.emit('close')
         }
+        const jumpAction = () => {
+            router.push({
+                path: '/user/deal/order',
+            })
+        }
         onUnmounted(() => {
             if (timerId.value) {
                 window.clearInterval(timerId.value)
@@ -112,6 +122,7 @@ export default defineComponent({
             size,
             status,
             dialogCloseAction,
+            jumpAction,
         }
     },
     components: {
@@ -190,6 +201,18 @@ export default defineComponent({
             .model-code-success {
                 width: 150px;
                 height: 150px;
+            }
+            .model-jump-title {
+                margin-top: 30px;
+                @include defaultFontMedium;
+                .model-jump {
+                    @include defaultFontMedium;
+                    color: #4e9aeb !important;
+                    font-size: fontSize(14px);
+                    line-height: 20px;
+                    margin: 0px 5px;
+                    cursor: pointer;
+                }
             }
         }
     }
