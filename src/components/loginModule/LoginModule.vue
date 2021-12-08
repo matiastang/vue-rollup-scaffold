@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-08 11:23:23
+ * @LastEditTime: 2021-12-08 19:44:59
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -25,7 +25,9 @@
                     @CodeInputGetCode="getPhoneCode(0)"
                     ref="registerCodeRef"
                 />
-                <div class="login" @click="registerAction">登录/注册</div>
+                <el-button :loading="loginLoading" class="login" @click="registerAction"
+                    >登录/注册</el-button
+                >
                 <div class="text">
                     使用手机短信验证码登录，无账号时将自动注册<br />登录即表示同意<span
                         class="text-protocol cursorP"
@@ -46,7 +48,9 @@
                     placeholder="请输入密码"
                 />
                 <div class="forgot-password" @click="gotoFindPassword">忘记密码?</div>
-                <div class="login" @click="loginAction">登录</div>
+                <el-button :loading="loginLoading" class="login" @click="loginAction"
+                    >登录</el-button
+                >
                 <div class="text">
                     登录即表示同意<span class="text-protocol cursorP" @click="protocolAction"
                         >《服务协议》</span
@@ -81,7 +85,12 @@
                 v-model="findInputAffirmPassword"
                 placeholder="再次确认密码"
             />
-            <div class="login find-password-ok" @click="findPasswordAction">确定</div>
+            <el-button
+                :loading="findLoading"
+                class="login find-password-ok"
+                @click="findPasswordAction"
+                >确定</el-button
+            >
         </div>
     </div>
 </template>
@@ -117,6 +126,7 @@ export default defineComponent({
         const store = useStore()
         let inputPhone = ref('')
         let findPassword = ref(false)
+        const loginLoading = ref(false)
 
         // 注册
         let fegisterCode = ref('')
@@ -165,6 +175,10 @@ export default defineComponent({
          * 注册登录
          */
         const registerAction = () => {
+            if (loginLoading.value) {
+                ElMessage.error('登录/注册中，请勿频繁操作')
+                return
+            }
             // 手机校验
             let phone = inputPhone.value
             let phoneError = phone_check(phone)
@@ -190,6 +204,7 @@ export default defineComponent({
         }
         // 登录
         const dwLogin = (loginType: string, username: string, password: string) => {
+            loginLoading.value = true
             store
                 .dispatch('userLogin', {
                     loginType,
@@ -210,6 +225,9 @@ export default defineComponent({
                 .catch((err) => {
                     ElMessage.error(err.msg || '登录错误')
                 })
+                .finally(() => {
+                    loginLoading.value = false
+                })
         }
         // 密码登录
         let inputPassword = ref('')
@@ -223,6 +241,10 @@ export default defineComponent({
          * 密码登录
          */
         const loginAction = () => {
+            if (loginLoading.value) {
+                ElMessage.error('登录中，请勿频繁操作')
+                return
+            }
             // 手机校验
             let phone = inputPhone.value
             let phoneError = phone_check(phone)
@@ -251,6 +273,7 @@ export default defineComponent({
         let findInputCode = ref('')
         let findInputPassword = ref('')
         let findInputAffirmPassword = ref('')
+        const findLoading = ref(false)
         /**
          * 返回登录
          */
@@ -300,6 +323,7 @@ export default defineComponent({
                 })
                 return
             }
+            findLoading.value = true
             // 忘记密码
             forget({
                 mobile: phone,
@@ -318,6 +342,9 @@ export default defineComponent({
                         message: err.msg || '重置错误',
                         type: 'error',
                     })
+                })
+                .finally(() => {
+                    findLoading.value = false
                 })
         }
 
@@ -347,6 +374,8 @@ export default defineComponent({
             registerCodeRef,
             findCodeRef,
             protocolAction,
+            loginLoading,
+            findLoading,
         }
     },
     components: {
@@ -393,15 +422,17 @@ export default defineComponent({
         .login {
             width: 100%;
             height: 56px;
-            background: $themeColor;
+            // background: $themeColor;
             border-radius: 4px;
             font-size: fontSize(18px);
             @include defaultFont;
-            color: $themeBgColor;
+            // color: $themeBgColor;
             line-height: 56px;
             text-align: center;
             cursor: pointer;
             margin-top: 40px;
+            padding: 0px;
+            border: none;
         }
         .text {
             margin-top: 40px;
@@ -440,6 +471,20 @@ export default defineComponent({
             color: $placeholderColor;
             line-height: 20px;
             cursor: pointer;
+        }
+        .login {
+            width: 100%;
+            height: 56px;
+            // background: $themeColor;
+            border-radius: 4px;
+            font-size: fontSize(18px);
+            @include defaultFont;
+            // color: $themeBgColor;
+            line-height: 56px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0px;
+            border: none;
         }
         .text {
             margin-top: 40px;
@@ -532,6 +577,8 @@ export default defineComponent({
     }
     .find-password-ok {
         margin-top: 30px;
+        padding: 0px;
+        border: none;
     }
 }
 @media screen and (max-width: 1450px) {
