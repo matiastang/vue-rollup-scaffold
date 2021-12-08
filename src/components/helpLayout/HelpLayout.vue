@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:12:34
+ * @LastEditTime: 2021-12-08 14:54:10
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
@@ -83,7 +83,7 @@ export default defineComponent({
                     url: '/about/agreement',
                 },
                 {
-                    title: '版本政策',
+                    title: '隐私政策',
                     selected: false,
                     url: '/about/copyright',
                 },

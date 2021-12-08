@@ -4,7 +4,7 @@
     // @if $size > 10 {
     //     @return 1px;
     // }
-    @return $size;
+    @return $size - 1;
 }
 // line-height
 @function lineHeight($size) {

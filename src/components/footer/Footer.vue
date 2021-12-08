@@ -121,7 +121,7 @@ export default defineComponent({
                 url: '/about/agreement',
             },
             {
-                title: '版权政策',
+                title: '隐私政策',
                 url: '/about/copyright',
             },
             {
