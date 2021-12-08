@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 10:40:45
+ * @LastEditTime: 2021-12-08 18:20:47
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
@@ -66,27 +66,27 @@ const http = {
                     })
                 })
                 .catch((err) => {
-                    const errMessage = err.msg
-                    if (typeof errMessage === 'string' && errMessage.endsWith('timeout')) {
-                        reject({
-                            msg: '请求超时',
-                        })
-                        return
-                    }
-                    // if (typeof errMessage === 'string' && errMessage.endsWith('abort')) {
-                    //     reject({
-                    //         msg: '取消请求',
-                    //     })
-                    //     return
-                    // }
                     if (axios.isCancel(err)) {
                         reject({
                             msg: '取消请求',
                         })
                         return
                     }
+                    if (err instanceof Error) {
+                        const msg = err.message
+                        if (msg.startsWith('timeout of')) {
+                            reject({
+                                msg: '请求超时',
+                            })
+                            return
+                        }
+                        reject({
+                            msg,
+                        })
+                        return
+                    }
                     reject({
-                        msg: errMessage,
+                        msg: err.msg || '未知错误',
                     })
                 })
         })

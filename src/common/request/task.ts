@@ -48,11 +48,17 @@ function addTask(hash: string, options: AxiosRequestConfig, tokenSource: CancelT
  * @param {Object} hash
  * @return {Object} 查找的相同task
  */
-function sameTask(hash: string) {
+function sameTask(hash: string, includeAbort: boolean = false) {
     for (let i = 0; i < REQUEST_TASK.length; i++) {
         const task = REQUEST_TASK[i]
+        if (includeAbort) {
+            if (task.hash == hash) {
+                return task
+            }
+            continue
+        }
         // 只查询未取消的
-        if (!task.isAbort && task.hash === hash) {
+        if (!task.isAbort && task.hash == hash) {
             return task
         }
     }
@@ -150,6 +156,10 @@ const keepRequestTasks = (urls: string[]) => {
     })
 }
 
+const getAllTask = () => {
+    return REQUEST_TASK
+}
+
 export {
     addTask,
     sameTask,
@@ -159,4 +169,5 @@ export {
     abortAll,
     abortRequestTasks,
     keepRequestTasks,
+    getAllTask,
 }

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-16 14:09:39
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 12:18:31
+ * @LastEditTime: 2021-12-08 17:43:47
  * @FilePath: /datumwealth-openalpha-front/src/common/request/axiosInterceptors.ts
  * @Description: axiosInstance | 拦截器
  */
@@ -65,8 +65,11 @@ const initInstance = () => {
             if (code === 401) {
                 localStorageRemoveAll()
                 abortAll()
-                ElMessage.error(msg)
-                window.location.href = '#/login'
+                response.data.msg = '取消请求'
+                setTimeout(() => {
+                    ElMessage.error(msg)
+                    window.location.href = '#/login'
+                }, 0)
             }
             return response
         },

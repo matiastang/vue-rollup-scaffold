@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 16:24:14
+ * @LastEditTime: 2021-12-08 16:27:13
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -304,10 +304,10 @@ export default defineComponent({
                     message: '重置成功',
                     type: 'success',
                 })
-            } catch (error) {
+            } catch (error: any) {
                 explainDialogVisible.value = false
                 ElMessage({
-                    message: '重置失败',
+                    message: error.msg || '重置失败',
                     type: 'error',
                 })
             }

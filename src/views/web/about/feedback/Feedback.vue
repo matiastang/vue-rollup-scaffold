@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-26 13:37:30
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:16:29
+ * @LastEditTime: 2021-12-08 18:59:01
  * @FilePath: /datumwealth-openalpha-front/src/views/web/about/feedback/Feedback.vue
  * @Description: 意见反馈
 -->
@@ -30,7 +30,9 @@
                 placeholder="以便我们及时反馈您"
             />
         </div>
-        <div class="feedback-ok cursorP defaultFont" @click="backAction">提交反馈</div>
+        <el-button :loading="loading" class="feedback-ok cursorP defaultFont" @click="backAction"
+            >提交反馈</el-button
+        >
     </div>
 </template>
 
@@ -47,8 +49,13 @@ export default defineComponent({
     setup() {
         const feedbackValue = ref('')
         const feedbackPhone = ref('')
+        const loading = ref(false)
 
         const backAction = () => {
+            if (loading.value) {
+                ElMessage.error('提交中，请勿频繁操作')
+                return
+            }
             const backContent = feedbackValue.value
             if (backContent.length <= 0) {
                 ElMessage.warning('请输入反馈内容')
@@ -68,6 +75,7 @@ export default defineComponent({
                 ElMessage.warning(phoneError)
                 return
             }
+            loading.value = true
             feedback(backPhone, backContent)
                 .then((res) => {
                     if (res) {
@@ -79,11 +87,15 @@ export default defineComponent({
                 .catch((err: RejectType) => {
                     ElMessage.error(err.msg)
                 })
+                .finally(() => {
+                    loading.value = false
+                })
         }
         return {
             feedbackValue,
             feedbackPhone,
             backAction,
+            loading,
         }
     },
     components: {
@@ -174,6 +186,7 @@ export default defineComponent({
         height: 56px;
         border-radius: 4px;
         border: 1px solid #dfdfdf;
+        padding: 0px !important;
     }
 }
 </style>

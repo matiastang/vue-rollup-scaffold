@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-12-08 10:58:50
+ * @LastEditTime: 2021-12-08 17:30:58
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -78,10 +78,10 @@
                                 <div class="base-info-item flexRowCenter">
                                     <div class="base-info-item-title defaultFont">请求示例:</div>
                                     <div
-                                        v-if="getApiInfoData.data.apiDocAddress"
+                                        v-if="getApiInfoData.data.requestExample"
                                         class="base-info-item-text base-info-item-url defaultFont"
                                     >
-                                        {{ getApiInfoData.data.apiDocAddress }}
+                                        {{ getApiInfoData.data.requestExample }}
                                     </div>
                                     <el-skeleton v-else>
                                         <template #template>

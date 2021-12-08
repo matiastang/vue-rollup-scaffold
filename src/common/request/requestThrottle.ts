@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-02 16:27:40
+ * @LastEditTime: 2021-12-08 19:04:50
  * @FilePath: /datumwealth-openalpha-front/src/common/request/requestThrottle.ts
  * @Description:
  */
@@ -36,6 +36,7 @@ function requestThrottle(httpAxios: AxiosInstance, options: AxiosRequestConfig) 
             }
             const CancelToken = axios.CancelToken
             const source = CancelToken.source()
+            addTask(requestHash, options, source)
             httpAxios
                 .request({
                     ...options,
@@ -48,13 +49,7 @@ function requestThrottle(httpAxios: AxiosInstance, options: AxiosRequestConfig) 
                 .catch((err) => {
                     _sendFail(requestHash, err)
                     reject(err)
-                    // if (axios.isCancel(thrown)) {
-                    //     console.log('Request canceled', thrown.message)
-                    // } else {
-                    //     // handle error
-                    // }
                 })
-            addTask(requestHash, options, source)
         }
     )
 }
@@ -65,8 +60,9 @@ function requestThrottle(httpAxios: AxiosInstance, options: AxiosRequestConfig) 
  * @param {Object} res
  */
 function _sendSuccess(hash: string, res: AxiosResponse<any, any>) {
-    const task = sameTask(hash)
+    const task = sameTask(hash, true)
     if (task === null) {
+        console.warn(`success未找到${hash}`)
         return
     }
     for (const relevance of task.relevance) {
@@ -82,8 +78,9 @@ function _sendSuccess(hash: string, res: AxiosResponse<any, any>) {
  * @param {Object} err
  */
 function _sendFail(hash: string, err: any) {
-    const task = sameTask(hash)
+    const task = sameTask(hash, true)
     if (task === null) {
+        console.warn(`error未找到${hash}`)
         return
     }
     for (const relevance of task.relevance) {

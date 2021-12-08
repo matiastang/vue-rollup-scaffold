@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-08 10:56:43
+ * @LastEditTime: 2021-12-08 19:09:59
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -203,6 +203,17 @@
                                 @click="apiCallAction"
                                 >调用接口</el-button
                             >
+                            <!-- <div
+                                v-if="getApiInfoData.data.apiInfoId"
+                                :class="[
+                                    'apply-trial-button',
+                                    'flexRowCenter',
+                                    { 'apply-trial-button-disabled': testLoading },
+                                ]"
+                                @click="apiCallAction"
+                            >
+                                <div class="apply-trial-button-title">调用接口</div>
+                            </div> -->
                         </div>
                         <div class="bottom-right-json borderBox flexColumnCenter">
                             <div class="json-content borderBox flexColumnCenter">
@@ -537,17 +548,17 @@ export default defineComponent({
          * 测试接口
          */
         const apiTest = () => {
-            // const info = getApiInfo.value
             const info = getApiInfoData.data
             if (info && info.apiParamList) {
                 if (!checkParams(info.apiParamList)) {
+                    testLoading.value = false
                     ElMessage({
                         message: '必填参数项为空',
                         type: 'error',
                     })
                     return
                 }
-                testLoading.value = true
+                // testLoading.value = true
                 apiTool({
                     apiCode: info.apiCode,
                     apiVersion: 'v1',
@@ -558,15 +569,15 @@ export default defineComponent({
                 })
                     .then((res: any) => {
                         resultJson.result = res
+                        testLoading.value = false
                     })
                     .catch((err: any) => {
                         resultJson.result = err
-                    })
-                    .finally(() => {
                         testLoading.value = false
                     })
                 return
             }
+            testLoading.value = false
             ElMessage({
                 message: '接口信息错误',
                 type: 'error',
@@ -576,6 +587,18 @@ export default defineComponent({
          * 接口试用
          */
         const apiCallAction = () => {
+            if (testLoading.value) {
+                ElMessage.error('操作太频繁！')
+                return
+            }
+            const info = getApiInfoData.data
+            if (!checkParams(info.apiParamList)) {
+                ElMessage({
+                    message: '必填参数项为空',
+                    type: 'error',
+                })
+                return
+            }
             // 用户token
             const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
             if (!userToken || userToken.trim() === '') {
@@ -588,6 +611,7 @@ export default defineComponent({
                 authenticationDialogVisible.value = true
                 return
             }
+            testLoading.value = true
             checkAvailable(selectTokenType.value)
                 .then((can: boolean) => {
                     if (!can) {
@@ -597,11 +621,13 @@ export default defineComponent({
                         if (selectTokenType.value === '2') {
                             buyDialogVisible.value = true
                         }
+                        testLoading.value = false
                         return
                     }
                     apiTest()
                 })
                 .catch((err: any) => {
+                    testLoading.value = false
                     ElMessage({
                         message: err.msg || '调用接口校验错误',
                         type: 'error',
@@ -825,6 +851,16 @@ export default defineComponent({
                             margin-top: 24px;
                             align-self: flex-end;
                             margin-right: 24px;
+                            cursor: pointer;
+                            .apply-trial-button-title {
+                                @include defaultFont;
+                                font-size: fontSize(16px);
+                                color: $themeBgColor;
+                            }
+                        }
+                        .apply-trial-button-disabled {
+                            cursor: no-drop;
+                            background: $borderColor;
                         }
                     }
                     .bottom-right-json {
