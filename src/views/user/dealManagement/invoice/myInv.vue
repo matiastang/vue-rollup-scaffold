@@ -211,6 +211,7 @@ const store = useStore(key)
 const loading = ref(true)
 const loadingInv = ref(false)
 const open = ref(false)
+const form = ref()
 const openAction = ref(false)
 const openAdd = ref(false)
 const list = reactive({ value: [] })
@@ -241,6 +242,13 @@ onMounted(() => {
     doQuery()
     doFetchInvLastInfo()
 })
+const doReset = () => {
+    queryParams.orderSn = ''
+    queryParams.pageNum = 1
+    date.value = []
+    form.value.resetFields()
+    doQuery()
+}
 const isPayStatusFinish = (row: Order.AsObject) => {
     const payText = payStatusToText(Number(row.payId), Number(row.payStatus), row.payVoucher || '')
     return payText === '已支付'
