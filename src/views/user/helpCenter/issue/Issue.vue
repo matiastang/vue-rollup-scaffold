@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:14:11
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 15:16:49
+ * @LastEditTime: 2021-12-08 10:42:38
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/issue/Issue.vue
  * @Description: 帮助中心-常见问题
 -->
@@ -244,11 +244,9 @@ export default defineComponent({
         .issue-content-title {
             width: 100%;
             font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
+            @include defaultFontMedium;
             color: $titleColor;
             line-height: 20px;
-            letter-spacing: 1px;
         }
         .issue-item {
             width: 100%;

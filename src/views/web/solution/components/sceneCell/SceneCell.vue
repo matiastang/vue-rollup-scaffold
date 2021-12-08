@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-11 11:15:40
- * @LastEditTime: 2021-12-03 17:53:16
+ * @LastEditTime: 2021-12-08 10:41:39
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/components/sceneCell/SceneCell.vue
@@ -52,11 +52,9 @@ export default defineComponent({
     .scene-cell-title {
         margin: 24px 24px 18px 24px;
         font-size: 18px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
+        @include defaultFontMedium;
         color: $themeBgColor;
         line-height: 26px;
-        letter-spacing: 1px;
         text-align: left;
         z-index: 1;
     }

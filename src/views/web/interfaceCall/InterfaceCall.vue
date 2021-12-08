@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-07 16:09:08
+ * @LastEditTime: 2021-12-08 10:56:43
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -161,7 +161,7 @@
                                             :key="item.paramKey"
                                             class="parameters-item-input defaultFont"
                                             v-model="item.paramValue"
-                                            :placeholder="`请输入${item.paramKey}`"
+                                            :placeholder="`请输入${item.paramExplain}`"
                                             clearable
                                         />
                                     </div>
@@ -738,14 +738,7 @@ export default defineComponent({
                                 :deep(.el-radio__label) {
                                     font-size: 16px;
                                     line-height: 24px;
-                                    font-family: 'PingFang SC', 'Helvetica Neue', Helvetica,
-                                        'Nimbus Sans L', Arial, 'Liberation Sans',
-                                        'Hiragino Sans GB', 'Source Han Sans CN Normal',
-                                        'Microsoft YaHei', 'Wenquanyi Micro Hei',
-                                        'WenQuanYi Zen Hei', 'ST Heiti', SimHei,
-                                        'WenQuanYi Zen Hei Sharp', sans-serif;
-                                    font-weight: 400;
-                                    letter-spacing: 1px;
+                                    @include defaultFont;
                                     text-align: center;
                                 }
                             }

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 14:59:37
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 15:49:46
+ * @LastEditTime: 2021-12-08 10:41:55
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/discountInfo/DiscountInfo.vue
  * @Description: 优惠套餐详情
 -->
@@ -230,11 +230,9 @@ export default defineComponent({
             width: 100%;
             height: 36px;
             font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
+            @include defaultFontMedium;
             color: $titleColor;
             line-height: 36px;
-            letter-spacing: 1px;
             border-bottom: 1px solid #dfdfdf;
             text-align: left;
         }

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 15:03:46
+ * @LastEditTime: 2021-12-08 10:59:55
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -468,12 +468,9 @@ export default defineComponent({
                         .account-information {
                             height: 36px;
                             font-size: 14px;
-                            font-family: PingFangSC-Medium, PingFang SC;
-                            font-weight: 500;
+                            @include defaultFontMedium;
                             color: $titleColor;
                             line-height: 36px;
-                            letter-spacing: 1px;
-                            // border-bottom: 1px solid #dfdfdf;
                             text-align: left;
                         }
                         .account-information-content {
@@ -489,8 +486,7 @@ export default defineComponent({
                                     .discount-item-top {
                                         .discount-item-top-title {
                                             font-size: 22px;
-                                            font-family: PingFangSC-Medium, PingFang SC;
-                                            font-weight: 500;
+                                            @include defaultFontMedium;
                                             color: #595959;
                                             line-height: 30px;
                                             letter-spacing: 2px;
@@ -535,16 +531,14 @@ export default defineComponent({
                 }
                 ::v-deep(.el-tabs__item) {
                     height: 39px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    letter-spacing: 1px;
+                    @include defaultFont;
                     font-size: 18px;
                     color: $titleColor;
                     line-height: 26px;
                 }
                 ::v-deep(.is-active) {
-                    font-weight: 500 !important;
                     color: $themeColor !important;
+                    @include fontWeight500;
                 }
                 ::v-deep(.el-tabs__active-bar) {
                     background: $themeColor;
@@ -563,11 +557,9 @@ export default defineComponent({
                 width: 100%;
                 height: 36px;
                 font-size: 14px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 36px;
-                letter-spacing: 1px;
                 border-bottom: 1px solid #dfdfdf;
                 text-align: left;
             }

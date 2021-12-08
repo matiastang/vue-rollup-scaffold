@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-11-30 15:16:59
+ * @LastEditTime: 2021-12-08 10:44:59
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
@@ -137,7 +137,7 @@ export default defineComponent({
             margin-left: 18px;
             .collapse-cell-title {
                 font-size: fontSize(18px);
-                font-weight: 500;
+                @include fontWeight500;
                 color: $themeBgColor;
                 line-height: 26px;
                 text-align: left;

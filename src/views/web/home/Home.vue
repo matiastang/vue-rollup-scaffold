@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 15:01:35
+ * @LastEditTime: 2021-12-08 10:39:14
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -424,12 +424,10 @@ export default defineComponent({
                 border-bottom: 1px solid #dfdfdf;
                 align-items: flex-start;
                 .content-title {
-                    font-size: 14px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
+                    @include defaultFontMedium;
+                    font-size: fontSize(14px);
                     color: $themeColor;
                     line-height: 20px;
-                    letter-spacing: 1px;
                     margin-top: 23px;
                 }
                 .content-bottom {
@@ -441,7 +439,7 @@ export default defineComponent({
                     .content-cell {
                         width: 25%;
                         margin: 6px 0px;
-                        font-size: 14px;
+                        font-size: fontSize(14px);
                         color: $titleColor;
                         line-height: 20px;
                         flex-shrink: 0;
@@ -457,9 +455,6 @@ export default defineComponent({
     }
     .solution {
         width: 100%;
-        // padding: 60px calc(50% - 720px) 40px calc(50% - 720px);
-        // background-image: url('static/home/scheme-bg.png');
-        // object-fit: cover;
         .solution-bg-content {
             position: relative;
             width: 100%;
@@ -500,9 +495,6 @@ export default defineComponent({
     }
     .partners {
         width: 100%;
-        // background-image: url('static/home/partners-bg.png');
-        // object-fit: cover;
-        // padding: 0px calc(50% - 720px) 60px calc(50% - 720px);
         .partners-bg-content {
             position: relative;
             width: 100%;

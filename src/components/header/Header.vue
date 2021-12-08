@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 15:28:33
+ * @LastEditTime: 2021-12-08 10:36:08
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -305,9 +305,8 @@ export default defineComponent({
         .header-right-button {
             margin: 0px 16px;
             .header-right-title {
+                @include defaultFontMedium;
                 font-size: 16px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
                 color: $titleColor;
                 line-height: 24px;
                 text-overflow: ellipsis;
@@ -325,8 +324,7 @@ export default defineComponent({
                 display: block;
                 max-width: 80px;
                 font-size: 16px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 24px;
                 text-overflow: ellipsis;

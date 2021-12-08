@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 10:58:18
+ * @LastEditTime: 2021-12-08 10:56:53
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -991,13 +991,11 @@ export default defineComponent({
         background: $themeBgColor;
         border-radius: 4px;
         .certification-title {
+            @include defaultFontMedium;
             height: 36px;
             font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
             color: $titleColor;
             line-height: 36px;
-            letter-spacing: 1px;
             border-bottom: 1px solid #dfdfdf;
             text-align: left;
         }
@@ -1059,13 +1057,11 @@ export default defineComponent({
         background: $themeBgColor;
         border-radius: 4px;
         .certification-auditing-title {
+            @include defaultFontMedium;
             height: 36px;
             font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
             color: $titleColor;
             line-height: 36px;
-            letter-spacing: 1px;
             border-bottom: 1px solid #dfdfdf;
             text-align: left;
         }
@@ -1173,11 +1169,9 @@ export default defineComponent({
                 width: 100%;
                 height: 36px;
                 font-size: 14px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 36px;
-                letter-spacing: 1px;
                 text-align: left;
                 margin-bottom: 8px;
             }
@@ -1354,11 +1348,9 @@ export default defineComponent({
                 ::v-deep(.el-tabs__item) {
                     height: 33px;
                     font-size: 16px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
+                    @include defaultFont;
                     color: $placeholderColor;
                     line-height: 24px;
-                    letter-spacing: 1px;
                 }
                 ::v-deep(.is-active) {
                     color: $themeColor !important;

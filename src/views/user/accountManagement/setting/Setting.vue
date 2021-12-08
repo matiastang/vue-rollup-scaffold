@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 11:02:24
+ * @LastEditTime: 2021-12-08 10:37:42
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -406,11 +406,9 @@ export default defineComponent({
         .setting-title {
             height: 36px;
             font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
+            @include defaultFontMedium;
             color: $titleColor;
             line-height: 36px;
-            letter-spacing: 1px;
             border-bottom: 1px solid #dfdfdf;
             text-align: left;
         }
@@ -452,11 +450,9 @@ export default defineComponent({
                     position: relative;
                     .setting-info-title {
                         font-size: 16px;
-                        font-family: PingFangSC-Medium, PingFang SC;
-                        font-weight: 500;
+                        @include defaultFontMedium;
                         color: $themeColor;
                         line-height: 24px;
-                        letter-spacing: 1px;
                     }
                     .setting-secret-explain {
                         width: 18px;

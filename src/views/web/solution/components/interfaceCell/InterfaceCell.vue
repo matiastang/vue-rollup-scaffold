@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-11 11:31:53
- * @LastEditTime: 2021-11-30 17:17:25
+ * @LastEditTime: 2021-12-08 10:41:59
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/components/interfaceCell/InterfaceCell.vue
@@ -65,11 +65,9 @@ export default defineComponent({
             .cell-title {
                 width: 100%;
                 font-size: 16px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 24px;
-                letter-spacing: 1px;
                 text-align: left;
             }
             .cell-text {

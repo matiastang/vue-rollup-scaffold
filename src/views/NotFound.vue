@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:04:28
- * @LastEditTime: 2021-11-16 12:31:42
+ * @LastEditTime: 2021-12-08 10:56:56
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/NotFound.vue
@@ -117,11 +117,9 @@ export default defineComponent({
     align-items: center;
     .text {
         font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
+        @include defaultFont;
         color: #8c8c8c;
         line-height: 20px;
-        letter-spacing: 1px;
         text-align: center;
     }
 }

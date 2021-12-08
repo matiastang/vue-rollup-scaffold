@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-30 12:15:33
+ * @LastEditTime: 2021-12-08 10:36:55
  * @FilePath: /datumwealth-openalpha-front/src/components/weixinModel/WeixinModel.vue
  * @Description: 微信支付
 -->
@@ -153,14 +153,12 @@ export default defineComponent({
             border-bottom: 1px solid #dfdfdf;
         }
         .model-pay-title {
+            @include defaultFontMedium;
             width: 100%;
             font-size: 18px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
             color: $titleColor;
             line-height: 26px;
             text-align: center;
-            letter-spacing: 1px;
             margin: 14px 0px;
         }
         .model-Price-content {
@@ -173,12 +171,10 @@ export default defineComponent({
                 margin-right: 12px;
             }
             .model-Price-price {
+                @include defaultFontMedium;
                 font-size: 16px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
                 color: $themeColor;
                 line-height: 24px;
-                letter-spacing: 1px;
             }
             .model-Price-order {
                 font-size: 16px;

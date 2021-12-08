@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 15:30:33
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 15:49:01
+ * @LastEditTime: 2021-12-08 10:38:29
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/rechargeInfo/RechargeInfo.vue
  * @Description: 充值订单详情
 -->
@@ -230,11 +230,9 @@ export default defineComponent({
             width: 100%;
             height: 36px;
             font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
+            @include defaultFontMedium;
             color: $titleColor;
             line-height: 36px;
-            letter-spacing: 1px;
             border-bottom: 1px solid #dfdfdf;
             text-align: left;
         }

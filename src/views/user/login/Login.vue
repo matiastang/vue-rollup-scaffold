@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-12-01 10:04:05
+ * @LastEditTime: 2021-12-08 10:38:48
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/user/login/Login.vue
@@ -51,8 +51,7 @@ export default defineComponent({
             margin-right: 33px;
             .login-title {
                 font-size: 48px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $themeBgColor;
                 line-height: 67px;
                 letter-spacing: 4px;
@@ -60,8 +59,7 @@ export default defineComponent({
             }
             .login-text {
                 font-size: 30px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $themeBgColor;
                 line-height: 42px;
                 letter-spacing: 2px;

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:11:41
- * @LastEditTime: 2021-12-03 13:59:20
+ * @LastEditTime: 2021-12-08 10:42:25
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/Interface.vue
@@ -303,11 +303,9 @@ export default defineComponent({
                 }
                 .interface-next-title {
                     font-size: 18px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
+                    @include defaultFontMedium;
                     color: $themeColor;
                     line-height: 26px;
-                    letter-spacing: 1px;
                 }
             }
         }

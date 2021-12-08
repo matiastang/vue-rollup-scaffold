@@ -496,19 +496,19 @@ const alipay = (payUrl: string) => {
     }
     .paystatus-primary {
         color: #4e9aeb;
-        font-weight: normal;
+        @include fontWeightNormal;
     }
     .paystatus-red {
         color: #e62412;
-        font-weight: normal;
+        @include fontWeightNormal;
     }
     .paystatus-black {
         color: #262626;
-        font-weight: normal;
+        @include fontWeightNormal;
     }
     .paystatus-yellow {
         color: #ffa941;
-        font-weight: normal;
+        @include fontWeightNormal;
     }
     :deep(.search-button) {
         color: $themeColor;

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 20:01:27
- * @LastEditTime: 2021-11-26 16:05:31
+ * @LastEditTime: 2021-12-08 10:45:09
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapse/Collapse.vue
@@ -123,7 +123,7 @@ export default defineComponent({
         width: 100%;
         height: 76px;
         font-size: fontSize(18px);
-        font-weight: 500;
+        @include fontWeight500;
         color: $themeBgColor;
         line-height: 76px;
     }
@@ -147,11 +147,9 @@ body {
                 align-items: flex-start;
                 .content-title {
                     font-size: 14px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
+                    @include defaultFontMedium;
                     color: $themeColor;
                     line-height: 20px;
-                    letter-spacing: 1px;
                     margin-top: 23px;
                 }
                 .content-bottom {

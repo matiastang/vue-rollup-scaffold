@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-11 10:31:47
- * @LastEditTime: 2021-11-11 10:42:34
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-08 10:36:17
+ * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/openalphaTitle/OpenalphaTitle.vue
 -->
@@ -47,9 +47,8 @@ export default defineComponent({
         margin-right: 4px;
     }
     .openalpha-title-title {
+        @include defaultFontMedium;
         font-size: 22px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
         color: $titleColor;
         line-height: 30px;
         letter-spacing: 2px;

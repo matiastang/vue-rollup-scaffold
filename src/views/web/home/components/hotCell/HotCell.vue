@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 14:01:51
+ * @LastEditTime: 2021-12-08 10:42:30
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
  * @Description: 热榜接口cell
 -->
@@ -70,11 +70,9 @@ export default defineComponent({
         }
         .hot-cell-title {
             font-size: 18px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
+            @include defaultFontMedium;
             color: $titleColor;
             line-height: 26px;
-            letter-spacing: 1px;
             text-align: center;
             margin: 27px 0px 18px 0px;
             padding: 0px 12px;
@@ -91,11 +89,9 @@ export default defineComponent({
     .hot-cell-value {
         width: 100%;
         font-size: 18px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
+        @include defaultFontMedium;
         color: $themeColor;
         line-height: 26px;
-        letter-spacing: 1px;
         text-align: center;
     }
 }

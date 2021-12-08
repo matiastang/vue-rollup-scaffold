@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-02 10:20:14
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 11:14:36
+ * @LastEditTime: 2021-12-08 11:03:56
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dealManagement/order/DialogWithPayVou.vue
  * @Description: 
 -->
@@ -94,7 +94,7 @@ const handleSuccess = (value) => {
     .icon {
         height: 30px;
         width: 30px;
-        font-weight: bold;
+        @include fontWeightBold;
         margin-right: 10px;
     }
     .sumbit {

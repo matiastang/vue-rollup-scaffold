@@ -333,10 +333,10 @@ const doQuery = async () => {
 
     ::v-deep(.el-descriptions__title) {
         // font-size: 18px;
-        font-weight: 400;
         color: #262626;
         line-height: 25px;
         letter-spacing: 1px;
+        @include fontWeight;
     }
     ::v-deep(.el-descriptions__header) {
         margin-bottom: 12px;
@@ -346,42 +346,42 @@ const doQuery = async () => {
     }
     ::v-deep(.el-descriptions__label:not(.is-bordered-label)) {
         // font-size: 14px;
-        font-weight: 400;
         color: #8c8c8c;
         line-height: 20px;
         letter-spacing: 1px;
+        @include fontWeight;
     }
     ::v-deep(.el-descriptions__body .el-descriptions__table .el-descriptions__cell.is-left) {
         // font-size: 14px;
-        font-weight: 400;
         color: #262626;
         line-height: 20px;
         letter-spacing: 1px;
+        @include fontWeight;
     }
 }
 .tips {
     height: 20px;
     font-size: 14px;
-    font-weight: 400;
     color: #8c8c8c;
     line-height: 20px;
     letter-spacing: 1px;
+    @include fontWeight;
     strong {
         height: 24px;
         font-size: 16px;
-        font-weight: 500;
+        @include fontWeight500;
         color: #d65928;
     }
     // .order-count::before {
     //     content: ' | ';
     //     color: #8c8c8c;
     //     font-size: 14px;
-    //     font-weight: 400;
+    //     @include fontWeight;
     // }
 }
 .status-primary {
     color: #4e9aeb;
-    font-weight: normal;
+    @include fontWeightNormal;
 }
 :deep(.search-button) {
     color: $themeColor;

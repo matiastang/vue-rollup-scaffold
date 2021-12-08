@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-05 12:11:39
- * @LastEditTime: 2021-11-05 13:47:43
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-08 10:39:30
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/views/home/components/homeTitle/HomeTitle.vue
+ * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/homeTitle/HomeTitle.vue
 -->
 <template>
     <div class="home-title borderBox flexColumnCenter">
@@ -30,8 +30,7 @@ export default defineComponent({
     width: 100%;
     .home-title-title {
         font-size: 30px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
+        @include defaultFontMedium;
         color: #262626;
         line-height: 40px;
         letter-spacing: 2px;

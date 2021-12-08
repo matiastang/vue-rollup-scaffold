@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 17:16:04
- * @LastEditTime: 2021-11-30 10:32:04
+ * @LastEditTime: 2021-12-08 10:42:21
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/baseInfoCell/BaseInfoCell.vue
@@ -110,11 +110,9 @@ export default defineComponent({
             align-items: flex-start;
             .cell-title {
                 font-size: 18px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 26px;
-                letter-spacing: 1px;
                 margin-bottom: 8px;
                 text-align: left;
             }
@@ -123,11 +121,9 @@ export default defineComponent({
                 align-items: flex-start;
                 .cell-item-title {
                     font-size: 14px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
+                    @include defaultFontMedium;
                     color: $titleColor;
                     line-height: 20px;
-                    letter-spacing: 1px;
                     flex-shrink: 0;
                     margin-right: 8px;
                 }

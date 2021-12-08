@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-12-03 17:59:39
+ * @LastEditTime: 2021-12-08 10:59:36
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
@@ -317,16 +317,14 @@ export default defineComponent({
             z-index: 1;
             .solution-top-title {
                 font-size: 48px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 56px;
                 letter-spacing: 4px;
             }
             .solution-top-text {
                 font-size: 22px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 30px;
                 letter-spacing: 2px;
@@ -347,16 +345,14 @@ export default defineComponent({
                 }
                 ::v-deep(.el-tabs__item) {
                     height: 36px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    letter-spacing: 1px;
+                    @include defaultFont;
                     font-size: 18px;
                     color: $titleColor;
                     line-height: 26px;
                 }
                 ::v-deep(.is-active) {
-                    font-weight: 500 !important;
                     color: $themeColor !important;
+                    @include fontWeight500;
                 }
                 ::v-deep(.el-tabs__active-bar) {
                     background: $themeColor;
@@ -402,11 +398,9 @@ export default defineComponent({
                 margin-bottom: 40px;
                 .more-title {
                     font-size: 18px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
+                    @include defaultFontMedium;
                     color: $themeBgColor;
                     line-height: 26px;
-                    letter-spacing: 1px;
                 }
                 .more-icon {
                     margin-left: 6px;

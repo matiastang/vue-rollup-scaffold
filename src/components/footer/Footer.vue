@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-12-02 10:40:03
+ * @LastEditTime: 2021-12-08 10:43:34
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
@@ -222,22 +222,19 @@ export default defineComponent({
                 justify-content: flex-start;
                 align-items: flex-start;
                 .footer-title {
+                    @include defaultFontMedium;
                     width: 100%;
                     font-size: 14px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 500;
                     color: $themeBgColor;
                     line-height: 20px;
-                    letter-spacing: 1px;
                     margin-bottom: 24px;
                 }
                 .footer-text {
+                    @include defaultFontMedium;
+                    @include fontWeight;
                     font-size: 12px;
-                    font-family: PingFangSC-Medium, PingFang SC;
-                    font-weight: 400;
                     color: $themeBgColor;
                     line-height: 20px;
-                    letter-spacing: 1px;
                     margin-bottom: 8px;
                 }
                 .footer-text:hover {
@@ -264,21 +261,17 @@ export default defineComponent({
             border-top: 1px solid $themeBgColor;
             padding-top: 23px;
             .footer-bottom-title {
+                @include defaultFontMedium;
                 font-size: 12px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
                 color: $themeBgColor;
                 line-height: 17px;
-                letter-spacing: 1px;
             }
             .footer-bottom-text {
+                @include defaultFontMedium;
                 margin-top: 8px;
                 font-size: 12px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
                 color: $themeBgColor;
                 line-height: 17px;
-                letter-spacing: 1px;
             }
         }
     }

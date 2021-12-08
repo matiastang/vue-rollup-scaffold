@@ -251,25 +251,25 @@ const doQuery = () => {
 
 .status-primary {
     color: #4e9aeb;
-    font-weight: normal;
+    @include fontWeightNormal;
     span {
         letter-spacing: 0;
     }
 }
 .status-red {
     color: #e62412;
-    font-weight: normal;
+    @include fontWeightNormal;
 }
 .status-black {
     color: #262626;
-    font-weight: normal;
+    @include fontWeightNormal;
 }
 .status-yellow {
     color: #ffa941;
-    font-weight: normal;
+    @include fontWeightNormal;
 }
 .status-green {
     color: green;
-    font-weight: normal;
+    @include fontWeightNormal;
 }
 </style>

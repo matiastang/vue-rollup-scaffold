@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 17:47:01
- * @LastEditTime: 2021-11-22 18:34:45
+ * @LastEditTime: 2021-12-08 10:36:29
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/transferModel/TransferModel.vue
@@ -121,14 +121,12 @@ export default defineComponent({
             border-bottom: 1px solid #dfdfdf;
         }
         .model-pay-title {
+            @include defaultFontMedium;
             width: 100%;
             font-size: 18px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
             color: $titleColor;
             line-height: 26px;
             text-align: center;
-            letter-spacing: 1px;
             margin: 14px 0px;
         }
         .model-Price-content {
@@ -141,12 +139,10 @@ export default defineComponent({
                 margin-right: 12px;
             }
             .model-Price-price {
+                @include defaultFontMedium;
                 font-size: 16px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
                 color: $themeColor;
                 line-height: 24px;
-                letter-spacing: 1px;
             }
             .model-Price-text {
                 font-size: 14px;

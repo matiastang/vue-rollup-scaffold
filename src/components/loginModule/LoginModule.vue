@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-07 15:40:56
+ * @LastEditTime: 2021-12-08 10:59:57
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -366,12 +366,10 @@ export default defineComponent({
     background: #d65928;
     border-radius: 4px;
     font-size: 18px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
+    @include defaultFont;
     color: #ffffff;
     line-height: 56px;
     text-align: center;
-    letter-spacing: 1px;
     cursor: pointer;
 }
 .login-module-tabs {
@@ -398,12 +396,10 @@ export default defineComponent({
             background: $themeColor;
             border-radius: 4px;
             font-size: 18px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
+            @include defaultFont;
             color: #ffffff;
             line-height: 56px;
             text-align: center;
-            letter-spacing: 1px;
             cursor: pointer;
             margin-top: 40px;
         }
@@ -411,11 +407,9 @@ export default defineComponent({
             margin-top: 40px;
             width: 100%;
             font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
+            @include defaultFont;
             color: #8c8c8c;
             line-height: 20px;
-            letter-spacing: 1px;
             text-align: center;
             .text-protocol {
                 color: #4e9aeb;
@@ -442,11 +436,9 @@ export default defineComponent({
             align-self: flex-end;
             height: 20px;
             font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
+            @include defaultFont;
             color: #8c8c8c;
             line-height: 20px;
-            letter-spacing: 1px;
             cursor: pointer;
         }
         .text {
@@ -454,11 +446,9 @@ export default defineComponent({
             width: 100%;
             height: 20px;
             font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
+            @include defaultFont;
             color: #8c8c8c;
             line-height: 20px;
-            letter-spacing: 1px;
             text-align: center;
             .text-protocol {
                 color: #4e9aeb;
@@ -469,8 +459,7 @@ export default defineComponent({
         width: 215px;
         height: 54px;
         font-size: 30px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
+        @include defaultFont;
         color: #262626;
         line-height: 40px;
         letter-spacing: 2px;
@@ -482,8 +471,7 @@ export default defineComponent({
         width: 132px;
         height: 54px;
         font-size: 30px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
+        @include defaultFont;
         color: #262626;
         line-height: 40px;
         letter-spacing: 2px;
@@ -492,8 +480,8 @@ export default defineComponent({
         margin-left: 51px;
     }
     ::v-deep(.is-active) {
-        font-weight: 500 !important;
         color: #d65928 !important;
+        @include fontWeight500;
     }
     ::v-deep(.el-tabs__active-bar) {
         height: 6px;
@@ -520,19 +508,16 @@ export default defineComponent({
         }
         .back-text {
             font-size: 16px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
+            @include defaultFont;
             color: $themeColor;
             line-height: 24px;
-            letter-spacing: 1px;
         }
     }
     .find-password-title {
         margin-top: 34px;
         align-self: flex-start;
         font-size: 30px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
+        @include defaultFont;
         color: #262626;
         line-height: 40px;
         letter-spacing: 2px;

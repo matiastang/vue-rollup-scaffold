@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 15:40:16
+ * @LastEditTime: 2021-12-08 10:38:57
  * @FilePath: /datumwealth-openalpha-front/src/views/web/companyTransfer/CompanyTransfer.vue
  * @Description: 对公转账成功
 -->
@@ -226,8 +226,7 @@ export default defineComponent({
         }
         .company-transfer-title {
             font-size: 22px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
+            @include defaultFontMedium;
             color: $titleColor;
             line-height: 30px;
             letter-spacing: 2px;
@@ -271,11 +270,9 @@ export default defineComponent({
                 width: 100%;
                 padding: 0px 44px;
                 font-size: 18px;
-                font-family: PingFangSC-Medium, PingFang SC;
-                font-weight: 500;
+                @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 26px;
-                letter-spacing: 1px;
                 text-align: left;
             }
             .company-info {
