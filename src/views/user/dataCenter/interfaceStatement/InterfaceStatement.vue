@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:59:55
+ * @LastEditTime: 2021-12-08 16:00:08
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -236,14 +236,16 @@ export default defineComponent({
         // 日期选择
         const dateSelected: Ref<Date[]> = ref([])
         const startDate = computed(() => {
-            if (dateSelected.value.length > 0) {
-                return dateSelected.value[0]
+            const timeData = dateSelected.value
+            if (Array.isArray(timeData) && timeData.length > 0) {
+                return timeData[0]
             }
             return undefined
         })
         const endDate = computed(() => {
-            if (dateSelected.value.length > 1) {
-                return dateSelected.value[1]
+            const timeData = dateSelected.value
+            if (Array.isArray(timeData) && timeData.length > 1) {
+                return timeData[1]
             }
             return undefined
         })
@@ -350,9 +352,13 @@ export default defineComponent({
             }
             if (startDate.value) {
                 parameter.startDate = startDate.value.toString()
+            } else {
+                parameter.startDate = undefined
             }
             if (endDate.value) {
                 parameter.endDate = endDate.value.toString()
+            } else {
+                parameter.endDate = undefined
             }
             parameterData.parameter = parameter
         })
