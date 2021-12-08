@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-08 19:44:59
+ * @LastEditTime: 2021-12-08 19:59:34
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -142,7 +142,7 @@ export default defineComponent({
             if (phoneError) {
                 ElMessage({
                     message: phoneError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -185,7 +185,7 @@ export default defineComponent({
             if (phoneError) {
                 ElMessage({
                     message: phoneError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -195,7 +195,7 @@ export default defineComponent({
             if (codeError) {
                 ElMessage({
                     message: codeError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -251,7 +251,7 @@ export default defineComponent({
             if (phoneError) {
                 ElMessage({
                     message: phoneError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -261,7 +261,7 @@ export default defineComponent({
             if (passwordError) {
                 ElMessage({
                     message: passwordError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -290,7 +290,7 @@ export default defineComponent({
             if (phoneError) {
                 ElMessage({
                     message: phoneError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -300,7 +300,7 @@ export default defineComponent({
             if (codeError) {
                 ElMessage({
                     message: codeError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -310,16 +310,16 @@ export default defineComponent({
             if (password !== affirmPassword) {
                 ElMessage({
                     message: '两次密码不一致',
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
             // 密码校验
-            let passwordError = password_check(password)
+            let passwordError = password_check(password, true)
             if (passwordError) {
                 ElMessage({
                     message: passwordError,
-                    type: 'warning',
+                    type: 'error',
                 })
                 return
             }
@@ -422,11 +422,11 @@ export default defineComponent({
         .login {
             width: 100%;
             height: 56px;
-            // background: $themeColor;
+            background: $themeColor;
             border-radius: 4px;
             font-size: fontSize(18px);
             @include defaultFont;
-            // color: $themeBgColor;
+            color: $themeBgColor;
             line-height: 56px;
             text-align: center;
             cursor: pointer;
@@ -475,11 +475,11 @@ export default defineComponent({
         .login {
             width: 100%;
             height: 56px;
-            // background: $themeColor;
+            background: $themeColor;
             border-radius: 4px;
             font-size: fontSize(18px);
             @include defaultFont;
-            // color: $themeBgColor;
+            color: $themeBgColor;
             line-height: 56px;
             text-align: center;
             cursor: pointer;
@@ -579,6 +579,8 @@ export default defineComponent({
         margin-top: 30px;
         padding: 0px;
         border: none;
+        background: $themeColor;
+        color: $themeBgColor;
     }
 }
 @media screen and (max-width: 1450px) {
