@@ -76,7 +76,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .layout {
     width: 100vw;
-    min-width: 1000px;
+    min-width: 1366px;
     height: 100vh;
     display: flex;
     flex-direction: column;

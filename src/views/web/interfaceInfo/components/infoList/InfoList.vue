@@ -202,7 +202,7 @@ export default defineComponent({
         border-bottom: 1px solid #dfdfdf;
         .info-list-title,
         .info-list-value {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
         }

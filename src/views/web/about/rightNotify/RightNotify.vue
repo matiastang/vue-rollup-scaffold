@@ -34,7 +34,7 @@ export default defineComponent({
     .right-notify-title {
         width: 100%;
         height: 42px;
-        font-size: 18px;
+        font-size: fontSize(18px);
         color: $titleColor;
         line-height: 26px;
         text-align: left;

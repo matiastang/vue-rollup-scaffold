@@ -91,7 +91,7 @@ export default defineComponent({
             border-radius: 2px;
         }
         .cell-title {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
         }
@@ -101,7 +101,7 @@ export default defineComponent({
         padding: 0px 15px;
         align-items: flex-start;
         .cell-text {
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $placeholderColor;
             line-height: 20px;
             text-align: left;
@@ -112,7 +112,7 @@ export default defineComponent({
             height: 42px;
             border-radius: 4px;
             border: 1px solid $themeColor;
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $themeColor;
             line-height: 42px;
         }

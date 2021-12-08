@@ -116,7 +116,7 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     .text {
-        font-size: 14px;
+        font-size: fontSize(14px);
         @include defaultFont;
         color: #8c8c8c;
         line-height: 20px;

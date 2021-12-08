@@ -377,7 +377,7 @@ export default defineComponent({
             justify-content: flex-start;
             align-items: flex-start;
             .recharge-title {
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: $titleColor;
                 line-height: 20px;
             }
@@ -388,7 +388,7 @@ export default defineComponent({
             height: 42px;
             background: $themeColor;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $themeBgColor;
             line-height: 42px;
             text-align: center;
@@ -410,7 +410,7 @@ export default defineComponent({
                     margin-right: 4px;
                 }
                 .recharge-title {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: $titleColor;
                     line-height: 20px;
                 }
@@ -432,7 +432,7 @@ export default defineComponent({
                     }
                     .recharge-service-item-title {
                         width: 100%;
-                        font-size: 18px;
+                        font-size: fontSize(18px);
                         color: $titleColor;
                         line-height: 26px;
                         text-align: center;
@@ -459,7 +459,7 @@ export default defineComponent({
                     margin-right: 4px;
                 }
                 .recharge-title {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: $titleColor;
                     line-height: 20px;
                 }
@@ -489,7 +489,7 @@ export default defineComponent({
                             background: $themeColor;
                             border-radius: 28px;
                             box-shadow: 0px 5px 12px 0px #ffc2aa;
-                            font-size: 18px;
+                            font-size: fontSize(18px);
                             color: $themeBgColor;
                             line-height: 56px;
                             text-align: center;
@@ -504,7 +504,7 @@ export default defineComponent({
                     .recharge-course-item-title {
                         width: 100%;
                         text-align: center;
-                        font-size: 18px;
+                        font-size: fontSize(18px);
                         color: $titleColor;
                         line-height: 26px;
                         margin-top: 26px;
@@ -512,7 +512,7 @@ export default defineComponent({
                     .recharge-course-item-text {
                         width: 100%;
                         text-align: center;
-                        font-size: 14px;
+                        font-size: fontSize(14px);
                         color: $placeholderColor;
                         line-height: 20px;
                         margin-top: 6px;

@@ -98,13 +98,13 @@ export default defineComponent({
             color: $themeBgColor;
         }
         .cell-title {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
         }
     }
     .cell-value {
-        font-size: 16px;
+        font-size: fontSize(16px);
         color: $titleColor;
         line-height: 24px;
     }

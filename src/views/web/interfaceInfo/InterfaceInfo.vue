@@ -495,14 +495,14 @@ export default defineComponent({
                             align-items: center;
                             margin-bottom: 12px;
                             .base-info-item-title {
-                                font-size: 14px;
+                                font-size: fontSize(14px);
                                 color: $titleColor;
                                 line-height: 20px;
                                 margin-right: 12px;
                                 flex-shrink: 0;
                             }
                             .base-info-item-text {
-                                font-size: 14px;
+                                font-size: fontSize(14px);
                                 color: #595959;
                                 line-height: 20px;
                             }
@@ -521,13 +521,13 @@ export default defineComponent({
                         justify-content: flex-start;
                         align-items: flex-start;
                         .base-info-item-title {
-                            font-size: 14px;
+                            font-size: fontSize(14px);
                             color: $titleColor;
                             line-height: 20px;
                             margin-right: 12px;
                         }
                         .base-info-item-text {
-                            font-size: 14px;
+                            font-size: fontSize(14px);
                             color: #595959;
                             line-height: 20px;
                         }
@@ -536,7 +536,7 @@ export default defineComponent({
                 ::v-deep(.el-tabs__item) {
                     height: 36px;
                     @include defaultFont;
-                    font-size: 18px;
+                    font-size: fontSize(18px);
                     color: $titleColor;
                     line-height: 26px;
                 }

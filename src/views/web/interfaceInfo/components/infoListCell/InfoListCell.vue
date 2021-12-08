@@ -50,7 +50,7 @@ export default defineComponent({
     background: $themeBgColor;
     .cell-title {
         width: 100%;
-        font-size: 16px;
+        font-size: fontSize(16px);
         color: $titleColor;
         line-height: 24px;
         text-align: left;

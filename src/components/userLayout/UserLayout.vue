@@ -38,7 +38,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .urer-layout {
     width: 100vw;
-    min-width: 1000px;
+    min-width: 1366px;
     height: 100vh;
     .header {
         width: 100%;

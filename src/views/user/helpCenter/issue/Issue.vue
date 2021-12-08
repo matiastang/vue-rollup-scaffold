@@ -231,7 +231,7 @@ export default defineComponent({
     .issue-title {
         width: 100%;
         height: 42px;
-        font-size: 18px;
+        font-size: fontSize(18px);
         color: $titleColor;
         line-height: 26px;
         text-align: left;
@@ -243,7 +243,7 @@ export default defineComponent({
         margin-bottom: 25px;
         .issue-content-title {
             width: 100%;
-            font-size: 14px;
+            font-size: fontSize(14px);
             @include defaultFontMedium;
             color: $titleColor;
             line-height: 20px;
@@ -263,12 +263,12 @@ export default defineComponent({
                     height: 20px;
                     background: $themeColor;
                     border-radius: 2px;
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: $themeBgColor;
                     line-height: 20px;
                 }
                 .issue-item-title {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: $titleColor;
                     line-height: 20px;
                     margin-left: 8px;
@@ -276,7 +276,7 @@ export default defineComponent({
                 }
             }
             .issue-item-text {
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: $placeholderColor;
                 line-height: 24px;
                 margin-left: 28px;

@@ -58,7 +58,7 @@ export default defineComponent({
         padding: 0px 36px;
         justify-content: flex-start;
         .header-title {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
             margin-right: 8px;

@@ -197,24 +197,24 @@ export default defineComponent({
     .recharge-info-top {
         justify-content: flex-start;
         .recharge-info-index {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $placeholderColor;
             line-height: 24px;
         }
         .recharge-info-title {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
             margin: 0px 6px;
         }
         .recharge-info-right-icon {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
             margin-right: 6px;
         }
         .recharge-info-text {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $themeColor;
             line-height: 24px;
         }
@@ -229,7 +229,7 @@ export default defineComponent({
         .recharge-info-title {
             width: 100%;
             height: 36px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             @include defaultFontMedium;
             color: $titleColor;
             line-height: 36px;
@@ -241,13 +241,13 @@ export default defineComponent({
             margin-top: 18px;
             justify-content: flex-start;
             .recharge-base-info-title {
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: $placeholderColor;
                 line-height: 20px;
                 margin-right: 12px;
             }
             .recharge-base-info-text {
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: $titleColor;
                 line-height: 20px;
                 margin-right: 24px;
@@ -265,7 +265,7 @@ export default defineComponent({
                 height: 42px;
                 background: $themeColor;
                 border-radius: 4px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeBgColor;
                 line-height: 42px;
                 margin-left: 18px;
@@ -280,7 +280,7 @@ export default defineComponent({
                 background: #e9e9e9;
             }
             .info-title {
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: #4e9aeb;
                 line-height: 24px;
                 text-align: left;

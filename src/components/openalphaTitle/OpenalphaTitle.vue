@@ -48,7 +48,7 @@ export default defineComponent({
     }
     .openalpha-title-title {
         @include defaultFontMedium;
-        font-size: 22px;
+        font-size: fontSize(22px);
         color: $titleColor;
         line-height: 30px;
         letter-spacing: 2px;

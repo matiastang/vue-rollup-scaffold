@@ -306,7 +306,7 @@ export default defineComponent({
             margin: 0px 16px;
             .header-right-title {
                 @include defaultFontMedium;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $titleColor;
                 line-height: 24px;
                 text-overflow: ellipsis;
@@ -323,7 +323,7 @@ export default defineComponent({
             .header-name {
                 display: block;
                 max-width: 80px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 24px;
@@ -347,7 +347,7 @@ export default defineComponent({
                     width: 100%;
                     height: 48px;
                     background: $themeBgColor;
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: $titleColor;
                     line-height: 24px;
                 }

@@ -61,7 +61,7 @@ export default defineComponent({
     margin: 0px 8px;
     position: relative;
     .recharge-money-text {
-        font-size: 14px;
+        font-size: fontSize(14px);
         color: $titleColor;
         line-height: 20px;
     }

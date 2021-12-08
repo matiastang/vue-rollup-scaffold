@@ -83,7 +83,7 @@ export default defineComponent({
         width: 100%;
         box-sizing: border-box;
         padding: 0px 5px;
-        font-size: 26px;
+        font-size: fontSize(26px);
         @include defaultFontMedium;
         color: #ffffff;
         line-height: 34px;
@@ -95,7 +95,7 @@ export default defineComponent({
         width: 100%;
         box-sizing: border-box;
         padding: 0px 5px;
-        font-size: 14px;
+        font-size: fontSize(14px);
         @include defaultFont;
         color: #ffffff;
         line-height: 20px;
@@ -108,7 +108,7 @@ export default defineComponent({
         height: 42px;
         border-radius: 4px;
         border: 1px solid #ffffff;
-        font-size: 16px;
+        font-size: fontSize(16px);
         color: $themeBgColor;
         line-height: 42px;
         text-align: center;

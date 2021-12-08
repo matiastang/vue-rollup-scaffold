@@ -672,7 +672,7 @@ export default defineComponent({
         .call-top-type,
         .call-top-token-title,
         .call-top-token {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
             margin-right: 12px;
@@ -705,7 +705,7 @@ export default defineComponent({
                 .bottom-right-header-title {
                     width: 100%;
                     height: 60px;
-                    font-size: 18px;
+                    font-size: fontSize(18px);
                     color: $titleColor;
                     line-height: 60px;
                     text-align: left;
@@ -725,7 +725,7 @@ export default defineComponent({
                             align-items: flex-start;
                             margin-top: 20px;
                             .parameters-item-title {
-                                font-size: 16px;
+                                font-size: fontSize(16px);
                                 color: #595959;
                                 line-height: 24px;
                                 width: 90px;
@@ -736,14 +736,14 @@ export default defineComponent({
                             .type-radio {
                                 height: 24px;
                                 :deep(.el-radio__label) {
-                                    font-size: 16px;
+                                    font-size: fontSize(16px);
                                     line-height: 24px;
                                     @include defaultFont;
                                     text-align: center;
                                 }
                             }
                             .parameters-item-text {
-                                font-size: 16px;
+                                font-size: fontSize(16px);
                                 color: #595959;
                                 line-height: 24px;
                             }
@@ -761,7 +761,7 @@ export default defineComponent({
                                     .parameters-item-must,
                                     .parameters-item-key {
                                         max-width: 90%;
-                                        font-size: 16px;
+                                        font-size: fontSize(16px);
                                         color: $titleColor;
                                         line-height: 24px;
                                         margin-right: 8px;
@@ -780,7 +780,7 @@ export default defineComponent({
                                 width: 100%;
                                 padding-left: 18px;
                                 margin-top: 20px;
-                                font-size: 16px;
+                                font-size: fontSize(16px);
                                 color: $themeColor;
                                 line-height: 24px;
                                 text-align: left;
@@ -796,7 +796,7 @@ export default defineComponent({
                                         margin: 12px 0px;
                                         .parameters-item-must,
                                         .parameters-item-key {
-                                            font-size: 16px;
+                                            font-size: fontSize(16px);
                                             color: $titleColor;
                                             line-height: 24px;
                                             margin-right: 8px;
@@ -820,7 +820,7 @@ export default defineComponent({
                             height: 42px;
                             background: $themeColor;
                             border-radius: 4px;
-                            font-size: 16px;
+                            font-size: fontSize(16px);
                             color: $themeBgColor;
                             margin-top: 24px;
                             align-self: flex-end;
@@ -835,7 +835,7 @@ export default defineComponent({
                             width: 100%;
                             align-items: flex-start;
                             .json-title {
-                                font-size: 18px;
+                                font-size: fontSize(18px);
                                 color: $titleColor;
                                 line-height: 25px;
                                 margin-bottom: 12px;

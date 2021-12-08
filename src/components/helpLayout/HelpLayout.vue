@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 15:11:12
+ * @LastEditTime: 2021-12-08 11:12:34
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
@@ -164,7 +164,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .help-layout {
     width: 100vw;
-    min-width: 1000px;
+    min-width: 1366px;
     justify-content: flex-start;
     .header {
         width: 100%;
@@ -201,7 +201,7 @@ export default defineComponent({
                     }
                     .menu-item-prefix,
                     .menu-item-title {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         color: $titleColor;
                         line-height: 24px;
                     }

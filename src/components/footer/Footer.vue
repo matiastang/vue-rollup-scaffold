@@ -224,7 +224,7 @@ export default defineComponent({
                 .footer-title {
                     @include defaultFontMedium;
                     width: 100%;
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: $themeBgColor;
                     line-height: 20px;
                     margin-bottom: 24px;
@@ -232,13 +232,13 @@ export default defineComponent({
                 .footer-text {
                     @include defaultFontMedium;
                     @include fontWeight;
-                    font-size: 12px;
+                    font-size: fontSize(12px);
                     color: $themeBgColor;
                     line-height: 20px;
                     margin-bottom: 8px;
                 }
                 .footer-text:hover {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                 }
                 .footer-text-url {
                     cursor: pointer;
@@ -247,7 +247,7 @@ export default defineComponent({
             .footer-last-content {
                 min-width: 400px;
                 .footer-text:hover {
-                    font-size: 12px;
+                    font-size: fontSize(12px);
                 }
             }
         }
@@ -262,14 +262,14 @@ export default defineComponent({
             padding-top: 23px;
             .footer-bottom-title {
                 @include defaultFontMedium;
-                font-size: 12px;
+                font-size: fontSize(12px);
                 color: $themeBgColor;
                 line-height: 17px;
             }
             .footer-bottom-text {
                 @include defaultFontMedium;
                 margin-top: 8px;
-                font-size: 12px;
+                font-size: fontSize(12px);
                 color: $themeBgColor;
                 line-height: 17px;
             }

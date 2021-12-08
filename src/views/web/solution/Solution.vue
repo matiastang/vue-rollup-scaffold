@@ -316,14 +316,14 @@ export default defineComponent({
             padding-bottom: 100px;
             z-index: 1;
             .solution-top-title {
-                font-size: 48px;
+                font-size: fontSize(48px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 56px;
                 letter-spacing: 4px;
             }
             .solution-top-text {
-                font-size: 22px;
+                font-size: fontSize(22px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 30px;
@@ -346,7 +346,7 @@ export default defineComponent({
                 ::v-deep(.el-tabs__item) {
                     height: 36px;
                     @include defaultFont;
-                    font-size: 18px;
+                    font-size: fontSize(18px);
                     color: $titleColor;
                     line-height: 26px;
                 }
@@ -397,7 +397,7 @@ export default defineComponent({
                 margin-top: 28px;
                 margin-bottom: 40px;
                 .more-title {
-                    font-size: 18px;
+                    font-size: fontSize(18px);
                     @include defaultFontMedium;
                     color: $themeBgColor;
                     line-height: 26px;

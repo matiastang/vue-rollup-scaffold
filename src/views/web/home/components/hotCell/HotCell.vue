@@ -69,7 +69,7 @@ export default defineComponent({
             color: #333333;
         }
         .hot-cell-title {
-            font-size: 18px;
+            font-size: fontSize(18px);
             @include defaultFontMedium;
             color: $titleColor;
             line-height: 26px;
@@ -78,7 +78,7 @@ export default defineComponent({
             padding: 0px 12px;
         }
         .hot-cell-text {
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $placeholderColor;
             line-height: 20px;
             text-align: center;
@@ -88,7 +88,7 @@ export default defineComponent({
     }
     .hot-cell-value {
         width: 100%;
-        font-size: 18px;
+        font-size: fontSize(18px);
         @include defaultFontMedium;
         color: $themeColor;
         line-height: 26px;

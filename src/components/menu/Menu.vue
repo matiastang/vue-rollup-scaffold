@@ -93,7 +93,7 @@ export default defineComponent({
             ::v-deep(.el-collapse-item__header) {
                 width: 100%;
                 height: 66px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeBgColor;
                 line-height: 24px;
                 background: #1c1614;
@@ -115,7 +115,7 @@ export default defineComponent({
             ::v-deep(.menu-item) {
                 width: 100%;
                 height: 66px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeBgColor;
                 line-height: 24px;
                 background: #1c1614;

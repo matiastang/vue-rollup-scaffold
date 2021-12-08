@@ -47,7 +47,7 @@ export default defineComponent({
         color: $themeBgColor;
     }
     .interface-affix-title {
-        font-size: 18px;
+        font-size: fontSize(18px);
         color: $themeBgColor;
         line-height: 26px;
         width: 40px;

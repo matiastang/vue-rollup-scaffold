@@ -107,7 +107,7 @@ export default defineComponent({
         }
         .solution-cell-text {
             margin-bottom: 20px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $titleColor;
             line-height: 20px;
         }
@@ -118,7 +118,7 @@ export default defineComponent({
         height: 42px;
         border-radius: 4px;
         border: 1px solid $themeColor;
-        font-size: 16px;
+        font-size: fontSize(16px);
         color: $themeColor;
         line-height: 42px;
         text-align: center;

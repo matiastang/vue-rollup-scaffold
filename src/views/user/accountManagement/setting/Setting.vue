@@ -405,7 +405,7 @@ export default defineComponent({
         border-radius: 4px;
         .setting-title {
             height: 36px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             @include defaultFontMedium;
             color: $titleColor;
             line-height: 36px;
@@ -421,12 +421,12 @@ export default defineComponent({
             .setting-info-left {
                 align-items: flex-start;
                 .setting-info-title {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: $titleColor;
                     line-height: 24px;
                 }
                 .setting-info-text {
-                    font-size: 12px;
+                    font-size: fontSize(12px);
                     color: $placeholderColor;
                     line-height: 18px;
                     margin-top: 8px;
@@ -435,12 +435,12 @@ export default defineComponent({
                     justify-content: flex-start;
                     margin: 9px 0px;
                     .setting-info-item-title {
-                        font-size: 12px;
+                        font-size: fontSize(12px);
                         color: $placeholderColor;
                         line-height: 18px;
                     }
                     .setting-info-item-text {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         color: $titleColor;
                         line-height: 24px;
                         margin-left: 12px;
@@ -449,7 +449,7 @@ export default defineComponent({
                 .setting-left-top-content {
                     position: relative;
                     .setting-info-title {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         @include defaultFontMedium;
                         color: $themeColor;
                         line-height: 24px;
@@ -497,7 +497,7 @@ export default defineComponent({
                 height: 42px;
                 background: $themeColor;
                 border-radius: 4px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeBgColor;
                 line-height: 42px;
             }
@@ -512,12 +512,12 @@ export default defineComponent({
                     justify-content: flex-start;
                     align-items: flex-start;
                     .setting-authentication-title {
-                        font-size: 14px;
+                        font-size: fontSize(14px);
                         color: $placeholderColor;
                         line-height: 20px;
                     }
                     .setting-authentication-button {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         color: $themeColor;
                         line-height: 24px;
                         padding: 18px 0px;
@@ -526,18 +526,18 @@ export default defineComponent({
                 .setting-authentication-item {
                     margin: 9px 0px;
                     .setting-authentication-title {
-                        font-size: 14px;
+                        font-size: fontSize(14px);
                         color: $placeholderColor;
                         line-height: 20px;
                         margin-right: 12px;
                     }
                     .setting-authentication-text {
-                        font-size: 14px;
+                        font-size: fontSize(14px);
                         color: $titleColor;
                         line-height: 20px;
                     }
                     .setting-authentication-status {
-                        font-size: 12px;
+                        font-size: fontSize(12px);
                         color: #64d16d;
                         line-height: 18px;
                         width: 52px;
@@ -550,7 +550,7 @@ export default defineComponent({
                 }
             }
             .setting-info-type-title {
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $titleColor;
                 line-height: 24px;
             }

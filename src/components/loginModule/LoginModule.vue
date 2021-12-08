@@ -365,7 +365,7 @@ export default defineComponent({
     height: 56px;
     background: #d65928;
     border-radius: 4px;
-    font-size: 18px;
+    font-size: fontSize(18px);
     @include defaultFont;
     color: #ffffff;
     line-height: 56px;
@@ -395,7 +395,7 @@ export default defineComponent({
             height: 56px;
             background: $themeColor;
             border-radius: 4px;
-            font-size: 18px;
+            font-size: fontSize(18px);
             @include defaultFont;
             color: #ffffff;
             line-height: 56px;
@@ -406,7 +406,7 @@ export default defineComponent({
         .text {
             margin-top: 40px;
             width: 100%;
-            font-size: 14px;
+            font-size: fontSize(14px);
             @include defaultFont;
             color: #8c8c8c;
             line-height: 20px;
@@ -435,7 +435,7 @@ export default defineComponent({
             margin: 6px 0px 14px 0px;
             align-self: flex-end;
             height: 20px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             @include defaultFont;
             color: #8c8c8c;
             line-height: 20px;
@@ -445,7 +445,7 @@ export default defineComponent({
             margin-top: 40px;
             width: 100%;
             height: 20px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             @include defaultFont;
             color: #8c8c8c;
             line-height: 20px;
@@ -458,7 +458,7 @@ export default defineComponent({
     ::v-deep(#tab-register) {
         width: 215px;
         height: 54px;
-        font-size: 30px;
+        font-size: fontSize(30px);
         @include defaultFont;
         color: #262626;
         line-height: 40px;
@@ -470,7 +470,7 @@ export default defineComponent({
     ::v-deep(#tab-login) {
         width: 132px;
         height: 54px;
-        font-size: 30px;
+        font-size: fontSize(30px);
         @include defaultFont;
         color: #262626;
         line-height: 40px;
@@ -507,7 +507,7 @@ export default defineComponent({
             margin-right: 6px;
         }
         .back-text {
-            font-size: 16px;
+            font-size: fontSize(16px);
             @include defaultFont;
             color: $themeColor;
             line-height: 24px;
@@ -516,7 +516,7 @@ export default defineComponent({
     .find-password-title {
         margin-top: 34px;
         align-self: flex-start;
-        font-size: 30px;
+        font-size: fontSize(30px);
         @include defaultFont;
         color: #262626;
         line-height: 40px;

@@ -88,7 +88,7 @@ const changeAction = (currentValue: string | number) => {
     position: relative;
     align-items: stretch;
     .money-input {
-        font-size: 14px;
+        font-size: fontSize(14px);
         color: $titleColor;
         line-height: 20px;
         width: 100%;

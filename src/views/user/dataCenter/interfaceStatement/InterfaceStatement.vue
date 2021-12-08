@@ -453,7 +453,7 @@ export default defineComponent({
                             .discount-type,
                             .discount-token-title,
                             .discount-token {
-                                font-size: 16px;
+                                font-size: fontSize(16px);
                                 color: $titleColor;
                                 line-height: 24px;
                                 margin-right: 18px;
@@ -467,7 +467,7 @@ export default defineComponent({
                         }
                         .account-information {
                             height: 36px;
-                            font-size: 14px;
+                            font-size: fontSize(14px);
                             @include defaultFontMedium;
                             color: $titleColor;
                             line-height: 36px;
@@ -485,7 +485,7 @@ export default defineComponent({
                                     height: 60%;
                                     .discount-item-top {
                                         .discount-item-top-title {
-                                            font-size: 22px;
+                                            font-size: fontSize(22px);
                                             @include defaultFontMedium;
                                             color: #595959;
                                             line-height: 30px;
@@ -495,13 +495,13 @@ export default defineComponent({
                                             color: $themeColor;
                                         }
                                         .discount-item-top-text {
-                                            font-size: 14px;
+                                            font-size: fontSize(14px);
                                             color: $placeholderColor;
                                             line-height: 20px;
                                         }
                                     }
                                     .discount-item-text {
-                                        font-size: 14px;
+                                        font-size: fontSize(14px);
                                         color: $placeholderColor;
                                         line-height: 20px;
                                     }
@@ -514,7 +514,7 @@ export default defineComponent({
                                     height: 42px;
                                     background: $themeColor;
                                     border-radius: 4px;
-                                    font-size: 16px;
+                                    font-size: fontSize(16px);
                                     color: $themeBgColor;
                                     line-height: 42px;
                                 }
@@ -532,7 +532,7 @@ export default defineComponent({
                 ::v-deep(.el-tabs__item) {
                     height: 39px;
                     @include defaultFont;
-                    font-size: 18px;
+                    font-size: fontSize(18px);
                     color: $titleColor;
                     line-height: 26px;
                 }
@@ -556,7 +556,7 @@ export default defineComponent({
             .account-information {
                 width: 100%;
                 height: 36px;
-                font-size: 14px;
+                font-size: fontSize(14px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 36px;
@@ -573,7 +573,7 @@ export default defineComponent({
                     height: 42px;
                     background: $themeBgColor;
                     border-radius: 4px;
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: $placeholderColor;
                     line-height: 42px;
                     border: 1px solid $placeholderColor;
@@ -587,7 +587,7 @@ export default defineComponent({
                     margin-left: 18px;
                 }
                 .bill-time-title {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: $titleColor;
                     line-height: 24px;
                     margin: 0px 18px 0px 30px;
@@ -598,7 +598,7 @@ export default defineComponent({
                     height: 42px;
                     border-radius: 4px;
                     border: 1px solid $themeColor;
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: $themeColor;
                     line-height: 42px;
                 }
@@ -615,7 +615,7 @@ export default defineComponent({
                     background: #e9e9e9;
                 }
                 .info-title {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: #4e9aeb;
                     line-height: 24px;
                     text-align: left;

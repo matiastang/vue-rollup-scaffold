@@ -63,7 +63,7 @@ const downloadAction = () => {
         padding: 10px;
     }
     li {
-        font-size: 14px;
+        font-size: fontSize(14px);
         @include fontWeight;
         color: #262626;
         line-height: 20px;

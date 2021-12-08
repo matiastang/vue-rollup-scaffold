@@ -104,7 +104,7 @@ export default defineComponent({
     .feedback-title {
         width: 100%;
         height: 42px;
-        font-size: 18px;
+        font-size: fontSize(18px);
         color: $titleColor;
         line-height: 26px;
         text-align: left;
@@ -112,7 +112,7 @@ export default defineComponent({
     }
     .feedback-text {
         width: 100%;
-        font-size: 14px;
+        font-size: fontSize(14px);
         color: #595959;
         line-height: 20px;
         letter-spacing: 1px;
@@ -140,13 +140,13 @@ export default defineComponent({
         justify-content: flex-start;
         .feedback-phone-prefix {
             width: 16px;
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: #e62412;
             line-height: 24px;
         }
         .feedback-phone-title {
             width: 80px;
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
             text-align: left;
@@ -166,7 +166,7 @@ export default defineComponent({
         }
     }
     .feedback-ok {
-        font-size: 18px;
+        font-size: fontSize(18px);
         color: #8c8c8c;
         line-height: 56px;
         width: 100%;

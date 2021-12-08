@@ -82,7 +82,7 @@ export default defineComponent({
                 margin-right: 8px;
             }
             .cell-title {
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $titleColor;
                 line-height: 24px;
                 text-align: left;
@@ -90,7 +90,7 @@ export default defineComponent({
         }
         .cell-right {
             .cell-value {
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $titleColor;
                 line-height: 24px;
                 margin-right: 8px;

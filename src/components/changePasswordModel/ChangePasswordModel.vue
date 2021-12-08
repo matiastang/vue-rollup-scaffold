@@ -170,7 +170,7 @@ export default defineComponent({
         .model-title {
             height: 41px;
             width: 100%;
-            font-size: 18px;
+            font-size: fontSize(18px);
             color: $titleColor;
             line-height: 40px;
             text-align: left;
@@ -180,7 +180,7 @@ export default defineComponent({
             margin-top: 30px;
             justify-content: flex-start;
             .model-body-title {
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $titleColor;
                 line-height: 24px;
                 margin-right: 12px;
@@ -200,7 +200,7 @@ export default defineComponent({
                 height: 42px;
                 background: $themeColor;
                 border-radius: 4px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeBgColor;
                 line-height: 42px;
                 margin-left: 40px;
@@ -210,7 +210,7 @@ export default defineComponent({
                 height: 42px;
                 background: $themeBgColor;
                 border-radius: 4px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $placeholderColor;
                 line-height: 42px;
                 border: 1px solid $placeholderColor;

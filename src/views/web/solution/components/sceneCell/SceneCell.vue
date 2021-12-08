@@ -51,7 +51,7 @@ export default defineComponent({
     }
     .scene-cell-title {
         margin: 24px 24px 18px 24px;
-        font-size: 18px;
+        font-size: fontSize(18px);
         @include defaultFontMedium;
         color: $themeBgColor;
         line-height: 26px;
@@ -60,7 +60,7 @@ export default defineComponent({
     }
     .scene-cell-text {
         margin: 0px 24px 24px 24px;
-        font-size: 14px;
+        font-size: fontSize(14px);
         color: $themeBgColor;
         line-height: 20px;
         text-align: left;

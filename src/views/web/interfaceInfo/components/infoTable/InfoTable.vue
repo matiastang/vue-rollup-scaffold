@@ -67,7 +67,7 @@ export default defineComponent({
         .table-header {
             width: 100%;
             height: 60px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: #595959;
             line-height: 60px;
             background: #f4f4f4;
@@ -76,7 +76,7 @@ export default defineComponent({
             width: 100%;
             height: 60px;
             .table-cell {
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: $titleColor;
                 line-height: 20px;
             }

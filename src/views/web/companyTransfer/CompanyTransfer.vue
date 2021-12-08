@@ -225,7 +225,7 @@ export default defineComponent({
             border-radius: 24px;
         }
         .company-transfer-title {
-            font-size: 22px;
+            font-size: fontSize(22px);
             @include defaultFontMedium;
             color: $titleColor;
             line-height: 30px;
@@ -241,7 +241,7 @@ export default defineComponent({
                 width: 100%;
                 height: 60px;
                 background: #e9e9e9;
-                font-size: 18px;
+                font-size: fontSize(18px);
                 color: $titleColor;
                 line-height: 60px;
                 text-align: center;
@@ -254,13 +254,13 @@ export default defineComponent({
                     justify-content: flex-start;
                     margin-bottom: 20px;
                     .order-info-title {
-                        font-size: 14px;
+                        font-size: fontSize(14px);
                         color: $placeholderColor;
                         line-height: 20px;
                         margin-right: 12px;
                     }
                     .order-info-value {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         color: $titleColor;
                         line-height: 24px;
                     }
@@ -269,7 +269,7 @@ export default defineComponent({
             .company-transfer-tottom-title {
                 width: 100%;
                 padding: 0px 44px;
-                font-size: 18px;
+                font-size: fontSize(18px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 26px;
@@ -284,12 +284,12 @@ export default defineComponent({
                 justify-content: flex-start;
                 .company-transfer-tottom-content-left-text,
                 .company-transfer-tottom-content-right-text {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: $titleColor;
                     line-height: 24px;
                 }
                 .company-transfer-tottom-content-center-text {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: #4e9aeb;
                     line-height: 24px;
                 }
@@ -297,7 +297,7 @@ export default defineComponent({
             .company-transfer-warning-text {
                 width: 100%;
                 padding: 0px 44px;
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: #e62412;
                 line-height: 20px;
                 text-align: left;
@@ -308,12 +308,12 @@ export default defineComponent({
             height: 42px;
             background: $themeColor;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $themeBgColor;
             line-height: 42px;
         }
         .company-transfer-text {
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $placeholderColor;
             line-height: 20px;
             text-align: center;

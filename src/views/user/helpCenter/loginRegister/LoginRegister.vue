@@ -75,7 +75,7 @@ export default defineComponent({
     .login-register-title {
         width: 100%;
         height: 42px;
-        font-size: 18px;
+        font-size: fontSize(18px);
         color: $titleColor;
         line-height: 26px;
         text-align: left;
@@ -86,20 +86,20 @@ export default defineComponent({
         justify-content: flex-start;
         align-items: flex-start;
         .login-register-item-title {
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $titleColor;
             line-height: 20px;
             margin-top: 19px;
         }
         .login-register-item-text {
             margin: 12px 0px 12px 24px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: #595959;
             line-height: 20px;
             text-align: left;
             .login-register-item-home {
                 color: #4e9aeb;
-                font-size: 14px;
+                font-size: fontSize(14px);
                 line-height: 20px;
                 cursor: pointer;
             }

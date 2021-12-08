@@ -284,7 +284,7 @@ export default defineComponent({
             padding: 0px 24px;
             justify-content: flex-start;
             .interface-right-title {
-                font-size: 18px;
+                font-size: fontSize(18px);
                 color: $titleColor;
                 line-height: 26px;
                 width: 100%;
@@ -302,7 +302,7 @@ export default defineComponent({
                     margin-right: 4px;
                 }
                 .interface-next-title {
-                    font-size: 18px;
+                    font-size: fontSize(18px);
                     @include defaultFontMedium;
                     color: $themeColor;
                     line-height: 26px;
@@ -330,7 +330,7 @@ export default defineComponent({
             margin-bottom: 5px;
         }
         .apply-trial-title {
-            font-size: 18px;
+            font-size: fontSize(18px);
             color: $themeBgColor;
             line-height: 26px;
             width: 40px;

@@ -114,7 +114,7 @@ export default defineComponent({
         .model-title {
             height: 41px;
             width: 100%;
-            font-size: 18px;
+            font-size: fontSize(18px);
             color: $titleColor;
             line-height: 40px;
             text-align: left;
@@ -123,7 +123,7 @@ export default defineComponent({
         .model-pay-title {
             @include defaultFontMedium;
             width: 100%;
-            font-size: 18px;
+            font-size: fontSize(18px);
             color: $titleColor;
             line-height: 26px;
             text-align: center;
@@ -133,19 +133,19 @@ export default defineComponent({
             margin-bottom: 18px;
             justify-content: flex-start;
             .model-Price-title {
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: #595959;
                 line-height: 20px;
                 margin-right: 12px;
             }
             .model-Price-price {
                 @include defaultFontMedium;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeColor;
                 line-height: 24px;
             }
             .model-Price-text {
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: $placeholderColor;
                 line-height: 20px;
                 text-align: left;
@@ -166,7 +166,7 @@ export default defineComponent({
                 height: 42px;
                 background: $themeColor;
                 border-radius: 4px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeBgColor;
                 line-height: 42px;
                 text-align: center;

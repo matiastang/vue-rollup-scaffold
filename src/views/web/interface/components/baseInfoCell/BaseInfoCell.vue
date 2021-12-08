@@ -109,7 +109,7 @@ export default defineComponent({
             justify-content: space-between;
             align-items: flex-start;
             .cell-title {
-                font-size: 18px;
+                font-size: fontSize(18px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 26px;
@@ -120,7 +120,7 @@ export default defineComponent({
                 margin-bottom: 8px;
                 align-items: flex-start;
                 .cell-item-title {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     @include defaultFontMedium;
                     color: $titleColor;
                     line-height: 20px;
@@ -129,13 +129,13 @@ export default defineComponent({
                 }
                 .cell-text,
                 .cell-id {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: #595959;
                     line-height: 20px;
                     text-align: left;
                 }
                 .cell-price {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: #e62412;
                     line-height: 20px;
                 }
@@ -145,7 +145,7 @@ export default defineComponent({
             }
         }
         .cell-title {
-            font-size: 16px;
+            font-size: fontSize(16px);
             color: $titleColor;
             line-height: 24px;
         }
@@ -155,7 +155,7 @@ export default defineComponent({
         height: 42px;
         background: $themeColor;
         border-radius: 4px;
-        font-size: 16px;
+        font-size: fontSize(16px);
         color: $themeBgColor;
         line-height: 42px;
         align-self: flex-end;

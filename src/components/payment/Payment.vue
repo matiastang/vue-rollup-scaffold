@@ -61,7 +61,7 @@ export default defineComponent({
         margin-right: 10px;
     }
     .pay-monet-text {
-        font-size: 14px;
+        font-size: fontSize(14px);
         color: $titleColor;
         line-height: 20px;
     }

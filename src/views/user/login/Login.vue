@@ -50,7 +50,7 @@ export default defineComponent({
             align-self: flex-start;
             margin-right: 33px;
             .login-title {
-                font-size: 48px;
+                font-size: fontSize(48px);
                 @include defaultFontMedium;
                 color: $themeBgColor;
                 line-height: 67px;
@@ -58,7 +58,7 @@ export default defineComponent({
                 margin-top: 68px;
             }
             .login-text {
-                font-size: 30px;
+                font-size: fontSize(30px);
                 @include defaultFontMedium;
                 color: $themeBgColor;
                 line-height: 42px;

@@ -146,7 +146,7 @@ body {
                 border-bottom: 1px solid #dfdfdf;
                 align-items: flex-start;
                 .content-title {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     @include defaultFontMedium;
                     color: $themeColor;
                     line-height: 20px;
@@ -161,7 +161,7 @@ body {
                     .content-cell {
                         width: 25%;
                         margin: 6px 0px;
-                        font-size: 14px;
+                        font-size: fontSize(14px);
                         color: $titleColor;
                         line-height: 20px;
                         flex-shrink: 0;

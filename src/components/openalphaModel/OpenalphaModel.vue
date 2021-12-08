@@ -90,7 +90,7 @@ export default defineComponent({
     ::v-deep(.el-dialog__body) {
         padding: 0px 25px 40px 25px;
         .model-title {
-            font-size: 22px;
+            font-size: fontSize(22px);
             color: $titleColor;
             line-height: 30px;
             letter-spacing: 2px;
@@ -104,7 +104,7 @@ export default defineComponent({
                 height: 42px;
                 background: $themeColor;
                 border-radius: 4px;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $themeBgColor;
                 line-height: 42px;
             }

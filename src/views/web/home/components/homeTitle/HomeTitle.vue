@@ -29,7 +29,7 @@ export default defineComponent({
 .home-title {
     width: 100%;
     .home-title-title {
-        font-size: 30px;
+        font-size: fontSize(30px);
         @include defaultFontMedium;
         color: #262626;
         line-height: 40px;

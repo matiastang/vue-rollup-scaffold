@@ -99,7 +99,7 @@ const handleSuccess = (value) => {
     }
     .sumbit {
         width: 118px;
-        font-size: 16px;
+        font-size: fontSize(16px);
     }
 }
 </style>

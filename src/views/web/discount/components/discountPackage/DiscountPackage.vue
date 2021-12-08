@@ -79,37 +79,37 @@ export default defineComponent({
         height: 18px;
         background: #e62412;
         border-radius: 4px 0px 4px 0px;
-        font-size: 12px;
+        font-size: fontSize(12px);
         color: $themeBgColor;
         line-height: 18px;
     }
     .discount-title-content {
         .discount-title-left {
-            font-size: 22px;
+            font-size: fontSize(22px);
             color: $titleColor;
             line-height: 30px;
             letter-spacing: 2px;
         }
         .discount-title-right {
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $titleColor;
             line-height: 20px;
         }
     }
     .discount-original {
-        font-size: 12px;
+        font-size: fontSize(12px);
         color: #595959;
         line-height: 18px;
         text-decoration: line-through;
     }
     .discount-text-content {
         .discount-text-left {
-            font-size: 12px;
+            font-size: fontSize(12px);
             color: #595959;
             line-height: 18px;
         }
         .discount-text-right {
-            font-size: 12px;
+            font-size: fontSize(12px);
             color: #e62412;
             line-height: 18px;
         }

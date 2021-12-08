@@ -64,7 +64,7 @@ export default defineComponent({
             margin-left: 9px;
             .cell-title {
                 width: 100%;
-                font-size: 16px;
+                font-size: fontSize(16px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 24px;
@@ -72,7 +72,7 @@ export default defineComponent({
             }
             .cell-text {
                 width: 100%;
-                font-size: 14px;
+                font-size: fontSize(14px);
                 color: #595959;
                 line-height: 20px;
                 text-align: left;

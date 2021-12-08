@@ -993,7 +993,7 @@ export default defineComponent({
         .certification-title {
             @include defaultFontMedium;
             height: 36px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $titleColor;
             line-height: 36px;
             border-bottom: 1px solid #dfdfdf;
@@ -1015,7 +1015,7 @@ export default defineComponent({
                     margin-right: 16px;
                 }
                 .certification-through-top-img-title {
-                    font-size: 22px;
+                    font-size: fontSize(22px);
                     color: $titleColor;
                     line-height: 30px;
                     letter-spacing: 2px;
@@ -1025,13 +1025,13 @@ export default defineComponent({
                 margin-top: 12px;
                 justify-content: flex-start;
                 .certification-through-item-title {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: $placeholderColor;
                     line-height: 20px;
                     margin-right: 12px;
                 }
                 .certification-through-item-text {
-                    font-size: 14px;
+                    font-size: fontSize(14px);
                     color: $titleColor;
                     line-height: 20px;
                 }
@@ -1039,7 +1039,7 @@ export default defineComponent({
         }
         .certification-through-bottom-title {
             margin-top: 20px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: #595959;
             line-height: 20px;
             .certification-through-bottom-text {
@@ -1059,7 +1059,7 @@ export default defineComponent({
         .certification-auditing-title {
             @include defaultFontMedium;
             height: 36px;
-            font-size: 14px;
+            font-size: fontSize(14px);
             color: $titleColor;
             line-height: 36px;
             border-bottom: 1px solid #dfdfdf;
@@ -1081,13 +1081,13 @@ export default defineComponent({
                     margin: 7px 0px;
                     justify-content: flex-start;
                     .certification-auditing-item-title {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         color: $titleColor;
                         line-height: 24px;
                         margin-right: 12px;
                     }
                     .certification-auditing-item-text {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         color: $titleColor;
                         line-height: 24px;
                     }
@@ -1098,7 +1098,7 @@ export default defineComponent({
                         color: #e62412;
                     }
                     .certification-audit-error-button {
-                        font-size: 16px;
+                        font-size: fontSize(16px);
                         color: #4e9aeb;
                         line-height: 24px;
                         margin-left: 24px;
@@ -1109,7 +1109,7 @@ export default defineComponent({
         .certification-content-error {
             margin-top: 100px;
             .certification-error-title {
-                font-size: 16px;
+                font-size: fontSize(16px);
                 color: $titleColor;
                 line-height: 24px;
                 text-align: left;
@@ -1121,22 +1121,22 @@ export default defineComponent({
                 border: 1px solid #dfdfdf;
                 border-bottom: none;
                 ::v-deep(.certification-table-status) {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: $titleColor;
                     line-height: 24px;
                 }
                 ::v-deep(.certification-table-status-1) {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: #4e9aeb;
                     line-height: 24px;
                 }
                 ::v-deep(.certification-table-status-2) {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: #e62412;
                     line-height: 24px;
                 }
                 ::v-deep(.certification-table-status-3) {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: #ffa941;
                     line-height: 24px;
                 }
@@ -1144,7 +1144,7 @@ export default defineComponent({
                     background: #e9e9e9;
                 }
                 .info-title {
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     color: #4e9aeb;
                     line-height: 24px;
                     text-align: left;
@@ -1168,7 +1168,7 @@ export default defineComponent({
             .certification-auditing-title {
                 width: 100%;
                 height: 36px;
-                font-size: 14px;
+                font-size: fontSize(14px);
                 @include defaultFontMedium;
                 color: $titleColor;
                 line-height: 36px;
@@ -1193,13 +1193,13 @@ export default defineComponent({
                                 margin: 6px 18px 6px 0px;
                                 justify-content: flex-end;
                                 .tab-personage-item-prefix {
-                                    font-size: 16px;
+                                    font-size: fontSize(16px);
                                     color: $themeColor;
                                     line-height: 24px;
                                     margin-right: 3px;
                                 }
                                 .tab-personage-item-title {
-                                    font-size: 16px;
+                                    font-size: fontSize(16px);
                                     color: $titleColor;
                                     line-height: 24px;
                                 }
@@ -1253,7 +1253,7 @@ export default defineComponent({
                                         }
                                         .personage-image-title {
                                             margin-top: 11px;
-                                            font-size: 14px;
+                                            font-size: fontSize(14px);
                                             color: #4e9aeb;
                                             line-height: 20px;
                                         }
@@ -1271,12 +1271,12 @@ export default defineComponent({
                                 margin-right: 6px;
                             }
                             .personage-left-text {
-                                font-size: 14px;
+                                font-size: fontSize(14px);
                                 color: $themeColor;
                                 line-height: 20px;
                             }
                             .personage-right-text {
-                                font-size: 14px;
+                                font-size: fontSize(14px);
                                 color: $titleColor;
                                 line-height: 20px;
                             }
@@ -1289,7 +1289,7 @@ export default defineComponent({
                                 height: 42px;
                                 background: $themeColor;
                                 border-radius: 4px;
-                                font-size: 16px;
+                                font-size: fontSize(16px);
                                 color: $themeBgColor;
                                 line-height: 42px;
                             }
@@ -1298,7 +1298,7 @@ export default defineComponent({
                                 height: 42px;
                                 border-radius: 4px;
                                 border: 1px solid $placeholderColor;
-                                font-size: 16px;
+                                font-size: fontSize(16px);
                                 color: $placeholderColor;
                                 line-height: 42px;
                                 margin-left: 30px;
@@ -1337,7 +1337,7 @@ export default defineComponent({
                                 }
                                 .company-image-title {
                                     margin-top: 11px;
-                                    font-size: 14px;
+                                    font-size: fontSize(14px);
                                     color: #4e9aeb;
                                     line-height: 20px;
                                 }
@@ -1347,7 +1347,7 @@ export default defineComponent({
                 }
                 ::v-deep(.el-tabs__item) {
                     height: 33px;
-                    font-size: 16px;
+                    font-size: fontSize(16px);
                     @include defaultFont;
                     color: $placeholderColor;
                     line-height: 24px;
@@ -1367,7 +1367,7 @@ export default defineComponent({
             align-items: flex-start;
             margin-top: 6px;
             .certification-post-bottom-text {
-                font-size: 12px;
+                font-size: fontSize(12px);
                 color: #595959;
                 line-height: 18px;
                 margin: 3px 0px;
