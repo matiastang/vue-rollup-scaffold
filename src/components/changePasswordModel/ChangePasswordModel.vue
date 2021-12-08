@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 16:31:59
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:22:06
+ * @LastEditTime: 2021-12-08 16:08:13
  * @FilePath: /datumwealth-openalpha-front/src/components/changePasswordModel/ChangePasswordModel.vue
  * @Description: 修改密码弹窗
 -->
@@ -64,10 +64,10 @@ export default defineComponent({
         },
     },
     setup(props, context) {
-        let store = useStore()
-        let oldInputPassword = ref('')
-        let newInputPassword = ref('')
-        let affirmNewInputPassword = ref('')
+        const store = useStore()
+        const oldInputPassword = ref('')
+        const newInputPassword = ref('')
+        const affirmNewInputPassword = ref('')
         const modelOkAction = () => {
             // 密码校验
             let oldPassword = oldInputPassword.value
@@ -118,7 +118,9 @@ export default defineComponent({
                         message: res,
                         type: 'success',
                     })
-
+                    oldInputPassword.value = ''
+                    newInputPassword.value = ''
+                    affirmNewInputPassword.value = ''
                     context.emit('cancelAction')
                 })
                 .catch((err) => {

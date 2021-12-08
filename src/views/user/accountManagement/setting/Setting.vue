@@ -2,14 +2,14 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:21:59
+ * @LastEditTime: 2021-12-08 16:24:14
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
 <template>
     <div class="setting">
         <div class="setting-content">
-            <div class="setting-title defaultFont">账单明细</div>
+            <div class="setting-title defaultFont">账号设置</div>
             <div class="setting-info-content flexRowCenter">
                 <div class="setting-info-left flexColumnCenter">
                     <div class="setting-info-item flexRowCenter">
@@ -55,15 +55,29 @@
                     v-if="certStatus && certStatus === 1 && userType && userType === 2"
                     class="setting-info-right-authentication flexColumnCenter"
                 >
-                    <div class="setting-authentication-item flexRowCenter">
-                        <div class="setting-authentication-title defaultFont">企业名称:</div>
+                    <div
+                        class="setting-authentication-item flexRowCenter"
+                        style="width: 320px; justify-content: flex-start"
+                    >
+                        <div
+                            class="setting-authentication-title defaultFont"
+                            style="text-align: right; width: 120px"
+                        >
+                            企业名称:
+                        </div>
                         <div class="setting-authentication-text defaultFont">
                             {{ userInfo.company || '-' }}
                         </div>
                         <div class="setting-authentication-status defaultFont">已认证</div>
                     </div>
-                    <div class="setting-authentication-item flexRowCenter">
-                        <div class="setting-authentication-title defaultFont">
+                    <div
+                        class="setting-authentication-item flexRowCenter"
+                        style="width: 320px; justify-content: flex-start"
+                    >
+                        <div
+                            class="setting-authentication-title defaultFont"
+                            style="text-align: right; width: 120px"
+                        >
                             统一社会信用代码:
                         </div>
                         <div class="setting-authentication-text defaultFont">
@@ -75,15 +89,31 @@
                     v-if="certStatus && certStatus === 1 && userType && userType === 1"
                     class="setting-info-right-authentication flexColumnCenter"
                 >
-                    <div class="setting-authentication-item flexRowCenter">
-                        <div class="setting-authentication-title defaultFont">姓名:</div>
+                    <div
+                        class="setting-authentication-item flexRowCenter"
+                        style="width: 260px; justify-content: flex-start"
+                    >
+                        <div
+                            class="setting-authentication-title defaultFont"
+                            style="text-align: right; width: 61px"
+                        >
+                            姓名:
+                        </div>
                         <div class="setting-authentication-text defaultFont">
                             {{ userInfo.realName || '-' }}
                         </div>
                         <div class="setting-authentication-status defaultFont">已认证</div>
                     </div>
-                    <div class="setting-authentication-item flexRowCenter">
-                        <div class="setting-authentication-title defaultFont">身份证号:</div>
+                    <div
+                        class="setting-authentication-item flexRowCenter"
+                        style="width: 260px; justify-content: flex-start"
+                    >
+                        <div
+                            class="setting-authentication-title defaultFont"
+                            style="text-align: right; width: 61px"
+                        >
+                            身份证号:
+                        </div>
                         <div class="setting-authentication-text defaultFont">
                             {{ userInfo.idNumber || '-' }}
                         </div>
