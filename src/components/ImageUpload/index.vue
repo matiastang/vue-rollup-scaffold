@@ -180,7 +180,7 @@ const handleBeforeUpload = (file: File) => {
 // .el-upload--picture-card 控制加号部分
 ::v-deep(.el-upload--picture-card) {
     width: 100%;
-    border-color: #bfbfbf;
+    border-color: $borderColor;
     background: #f4f4f4;
 }
 ::v-deep(.el-upload--picture-card) {

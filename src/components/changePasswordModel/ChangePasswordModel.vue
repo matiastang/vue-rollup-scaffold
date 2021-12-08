@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 16:31:59
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 11:19:37
+ * @LastEditTime: 2021-12-08 11:22:06
  * @FilePath: /datumwealth-openalpha-front/src/components/changePasswordModel/ChangePasswordModel.vue
  * @Description: 修改密码弹窗
 -->
@@ -189,7 +189,7 @@ export default defineComponent({
                 width: 434px;
                 height: 56px;
                 border-radius: 2px;
-                border: 1px solid #bfbfbf;
+                border: 1px solid $borderColor;
             }
         }
         .model-bottom {

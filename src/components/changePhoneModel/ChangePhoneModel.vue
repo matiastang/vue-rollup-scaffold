@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:06:17
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:07:59
+ * @LastEditTime: 2021-12-08 11:21:49
  * @FilePath: /datumwealth-openalpha-front/src/components/changePhoneModel/ChangePhoneModel.vue
  * @Description: 修改手机号
 -->
@@ -219,13 +219,13 @@ export default defineComponent({
             margin-top: 30px;
             width: 539px;
             height: 56px;
-            border: 1px solid #bfbfbf;
+            border: 1px solid $borderColor;
         }
         .model-code-input {
             margin-top: 30px;
             width: 539px;
             height: 56px;
-            border: 1px solid #bfbfbf;
+            border: 1px solid $borderColor;
         }
         .model-bottom {
             margin-top: 30px;

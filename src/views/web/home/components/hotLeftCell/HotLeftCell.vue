@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:56:48
+ * @LastEditTime: 2021-12-08 11:19:27
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotLeftCell/HotLeftCell.vue
  * @Description: 首页热榜分类cell
 -->
@@ -85,7 +85,7 @@ export default defineComponent({
         padding: 0px 5px;
         font-size: fontSize(26px);
         @include defaultFontMedium;
-        color: #ffffff;
+        color: $themeBgColor;
         line-height: 34px;
         letter-spacing: 2px;
         margin: 32px 0px 18px 0px;
@@ -97,7 +97,7 @@ export default defineComponent({
         padding: 0px 5px;
         font-size: fontSize(14px);
         @include defaultFont;
-        color: #ffffff;
+        color: $themeBgColor;
         line-height: 20px;
         margin-bottom: 52px;
         text-align: center;
@@ -107,7 +107,7 @@ export default defineComponent({
         width: 100%;
         height: 42px;
         border-radius: 4px;
-        border: 1px solid #ffffff;
+        border: 1px solid $themeBgColor;
         font-size: fontSize(16px);
         color: $themeBgColor;
         line-height: 42px;

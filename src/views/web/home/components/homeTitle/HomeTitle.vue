@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-05 12:11:39
- * @LastEditTime: 2021-12-08 10:39:30
+ * @LastEditTime: 2021-12-08 11:18:20
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/homeTitle/HomeTitle.vue
@@ -31,7 +31,7 @@ export default defineComponent({
     .home-title-title {
         font-size: fontSize(30px);
         @include defaultFontMedium;
-        color: #262626;
+        color: $titleColor;
         line-height: 40px;
         letter-spacing: 2px;
         text-align: center;

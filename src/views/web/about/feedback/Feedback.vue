@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-26 13:37:30
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-06 10:25:12
+ * @LastEditTime: 2021-12-08 11:16:29
  * @FilePath: /datumwealth-openalpha-front/src/views/web/about/feedback/Feedback.vue
  * @Description: 意见反馈
 -->
@@ -167,7 +167,7 @@ export default defineComponent({
     }
     .feedback-ok {
         font-size: fontSize(18px);
-        color: #8c8c8c;
+        color: $placeholderColor;
         line-height: 56px;
         width: 100%;
         box-sizing: border-box;

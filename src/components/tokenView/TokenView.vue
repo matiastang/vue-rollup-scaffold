@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 10:57:51
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-15 11:16:07
+ * @LastEditTime: 2021-12-08 11:21:53
  * @FilePath: /datumwealth-openalpha-front/src/components/tokenView/TokenView.vue
  * @Description: token显示view
 -->
@@ -63,7 +63,7 @@ export default defineComponent({
     padding: 9px 8px 9px 0px;
     height: 42px;
     border-radius: 2px;
-    border: 1px solid #bfbfbf;
+    border: 1px solid $borderColor;
     justify-content: space-between;
     ::v-deep(.el-input__inner) {
         border: none;
@@ -81,7 +81,7 @@ export default defineComponent({
         .token-description {
             width: 14px;
             height: 14px;
-            border: 1px solid #8c8c8c;
+            border: 1px solid $placeholderColor;
         }
     }
 }

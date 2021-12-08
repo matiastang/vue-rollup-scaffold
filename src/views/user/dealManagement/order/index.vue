@@ -503,7 +503,7 @@ const alipay = (payUrl: string) => {
         @include fontWeightNormal;
     }
     .paystatus-black {
-        color: #262626;
+        color: $titleColor;
         @include fontWeightNormal;
     }
     .paystatus-yellow {

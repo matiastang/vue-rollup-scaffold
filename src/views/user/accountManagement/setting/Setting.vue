@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:37:42
+ * @LastEditTime: 2021-12-08 11:21:59
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -471,7 +471,7 @@ export default defineComponent({
                         width: 456px;
                         height: 42px;
                         border-radius: 2px;
-                        border: 1px solid #bfbfbf;
+                        border: 1px solid $borderColor;
                         :deep(.el-input) {
                             height: 40px;
                             .el-input__inner {

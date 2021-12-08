@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:04:28
- * @LastEditTime: 2021-12-08 10:56:56
+ * @LastEditTime: 2021-12-08 11:16:02
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/NotFound.vue
@@ -118,7 +118,7 @@ export default defineComponent({
     .text {
         font-size: fontSize(14px);
         @include defaultFont;
-        color: #8c8c8c;
+        color: $placeholderColor;
         line-height: 20px;
         text-align: center;
     }

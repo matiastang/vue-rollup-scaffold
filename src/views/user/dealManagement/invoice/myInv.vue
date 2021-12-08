@@ -333,7 +333,7 @@ const doQuery = async () => {
 
     ::v-deep(.el-descriptions__title) {
         // font-size: fontSize(18px);
-        color: #262626;
+        color: $titleColor;
         line-height: 25px;
         letter-spacing: 1px;
         @include fontWeight;
@@ -346,14 +346,14 @@ const doQuery = async () => {
     }
     ::v-deep(.el-descriptions__label:not(.is-bordered-label)) {
         // font-size: fontSize(14px);
-        color: #8c8c8c;
+        color: $placeholderColor;
         line-height: 20px;
         letter-spacing: 1px;
         @include fontWeight;
     }
     ::v-deep(.el-descriptions__body .el-descriptions__table .el-descriptions__cell.is-left) {
         // font-size: fontSize(14px);
-        color: #262626;
+        color: $titleColor;
         line-height: 20px;
         letter-spacing: 1px;
         @include fontWeight;
@@ -362,7 +362,7 @@ const doQuery = async () => {
 .tips {
     height: 20px;
     font-size: fontSize(14px);
-    color: #8c8c8c;
+    color: $placeholderColor;
     line-height: 20px;
     letter-spacing: 1px;
     @include fontWeight;
@@ -370,11 +370,11 @@ const doQuery = async () => {
         height: 24px;
         font-size: fontSize(16px);
         @include fontWeight500;
-        color: #d65928;
+        color: $themeColor;
     }
     // .order-count::before {
     //     content: ' | ';
-    //     color: #8c8c8c;
+    //     color: $placeholderColor;
     //     font-size: fontSize(14px);
     //     @include fontWeight;
     // }

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-12-08 10:59:36
+ * @LastEditTime: 2021-12-08 11:20:50
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
@@ -427,7 +427,7 @@ export default defineComponent({
                     width: calc(20% - 16px);
                     min-width: 224px;
                     height: 80px;
-                    background: #ffffff;
+                    background: $themeBgColor;
                     box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
                     margin: 8px;
                     object-fit: cover;

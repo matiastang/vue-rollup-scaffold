@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-08 10:59:57
+ * @LastEditTime: 2021-12-08 11:23:23
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -363,11 +363,11 @@ export default defineComponent({
 ::v-deep(.login) {
     width: 100%;
     height: 56px;
-    background: #d65928;
+    background: $themeColor;
     border-radius: 4px;
     font-size: fontSize(18px);
     @include defaultFont;
-    color: #ffffff;
+    color: $themeBgColor;
     line-height: 56px;
     text-align: center;
     cursor: pointer;
@@ -397,7 +397,7 @@ export default defineComponent({
             border-radius: 4px;
             font-size: fontSize(18px);
             @include defaultFont;
-            color: #ffffff;
+            color: $themeBgColor;
             line-height: 56px;
             text-align: center;
             cursor: pointer;
@@ -408,7 +408,7 @@ export default defineComponent({
             width: 100%;
             font-size: fontSize(14px);
             @include defaultFont;
-            color: #8c8c8c;
+            color: $placeholderColor;
             line-height: 20px;
             text-align: center;
             .text-protocol {
@@ -437,7 +437,7 @@ export default defineComponent({
             height: 20px;
             font-size: fontSize(14px);
             @include defaultFont;
-            color: #8c8c8c;
+            color: $placeholderColor;
             line-height: 20px;
             cursor: pointer;
         }
@@ -447,7 +447,7 @@ export default defineComponent({
             height: 20px;
             font-size: fontSize(14px);
             @include defaultFont;
-            color: #8c8c8c;
+            color: $placeholderColor;
             line-height: 20px;
             text-align: center;
             .text-protocol {
@@ -460,7 +460,7 @@ export default defineComponent({
         height: 54px;
         font-size: fontSize(30px);
         @include defaultFont;
-        color: #262626;
+        color: $titleColor;
         line-height: 40px;
         letter-spacing: 2px;
         text-align: center;
@@ -472,7 +472,7 @@ export default defineComponent({
         height: 54px;
         font-size: fontSize(30px);
         @include defaultFont;
-        color: #262626;
+        color: $titleColor;
         line-height: 40px;
         letter-spacing: 2px;
         text-align: center;
@@ -480,12 +480,12 @@ export default defineComponent({
         margin-left: 51px;
     }
     ::v-deep(.is-active) {
-        color: #d65928 !important;
+        color: $themeColor !important;
         @include fontWeight500;
     }
     ::v-deep(.el-tabs__active-bar) {
         height: 6px;
-        background: #d65928;
+        background: $themeColor;
     }
     ::v-deep(.el-tabs__nav-wrap::after) {
         display: none !important;
@@ -518,7 +518,7 @@ export default defineComponent({
         align-self: flex-start;
         font-size: fontSize(30px);
         @include defaultFont;
-        color: #262626;
+        color: $titleColor;
         line-height: 40px;
         letter-spacing: 2px;
     }

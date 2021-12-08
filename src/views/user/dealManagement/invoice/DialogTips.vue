@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 17:44:47
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:00:34
+ * @LastEditTime: 2021-12-08 11:17:51
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dealManagement/invoice/DialogTips.vue
  * @Description: 
 -->
@@ -65,7 +65,7 @@ const downloadAction = () => {
     li {
         font-size: fontSize(14px);
         @include fontWeight;
-        color: #262626;
+        color: $titleColor;
         line-height: 20px;
         letter-spacing: 1px;
     }

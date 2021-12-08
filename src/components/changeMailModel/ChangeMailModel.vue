@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:22:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-25 12:08:11
+ * @LastEditTime: 2021-12-08 11:22:11
  * @FilePath: /datumwealth-openalpha-front/src/components/changeMailModel/ChangeMailModel.vue
  * @Description: 修改有效
 -->
@@ -217,13 +217,13 @@ export default defineComponent({
             margin-top: 30px;
             width: 539px;
             height: 56px;
-            border: 1px solid #bfbfbf;
+            border: 1px solid $borderColor;
         }
         .model-code-input {
             margin-top: 30px;
             width: 539px;
             height: 56px;
-            border: 1px solid #bfbfbf;
+            border: 1px solid $borderColor;
         }
         .model-bottom {
             margin-top: 30px;

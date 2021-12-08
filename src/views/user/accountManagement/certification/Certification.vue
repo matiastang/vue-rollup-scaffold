@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:56:53
+ * @LastEditTime: 2021-12-08 11:22:19
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -1212,14 +1212,14 @@ export default defineComponent({
                                     height: 100%;
                                     box-sizing: border-box;
                                     border-radius: 2px;
-                                    border: 1px solid #bfbfbf;
+                                    border: 1px solid $borderColor;
                                 }
                                 ::v-deep(.el-textarea__inner) {
                                     width: 100%;
                                     height: 100%;
                                     box-sizing: border-box;
                                     border-radius: 2px;
-                                    border: 1px solid #bfbfbf;
+                                    border: 1px solid $borderColor;
                                 }
                             }
                             .tab-personage-item-textarea {
@@ -1231,7 +1231,7 @@ export default defineComponent({
                                     width: 152px;
                                     height: 134px;
                                     border-radius: 2px;
-                                    border: 1px solid #bfbfbf;
+                                    border: 1px solid $borderColor;
                                     margin-left: 9px;
                                     .avatar {
                                         width: 152px;
@@ -1317,7 +1317,7 @@ export default defineComponent({
                             width: 120px;
                             height: 180px;
                             border-radius: 2px;
-                            border: 1px solid #bfbfbf;
+                            border: 1px solid $borderColor;
                             .avatar {
                                 width: 120px;
                                 height: 180px;

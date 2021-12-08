@@ -261,7 +261,7 @@ const doQuery = () => {
     @include fontWeightNormal;
 }
 .status-black {
-    color: #262626;
+    color: $titleColor;
     @include fontWeightNormal;
 }
 .status-yellow {

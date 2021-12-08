@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:39:14
+ * @LastEditTime: 2021-12-08 11:20:29
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -516,7 +516,7 @@ export default defineComponent({
                 .partners-cell {
                     width: 224px;
                     height: 80px;
-                    background: #ffffff;
+                    background: $themeBgColor;
                     box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
                     margin: 8px;
                     object-fit: cover;
