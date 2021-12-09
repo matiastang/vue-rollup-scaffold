@@ -82,15 +82,15 @@ export default defineComponent({
         const dataSource = [
             {
                 title: '西筹金融科技',
-                url: 'http://www.datumwealth.com/',
+                url: 'https://www.datumwealth.com',
             },
             {
                 title: '况客科技',
-                url: 'https://www.qutke.com/',
+                url: 'https://www.qutke.com',
             },
             {
                 title: '汇迪投资',
-                url: 'http://www.hdinvesting.cn/',
+                url: 'http://www.hdinvesting.cn',
             },
         ]
         const helpCenter = [

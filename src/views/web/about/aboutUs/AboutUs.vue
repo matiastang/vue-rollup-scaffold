@@ -21,7 +21,7 @@
             </div>
             <div class="about-us-content-text">
                 网址：<span class="about-us-text-span agreement-content-url"
-                    >http://www.datumwealth.com</span
+                    >https://www.datumwealth.com</span
                 >
             </div>
             <div class="about-us-content-text">

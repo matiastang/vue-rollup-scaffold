@@ -14,7 +14,7 @@
                 欢迎阅读西筹基金研究开放平台（以下简称“开放平台”）的隐私权保护规则（以下简称“隐私政策”）。我们深知用户信息安全的重要性，我们将按照法律法规要求，采取安全保护措施，保护您的用户信息安全可控。本隐私政策适用于成都西筹金融科技有限公司（以下简称“我们”或“西筹金融科技”）所有并运营的官方网站（网址：<span
                     class="copyright-text-span agreement-content-url cursorP"
                     @click="openAction"
-                    >http://www.datumwealth.com</span
+                    >https://www.datumwealth.com</span
                 >，包括任何承继、重命名网站和任何子域名），以及本网站内所包含的所有产品及服务。西筹金融科技十分重视对用户隐私的保护，保护用户隐私是西筹金融科技的一项基本政策。本网站主要面向企业用户，同时也面向个人开发者等个人用户。本政策主要针对用户注册使用本网站时涉及到个人信息的部分。本政策将帮助您了解以下内容：
             </div>
             <div class="copyright-content-header">一、本政策的适用范围</div>
@@ -277,7 +277,7 @@ export default defineComponent({
     setup() {
         const router = useRouter()
         const openAction = () => {
-            window.open('http://www.datumwealth.com')
+            window.open('https://www.datumwealth.com')
         }
         return {
             router,
