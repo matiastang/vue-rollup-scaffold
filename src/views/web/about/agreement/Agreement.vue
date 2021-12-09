@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-26 13:34:06
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 15:44:10
+ * @LastEditTime: 2021-12-09 14:19:27
  * @FilePath: /datumwealth-openalpha-front/src/views/web/about/agreement/Agreement.vue
  * @Description: 用户协议
 -->
@@ -34,7 +34,7 @@
                 西筹金融科技重视依法保护用户的个人信息，我们将依照本协议及《隐私政策》（链接地址：<span
                     class="agreement-text-span"
                     >【<span class="agreement-content-url" @click="copyrightAction">{{
-                        `${host}/#/about/copyright`
+                        `${host}/about/copyright`
                     }}</span
                     >】</span
                 >）的规定收集、使用、储存和分享您的个人信息。本协议对个人信息保护相关内容未作明确规定的，均应以《隐私政策》的内容为准。
@@ -106,7 +106,7 @@
                 为了您的账户和交易安全合规，西筹金融科技有权要求用户完成开放平台账户的实名认证，认证类型分为个人认证和企业认证。实名认证的相关规则应以《开放平台企业认证服务协议》为准（（链接地址：
                 <span class="agreement-text-span"
                     >【<span class="agreement-content-url" @click="authProtocolAction">{{
-                        `${host}/#/about/authProtocol`
+                        `${host}/about/authProtocol`
                     }}</span
                     >】</span
                 >）。
