@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-16 14:09:39
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-09 15:09:17
+ * @LastEditTime: 2021-12-09 15:11:28
  * @FilePath: /datumwealth-openalpha-front/src/common/request/axiosInterceptors.ts
  * @Description: axiosInstance | 拦截器
  */

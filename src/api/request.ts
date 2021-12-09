@@ -46,7 +46,7 @@ const onResponseSuccess = (response: Response.AxiosResponse): Response.AxiosResp
     } else if (response.data.code === 401) {
         localStorageRemoveAll()
         ElMessage.error(response.data.msg)
-        window.location.href = '#/login'
+        window.location.href = '/login'
     } else {
         ElMessage.error(response.data.msg)
         throw response.data

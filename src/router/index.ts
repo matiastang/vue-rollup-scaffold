@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-12-09 15:09:27
+ * @LastEditTime: 2021-12-09 15:14:14
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -276,6 +276,7 @@ const routes: Array<RouteRecordRaw> = [
         // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
+        redirect: '/',
         component: NotFound,
     },
 ]
