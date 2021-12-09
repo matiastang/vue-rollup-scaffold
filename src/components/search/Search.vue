@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 19:40:19
+ * @LastEditTime: 2021-12-09 15:32:55
  * @FilePath: /datumwealth-openalpha-front/src/components/search/Search.vue
  * @Description: 搜索输入框
 -->
@@ -10,7 +10,7 @@
     <el-input
         v-model="inputValue"
         :class="['search-input', { 'search-input-selected': inputFocusStatus }]"
-        placeholder="请输入接口名称/接口ID"
+        placeholder="请输入接口名称/接口CODE"
         @blur="inputBlur"
         @focus="inputFocus"
         @keyup.enter="inputEnter"
