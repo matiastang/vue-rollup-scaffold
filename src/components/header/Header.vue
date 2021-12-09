@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-09 15:07:14
+ * @LastEditTime: 2021-12-09 17:10:02
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -313,7 +313,7 @@ export default defineComponent({
         .header-right-button {
             margin: 0px 16px;
             .header-right-title {
-                @include defaultFontMedium;
+                @include defaultFont;
                 font-size: fontSize(16px);
                 color: $titleColor;
                 line-height: 24px;

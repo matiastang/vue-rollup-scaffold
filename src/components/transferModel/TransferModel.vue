@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 17:47:01
- * @LastEditTime: 2021-12-08 10:36:29
+ * @LastEditTime: 2021-12-09 17:08:15
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/components/transferModel/TransferModel.vue
@@ -23,7 +23,7 @@
                     第1步：确认您的实付金额，点击下方【提交订单】;
                 </div>
                 <div class="model-Price-text defaultFont">
-                    第2步：将转账金额，通过您公司的对公账户转账至天眼查对公账户，将订单编号填写至电汇凭证的【附言】栏内（提交订单后，获取订单编号）；
+                    第2步：将转账金额，通过您公司的对公账户转账至西筹金融科技对公账户，将订单编号填写至电汇凭证的【附言】栏内（提交订单后，获取订单编号）；
                 </div>
                 <div class="model-Price-text defaultFont">
                     第3步：转账成功后，请至我的订单，点击【上传凭证】，审核通过后套餐立即生效。
