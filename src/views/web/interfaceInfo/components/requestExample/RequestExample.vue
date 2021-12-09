@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-06 16:57:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:59:28
+ * @LastEditTime: 2021-12-09 11:24:58
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/requestExample/RequestExample.vue
  * @Description: 示例代码
 -->
@@ -79,7 +79,7 @@ import java.util.Map;
  */
 public class CallApiDemo {
 
-    private static final String path = "https://test.openalpha.cn/open/api/apiInfoCode";
+    private static final String path = "https://openalpha.cn/open/api/apiInfoCode";
 
     public static void main(String[] args) {
         // 基金基本信息查询接口
