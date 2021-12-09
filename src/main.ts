@@ -38,4 +38,4 @@ if (import.meta.env.PROD) {
     }
 }
 
-console.info(`当前Vue版本为${app.version}`)
+// console.info(`当前Vue版本为${app.version}`)

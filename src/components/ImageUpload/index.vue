@@ -130,8 +130,13 @@ const megerUrl2File = (url: string) => {
     return result
 }
 const handleUploadSuccess = (res: Response.data) => {
-    fileList.push(megerUrl2File(res.data))
-    emit('input', res.data)
+    if (res.code === 200) {
+        fileList.push(megerUrl2File(res.data))
+        emit('input', res.data)
+    } else {
+        ElMessage.error(`${res?.msg}`)
+    }
+
     loading.value.close()
 }
 const handleBeforeUpload = (file: File) => {

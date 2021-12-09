@@ -222,7 +222,7 @@ const routes: Array<RouteRecordRaw> = [
             },
         ],
         beforeEnter: (to, from) => {
-            console.log(`help路由卫士：即将从${from.path}跳转到${to.path}`)
+            // console.log(`help路由卫士：即将从${from.path}跳转到${to.path}`)
             return true
         },
     },
@@ -311,8 +311,8 @@ const router = createRouter({
  * 全局前置守卫
  */
 router.beforeEach((to, from, next) => {
-    console.log(`即将从${from.path}跳转到${to.path}`)
-    console.log(to.matched)
+    // console.log(`即将从${from.path}跳转到${to.path}`)
+    // console.log(to.matched)
     // if (to.path === '/') {
     //     next({
     //         path: '/home',
@@ -325,9 +325,9 @@ router.beforeEach((to, from, next) => {
         // 用户token
         const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
         if (userToken && userToken.trim() !== '') {
-            console.info(
-                `访问${to.path}页面要求必须未登录，但已登录，重定向到/user/data/statement页面`
-            )
+            // console.info(
+            //     `访问${to.path}页面要求必须未登录，但已登录，重定向到/user/data/statement页面`
+            // )
             next({
                 path: '/user/data/statement',
                 replace: true,
@@ -343,7 +343,7 @@ router.beforeEach((to, from, next) => {
         const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
         if (!userToken || userToken.trim() === '') {
             // 未登录
-            console.info(`访问${to.path}页面要求必须登录，但未登录，重定向到登录页面`)
+            // console.info(`访问${to.path}页面要求必须登录，但未登录，重定向到登录页面`)
             next({
                 path: '/login',
                 replace: true,
@@ -396,14 +396,14 @@ router.beforeEach((to, from, next) => {
  * 全局解析守卫
  */
 router.beforeResolve((to) => {
-    console.log(`将要跳转到${to.path}`)
+    // console.log(`将要跳转到${to.path}`)
 })
 
 /**
  * 全局后置钩子
  */
 router.beforeEach((to, from) => {
-    console.log(`从${from.path}跳转到${to.path}`)
+    // console.log(`从${from.path}跳转到${to.path}`)
 })
 
 export default router
