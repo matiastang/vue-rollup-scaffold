@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 15:30:33
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:38:29
+ * @LastEditTime: 2021-12-09 11:05:28
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/rechargeInfo/RechargeInfo.vue
  * @Description: 充值订单详情
 -->
@@ -136,7 +136,7 @@ export default defineComponent({
             }
             userRechargeDetail(parameter)
                 .then((res) => {
-                    totalPage.value = res.pages
+                    totalPage.value = res.total
                     tableData.list = res.list
                 })
                 .catch((err: RejectType) => {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 16:00:08
+ * @LastEditTime: 2021-12-09 11:03:42
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -184,10 +184,10 @@
                     </el-table-column>
                 </el-table>
                 <el-pagination
-                    v-if="totalPage > pageSize"
+                    v-if="totalNum > pageSize"
                     class="table-pagination"
                     layout="prev, pager, next"
-                    :total="totalPage"
+                    :total="totalNum"
                     :page-size="pageSize"
                     v-model:currentPage="pageNum"
                 ></el-pagination>
@@ -231,6 +231,8 @@ export default defineComponent({
         const billType = ref(true)
         // 切换账单类型
         const billAction = (type: boolean) => {
+            pageNum.value = 1
+            totalNum.value = 0
             billType.value = type
         }
         // 日期选择
@@ -250,12 +252,14 @@ export default defineComponent({
             return undefined
         })
         // 页码
-        const totalPage = ref(1)
+        // const totalPage = ref(1)
+        const totalNum = ref(0)
         const pageNum = ref(1)
         const pageSize = ref(10)
         const activeAction = () => {
             pageNum.value = 1
             pageSize.value = 10
+            totalNum.value = 0
             searchAction()
         }
         // 优惠套餐
@@ -366,7 +370,8 @@ export default defineComponent({
             if (activeName.value !== 'recharge') {
                 userDiscountList(parameterData.parameter)
                     .then((res) => {
-                        totalPage.value = res.pages
+                        // totalPage.value = res.pages
+                        totalNum.value = res.total
                         tableData.list = res.list
                     })
                     .catch((err: RejectType) => {
@@ -379,7 +384,8 @@ export default defineComponent({
             }
             userRechargeList(parameterData.parameter)
                 .then((res) => {
-                    totalPage.value = res.pages
+                    // totalPage.value = res.pages
+                    totalNum.value = res.total
                     tableData.list = res.list
                 })
                 .catch((err: RejectType) => {
@@ -391,6 +397,12 @@ export default defineComponent({
         }
         watch(
             () => billType.value,
+            (newType) => {
+                searchAction()
+            }
+        )
+        watch(
+            () => pageNum.value,
             (newType) => {
                 searchAction()
             }
@@ -412,7 +424,8 @@ export default defineComponent({
             activeName,
             activeAction,
             billType,
-            totalPage,
+            // totalPage,
+            totalNum,
             pageNum,
             pageSize,
             billAction,

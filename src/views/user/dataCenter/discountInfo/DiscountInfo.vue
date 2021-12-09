@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 14:59:37
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:41:55
+ * @LastEditTime: 2021-12-09 11:05:48
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/discountInfo/DiscountInfo.vue
  * @Description: 优惠套餐详情
 -->
@@ -136,7 +136,7 @@ export default defineComponent({
             }
             userDiscountDetail(parameter)
                 .then((res) => {
-                    totalPage.value = res.pages
+                    totalPage.value = res.total
                     tableData.list = res.list
                 })
                 .catch((err: RejectType) => {
