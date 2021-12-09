@@ -1,15 +1,40 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 14:16:17
- * @LastEditTime: 2021-11-01 19:16:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-09 15:58:50
+ * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /vue-scaffold/README.md
+ * @FilePath: /datumwealth-openalpha-front/README.md
 -->
 # vue-scaffold
 
+## 说明
+
+该项目为`西筹金融科技开放平台`前端项目。使用`Vue3`+`TS`+`Vite`开发。
+
+## 运行
+
+1. 安装依赖
+
+> $ pnpm i
+
+2. 开发运行
+
+> $ pnpm run dev
+
+3. 生产打包
+
+> $ pnpm run build
+
+## 版本
+
+### 1.0.0
+
+完成开发平台的基本功能：`登录注册`，`充值购买`，`基础接口展示及调用`，`页面基本适配`。
 
 ## package包
+
+* 使用`pnpm`管理三方包
 
 ### dependencies
 
