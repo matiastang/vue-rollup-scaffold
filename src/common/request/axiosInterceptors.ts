@@ -68,7 +68,7 @@ const initInstance = () => {
                 response.data.msg = '取消请求'
                 setTimeout(() => {
                     ElMessage.error(msg)
-                    window.location.href = '#/login'
+                    window.location.href = '/login'
                 }, 0)
             }
             return response

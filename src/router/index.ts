@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
  */
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 // layout
 import Layout from '@/components/layout/Layout.vue'
 import UserLayout from '@/components/userLayout/UserLayout.vue'
@@ -61,7 +61,7 @@ const routes: Array<RouteRecordRaw> = [
         component: Layout,
         children: [
             {
-                path: 'home',
+                path: '/',
                 name: 'home',
                 component: Home,
             },
@@ -276,6 +276,7 @@ const routes: Array<RouteRecordRaw> = [
         // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
+        redirect: '/',
         component: NotFound,
     },
 ]
@@ -283,7 +284,7 @@ const routes: Array<RouteRecordRaw> = [
  * 创建Router
  */
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
         // if (savedPosition && to.meta.keepAlive) {
@@ -312,13 +313,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     console.log(`即将从${from.path}跳转到${to.path}`)
     console.log(to.matched)
-    if (to.path === '/') {
-        next({
-            path: '/home',
-            replace: true,
-        })
-        return
-    }
+    // if (to.path === '/') {
+    //     next({
+    //         path: '/home',
+    //         replace: true,
+    //     })
+    //     return
+    // }
     // 非登录校验
     if (to.matched.some((record) => record.meta.notLogin)) {
         // 用户token
