@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 14:13:47
+ * @LastEditTime: 2021-12-09 11:10:13
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -255,7 +255,7 @@ export default defineComponent({
                         transferDialogVisible.value = true
                     } else {
                         addOd({
-                            goodsAmount: import.meta.env.VITE_PAY_TEST ? 0.01 : selectedMoney.value,
+                            goodsAmount: import.meta.env.DEV ? 0.01 : selectedMoney.value,
                             orderType: orderType.recharge,
                             payId: paymentData.payments[i].payId,
                         })

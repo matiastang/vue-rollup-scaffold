@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:55:53
- * @LastEditTime: 2021-12-01 19:14:59
+ * @LastEditTime: 2021-12-09 11:10:06
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/discount/Discount.vue
@@ -255,7 +255,7 @@ export default defineComponent({
                         transferDialogVisible.value = true
                     } else {
                         addOd({
-                            goodsAmount: import.meta.env.VITE_PAY_TEST ? 0.01 : selectedMoney.value,
+                            goodsAmount: import.meta.env.DEV ? 0.01 : selectedMoney.value,
                             orderType: orderType.discount,
                             payId: paymentData.payments[i].payId,
                         })
