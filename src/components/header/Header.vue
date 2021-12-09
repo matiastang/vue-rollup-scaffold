@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-09 13:55:17
+ * @LastEditTime: 2021-12-09 15:07:14
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -112,7 +112,12 @@ export default defineComponent({
         /**
          * 用户token
          */
-        const userToken = computed(() => store.state.userModule.userLoginInfo.token)
+        const userToken = computed(() => {
+            if (route.path === '/login') {
+                return null
+            }
+            return store.state.userModule.userLoginInfo.token
+        })
 
         const titleArr = reactive([
             {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:30:28
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:22:19
+ * @LastEditTime: 2021-12-09 14:36:58
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/certification/Certification.vue
  * @Description: 个人中心-账号管理-实名认证
 -->
@@ -351,7 +351,10 @@
                                     v-model="companyChecked"
                                     class="personage-text-checked"
                                 ></el-checkbox>
-                                <div class="personage-left-text cursorP defaultFont">
+                                <div
+                                    class="personage-left-text cursorP defaultFont"
+                                    @click="jumpAction"
+                                >
                                     《西筹开放平台认证服务协议》
                                 </div>
                                 <div class="personage-right-text defaultFont">
@@ -498,7 +501,10 @@
                                     v-model="personageChecked"
                                     class="personage-text-checked"
                                 ></el-checkbox>
-                                <div class="personage-left-text cursorP defaultFont">
+                                <div
+                                    class="personage-left-text cursorP defaultFont"
+                                    @click="jumpAction"
+                                >
                                     《西筹开放平台认证服务协议》
                                 </div>
                                 <div class="personage-right-text defaultFont">
@@ -560,12 +566,14 @@ import { certificationLog } from './certification'
 import { email_check, identity_card_check, organization_code_check } from 'utils/check/index'
 import { ElUpload } from 'element-plus'
 import ElMessage from '@/common/utils/message'
+import { useRouter } from 'vue-router'
 
 // el-upload
 
 export default defineComponent({
     name: 'Certification',
     setup() {
+        const router = useRouter()
         let store = useStore()
         // 用户信息
         let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
@@ -930,6 +938,11 @@ export default defineComponent({
                 }
             })
         }
+        const jumpAction = () => {
+            router.push({
+                path: '/about/authProtocol',
+            })
+        }
         return {
             userInfo,
             certStatus,
@@ -970,6 +983,7 @@ export default defineComponent({
             cancelRecertificationAction,
             uploadHeaders,
             imageAvatarError,
+            jumpAction,
         }
     },
 })

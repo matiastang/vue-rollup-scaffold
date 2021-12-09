@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-12-09 14:21:05
+ * @LastEditTime: 2021-12-09 15:09:27
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -49,7 +49,7 @@ import AuthProtocol from '@/views/web/about/authProtocol/AuthProtocol.vue'
 // NotFound
 import NotFound from '@/views/NotFound.vue'
 // 校验登录列表
-import { checkLoginPath } from './loginInterceptor'
+// import { checkLoginPath } from './loginInterceptor'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 // 支付宝支付页面
 import Alipay from '@/views/web/alipay/Alipay.vue'
@@ -283,7 +283,6 @@ const routes: Array<RouteRecordRaw> = [
  * 创建Router
  */
 const router = createRouter({
-    // history: createWebHashHistory(),
     history: import.meta.env.DEV ? createWebHashHistory() : createWebHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
