@@ -58,14 +58,22 @@
                             placeholder="请输入发票税号"
                         ></el-input>
                     </el-form-item>
-                    <el-form-item label="银行账号" :prop="form.invType === 2 && 'bankNo'">
+                    <el-form-item
+                        v-if="form.invType === 2"
+                        label="银行账号"
+                        :prop="form.invType === 2 && 'bankNo'"
+                    >
                         <el-input
                             size="mini"
                             v-model="form.bankNo"
                             placeholder="请输入银行账号"
                         ></el-input>
                     </el-form-item>
-                    <el-form-item label="开户银行" :prop="form.invType === 2 && 'bank'">
+                    <el-form-item
+                        v-if="form.invType === 2"
+                        label="开户银行"
+                        :prop="form.invType === 2 && 'bank'"
+                    >
                         <el-input
                             size="mini"
                             v-model="form.bank"
@@ -161,6 +169,7 @@ const loading = ref(false)
 const store = useStore(key)
 const form = reactive<Invoic.AddQuery>({
     invType: 1,
+    invContent: '*研发和技术服务*技术服务费',
 })
 const lastInvoice = reactive(computed(() => store.state?.invModule.last))
 const rules = reactive({

@@ -30,6 +30,9 @@
                 :label="detail.status === 5 ? '物流编号' : '卖家留言'"
                 >{{ detail.invoiceInfo }}</el-descriptions-item
             >
+            <el-descriptions-item v-if="detail.toBuyer" :label="'卖家留言'">{{
+                detail.toBuyer
+            }}</el-descriptions-item>
         </el-descriptions>
         <el-divider></el-divider>
         <el-descriptions :column="1">
