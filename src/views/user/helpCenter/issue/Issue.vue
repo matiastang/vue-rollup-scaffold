@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 10:14:11
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-09 10:51:01
+ * @LastEditTime: 2021-12-10 17:50:41
  * @FilePath: /datumwealth-openalpha-front/src/views/user/helpCenter/issue/Issue.vue
  * @Description: 帮助中心-常见问题
 -->
@@ -162,7 +162,7 @@ export default defineComponent({
                     {
                         title: '开发票的最低金额是多少？充值的金额是否可以分开开发票？',
                         texts: [
-                            '开发票的得最低金额是500元，一个订单只能开具一张发票。不同的订单可以开具同一张发票。',
+                            '开发票的得最低金额是300元，一个订单只能开具一张发票。不同的订单可以开具同一张发票。',
                         ],
                     },
                     {
