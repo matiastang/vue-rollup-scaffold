@@ -184,6 +184,7 @@ const handleSumbit = () => {
                 orderSn: form.target,
                 tel: form.tel,
                 zipcode: form.zipcode,
+                remark: form.remark,
             }
             postInvUpdate(params)
                 .then((response) => {
