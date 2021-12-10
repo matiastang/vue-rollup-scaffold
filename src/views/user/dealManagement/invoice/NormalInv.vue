@@ -38,6 +38,33 @@
         <el-form-item label="邮寄编号" prop="zipcode">
             <el-input v-model="form.zipcode" placeholder="请输入邮寄编号"></el-input>
         </el-form-item>
+        <el-form-item
+            v-if="form.invType === 2"
+            :prop="form.invType === 2 && 'tel'"
+            label="公司电话"
+        >
+            <el-input size="mini" v-model="form.address" placeholder="请输入公司电话"></el-input>
+        </el-form-item>
+        <el-form-item
+            v-if="form.invType === 2"
+            :prop="form.invType === 2 && 'companyAddress'"
+            label="公司地址"
+        >
+            <el-input
+                size="mini"
+                v-model="form.companyAddress"
+                placeholder="请输入公司地址"
+            ></el-input>
+        </el-form-item>
+        <el-form-item label="备注">
+            <el-input
+                type="textarea"
+                rows="3"
+                size="mini"
+                v-model="form.remark"
+                placeholder="请输入备注"
+            ></el-input>
+        </el-form-item>
     </el-form>
     <el-row type="flex" justify="end" align="middle">
         <el-button type="primary" plain @click="handleClose">取消</el-button>
@@ -58,6 +85,20 @@ const _props = defineProps({
 })
 const props = reactive(_props)
 const rules = ref({
+    tel: [
+        {
+            required: true,
+            message: '请输入公司电话',
+            trigger: 'blur',
+        },
+    ],
+    companyAddress: [
+        {
+            required: true,
+            message: '请输入公司地址',
+            trigger: 'blur',
+        },
+    ],
     invPayee: [
         {
             required: true,

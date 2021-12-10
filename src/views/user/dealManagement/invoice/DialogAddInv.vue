@@ -10,35 +10,35 @@
         <template #title>
             <div class="title">开发票</div>
         </template>
-        <el-descriptions :column="1">
-            <el-descriptions-item label="订单编号">
-                <span>{{ orderSn }}</span>
-            </el-descriptions-item>
-            <el-descriptions-item label="发票类型">
-                <div class="type">
-                    <el-radio-group v-model="form.invType">
-                        <el-radio :label="1">增值税普通发票</el-radio>
-                        <el-radio :label="2">增值税专用发票</el-radio>
-                        <!-- <el-radio :label="3">电子发票</el-radio> -->
-                    </el-radio-group>
-                </div>
-            </el-descriptions-item>
-            <el-descriptions-item label="发票金额"
-                ><strong class="orderAmount">{{ orderAmount }}</strong></el-descriptions-item
-            >
-            <el-descriptions-item v-if="addTime" label="发票时间">{{
-                addTime || '-'
-            }}</el-descriptions-item>
-            <el-descriptions-item label="开具内容"
-                ><el-input
+        <el-form ref="SpecialOnvoice" :model="form" :rules="rules" label-width="80px">
+            <el-descriptions :column="1">
+                <el-descriptions-item label="订单编号">
+                    <span>{{ orderSn }}</span>
+                </el-descriptions-item>
+                <el-descriptions-item label="发票类型">
+                    <div class="type">
+                        <el-radio-group v-model="form.invType">
+                            <el-radio :label="1">增值税普通发票</el-radio>
+                            <el-radio :label="2">增值税专用发票</el-radio>
+                            <!-- <el-radio :label="3">电子发票</el-radio> -->
+                        </el-radio-group>
+                    </div>
+                </el-descriptions-item>
+                <el-descriptions-item label="发票金额"
+                    ><strong class="orderAmount">{{ orderAmount }}</strong></el-descriptions-item
+                >
+                <el-descriptions-item v-if="addTime" label="发票时间">{{
+                    addTime || '-'
+                }}</el-descriptions-item>
+            </el-descriptions>
+            <el-form-item label="开具内容" prop="invContent">
+                <el-input
                     style="width: 300px"
                     size="mini"
                     v-model="form.invContent"
-                    placeholder="请输入内容"
-                ></el-input
-            ></el-descriptions-item>
-        </el-descriptions>
-        <el-form ref="SpecialOnvoice" :model="form" :rules="rules" label-width="80px">
+                    placeholder="请输入开具内容"
+                ></el-input>
+            </el-form-item>
             <el-row :gutter="20">
                 <el-col :span="12">
                     <div class="tips">
@@ -70,6 +70,37 @@
                             size="mini"
                             v-model="form.bank"
                             placeholder="请输入开户银行"
+                        ></el-input>
+                    </el-form-item>
+                    <el-form-item
+                        v-if="form.invType === 2"
+                        :prop="form.invType === 2 && 'tel'"
+                        label="公司电话"
+                    >
+                        <el-input
+                            size="mini"
+                            v-model="form.tel"
+                            placeholder="请输入公司电话"
+                        ></el-input>
+                    </el-form-item>
+                    <el-form-item
+                        v-if="form.invType === 2"
+                        :prop="form.invType === 2 && 'companyAddress'"
+                        label="公司地址"
+                    >
+                        <el-input
+                            size="mini"
+                            v-model="form.companyAddress"
+                            placeholder="请输入公司地址"
+                        ></el-input>
+                    </el-form-item>
+                    <el-form-item label="备注">
+                        <el-input
+                            type="textarea"
+                            rows="3"
+                            size="mini"
+                            v-model="form.remark"
+                            placeholder="请输入备注"
                         ></el-input>
                     </el-form-item>
                 </el-col>
@@ -133,6 +164,27 @@ const form = reactive<Invoic.AddQuery>({
 })
 const lastInvoice = reactive(computed(() => store.state?.invModule.last))
 const rules = reactive({
+    tel: [
+        {
+            required: true,
+            message: '请输入公司电话',
+            trigger: 'blur',
+        },
+    ],
+    companyAddress: [
+        {
+            required: true,
+            message: '请输入公司地址',
+            trigger: 'blur',
+        },
+    ],
+    invContent: [
+        {
+            required: true,
+            message: '请输入发票内容',
+            trigger: 'blur',
+        },
+    ],
     invPayee: [
         {
             required: true,
@@ -252,6 +304,9 @@ const handleSumbit = () => {
     }
     .orderAmount {
         color: $themeColor;
+    }
+    ::v-deep(.invContent) {
+        display: flex;
     }
 }
 </style>

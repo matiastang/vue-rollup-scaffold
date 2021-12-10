@@ -48,6 +48,15 @@
             <el-descriptions-item v-if="detail.invType === 2" label="开户银行">{{
                 detail.bank
             }}</el-descriptions-item>
+            <el-descriptions-item v-if="detail.invType === 2" label="公司电话">{{
+                detail.tel
+            }}</el-descriptions-item>
+            <el-descriptions-item v-if="detail.invType === 2" label="公司地址">{{
+                detail.companyAddress
+            }}</el-descriptions-item>
+            <el-descriptions-item v-if="detail.remark" label="备注">{{
+                detail.remark
+            }}</el-descriptions-item>
         </el-descriptions>
         <el-divider v-if="detail.address"></el-divider>
         <el-descriptions v-if="detail.address" :column="1">

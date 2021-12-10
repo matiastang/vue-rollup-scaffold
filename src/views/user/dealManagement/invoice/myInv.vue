@@ -59,7 +59,7 @@
     <p class="tips" v-if="currentOrder.orderAmount">
         <strong class="order-count">{{ computedSnLength(currentOrder.orderSn) }}</strong>
         个订单，发票金额共计:
-        <strong>{{ currentOrder.orderAmount }}元</strong>
+        <strong>{{ currentOrder.orderAmount.toFixed(2) }}元</strong>
     </p>
 
     <el-form ref="form" style="margin-top: 10px" :model="queryParams" inline label-width="70px">
