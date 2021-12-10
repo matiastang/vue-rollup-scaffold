@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 09:46:05
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 14:54:10
+ * @LastEditTime: 2021-12-10 17:54:06
  * @FilePath: /datumwealth-openalpha-front/src/components/helpLayout/HelpLayout.vue
  * @Description: 帮组中心
 -->
@@ -18,7 +18,10 @@
                         :class="[
                             'menu-item',
                             'flexRowCenter',
-                            { 'menu-item-selected': item.selected },
+                            {
+                                'menu-item-selected': item.selected,
+                                'menu-item-hover': !item.selected,
+                            },
                         ]"
                         @click="!item.selected && menuAction(item.url)"
                     >
@@ -214,6 +217,10 @@ export default defineComponent({
                     .menu-item-title {
                         color: $themeBgColor;
                     }
+                }
+
+                .menu-item-hover:hover {
+                    background: $hoverColor;
                 }
             }
             .router-content {
