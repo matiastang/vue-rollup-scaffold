@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-09 11:10:13
+ * @LastEditTime: 2021-12-10 14:25:24
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -196,20 +196,24 @@ export default defineComponent({
             }
         }
         const blurAction = () => {
-            console.log(inputMoney.value)
-            inputMoneyFocus.value = !isNaN(inputMoney.value)
             if (isNaN(inputMoney.value)) {
-                for (let i = 0; i < moneyArr.length; i++) {
-                    if (i === lastSelectIndex.value) {
-                        moneyArr[i].selected = true
-                        selectedMoney.value = moneyArr[i].value
-                    } else {
-                        moneyArr[i].selected = false
+                if (inputMoneyFocus.value) {
+                    inputMoney.value = 0.01
+                    selectedMoney.value = inputMoney.value
+                } else {
+                    for (let i = 0; i < moneyArr.length; i++) {
+                        if (i === lastSelectIndex.value) {
+                            moneyArr[i].selected = true
+                            selectedMoney.value = moneyArr[i].value
+                        } else {
+                            moneyArr[i].selected = false
+                        }
                     }
                 }
             } else {
                 selectedMoney.value = inputMoney.value
             }
+            inputMoneyFocus.value = !isNaN(inputMoney.value)
         }
         const paymentSeleted = reactive({
             payment: {} as PaymentType,
