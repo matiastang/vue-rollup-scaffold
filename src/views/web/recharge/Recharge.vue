@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-10 15:55:04
+ * @LastEditTime: 2021-12-10 16:09:12
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -196,19 +196,22 @@ export default defineComponent({
             }
         }
         const blurAction = () => {
-            inputMoneyFocus.value = !isNaN(inputMoney.value)
-            if (isNaN(inputMoney.value)) {
-                for (let i = 0; i < moneyArr.length; i++) {
-                    if (i === lastSelectIndex.value) {
-                        moneyArr[i].selected = true
-                        selectedMoney.value = moneyArr[i].value
-                    } else {
-                        moneyArr[i].selected = false
-                    }
-                }
-            } else {
+            if (!isNaN(inputMoney.value)) {
                 selectedMoney.value = inputMoney.value
             }
+            // inputMoneyFocus.value = !isNaN(inputMoney.value)
+            // if (isNaN(inputMoney.value)) {
+            //     for (let i = 0; i < moneyArr.length; i++) {
+            //         if (i === lastSelectIndex.value) {
+            //             moneyArr[i].selected = true
+            //             selectedMoney.value = moneyArr[i].value
+            //         } else {
+            //             moneyArr[i].selected = false
+            //         }
+            //     }
+            // } else {
+            //     selectedMoney.value = inputMoney.value
+            // }
         }
         const paymentSeleted = reactive({
             payment: {} as PaymentType,
@@ -247,6 +250,12 @@ export default defineComponent({
                 // 未登录
                 loginDialogVisible.value = true
                 return
+            }
+            if (inputMoneyFocus.value) {
+                if (isNaN(inputMoney.value)) {
+                    ElMessage.error('请输入充值金额')
+                    return
+                }
             }
             for (let i = 0; i < paymentData.payments.length; i++) {
                 if (paymentData.payments[i].selected) {
