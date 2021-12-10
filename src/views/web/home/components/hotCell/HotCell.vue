@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 10:42:30
+ * @LastEditTime: 2021-12-10 09:36:14
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
  * @Description: 热榜接口cell
 -->
@@ -18,7 +18,7 @@
             </div>
             <div class="hot-cell-text defaultFont">...</div>
         </div>
-        <div class="hot-cell-value">{{ `$${data.apiPrice}/次` }}</div>
+        <div class="hot-cell-value">{{ `￥${data.apiPrice}/次` }}</div>
     </div>
 </template>
 
