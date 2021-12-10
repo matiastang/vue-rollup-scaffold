@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-12-08 11:20:50
+ * @LastEditTime: 2021-12-10 13:51:52
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="solution-bottom">
+        <div v-if="partnerList.partners.length > 0" class="solution-bottom">
             <div class="bottom-content borderBox flexColumnCenter">
                 <OpenalphaTitle title="合作伙伴" />
                 <div class="partners-content flexRowCenter">
@@ -274,7 +274,7 @@ export default defineComponent({
         })
         watchSyncEffect(async () => {
             let res = await homePartner()
-            partnerList.partners = res.map((item) => item.content)
+            // partnerList.partners = res.map((item) => item.content)
         })
         return {
             partnerList,

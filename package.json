@@ -10,6 +10,7 @@
         "dev": "vite",
         "build": "vite --config vite.config.ts build --mode production",
         "serve": "vite --config vite.config.ts preview",
+        "build:run": "vite --config vite.config.ts build --mode production | docker build -t openalpha-front . | docker ps -a | grep \"openalpha-front-dev-container\" | xargs docker rm | docker run --name openalpha-front-dev-container -it -p 3000:80 openalpha-front:latest",
         "build:prod": "vue-cli-service build --mode prod --report",
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint './src/**/*.{ts,tsx,js,jsx}' './tsconfig.json'",
