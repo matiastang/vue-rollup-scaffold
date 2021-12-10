@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:20:29
+ * @LastEditTime: 2021-12-10 16:04:29
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -89,9 +89,10 @@
             <div class="home-hot-bottom flexColumnCenter">
                 <Hot
                     class="home-hot-content"
-                    v-for="item in hotList.hots"
+                    v-for="(item, index) in hotList.hots"
                     :key="item.title"
                     :data="item"
+                    :index="index"
                 />
             </div>
         </div>

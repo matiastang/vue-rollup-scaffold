@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-24 16:29:54
+ * @LastEditTime: 2021-12-10 16:03:29
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hot/Hot.vue
  * @Description: 首页热榜cell
 -->
@@ -46,6 +46,10 @@ export default defineComponent({
                 return {}
             },
         },
+        index: {
+            type: Number,
+            default: 0,
+        },
     },
     setup(props) {
         const router = useRouter()
@@ -82,8 +86,14 @@ export default defineComponent({
         ])
         // 获取当前背景
         const background: ComputedRef<string> = computed(() => {
+            // for (let i = 0; i < backgroundColors.length; i++) {
+            //     if (backgroundColors[i].title === props.data.categoryName) {
+            //         return backgroundColors[i].value
+            //     }
+            // }
+            // return 'linear-gradient(#F8642A, #FDA668)'
             for (let i = 0; i < backgroundColors.length; i++) {
-                if (backgroundColors[i].title === props.data.categoryName) {
+                if (i === props.index) {
                     return backgroundColors[i].value
                 }
             }
