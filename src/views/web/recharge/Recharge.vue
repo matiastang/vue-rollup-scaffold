@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-10 16:09:12
+ * @LastEditTime: 2021-12-10 16:27:43
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -391,7 +391,7 @@ export default defineComponent({
             }
         }
         .pay-button {
-            margin-left: 73px;
+            margin-left: 68px;
             width: 118px;
             height: 42px;
             background: $themeColor;
