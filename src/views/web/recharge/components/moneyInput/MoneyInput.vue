@@ -2,36 +2,23 @@
  * @Author: matiastang
  * @Date: 2021-12-01 10:53:41
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 15:15:49
+ * @LastEditTime: 2021-12-10 15:54:06
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/components/moneyInput/MoneyInput.vue
  * @Description: 自定义充值金额输入
 -->
 <template>
     <div :class="['money-input-content', { 'money-input-content-selected': isFocus }]">
-        <el-input-number
+        <el-input
             class="money-input"
             placeholder="其他金额(元)"
             :controls="false"
             :="$attrs"
-            v-model.number="inputValue"
-            :min="0.01"
-            :max="99999999"
+            v-model="inputValue"
             maxlength="8"
-            @change="changeAction"
+            @input="changeAction"
+            @focus="focusAction"
+            @blur="blurAction"
         />
-        <!-- <el-input
-            class="money-input inputNumber"
-            :="$attrs"
-            type="number"
-            maxlength="8"
-            step="0.01"
-            :min="0.01"
-            :max="99999999"
-            v-model.number="inputValue"
-            placeholder="其他金额(元)"
-            @change="changeAction"
-        /> -->
-        <!--  -->
         <img
             v-if="isFocus"
             class="money-input-selected"
@@ -53,27 +40,58 @@ const props = defineProps({
         default: false,
     },
 })
-const inputValue: Ref<number> = ref(props.modelValue)
+
+const inputValue = ref(isNaN(props.modelValue) ? '' : props.modelValue.toString())
 watchEffect(() => {
-    inputValue.value = props.modelValue
+    inputValue.value = isNaN(props.modelValue) ? '' : props.modelValue.toString()
 })
 const emit = defineEmits({
     'update:modelValue': (value: number) => {
         return true
     },
+    focus: () => {
+        return true
+    },
+    blur: (value: number) => {
+        return true
+    },
 })
-const changeAction = (currentValue: string | number) => {
-    console.log(currentValue)
-    if (typeof currentValue === 'number') {
-        emit('update:modelValue', currentValue)
+const inputReplace = (value: string) => {
+    return value.replace(/[^0-9]/gi, '')
+}
+const changeAction = (currentValue: string) => {
+    const newValue = inputReplace(currentValue)
+    inputValue.value = newValue
+    if (newValue === '') {
+        emit('update:modelValue', NaN)
         return
     }
     try {
-        const value = Number(currentValue)
+        const value = Number(newValue)
         emit('update:modelValue', value)
     } catch (error) {
-        console.log('设置为默认值')
-        emit('update:modelValue', 0.01)
+        emit('update:modelValue', 300)
+    }
+}
+const focusAction = () => {
+    emit('focus')
+}
+const blurAction = () => {
+    if (inputValue.value === '') {
+        emit('blur', NaN)
+        return
+    }
+    try {
+        const value = Number(inputValue.value)
+        if (value < 300) {
+            emit('update:modelValue', 300)
+        }
+        if (value > 99999999) {
+            emit('update:modelValue', 99999999)
+        }
+        emit('blur', value)
+    } catch (error) {
+        emit('blur', 300)
     }
 }
 </script>
