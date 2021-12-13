@@ -144,12 +144,12 @@ export default defineComponent({
     name: 'Recharge',
     setup() {
         const router = useRouter()
-        const selectedMoney = ref(500)
+        const selectedMoney = ref(300)
         const loginDialogVisible = ref(false)
         const moneyArr = reactive([
             {
-                title: '500',
-                value: 500,
+                title: '300',
+                value: 300,
                 selected: true,
             },
             {
