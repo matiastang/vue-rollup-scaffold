@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-12-08 17:30:58
+ * @LastEditTime: 2021-12-13 11:28:50
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </FoldInfo>
-                        <FoldInfo class="tab-info-fold" :show="false" title="请求参数">
+                        <FoldInfo class="tab-info-fold" :show="true" title="请求参数">
                             <el-skeleton
                                 v-if="!getApiInfoData.data.apiInfoId"
                                 :rows="5"
@@ -116,7 +116,7 @@
                             </div>
                             <div v-else class="base-info-parameter borderBox flexRowCenter">无</div>
                         </FoldInfo>
-                        <FoldInfo class="tab-info-fold" :show="false" title="返回结果">
+                        <FoldInfo class="tab-info-fold" :show="true" title="返回结果">
                             <div class="base-info-result borderBox flexColumnCenter">
                                 <div class="base-info-item-title defaultFont">JSON示例:</div>
                                 <JsonView
@@ -132,7 +132,7 @@
                                 />
                             </div>
                         </FoldInfo>
-                        <FoldInfo class="tab-info-fold" :show="false" title="返回字段说明">
+                        <FoldInfo class="tab-info-fold" :show="true" title="返回字段说明">
                             <el-skeleton
                                 v-if="!getApiInfoData.data.apiInfoId"
                                 :rows="5"
