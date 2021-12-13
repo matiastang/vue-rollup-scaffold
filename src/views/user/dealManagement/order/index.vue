@@ -240,6 +240,7 @@
         :codeUrl="orderInfo.codeUrl"
         :orderType="orderInfo.orderType"
         :orderSn="orderInfo.orderSn"
+        :jumpList="false"
         v-model="weixinDialogVisible"
         @statusChange="doQuery"
         @close="weixinPayClose"

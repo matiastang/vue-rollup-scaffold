@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 19:22:02
+ * @LastEditTime: 2021-12-13 10:53:52
  * @FilePath: /datumwealth-openalpha-front/src/components/weixinModel/WeixinModel.vue
  * @Description: 微信支付
 -->
@@ -27,7 +27,7 @@
                     class="model-code-success"
                     src="static/user/certification_success.svg"
                 />
-                <div v-if="status" class="model-jump-title">
+                <div v-if="jumpList && status" class="model-jump-title">
                     <span class="model-jump" @click="jumpAction">订单列表</span>
                 </div>
                 <QrcodeVue v-if="!status" class="model-code" :value="codeUrl" :size="size" />
@@ -65,6 +65,11 @@ export default defineComponent({
         orderType: {
             type: Number,
             default: 0,
+        },
+        // 支付成功是否显示跳转支付列表界面
+        jumpList: {
+            type: Boolean,
+            default: true,
         },
     },
     emits: ['statusChange', 'close'],

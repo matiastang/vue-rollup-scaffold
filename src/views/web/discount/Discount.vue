@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 14:55:53
- * @LastEditTime: 2021-12-10 16:27:53
+ * @LastEditTime: 2021-12-13 11:05:16
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/discount/Discount.vue
@@ -111,7 +111,14 @@
                             ></div>
                         </div>
                         <div class="discount-course-item-title defaultFont">{{ item.title }}</div>
-                        <div class="discount-course-item-text defaultFont">{{ item.text }}</div>
+                        <div v-if="index === 1" class="discount-course-item-text defaultFont">
+                            在<span class="discount-course-item-url" @click="jumpInterfaceAction"
+                                >数据接口</span
+                            >页面查看接口信息
+                        </div>
+                        <div v-else class="discount-course-item-text defaultFont">
+                            {{ item.text }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -330,6 +337,11 @@ export default defineComponent({
                 text: '测试接口或按需调用接口',
             },
         ]
+        const jumpInterfaceAction = () => {
+            router.push({
+                path: '/interface',
+            })
+        }
         return {
             timeArr,
             selectedMoney,
@@ -349,6 +361,7 @@ export default defineComponent({
             weixinDialogVisible,
             transferDialogVisible,
             getAdvantageUrl,
+            jumpInterfaceAction,
         }
     },
     components: {
@@ -512,6 +525,10 @@ export default defineComponent({
                         color: $placeholderColor;
                         line-height: 20px;
                         margin-top: 6px;
+                        .discount-course-item-url {
+                            color: #4e9aeb;
+                            cursor: pointer;
+                        }
                     }
                 }
             }

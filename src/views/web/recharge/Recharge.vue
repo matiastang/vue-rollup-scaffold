@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-10 16:27:43
+ * @LastEditTime: 2021-12-13 11:04:05
  * @FilePath: /datumwealth-openalpha-front/src/views/web/recharge/Recharge.vue
  * @Description: 充值
 -->
@@ -102,7 +102,14 @@
                             ></div>
                         </div>
                         <div class="recharge-course-item-title defaultFont">{{ item.title }}</div>
-                        <div class="recharge-course-item-text defaultFont">{{ item.text }}</div>
+                        <div v-if="index === 1" class="recharge-course-item-text defaultFont">
+                            在<span class="recharge-course-item-url" @click="jumpInterfaceAction"
+                                >数据接口</span
+                            >页面查看接口信息
+                        </div>
+                        <div v-else class="recharge-course-item-text defaultFont">
+                            {{ item.text }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -331,13 +338,18 @@ export default defineComponent({
             },
             {
                 title: '查看接口',
-                text: '在我的接口查看或调用接口的关联token值',
+                text: '在数据接口页面查看接口信息',
             },
             {
                 title: '调用接口',
                 text: '测试接口或按需调用接口',
             },
         ]
+        const jumpInterfaceAction = () => {
+            router.push({
+                path: '/interface',
+            })
+        }
         return {
             selectedMoney,
             moneyArr,
@@ -360,6 +372,7 @@ export default defineComponent({
             inputMoneyFocus,
             focusAction,
             blurAction,
+            jumpInterfaceAction,
         }
     },
     components: {
@@ -524,6 +537,10 @@ export default defineComponent({
                         color: $placeholderColor;
                         line-height: 20px;
                         margin-top: 6px;
+                        .recharge-course-item-url {
+                            color: #4e9aeb;
+                            cursor: pointer;
+                        }
                     }
                 }
             }
