@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:10:50
- * @LastEditTime: 2021-12-10 13:57:03
+ * @LastEditTime: 2021-12-14 17:35:38
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/solution/Solution.vue
@@ -97,7 +97,7 @@
     </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, watchSyncEffect } from 'vue'
+import { computed, defineComponent, reactive, ref, watchSyncEffect, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import OpenalphaTitle from '@/components/openalphaTitle/OpenalphaTitle.vue'
 import SceneCell from './components/sceneCell/SceneCell.vue'
@@ -106,10 +106,12 @@ import { homePartner, solutionInterfaceList } from '@/common/request'
 import { SolutionInterfaceType } from '@/common/request/modules/api/apiInterface'
 import { interface_id_check } from 'utils/check/interfaceCheck'
 import ElMessage from '@/common/utils/message'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
     name: 'Solution',
     setup() {
+        const route = useRoute()
         const activeName = ref('0')
         // 场景
         const sceneList = [
@@ -224,6 +226,18 @@ export default defineComponent({
         ]
         const sceneData = computed(() => {
             return sceneList[Number(activeName.value)]
+        })
+        // 首页跳转默认选中
+        watchEffect(() => {
+            const id = route.params.id
+            if (id && typeof id === 'string') {
+                try {
+                    const index = Number(id)
+                    activeName.value = index < 6 && index >= 0 ? id : '0'
+                } catch (error) {
+                    activeName.value = '0'
+                }
+            }
         })
         /**
          * icon

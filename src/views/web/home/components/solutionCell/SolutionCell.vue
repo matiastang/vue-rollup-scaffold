@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-05 11:33:07
- * @LastEditTime: 2021-11-26 15:49:40
+ * @LastEditTime: 2021-12-14 17:37:06
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/solutionCell/SolutionCell.vue
@@ -62,7 +62,7 @@ export default defineComponent({
         // 查看更多
         const moreAction = () => {
             router.push({
-                path: '/solution',
+                path: `/solution/${props.index}`,
             })
         }
         return {
