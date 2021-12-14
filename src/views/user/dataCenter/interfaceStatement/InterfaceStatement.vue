@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 16:04:58
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-09 11:03:42
+ * @LastEditTime: 2021-12-14 17:53:41
  * @FilePath: /datumwealth-openalpha-front/src/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue
  * @Description: 个人中心-数据中心-接口账单
 -->
@@ -145,6 +145,7 @@
                         end-placeholder="结束日期"
                         format="YYYY-MM-DD"
                         value-format="YYYY-MM-DD"
+                        :disabledDate="disabledDate"
                     >
                     </el-date-picker>
                     <div class="bill-filter-search cursorP defaultFont" @click="searchAction">
@@ -420,6 +421,10 @@ export default defineComponent({
         onMounted(() => {
             searchAction()
         })
+        // 时间选择框限制
+        const disabledDate = (time: Date) => {
+            return time.getTime() > Date.now()
+        }
         return {
             activeName,
             activeAction,
@@ -437,6 +442,7 @@ export default defineComponent({
             infoAction,
             toRechargeAction,
             toDiscountAction,
+            disabledDate,
         }
     },
 })
