@@ -84,6 +84,7 @@
                         format="YYYY-MM-DD"
                         value-format="YYYY-MM-DD"
                         size="mini"
+                        :disabledDate="disabledDate"
                     >
                     </el-date-picker>
                 </el-form-item>
@@ -242,6 +243,10 @@ onMounted(() => {
     doQuery()
     doFetchInvLastInfo()
 })
+
+const disabledDate = (time: Date) => {
+    return time.getTime() > Date.now()
+}
 const doReset = () => {
     queryParams.orderSn = ''
     queryParams.pageNum = 1

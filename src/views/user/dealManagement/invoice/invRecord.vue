@@ -22,6 +22,7 @@
                             format="YYYY-MM-DD"
                             value-format="YYYY-MM-DD"
                             size="mini"
+                            :disabledDate="disabledDate"
                             @change="doQuery"
                         >
                         </el-date-picker>
@@ -172,6 +173,10 @@ const updateInv = reactive({
 onMounted(() => {
     doQuery()
 })
+
+const disabledDate = (time: Date) => {
+    return time.getTime() > Date.now()
+}
 const doReset = () => {
     date.value = []
     queryParams.orderSn = ''
