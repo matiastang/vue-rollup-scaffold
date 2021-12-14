@@ -10,7 +10,7 @@
         "dev": "vite",
         "build": "vite --config vite.config.ts build --mode production",
         "serve": "vite --config vite.config.ts preview",
-        "build:run": "vite --config vite.config.ts build --mode production | docker build -t openalpha-front . | docker ps -a | grep \"openalpha-front-dev-container\" | xargs docker rm | docker run --name openalpha-front-dev-container -it -p 3000:80 openalpha-front:latest",
+        "build:docker:run": "./dockerRun.sh openalpha-front-dev-container openalpha-front",
         "build:prod": "vue-cli-service build --mode prod --report",
         "build:dev:update": "./buildUpdate.sh 123.56.23.148 /app/front/",
         "build:pro:update": "./buildUpdate.sh 47.94.227.91 /app/openalpha/front/",
