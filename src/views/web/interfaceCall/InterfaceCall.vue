@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-14 09:44:18
+ * @LastEditTime: 2021-12-14 09:50:27
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -495,6 +495,13 @@ export default defineComponent({
         // 申请接口试用
         const applyTrialDialogVisible = ref(false)
         const showApplyTrialModel = () => {
+            // 用户token
+            const userToken = localStorageRead<string>(localStorageKey.userTokenKey)
+            if (!userToken || userToken.trim() === '') {
+                // 未登录
+                loginDialogVisible.value = true
+                return
+            }
             if (certStatus.value !== 1) {
                 authenticationDialogVisible.value = true
                 return
