@@ -22,6 +22,7 @@
                             format="YYYY-MM-DD"
                             value-format="YYYY-MM-DD"
                             @change="doQuery"
+                            :disabledDate="disabledDate"
                         >
                         </el-date-picker>
                     </el-form-item>
@@ -286,6 +287,9 @@ const payVoucher = reactive({
 onMounted(() => {
     doQuery()
 })
+const disabledDate = (time: Date) => {
+    return time.getTime() > Date.now()
+}
 const handleDeleteInvoice = (row: Order.AsObject) => {
     ElMessageBox.confirm(`确定删除订单${row.orderSn}?`, '警告', {
         confirmButtonText: '确认',
