@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-08 19:59:34
+ * @LastEditTime: 2021-12-15 19:48:28
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -23,8 +23,10 @@
                     codeInputClass="login-code-input"
                     v-model="fegisterCode"
                     @CodeInputGetCode="getPhoneCode(0)"
+                    @countDownOver="registerCountDownOver"
                     ref="registerCodeRef"
                 />
+                <DragVerify v-if="dragVerifyStatus" @dragSuccess="dragSuccess" />
                 <el-button :loading="loginLoading" class="login" @click="registerAction"
                     >登录/注册</el-button
                 >
@@ -92,7 +94,20 @@
                 >确定</el-button
             >
         </div>
+        <!-- <SliderVerify
+            class="slider-verify"
+            is-show-self="true"
+            imgUrl="static/home/scheme-bg.png"
+            :width="sliderVConf.width"
+            :height="sliderVConf.height"
+        /> -->
     </div>
+    <!-- <SliderVerify
+        class="slider-verify"
+        :is-show-self="isShowSelf"
+        :width="sliderVConf.width"
+        :height="sliderVConf.height"
+    /> -->
 </template>
 
 <script lang="ts">
@@ -106,6 +121,10 @@ import { sendSMS, forget } from '@/common/request/modules/user/user'
 import { phone_check, code_check, password_check } from 'utils/check/index'
 import { useStore } from 'store/index'
 import { routerToUserCenter } from 'utils/router/index'
+// import SliderVerify from 'slider-verify-v3'
+// import 'slider-verify-v3/lib/SliderVerify.css'
+// import SliderVerify from 'puzzle-vue3'
+import DragVerify from '@/components/dragVerify/DragVerify.vue'
 
 export default defineComponent({
     name: 'LoginModule',
@@ -119,12 +138,17 @@ export default defineComponent({
     data() {
         return {
             activeName: 'login',
+            isShowSelf: true,
+            sliderVConf: {
+                width: 300,
+                height: 180,
+            },
         }
     },
     setup(props, context) {
         const router = useRouter()
         const store = useStore()
-        let inputPhone = ref('')
+        let inputPhone = ref('18380449615')
         let findPassword = ref(false)
         const loginLoading = ref(false)
 
@@ -132,6 +156,7 @@ export default defineComponent({
         let fegisterCode = ref('')
         let registerCodeRef: Ref<CodeInputRefTypes | null> = ref(null)
         let findCodeRef: Ref<CodeInputRefTypes | null> = ref(null)
+        const dragVerifyStatus = ref(false)
         /**
          * 获取验证码
          */
@@ -147,18 +172,27 @@ export default defineComponent({
                 return
             }
             // 启动到计时
+            // if (type === 0) {
+            //     if (registerCodeRef.value) {
+            //         registerCodeRef.value.runCountDown()
+            //     }
+            // } else {
+            //     if (findCodeRef.value) {
+            //         findCodeRef.value.runCountDown()
+            //     }
+            // }
             if (type === 0) {
-                if (registerCodeRef.value) {
-                    registerCodeRef.value.runCountDown()
-                }
-            } else {
-                if (findCodeRef.value) {
-                    findCodeRef.value.runCountDown()
-                }
+                dragVerifyStatus.value = true
+                return
             }
             // 发送验证码
             sendSMS(phone)
                 .then((res) => {
+                    if (type === 1) {
+                        if (findCodeRef.value) {
+                            findCodeRef.value.runCountDown()
+                        }
+                    }
                     ElMessage({
                         message: res,
                         type: 'success',
@@ -170,6 +204,39 @@ export default defineComponent({
                         type: 'error',
                     })
                 })
+        }
+        const dragSuccess = () => {
+            // 手机校验
+            let phone = inputPhone.value
+            let phoneError = phone_check(phone)
+            if (phoneError) {
+                ElMessage({
+                    message: phoneError,
+                    type: 'error',
+                })
+                return
+            }
+            // 发送验证码
+            sendSMS(phone)
+                .then((res) => {
+                    // 启动到计时
+                    if (registerCodeRef.value) {
+                        registerCodeRef.value.runCountDown()
+                    }
+                    ElMessage({
+                        message: res,
+                        type: 'success',
+                    })
+                })
+                .catch((err) => {
+                    ElMessage({
+                        message: err.msg || '发送验证码错误',
+                        type: 'error',
+                    })
+                })
+        }
+        const registerCountDownOver = () => {
+            dragVerifyStatus.value = false
         }
         /**
          * 注册登录
@@ -376,12 +443,17 @@ export default defineComponent({
             protocolAction,
             loginLoading,
             findLoading,
+            dragVerifyStatus,
+            dragSuccess,
+            registerCountDownOver,
         }
     },
     components: {
         PhoneInput,
         PasswordInput,
         CodeInput,
+        // SliderVerify,
+        DragVerify,
     },
     computed: {},
     methods: {},
@@ -417,7 +489,7 @@ export default defineComponent({
         .login-code-input {
             width: 100%;
             height: 56px;
-            margin-top: 40px;
+            margin: 20px 0px;
         }
         .login {
             width: 100%;
@@ -430,7 +502,7 @@ export default defineComponent({
             line-height: 56px;
             text-align: center;
             cursor: pointer;
-            margin-top: 40px;
+            margin-top: 20px;
             padding: 0px;
             border: none;
         }
@@ -582,6 +654,10 @@ export default defineComponent({
         background: $themeColor;
         color: $themeBgColor;
     }
+}
+.slider-verify {
+    width: 300px;
+    height: 180px;
 }
 @media screen and (max-width: 1450px) {
     .login-module-tabs {

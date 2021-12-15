@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 15:54:19
- * @LastEditTime: 2021-12-07 13:55:52
+ * @LastEditTime: 2021-12-15 19:35:21
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/codeInput/CodeInput.vue
@@ -63,6 +63,9 @@ export default defineComponent({
         CodeInputGetCode: (): boolean => {
             return true
         },
+        countDownOver: () => {
+            return true
+        },
         'update:modelValue': (value: string) => {
             return true
         },
@@ -105,6 +108,7 @@ export default defineComponent({
                     clearInterval(intervalId)
                     number = 60
                     codeText.value = '获取验证码'
+                    content.emit('countDownOver')
                 }
             }, 1000)
         }
