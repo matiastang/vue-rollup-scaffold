@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-15 19:48:28
+ * @LastEditTime: 2021-12-15 20:03:58
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -148,7 +148,7 @@ export default defineComponent({
     setup(props, context) {
         const router = useRouter()
         const store = useStore()
-        let inputPhone = ref('18380449615')
+        let inputPhone = ref('')
         let findPassword = ref(false)
         const loginLoading = ref(false)
 
