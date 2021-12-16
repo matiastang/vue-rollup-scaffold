@@ -11,6 +11,7 @@
 interface ImportMetaEnv {
     readonly VITE_APP_BASE_API: string
     readonly VITE_APP_BASE_HOST: string
+    VUE_APP_BUILD_TIME: string
 }
 
 interface ImportMeta {
