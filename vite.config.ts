@@ -25,10 +25,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import compressPlugin from 'vite-plugin-compression'
 // 图片压缩
 import viteImagemin from 'vite-plugin-imagemin'
-
-const proxyPath = '/dev-api'
-const target = 'https://test.openalpha.cn/open' //'https://test.mini.datumwealth.cn/open'
-
+import config from './loadenv'
 export default defineConfig({
     // 共享配置
     plugins: [
@@ -108,8 +105,8 @@ export default defineConfig({
         },
         proxy: {
             // 选项写法
-            [proxyPath]: {
-                target, // 所要代理的目标地址
+            [config.VITE_APP_BASE_API]: {
+                target: config.VITE_APP_BASE_HOST, // 所要代理的目标地址
                 rewrite: (path) => path.replace(/^\/dev-api/, ''), // 重写传过来的path路径，比如 `/api/index/1?id=10&name=zs`（注意:path路径最前面有斜杠（/），因此，正则匹配的时候不要忘了是斜杠（/）开头的；选项的 key 也是斜杠（/）开头的）
                 changeOrigin: true, // true/false, Default: false - changes the origin of the host header to the target URL
             },
