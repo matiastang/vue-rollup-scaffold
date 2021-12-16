@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:06:17
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:21:49
+ * @LastEditTime: 2021-12-16 15:05:02
  * @FilePath: /datumwealth-openalpha-front/src/components/changePhoneModel/ChangePhoneModel.vue
  * @Description: 修改手机号
 -->
@@ -133,13 +133,13 @@ export default defineComponent({
                 })
                 return
             }
-            // 启动到计时
-            if (codeRef.value) {
-                codeRef.value.runCountDown()
-            }
             // 发送验证码
             sendSMS(phone)
                 .then((res) => {
+                    // 启动到计时
+                    if (codeRef.value) {
+                        codeRef.value.runCountDown()
+                    }
                     ElMessage({
                         message: res,
                         type: 'success',

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-15 17:22:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 11:22:11
+ * @LastEditTime: 2021-12-16 15:05:34
  * @FilePath: /datumwealth-openalpha-front/src/components/changeMailModel/ChangeMailModel.vue
  * @Description: 修改有效
 -->
@@ -131,13 +131,13 @@ export default defineComponent({
                 })
                 return
             }
-            // 启动到计时
-            if (codeRef.value) {
-                codeRef.value.runCountDown()
-            }
             // 获取邮箱验证码
             sendEmail(email)
                 .then((res) => {
+                    // 启动到计时
+                    if (codeRef.value) {
+                        codeRef.value.runCountDown()
+                    }
                     ElMessage({
                         message: res,
                         type: 'success',
