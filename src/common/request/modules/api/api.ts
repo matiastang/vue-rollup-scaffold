@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-23 09:50:48
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 14:08:23
+ * @LastEditTime: 2021-12-16 11:09:32
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/api/api.ts
  * @Description: 开放接口
  */
@@ -90,6 +90,17 @@ const detailInterfaceInfo = (id: number) => {
     return http.get<ApiInfoType>(`${apiPrefix}/openApi/detail/${id}`)
 }
 
+/**
+ * 根据apiId获取字段可选参数
+ * @returns
+ */
+const apiParamsKey = (apiId: number, paramKey: string) => {
+    return http.get<string[]>(`${apiPrefix}/openApi/optional/params/key`, {
+        apiId,
+        paramKey,
+    })
+}
+
 export {
     apiHotInterface,
     apiTool,
@@ -99,4 +110,5 @@ export {
     categoryInterfaceList,
     detailCategoryList,
     detailInterfaceInfo,
+    apiParamsKey,
 }

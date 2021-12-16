@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:55:21
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 18:20:47
+ * @LastEditTime: 2021-12-16 14:47:49
  * @FilePath: /datumwealth-openalpha-front/src/common/request/request.ts
  * @Description: axios简单封装
  */
@@ -50,8 +50,15 @@ const http = {
                         return
                     }
                     if (response && response.data) {
-                        const { code, msg } = response.data
+                        const { code, msg, data } = response.data
                         if (code === 200) {
+                            if (data === undefined) {
+                                reject({
+                                    code,
+                                    msg: '返回值为undefined',
+                                })
+                                return
+                            }
                             resolve(response.data)
                             return
                         }

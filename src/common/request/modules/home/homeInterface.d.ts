@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-18 19:31:23
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 14:02:34
+ * @LastEditTime: 2021-12-16 14:34:38
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/home/homeInterface.d.ts
  * @Description: home 相关类型
  */
@@ -50,6 +50,10 @@ export interface BannerType {
  * 接口参数类型
  */
 export interface ApiParamType {
+    apiInfoId: number // 接口id
+    isOptionalParams: number // 是否存在可选参数0否，1是
+    optionalParamsValue?: string // [\r\n{\"key\":\"100001\",\"value \":\"混合基金\"}]
+    paramFormType?: string // 字段form表单类型
     paramDbType: string //输出参数数据库对应字段类型
     paramDeletedFlag: number
     paramExplain: string //字段说明
@@ -59,6 +63,8 @@ export interface ApiParamType {
     paramType: string //参数类型
     paramTypeRange: string //字段类型及范围
     paramValue: string // 字段值
+    paramOptions: string[] // 选项
+    paramLoading: boolean
 }
 /**
  * 接口信息类型

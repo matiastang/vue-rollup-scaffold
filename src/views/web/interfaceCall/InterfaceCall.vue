@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-14 09:50:27
+ * @LastEditTime: 2021-12-16 14:55:35
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -154,7 +154,7 @@
                                     <div
                                         class="parameters-input-content borderBox flexColumnCenter"
                                     >
-                                        <el-input
+                                        <!-- <el-input
                                             v-for="item in getApiInfoData.data.apiParamList.sort(
                                                 (left, right) => left.paramId - right.paramId
                                             )"
@@ -163,37 +163,94 @@
                                             v-model="item.paramValue"
                                             :placeholder="`请输入${item.paramExplain}`"
                                             clearable
-                                        />
+                                        /> -->
+                                        <div
+                                            v-for="(
+                                                item, index
+                                            ) in getApiInfoData.data.apiParamList.sort(
+                                                (left, right) => left.paramId - right.paramId
+                                            )"
+                                            :key="`${item.apiInfoId}${item.paramKey}`"
+                                            class="parameters-item-div"
+                                        >
+                                            <div
+                                                v-if="
+                                                    item.isOptionalParams === 1 &&
+                                                    item.paramFormType === 'select'
+                                                "
+                                                class="parameters-item-input-div"
+                                            >
+                                                <el-select
+                                                    v-if="item.optionalParamsValue === undefined"
+                                                    v-model="item.paramValue"
+                                                    filterable
+                                                    :placeholder="`请选择${item.paramExplain}`"
+                                                    class="parameters-item-input defaultFont"
+                                                    :remoteMethod="
+                                                        paramsRemoteMethod(
+                                                            index,
+                                                            item.apiInfoId,
+                                                            item.paramKey
+                                                        )
+                                                    "
+                                                    :loading="item.paramLoading"
+                                                >
+                                                    <!-- @focus="
+                                                        paramsRemoteMethod(
+                                                            index,
+                                                            item.apiInfoId,
+                                                            item.paramKey
+                                                        )
+                                                    " -->
+                                                    <el-option
+                                                        v-for="paramItem in item.paramOptions"
+                                                        :key="paramItem"
+                                                        :label="paramItem"
+                                                        :value="paramItem"
+                                                    >
+                                                    </el-option>
+                                                </el-select>
+                                                <el-select
+                                                    v-else
+                                                    v-model="item.paramValue"
+                                                    filterable
+                                                    :placeholder="`请选择${item.paramExplain}`"
+                                                    class="parameters-item-input defaultFont"
+                                                >
+                                                    <el-option
+                                                        v-for="paramItem in getOptionalParams(
+                                                            item.optionalParamsValue
+                                                        )"
+                                                        :key="paramItem.key"
+                                                        :label="paramItem.value"
+                                                        :value="paramItem.key"
+                                                    >
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+
+                                            <div
+                                                v-else-if="item.paramTypeRange === 'Number'"
+                                                class="parameters-item-input-div"
+                                            >
+                                                <NumberInput
+                                                    class="parameters-item-input defaultFont"
+                                                    v-model="item.paramValue"
+                                                    :placeholder="`请输入${item.paramExplain}`"
+                                                    clearable
+                                                />
+                                            </div>
+                                            <div v-else class="parameters-item-input-div">
+                                                <el-input
+                                                    class="parameters-item-input defaultFont"
+                                                    v-model="item.paramValue"
+                                                    :placeholder="`请输入${item.paramExplain}`"
+                                                    clearable
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- <div
-                                    v-for="item in getApiInfo.apiParamList.sort(
-                                        (left, right) => left.paramId - right.paramId
-                                    )"
-                                    :key="item.paramKey"
-                                    class="parameters-input-item borderBox flexRowCenter"
-                                >
-                                    <div
-                                        class="parameters-item-key-content borderBox flexRowCenter"
-                                    >
-                                        <div
-                                            v-show="item.paramIsRequired === 1"
-                                            class="parameters-item-must defaultFont"
-                                        >
-                                            *
-                                        </div>
-                                        <div class="parameters-item-key defaultFont">
-                                            {{ item.paramKey }}
-                                        </div>
-                                    </div>
-
-                                    <el-input
-                                        class="parameters-item-input defaultFont"
-                                        v-model="item.paramValue"
-                                        :placeholder="`请输入${item.paramKey}`"
-                                        clearable
-                                    />
-                                </div> -->
                             </div>
                             <el-button
                                 v-if="getApiInfoData.data.apiInfoId"
@@ -203,17 +260,6 @@
                                 @click="apiCallAction"
                                 >调用接口</el-button
                             >
-                            <!-- <div
-                                v-if="getApiInfoData.data.apiInfoId"
-                                :class="[
-                                    'apply-trial-button',
-                                    'flexRowCenter',
-                                    { 'apply-trial-button-disabled': testLoading },
-                                ]"
-                                @click="apiCallAction"
-                            >
-                                <div class="apply-trial-button-title">调用接口</div>
-                            </div> -->
                         </div>
                         <div class="bottom-right-json borderBox flexColumnCenter">
                             <div class="json-content borderBox flexColumnCenter">
@@ -306,7 +352,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, computed, watchEffect, watchSyncEffect } from 'vue'
+import { defineComponent, reactive, ref, computed, watch, watchEffect, watchSyncEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import JsonView from 'vue3-json-view/src'
 import InfoList from '../interfaceInfo/components/infoList/InfoList.vue'
@@ -315,13 +361,14 @@ import ApplyTrialModel from '@/components/applyTrialModel/ApplyTrialModel.vue'
 import ElMessage from '@/common/utils/message'
 import { checkAvailable } from '@/common/request/modules/user/user'
 import { homeInterfaceTree } from '@/common/request/modules/home/home'
-import { apiTool } from '@/common/request/modules/api/api'
+import { apiTool, apiParamsKey } from '@/common/request/modules/api/api'
 import { HotType, ApiParamType, ApiInfoType } from '@/common/request/modules/home/homeInterface'
 import { useStore } from 'store/index'
 import { localStorageKey, localStorageRead } from 'utils/storage/localStorage'
 import { addOd, orderType } from '@/common/request/modules/pay/pay'
 import { detailCategoryList, detailInterfaceInfo } from '@/common/request/modules/api/api'
 import { is_empty_obj } from '@/common/utils/check'
+import NumberInput from '@/components/numberInput/NumberInput.vue'
 
 export default defineComponent({
     name: 'InterfaceCall',
@@ -403,8 +450,13 @@ export default defineComponent({
         // 切换选择
         const selectApiAction = (id: number) => {
             selectApiId.value = id
-            resultJson.result = {}
         }
+        watch(
+            () => selectApiId.value,
+            () => {
+                resultJson.result = {}
+            }
+        )
         // 请求参数
         const requestJson = computed(() => {
             let json = Object.create(null)
@@ -641,6 +693,38 @@ export default defineComponent({
                     })
                 })
         }
+        /**
+         * 获取参数选项
+         */
+        const getOptionalParams = (obj: string) => {
+            try {
+                const arr = JSON.parse(obj) as { key: string; value: string }[]
+                console.log(arr)
+                return arr
+            } catch (err) {
+                return []
+            }
+        }
+        const paramsRemoteMethod = async (index: number, apiId: number, paramKey: string) => {
+            if (getApiInfoData.data.apiParamList[index].paramOptions) {
+                return
+            }
+            getApiInfoData.data.apiParamList[index].paramLoading = true
+            apiParamsKey(apiId, paramKey)
+                .then((res) => {
+                    console.log('res')
+                    console.log(res)
+                    getApiInfoData.data.apiParamList[index].paramOptions = res
+                })
+                .catch((err) => {
+                    console.log('err')
+                    console.log(err)
+                    getApiInfoData.data.apiParamList[index].paramOptions = []
+                })
+                .finally(() => {
+                    getApiInfoData.data.apiParamList[index].paramLoading = false
+                })
+        }
         return {
             appSecret,
             certStatus,
@@ -675,6 +759,8 @@ export default defineComponent({
             testLoading,
             resIsEmpty,
             requestIsEmpty,
+            getOptionalParams,
+            paramsRemoteMethod,
         }
     },
     components: {
@@ -682,6 +768,7 @@ export default defineComponent({
         InterfaceAffix,
         ApplyTrialModel,
         JsonView,
+        NumberInput,
     },
 })
 </script>
@@ -842,6 +929,15 @@ export default defineComponent({
                                 .parameters-input-content {
                                     flex-grow: 1;
                                     padding-right: 8px;
+                                    .parameters-item-div {
+                                        width: calc(100% - 24px);
+                                        .parameters-item-input-div {
+                                            width: 100%;
+                                            .parameters-item-input {
+                                                width: 100%;
+                                            }
+                                        }
+                                    }
                                     .parameters-item-input {
                                         margin: 12px 0px;
                                     }
