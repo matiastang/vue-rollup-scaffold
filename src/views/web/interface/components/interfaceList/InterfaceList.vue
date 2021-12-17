@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 16:39:34
- * @LastEditTime: 2021-12-03 10:13:18
+ * @LastEditTime: 2021-12-17 17:47:02
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interface/components/interfaceList/InterfaceList.vue
@@ -22,7 +22,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, PropType, computed, inject } from 'vue'
 import InterfaceListCell from '../interfaceListCell/InterfaceListCell.vue'
 // import { HotType } from '@/common/request/modules/home/homeInterface'
 import { CategoryType } from '@/common/request/modules/api/apiInterface'
@@ -75,9 +75,11 @@ export default defineComponent({
             }
             return num
         })
+        const scrollToTop = inject('scrollToTop', Function, true)
         // 点击分类
         const clickAction = (id: number) => {
             context.emit('seletedCategoryAction', id)
+            scrollToTop()
         }
         return {
             count,
