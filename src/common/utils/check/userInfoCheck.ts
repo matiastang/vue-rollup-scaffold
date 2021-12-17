@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 09:49:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-07 10:08:03
+ * @LastEditTime: 2021-12-17 09:44:20
  * @FilePath: /datumwealth-openalpha-front/src/common/utils/check/userInfoCheck.ts
  * @Description: 用户信息校验
  */
@@ -15,7 +15,7 @@ function email_check(email: string): string | null {
     if (email.trim() == '') {
         return '请输入邮箱'
     }
-    const reg = /^[A-Za-z\d]+@[A-Za-z\d]+.[A-Za-z\d]{2,5}$/
+    const reg = /^[a-zA-Z\d]+@[a-zA-Z\d]+.[a-zA-Z0-9.]{1,20}$/
     if (!reg.test(email)) {
         return '邮箱格式不正确'
     }
