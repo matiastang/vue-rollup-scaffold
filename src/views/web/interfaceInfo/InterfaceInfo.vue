@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:07:23
- * @LastEditTime: 2021-12-13 11:28:50
+ * @LastEditTime: 2021-12-17 17:07:45
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/InterfaceInfo.vue
@@ -305,8 +305,12 @@ export default defineComponent({
                 key: 'paramIsRequired',
             },
             {
-                title: '类型及范围',
+                title: '类型',
                 key: 'paramTypeRange',
+            },
+            {
+                title: '范围',
+                key: 'paramRange',
             },
             {
                 title: '说明',
