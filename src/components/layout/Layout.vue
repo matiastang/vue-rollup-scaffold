@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-12-06 16:12:47
+ * @LastEditTime: 2021-12-17 17:20:09
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/layout/Layout.vue
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'vue'
+import { defineComponent, ref, Ref, provide } from 'vue'
 import Header from '@/components/header/Header.vue'
 import Footer from '@/components/footer/Footer.vue'
 
@@ -46,6 +46,7 @@ export default defineComponent({
         const scrollAction = () => {
             // 滑动
         }
+        provide('scrollToTop', scrollToTop)
         return {
             contentRef,
             scrollToTop,

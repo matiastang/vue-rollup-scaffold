@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-03 15:14:53
+ * @LastEditTime: 2021-12-17 17:25:34
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceInfo/components/infoList/InfoList.vue
  * @Description: 详情接口列表树
 -->
@@ -55,7 +55,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, Ref, ref, computed, watchEffect } from 'vue'
+import { defineComponent, PropType, Ref, ref, computed, watchEffect, inject } from 'vue'
 import InfoListGroup from '../infoListGroup/InfoListGroup.vue'
 import InfoListCell from '../infoListCell/InfoListCell.vue'
 import { HotType } from '@/common/request/modules/home/homeInterface'
@@ -146,10 +146,12 @@ export default defineComponent({
             }
             return num
         })
+        const scrollToTop = inject('scrollToTop', Function, true)
         // 接口点击
         const apiSelectAction = (id: number) => {
             selectedApiId.value = id
             context.emit('select', id)
+            scrollToTop()
         }
         /**
          * 获取分类接口数
