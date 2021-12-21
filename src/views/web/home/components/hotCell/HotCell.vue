@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:58:07
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-10 09:36:14
+ * @LastEditTime: 2021-12-21 10:18:00
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/hotCell/HotCell.vue
  * @Description: 热榜接口cell
 -->
@@ -61,6 +61,7 @@ export default defineComponent({
     box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
     border-radius: 4px;
     justify-content: space-between !important;
+    cursor: pointer;
     .hot-cell-top {
         .hot-cell-img {
             max-width: 54px;
