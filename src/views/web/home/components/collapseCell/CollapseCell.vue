@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-04 19:27:28
- * @LastEditTime: 2021-12-08 10:44:59
+ * @LastEditTime: 2021-12-21 10:41:17
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/components/collapseCell/CollapseCell.vue
@@ -175,7 +175,8 @@ export default defineComponent({
 }
 .collapse-cell-selected,
 .collapse-cell:hover {
-    background: $themeBgColor;
+    // background: $themeBgColor;
+    animation: 0.5s themeBgAnimation forwards;
     .collapse-cell-left {
         .collapse-cell-left-icon {
             color: $themeColor;
@@ -195,6 +196,11 @@ export default defineComponent({
                     color: $themeColor;
                 }
             }
+        }
+    }
+    @keyframes themeBgAnimation {
+        to {
+            background: $themeBgColor;
         }
     }
 }

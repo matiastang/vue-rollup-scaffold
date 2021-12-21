@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-19 19:17:03
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-21 10:16:48
+ * @LastEditTime: 2021-12-21 10:41:11
  * @FilePath: /datumwealth-openalpha-front/src/views/web/home/Home.vue
  * @Description: 首页
 -->
@@ -276,7 +276,8 @@ export default defineComponent({
             width: calc(997px + 16px);
             height: 630px;
             box-sizing: border-box;
-            background: $themeBgColor;
+            // background: $themeBgColor;
+            animation: 0.5s themeBgAnimation forwards;
             z-index: 9;
             overflow-y: scroll;
             .content-item {
@@ -308,6 +309,11 @@ export default defineComponent({
                     .content-cell:hover {
                         color: $themeColor;
                     }
+                }
+            }
+            @keyframes themeBgAnimation {
+                to {
+                    background: $themeBgColor;
                 }
             }
         }
