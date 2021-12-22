@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-22 16:33:00
+ * @LastEditTime: 2021-12-22 19:30:59
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -49,7 +49,17 @@
                     v-model="inputPassword"
                     placeholder="请输入密码"
                 />
-                <div class="forgot-password" @click="gotoFindPassword">忘记密码?</div>
+                <div class="login-way-forget-container">
+                    <div class="login-way-container">
+                        <div class="login-way-title" @click="gotoFindPassword">三方登录</div>
+                        <img
+                            class="wechat-login"
+                            src="static/login/wx_logo.svg"
+                            @click="wechatLoginAction"
+                        />
+                    </div>
+                    <div class="forgot-password" @click="gotoFindPassword">忘记密码?</div>
+                </div>
                 <el-button :loading="loginLoading" class="login" @click="loginAction"
                     >登录</el-button
                 >
@@ -107,11 +117,12 @@
                 :redirect_uri="redirect_uri"
             />
         </div>
-        <div
+        <!-- <img
             v-if="!findPassword && !wechatLogin"
             class="wechat-login"
+            src="static/login/openalpha-qrcode.png"
             @click="wechatLoginAction"
-        ></div>
+        /> -->
     </div>
 </template>
 
@@ -576,15 +587,41 @@ export default defineComponent({
             height: 56px;
             margin-top: 40px;
         }
-        .forgot-password {
-            margin: 6px 0px 14px 0px;
-            align-self: flex-end;
-            height: 20px;
-            font-size: fontSize(14px);
-            @include defaultFont;
-            color: $placeholderColor;
-            line-height: 20px;
-            cursor: pointer;
+        .login-way-forget-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0px;
+            .login-way-container {
+                height: 35px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                .login-way-title {
+                    height: 20px;
+                    font-size: fontSize(14px);
+                    @include defaultFont;
+                    color: $placeholderColor;
+                    line-height: 20px;
+                    margin-right: 10px;
+                }
+                .wechat-login {
+                    width: 30px;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+                .wechat-login:hover {
+                    width: 35px;
+                }
+            }
+            .forgot-password {
+                height: 20px;
+                font-size: fontSize(14px);
+                @include defaultFont;
+                color: $placeholderColor;
+                cursor: pointer;
+            }
         }
         .login {
             width: 100%;
@@ -725,15 +762,14 @@ export default defineComponent({
     height: 180px;
 }
 
-.wechat-login {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 40px;
-    height: 40px;
-    background: red;
-    cursor: pointer;
-}
+// .wechat-login {
+//     position: absolute;
+//     top: 0px;
+//     right: 0px;
+//     width: 40px;
+//     height: 40px;
+//     cursor: pointer;
+// }
 @media screen and (max-width: 1450px) {
     .login-module-tabs {
         padding: 40px 40px 30px 40px;
