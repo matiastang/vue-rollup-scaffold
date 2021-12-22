@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-12-22 18:05:05
+ * @LastEditTime: 2021-12-22 19:59:12
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -120,7 +120,7 @@ const routes: Array<RouteRecordRaw> = [
                 },
             },
             {
-                path: 'wechatBinder/:uuid([0-9a-zA-Z]+)',
+                path: 'wechatBinder/:uuid', //([0-9a-zA-Z_]+)
                 name: 'wechatBinder',
                 component: WechatBinder,
                 meta: {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-22 17:52:30
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-22 18:50:22
+ * @LastEditTime: 2021-12-22 19:58:36
  * @FilePath: /datumwealth-openalpha-front/src/views/user/login/wechatLogin.ts
  * @Description: 微信登录检测逻辑
  */
