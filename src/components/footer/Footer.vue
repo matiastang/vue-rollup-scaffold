@@ -54,7 +54,11 @@
                 <div class="footer-bottom-title">
                     Copyright © 成都西筹金融科技有限公司 All Rights Reserved.
                 </div>
-                <div class="footer-bottom-text">备案号：蜀ICP备2021002963号-3</div>
+                <div class="footer-bottom-text">
+                    <a href="http://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">
+                        蜀ICP备2021002963号-3</a
+                    >
+                </div>
             </div>
         </div>
     </div>
@@ -236,6 +240,8 @@ export default defineComponent({
                     color: $themeBgColor;
                     line-height: 20px;
                     margin-bottom: 8px;
+                    opacity: 0.8;
+                    transition: all ease-in-out 200ms;
                 }
                 .footer-text:hover {
                     font-size: fontSize(14px);
@@ -258,8 +264,9 @@ export default defineComponent({
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-top: 1px solid $themeBgColor;
+            border-top: 1px solid rgba($color: $themeBgColor, $alpha: 0.2);
             padding-top: 23px;
+            opacity: 0.6;
             .footer-bottom-title {
                 @include defaultFontMedium;
                 font-size: fontSize(12px);
@@ -272,6 +279,10 @@ export default defineComponent({
                 font-size: fontSize(12px);
                 color: $themeBgColor;
                 line-height: 17px;
+                a {
+                    color: inherit;
+                    text-decoration: none;
+                }
             }
         }
     }
