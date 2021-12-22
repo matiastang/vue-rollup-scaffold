@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-22 17:03:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-22 17:45:26
+ * @LastEditTime: 2021-12-22 18:46:19
  * @FilePath: /datumwealth-openalpha-front/src/views/user/wechatBinder/WechatBinder.vue
  * @Description: 绑定微信界面
 -->
@@ -50,15 +50,7 @@ import { routerToUserCenter } from 'utils/router/index'
 import DragVerify from '@/components/dragVerify/DragVerify.vue'
 import WechatLogin from '@/components/wechatLogin/WechatLogin.vue'
 
-const prop = defineProps({
-    /**
-     * 绑定完成是否跳转
-     */
-    jump: {
-        type: Boolean,
-        default: true,
-    },
-})
+const prop = defineProps({})
 
 const route = useRoute()
 const router = useRouter()
@@ -69,6 +61,9 @@ const loginLoading = ref(false)
 const registerCodeRef: Ref<CodeInputRefTypes | null> = ref(null)
 const dragVerifyStatus = ref(false)
 
+const jumpType = computed(() => {
+    return route.query.type === 'center'
+})
 const weixinUUID = computed(() => {
     const uuid = route.params.uuid
     if (Array.isArray(uuid)) {
@@ -189,7 +184,7 @@ const weixinOauthBinder = () => {
                 message: res,
                 type: 'success',
             })
-            if (prop.jump) {
+            if (jumpType.value) {
                 routerToUserCenter(store, router)
             } else {
                 router.back()

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-22 17:52:30
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-22 18:02:07
+ * @LastEditTime: 2021-12-22 18:50:22
  * @FilePath: /datumwealth-openalpha-front/src/views/user/login/wechatLogin.ts
  * @Description: 微信登录检测逻辑
  */
@@ -20,7 +20,8 @@ import { routerToUserCenter } from 'utils/router/index'
 const userWechatLogin = (
     route: RouteLocationNormalizedLoaded,
     router: Router,
-    store: Store<AllStateTypes>
+    store: Store<AllStateTypes>,
+    toUserCenter: boolean = true
 ) => {
     const wechatState = computed(() => store.state.userModule.wechatState)
     const getQueryValue = (value: LocationQueryValue | LocationQueryValue[]) => {
@@ -52,13 +53,18 @@ const userWechatLogin = (
                     console.log(`未绑定`)
                     router.push({
                         path: `/wechatBinder/${res}`,
+                        query: {
+                            type: toUserCenter ? 'center' : 'call',
+                        },
                     })
                 } else {
                     console.log(`已绑定`)
                     const dwInfo = res as UserLoginInfo
                     store.commit('setUserLoginInfo', dwInfo.member)
                     store.commit('setToken', dwInfo.token)
-                    routerToUserCenter(store, router)
+                    if (toUserCenter) {
+                        routerToUserCenter(store, router)
+                    }
                 }
             })
             .catch((error: RejectType) => {
