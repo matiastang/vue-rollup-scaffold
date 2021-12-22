@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-16 14:55:35
+ * @LastEditTime: 2021-12-22 18:06:31
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -369,6 +369,7 @@ import { addOd, orderType } from '@/common/request/modules/pay/pay'
 import { detailCategoryList, detailInterfaceInfo } from '@/common/request/modules/api/api'
 import { is_empty_obj } from '@/common/utils/check'
 import NumberInput from '@/components/numberInput/NumberInput.vue'
+import userWechatLogin from '@/views/user/login/wechatLogin'
 
 export default defineComponent({
     name: 'InterfaceCall',
@@ -725,6 +726,8 @@ export default defineComponent({
                     getApiInfoData.data.apiParamList[index].paramLoading = false
                 })
         }
+
+        userWechatLogin(route, router, store)
         return {
             appSecret,
             certStatus,

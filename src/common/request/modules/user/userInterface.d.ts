@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2021-11-12 15:14:50
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 16:38:38
- * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/userInterface.d.ts
+ * @LastEditTime: 2021-12-22 16:07:39
+ * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user/userInterface.d.ts
  * @Description: user 请求参数声明
  */
 /**

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-12-14 17:29:55
+ * @LastEditTime: 2021-12-22 18:05:05
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -22,6 +22,7 @@ import Discount from '@/views/web/discount/Discount.vue'
 import CompanyTransfer from '@/views/web/companyTransfer/CompanyTransfer.vue'
 // user
 import Login from '@/views/user/login/Login.vue'
+import WechatBinder from '@/views/user/wechatBinder/WechatBinder.vue'
 import InterfaceStatement from '@/views/user/dataCenter/interfaceStatement/InterfaceStatement.vue'
 import DiscountInfo from '@/views/user/dataCenter/discountInfo/DiscountInfo.vue'
 import RechargeInfo from '@/views/user/dataCenter/rechargeInfo/RechargeInfo.vue'
@@ -114,6 +115,14 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'login',
                 name: 'login',
                 component: Login,
+                meta: {
+                    notLogin: true,
+                },
+            },
+            {
+                path: 'wechatBinder/:uuid([0-9a-zA-Z]+)',
+                name: 'wechatBinder',
+                component: WechatBinder,
                 meta: {
                     notLogin: true,
                 },

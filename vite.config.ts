@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-12-01 15:31:59
+ * @LastEditTime: 2021-12-22 15:02:59
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/vite.config.ts

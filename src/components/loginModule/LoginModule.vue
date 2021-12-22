@@ -1,15 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-15 20:03:58
+ * @LastEditTime: 2021-12-22 16:33:00
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
 -->
 <template>
-    <div>
+    <div style="position: relative">
         <el-tabs
-            v-if="!findPassword"
+            v-if="!findPassword && !wechatLogin"
             class="login-model-tabs login-module-tabs"
             v-model="activeName"
         >
@@ -94,25 +94,30 @@
                 >确定</el-button
             >
         </div>
-        <!-- <SliderVerify
-            class="slider-verify"
-            is-show-self="true"
-            imgUrl="static/home/scheme-bg.png"
-            :width="sliderVConf.width"
-            :height="sliderVConf.height"
-        /> -->
+        <div v-show="wechatLogin" class="wechat-login-content">
+            <div class="back-content flexRowCenter" @click="wechatBackLogin">
+                <img class="back-icon" src="static/login/login-back.svg" />
+                <div class="back-text">返回登录</div>
+            </div>
+            <WechatLogin
+                v-if="wechatLogin"
+                appid="wx6d902dc1624282c4"
+                scope="snsapi_login"
+                :state="wechatState"
+                :redirect_uri="redirect_uri"
+            />
+        </div>
+        <div
+            v-if="!findPassword && !wechatLogin"
+            class="wechat-login"
+            @click="wechatLoginAction"
+        ></div>
     </div>
-    <!-- <SliderVerify
-        class="slider-verify"
-        :is-show-self="isShowSelf"
-        :width="sliderVConf.width"
-        :height="sliderVConf.height"
-    /> -->
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, ref, Ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import ElMessage from '@/common/utils/message'
 import PhoneInput from '@/components/phoneinput/PhoneInput.vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
@@ -121,10 +126,8 @@ import { sendSMS, forget } from '@/common/request/modules/user/user'
 import { phone_check, code_check, password_check } from 'utils/check/index'
 import { useStore } from 'store/index'
 import { routerToUserCenter } from 'utils/router/index'
-// import SliderVerify from 'slider-verify-v3'
-// import 'slider-verify-v3/lib/SliderVerify.css'
-// import SliderVerify from 'puzzle-vue3'
 import DragVerify from '@/components/dragVerify/DragVerify.vue'
+import WechatLogin from '@/components/wechatLogin/WechatLogin.vue'
 
 export default defineComponent({
     name: 'LoginModule',
@@ -146,6 +149,7 @@ export default defineComponent({
         }
     },
     setup(props, context) {
+        const route = useRoute()
         const router = useRouter()
         const store = useStore()
         let inputPhone = ref('')
@@ -423,6 +427,39 @@ export default defineComponent({
                 path: '/about/agreement',
             })
         }
+        // 微信登录
+        const wechatLogin = ref(false)
+        const wechatBackLogin = () => {
+            wechatLogin.value = false
+        }
+
+        const wechatState = ref('')
+
+        const wechatLoginAction = () => {
+            const stateUUID = Math.round(Math.random() * 100 + 100)
+            console.log(`成功uuid:${stateUUID}`)
+            store.commit('setWechatState', stateUUID.toString())
+            wechatState.value = stateUUID.toString()
+            // 集成在网页
+            wechatLogin.value = true
+            // 跳转网页
+            // window.open(
+            //     `${
+            //         import.meta.env.DEV ? 'https://test.openalpha.cn' : window.location.origin
+            //     }/open/login/oauth/login/wechat`
+            // )
+        }
+
+        /**
+         * 重定向地址
+         */
+        const redirect_uri = computed(() => {
+            const uri = `${
+                import.meta.env.DEV ? 'https://test.openalpha.cn' : window.location.origin
+            }${route.path}`
+            const redirect_uri = encodeURI(uri)
+            return redirect_uri
+        })
 
         return {
             inputPhone,
@@ -446,14 +483,19 @@ export default defineComponent({
             dragVerifyStatus,
             dragSuccess,
             registerCountDownOver,
+            wechatBackLogin,
+            wechatLogin,
+            wechatLoginAction,
+            redirect_uri,
+            wechatState,
         }
     },
     components: {
         PhoneInput,
         PasswordInput,
         CodeInput,
-        // SliderVerify,
         DragVerify,
+        WechatLogin,
     },
     computed: {},
     methods: {},
@@ -655,9 +697,42 @@ export default defineComponent({
         color: $themeBgColor;
     }
 }
+.wechat-login-content {
+    box-sizing: border-box;
+    padding: 24px 40px 44px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    .back-content {
+        align-self: flex-start;
+        cursor: pointer;
+        .back-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+        }
+        .back-text {
+            font-size: fontSize(16px);
+            @include defaultFont;
+            color: $themeColor;
+            line-height: 24px;
+        }
+    }
+}
 .slider-verify {
     width: 300px;
     height: 180px;
+}
+
+.wechat-login {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    background: red;
+    cursor: pointer;
 }
 @media screen and (max-width: 1450px) {
     .login-module-tabs {

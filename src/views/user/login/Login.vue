@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 19:15:52
- * @LastEditTime: 2021-12-08 10:38:48
+ * @LastEditTime: 2021-12-22 18:03:30
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/views/user/login/Login.vue
@@ -20,11 +20,82 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
+import { useRoute, useRouter, LocationQueryValue } from 'vue-router'
 import LoginModule from '@/components/loginModule/LoginModule.vue'
+import { oauthCallback } from '@/common/request'
+import { UserLoginInfo } from '@/user'
+import { useStore } from 'store/index'
+import { ElLoading } from 'element-plus'
+import ElMessage from '@/common/utils/message'
+import { RejectType } from '@/common/request/request'
+import { routerToUserCenter } from 'utils/router/index'
+import userWechatLogin from './wechatLogin'
 
 export default defineComponent({
-    data() {
+    setup() {
+        const route = useRoute()
+        const router = useRouter()
+        const store = useStore()
+
+        userWechatLogin(route, router, store)
+
+        // const wechatState = computed(() => store.state.userModule.wechatState)
+        // const getQueryValue = (value: LocationQueryValue | LocationQueryValue[]) => {
+        //     if (Array.isArray(value)) {
+        //         return null
+        //     }
+        //     if (!value || value.trim() === '') {
+        //         return null
+        //     }
+        //     return value
+        // }
+        // const wexinOauthCallback = (code: string, state: string) => {
+        //     if (!wechatState.value) {
+        //         return
+        //     }
+        //     if (state !== wechatState.value) {
+        //         console.warn(`微信登录state校验错误${wechatState.value}!=${state}`)
+        //         return
+        //     }
+        //     const loading = ElLoading.service({
+        //         lock: true,
+        //         text: 'Loading',
+        //         background: 'rgba(0, 0, 0, 0.7)',
+        //     })
+        //     oauthCallback(code)
+        //         .then((res) => {
+        //             console.log(res)
+        //             if (typeof res === 'string') {
+        //                 console.log(`未绑定`)
+        //                 router.push({
+        //                     path: `/wechatBinder/${res}`,
+        //                 })
+        //             } else {
+        //                 console.log(`已绑定`)
+        //                 const dwInfo = res as UserLoginInfo
+        //                 store.commit('setUserLoginInfo', dwInfo.member)
+        //                 store.commit('setToken', dwInfo.token)
+        //                 routerToUserCenter(store, router)
+        //             }
+        //         })
+        //         .catch((error: RejectType) => {
+        //             ElMessage({
+        //                 message: error.msg || '重置失败',
+        //                 type: 'error',
+        //             })
+        //         })
+        //         .finally(() => {
+        //             loading.close()
+        //         })
+        // }
+        // onMounted(() => {
+        //     const code = getQueryValue(route.query.code)
+        //     const state = getQueryValue(route.query.state)
+        //     if (code && state) {
+        //         wexinOauthCallback(code, state)
+        //     }
+        // })
         return {}
     },
     components: {

@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 17:05:13
+ * @LastEditTime: 2021-12-22 15:57:26
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -81,9 +81,18 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
             },
             token: null,
         },
+        wechatState: null,
     },
     getters: {},
     mutations: {
+        /**
+         * 设置wechatState
+         * @param state
+         * @param value
+         */
+        setWechatState(state, value: string) {
+            state.wechatState = value
+        },
         /**
          * 设置扣款顺序
          * @param state

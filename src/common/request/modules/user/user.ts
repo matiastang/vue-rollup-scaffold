@@ -2,14 +2,14 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-01 18:51:49
+ * @LastEditTime: 2021-12-22 17:02:47
  * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user/user.ts
  * @Description: 用户相关接口
  */
 import http from '@/common/request/request'
 import { Md5 } from 'ts-md5/dist/md5'
 import { MbMemberAuthLogs, UserLoginInfo } from '@/user'
-import { memberPrefix } from '@/common/request/prefix'
+import { memberPrefix, loginPrefix } from '@/common/request/prefix'
 import {
     LoginParameters,
     FotgetParameters,
@@ -173,6 +173,46 @@ const chargingSequence = (sequence: string[]) => {
     return http.post<boolean>(`${memberPrefix}/charging/sequence/set`, sequence)
 }
 
+/**
+ * 第三方登录接口
+ * @param type 登录类型
+ * @returns
+ */
+function oauthLogin(type: string) {
+    return http.get<string>(`${loginPrefix}/oauth/login/${type}`)
+}
+
+/**
+ * 微信登录
+ * @returns
+ */
+function wechatOauthLogin() {
+    return oauthLogin('wechat')
+}
+
+/**
+ * 用户绑定接口
+ * @param userId
+ * @param uuid
+ * @returns
+ */
+function oauthBinder(userId: string, uuid: string) {
+    return http.get<string>(`${loginPrefix}/oauth/binder/${uuid}`, {
+        userId,
+    })
+}
+
+/**
+ * 第三方登录回调接口
+ * @param code
+ * @returns
+ */
+function oauthCallback(code: string, type: string = 'wechat') {
+    return http.get<string | UserLoginInfo>(`${loginPrefix}/oauth/callback/${type}`, {
+        code,
+    })
+}
+
 export {
     login,
     logout,
@@ -190,4 +230,8 @@ export {
     checkAvailable,
     feedback,
     chargingSequence,
+    oauthLogin,
+    wechatOauthLogin,
+    oauthBinder,
+    oauthCallback,
 }

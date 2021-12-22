@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 14:21:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-17 15:35:44
+ * @LastEditTime: 2021-12-22 15:44:37
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userInterface.d.ts
  * @Description: UserModule 类型申明
  */
@@ -13,6 +13,7 @@ import { UserLoginInfo } from '@/user'
 export interface UserModuleTypes {
     name: string
     userLoginInfo: UserLoginInfo
+    wechatState: string | null
 }
 PersonalParameters
 /**
