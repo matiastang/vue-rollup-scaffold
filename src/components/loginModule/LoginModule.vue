@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-22 19:30:59
+ * @LastEditTime: 2021-12-22 19:34:15
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -107,7 +107,7 @@
         <div v-show="wechatLogin" class="wechat-login-content">
             <div class="back-content flexRowCenter" @click="wechatBackLogin">
                 <img class="back-icon" src="static/login/login-back.svg" />
-                <div class="back-text">返回登录</div>
+                <div class="back-text">密码登录</div>
             </div>
             <WechatLogin
                 v-if="wechatLogin"
