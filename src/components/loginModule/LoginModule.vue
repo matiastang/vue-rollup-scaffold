@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-22 19:34:15
+ * @LastEditTime: 2021-12-23 11:02:23
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -197,6 +197,10 @@ export default defineComponent({
             //     }
             // }
             if (type === 0) {
+                if (dragVerifyStatus.value) {
+                    ElMessage.warning('请滑动滑块儿发送验证码')
+                    return
+                }
                 dragVerifyStatus.value = true
                 return
             }
@@ -225,6 +229,7 @@ export default defineComponent({
             let phone = inputPhone.value
             let phoneError = phone_check(phone)
             if (phoneError) {
+                dragVerifyStatus.value = false
                 ElMessage({
                     message: phoneError,
                     type: 'error',

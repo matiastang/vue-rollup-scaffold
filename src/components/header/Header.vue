@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-09 17:10:02
+ * @LastEditTime: 2021-12-23 10:31:18
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -12,9 +12,9 @@
             <router-link to="/">
                 <img class="header-left-logo" src="static/header/datum-wealth-logo.svg" />
             </router-link>
-            <Search class="header-left-input" />
+            <Search v-if="!justLogo" class="header-left-input" />
         </div>
-        <div class="header-right flexRowCenter">
+        <div v-if="!justLogo" class="header-right flexRowCenter">
             <div v-for="item in titleArr" :key="item.title" class="header-right-button cursorP">
                 <div
                     :class="[
@@ -267,6 +267,13 @@ export default defineComponent({
                 // }
             }
         }
+
+        // header是否仅有logo
+        const justLogo = ref(false)
+        // 检测路由变化时更新header显示样式
+        watchEffect(() => {
+            justLogo.value = route.path.startsWith('/wechatBinder')
+        })
         return {
             titleArr,
             userToken,
@@ -278,6 +285,7 @@ export default defineComponent({
             isDropdown,
             dropdownMouseover,
             dropdownMouseout,
+            justLogo,
         }
     },
 })

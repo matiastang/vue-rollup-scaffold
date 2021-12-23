@@ -2,14 +2,14 @@
  * @Author: matiastang
  * @Date: 2021-12-15 17:14:00
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-15 19:47:09
+ * @LastEditTime: 2021-12-23 11:02:35
  * @FilePath: /datumwealth-openalpha-front/src/components/dragVerify/DragVerify.vue
  * @Description: 拖拽验证
 -->
 <template>
     <div class="drag-verify" ref="dragDivRef">
         <div class="drag_bg" :style="dragBgStyle"></div>
-        <div class="drag_text" :style="dragTextStyle">{{ confirmWords }}</div>
+        <div class="drag_text slidetounlock" :style="dragTextStyle">{{ confirmWords }}</div>
         <div
             ref="dragMoveRef"
             @mousedown="dragMousedown"
@@ -119,14 +119,16 @@ const dragSuccess = () => {
     height: 52px;
     line-height: 52px;
     text-align: center;
+    border: 1px solid $borderColor;
+    box-sizing: border-box;
     .handler {
-        width: 52px;
-        height: 52px;
+        width: 50px;
+        height: 50px;
         cursor: move;
         position: absolute;
         top: 0px;
         left: 0px;
-        box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
+        // box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
     }
     .handler_bg {
         background: #fff
@@ -140,7 +142,7 @@ const dragSuccess = () => {
     }
     .drag_bg {
         background-color: #7ac23c;
-        height: 52px;
+        height: 50px;
         width: 0px;
     }
     .drag_text {
@@ -154,6 +156,34 @@ const dragSuccess = () => {
         user-select: none;
         -o-user-select: none;
         -ms-user-select: none;
+        font-size: fontSize(16px);
+        @include defaultFont;
+    }
+
+    .slidetounlock {
+        background: -webkit-gradient(
+            linear,
+            left top,
+            right top,
+            color-stop(0, #4d4d4d),
+            color-stop(0.4, #4d4d4d),
+            color-stop(0.5, #fff),
+            color-stop(0.6, #4d4d4d),
+            color-stop(1, #4d4d4d)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: slidetounlock 3s infinite;
+        -webkit-animation: slidetounlock 3s infinite;
+        -webkit-text-size-adjust: none;
+    }
+    @keyframes slidetounlock {
+        0% {
+            background-position: -200px 0;
+        }
+        100% {
+            background-position: 200px 0;
+        }
     }
 }
 </style>
