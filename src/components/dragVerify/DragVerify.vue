@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-15 17:14:00
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-23 11:02:35
+ * @LastEditTime: 2021-12-23 11:05:31
  * @FilePath: /datumwealth-openalpha-front/src/components/dragVerify/DragVerify.vue
  * @Description: 拖拽验证
 -->
@@ -128,7 +128,6 @@ const dragSuccess = () => {
         position: absolute;
         top: 0px;
         left: 0px;
-        // box-shadow: 0px 4px 10px 0px rgba(218, 218, 218, 0.5);
     }
     .handler_bg {
         background: #fff

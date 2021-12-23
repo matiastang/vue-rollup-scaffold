@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-08 16:27:13
+ * @LastEditTime: 2021-12-23 11:34:20
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -209,6 +209,21 @@
                     {{ userInfo.email ? '修改邮箱' : '绑定邮箱' }}
                 </div>
             </div>
+            <div class="setting-info-content flexRowCenter">
+                <div class="setting-info-left flexColumnCenter">
+                    <div class="setting-info-title defaultFont">绑定微信</div>
+                    <div class="setting-info-text defaultFont">
+                        {{
+                            userInfo.email
+                                ? `您已绑定邮箱${desensitizationEmail}`
+                                : '您未绑定微信，请绑定提升账号安全性'
+                        }}
+                    </div>
+                </div>
+                <div class="setting-info-right cursorP defaultFont" @click="wechatBinderAction">
+                    绑定微信
+                </div>
+            </div>
         </div>
         <ChangePasswordModel
             v-model="changePasswordVisible"
@@ -229,6 +244,7 @@
             @okAction="explainOkAction"
             @cancelAction="explainCancelAction"
         />
+        <WechatBinderModel v-model="wechatBinderVisible" />
     </div>
 </template>
 
@@ -239,18 +255,21 @@ import ChangePhoneModel from '@/components/changePhoneModel/ChangePhoneModel.vue
 import ChangeMailModel from '@/components/changeMailModel/ChangeMailModel.vue'
 import PasswordInput from '@/components/passwordInput/PasswordInput.vue'
 import OpenalphaModel from '@/components/openalphaModel/OpenalphaModel.vue'
+import WechatBinderModel from '@/components/wechatBinderModel/WechatBinderModel.vue'
 import { useStore } from 'store/index'
 import { phoneDesensitization } from 'utils/index'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import useClipboard from 'vue-clipboard3'
 import { resetToken } from '@/common/request/modules/user/user'
 import { chargingSequence } from '@/common/request'
 import ElMessage from '@/common/utils/message'
+import userWechatLogin from '@/views/user/login/wechatLogin'
 
 export default defineComponent({
     name: 'Setting',
     setup() {
         let store = useStore()
+        const route = useRoute()
         let router = useRouter()
         // 用户信息
         let userInfo = computed(() => store.state.userModule.userLoginInfo.member)
@@ -383,6 +402,17 @@ export default defineComponent({
         const resetAction = () => {
             explainDialogVisible.value = true
         }
+        /**
+         * 绑定微信相关
+         */
+        const wechatBinderVisible = ref(false)
+        const wechatBinderAction = () => {
+            wechatBinderVisible.value = true
+        }
+        const wechatBinderCancelAction = () => {
+            wechatBinderVisible.value = false
+        }
+        userWechatLogin(route, router, store, true, true)
         return {
             selectOptions,
             selectType,
@@ -408,6 +438,9 @@ export default defineComponent({
             explainDialogVisible,
             explainOkAction,
             explainCancelAction,
+            wechatBinderVisible,
+            wechatBinderAction,
+            wechatBinderCancelAction,
         }
     },
     components: {
@@ -416,6 +449,7 @@ export default defineComponent({
         ChangeMailModel,
         PasswordInput,
         OpenalphaModel,
+        WechatBinderModel,
     },
 })
 </script>
