@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-16 13:41:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-16 14:08:23
+ * @LastEditTime: 2021-12-24 10:40:25
  * @FilePath: /datumwealth-openalpha-front/src/components/numberInput/NumberInput.vue
  * @Description: 数字输入
 -->
@@ -28,6 +28,20 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    /**
+     * 是否支持小数
+     */
+    canDecimal: {
+        type: Boolean,
+        default: false,
+    },
+    /**
+     * 是否支持负数
+     */
+    canMinus: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const inputValue = ref(props.modelValue)
@@ -46,6 +60,22 @@ const emit = defineEmits({
     },
 })
 const inputReplace = (value: string) => {
+    if (props.canMinus) {
+        // 支持负数
+        console.warn('暂不支持负数')
+        return value
+    }
+    if (props.canDecimal) {
+        // 支持小数点儿
+        const newValue = value.replace(/[^0-9.]/gi, '')
+        if (newValue.startsWith('.')) {
+            if (newValue.length > 1) {
+                return newValue.slice(1)
+            }
+            return ''
+        }
+        return newValue
+    }
     return value.replace(/[^0-9]/gi, '')
 }
 const changeAction = (currentValue: string) => {

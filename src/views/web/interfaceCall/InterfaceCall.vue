@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-10 10:19:32
- * @LastEditTime: 2021-12-22 19:33:27
+ * @LastEditTime: 2021-12-24 10:52:43
  * @LastEditors: matiastang
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /datumwealth-openalpha-front/src/views/web/interfaceCall/InterfaceCall.vue
@@ -229,17 +229,18 @@
                                                 </el-select>
                                             </div>
 
-                                            <div
+                                            <!-- <div
                                                 v-else-if="item.paramTypeRange === 'Number'"
                                                 class="parameters-item-input-div"
                                             >
                                                 <NumberInput
                                                     class="parameters-item-input defaultFont"
                                                     v-model="item.paramValue"
+                                                    :canDecimal="true"
                                                     :placeholder="`请输入${item.paramExplain}`"
                                                     clearable
                                                 />
-                                            </div>
+                                            </div> -->
                                             <div v-else class="parameters-item-input-div">
                                                 <el-input
                                                     class="parameters-item-input defaultFont"
