@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-22 17:52:30
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-23 11:33:23
+ * @LastEditTime: 2021-12-24 11:20:42
  * @FilePath: /datumwealth-openalpha-front/src/views/user/login/wechatLogin.ts
  * @Description: 微信登录检测逻辑
  */
@@ -56,6 +56,7 @@ const userWechatLogin = (
             }
             oauthBinder(userId.value.toString(), weixinUUID)
                 .then((res: string) => {
+                    store.commit('setBindWechat', 1)
                     ElMessage({
                         message: res,
                         type: 'success',
