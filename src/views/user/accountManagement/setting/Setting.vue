@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-24 11:04:27
+ * @LastEditTime: 2021-12-24 12:28:15
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -248,7 +248,7 @@
             @okAction="explainOkAction"
             @cancelAction="explainCancelAction"
         />
-        <WechatBinderModel v-model="wechatBinderVisible" />
+        <WechatBinderModel v-if="wechatBinderVisible" v-model="wechatBinderVisible" />
     </div>
 </template>
 
