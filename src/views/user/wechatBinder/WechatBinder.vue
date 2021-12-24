@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-22 17:03:44
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-23 10:45:29
+ * @LastEditTime: 2021-12-24 11:08:31
  * @FilePath: /datumwealth-openalpha-front/src/views/user/wechatBinder/WechatBinder.vue
  * @Description: 绑定微信界面
 -->
@@ -188,6 +188,7 @@ const weixinOauthBinder = () => {
     }
     oauthBinder(userId.value.toString(), weixinUUID.value)
         .then((res: string) => {
+            store.commit('setBindWechat', 1)
             ElMessage({
                 message: res,
                 type: 'success',

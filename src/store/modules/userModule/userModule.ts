@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-22 15:57:26
+ * @LastEditTime: 2021-12-24 11:07:07
  * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -78,6 +78,8 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                 userType: null,
                 // 认证对象
                 mbMemberAuthLogs: null,
+                // 是否绑定微信
+                isBindWechat: null,
             },
             token: null,
         },
@@ -85,6 +87,14 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
     },
     getters: {},
     mutations: {
+        /**
+         * 设置是否绑定
+         * @param state
+         * @param value
+         */
+        setBindWechat(state, value: number) {
+            state.userLoginInfo.member.isBindWechat = value
+        },
         /**
          * 设置wechatState
          * @param state
@@ -238,6 +248,7 @@ const UserModule: Module<UserModuleTypes, RootStateTypes> = {
                     userName: null,
                     userType: null,
                     mbMemberAuthLogs: null,
+                    isBindWechat: null,
                 }
             }
         },

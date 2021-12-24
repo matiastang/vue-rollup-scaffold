@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-11 17:28:34
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-23 11:34:20
+ * @LastEditTime: 2021-12-24 11:04:27
  * @FilePath: /datumwealth-openalpha-front/src/views/user/accountManagement/setting/Setting.vue
  * @Description: 个人中心-账号管理-账号设置
 -->
@@ -214,13 +214,17 @@
                     <div class="setting-info-title defaultFont">绑定微信</div>
                     <div class="setting-info-text defaultFont">
                         {{
-                            userInfo.email
-                                ? `您已绑定邮箱${desensitizationEmail}`
+                            userInfo.isBindWechat === 1
+                                ? `您已绑定微信`
                                 : '您未绑定微信，请绑定提升账号安全性'
                         }}
                     </div>
                 </div>
-                <div class="setting-info-right cursorP defaultFont" @click="wechatBinderAction">
+                <div
+                    v-if="userInfo.isBindWechat === 0"
+                    class="setting-info-right cursorP defaultFont"
+                    @click="wechatBinderAction"
+                >
                     绑定微信
                 </div>
             </div>
