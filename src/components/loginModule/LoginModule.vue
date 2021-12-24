@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-02 16:56:07
- * @LastEditTime: 2021-12-23 11:02:23
+ * @LastEditTime: 2021-12-24 13:55:50
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/loginModule/LoginModule.vue
@@ -51,7 +51,7 @@
                 />
                 <div class="login-way-forget-container">
                     <div class="login-way-container">
-                        <div class="login-way-title" @click="gotoFindPassword">三方登录</div>
+                        <div class="login-way-title">三方登录</div>
                         <img
                             class="wechat-login"
                             src="static/login/wx_logo.svg"
