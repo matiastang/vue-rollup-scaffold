@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-27 14:56:11
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-28 19:27:46
+ * @LastEditTime: 2021-12-28 19:33:26
  * @FilePath: /datumwealth-openalpha-front/src/views/web/product/Product.vue
  * @Description: 产品方案
 -->
@@ -70,7 +70,7 @@
                         <div class="product-container-gif-container flexColumnCenter">
                             <img
                                 class="product-container-gif"
-                                src="https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/gif/fof-2.gif"
+                                src="https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/gif/fof-1.gif"
                             />
                         </div>
                     </div>
