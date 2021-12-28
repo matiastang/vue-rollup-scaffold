@@ -2,15 +2,19 @@
  * @Author: matiastang
  * @Date: 2021-12-27 14:56:11
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-28 19:33:26
+ * @LastEditTime: 2021-12-28 19:37:47
  * @FilePath: /datumwealth-openalpha-front/src/views/web/product/Product.vue
  * @Description: 产品方案
 -->
 <template>
     <div class="product">
         <div class="product-banner-container">
-            <img class="product-banner" src="static/product/product-banner.svg" />
-            <div class="product-banner-content">
+            <img
+                class="product-banner"
+                src="static/product/product-banner.svg"
+                @load="bannerLoad"
+            />
+            <div v-show="showBannerTitle" class="product-banner-content">
                 <div class="title">西筹产品方案</div>
                 <div class="text">
                     西筹金融科技基于全面的公募基金基础数据与研究驱动所开发的深度衍生数据，围绕基金打造基金组合、资产配置、持仓分析、净值预估等各类场
@@ -431,6 +435,11 @@ const tabInterfaceData = [
         ],
     ],
 ]
+
+const showBannerTitle = ref(false)
+const bannerLoad = () => {
+    showBannerTitle.value = true
+}
 
 const interfaceAction = (id: number) => {
     router.push({
