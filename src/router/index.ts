@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-18 11:27:55
- * @LastEditTime: 2021-12-22 19:59:12
+ * @LastEditTime: 2021-12-27 15:35:37
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/router/index.ts
@@ -33,6 +33,7 @@ import Invoice from '@/views/user/dealManagement/invoice/index.vue'
 import InvoiceDetail from '@/views/user/dealManagement/invoice/detail.vue'
 import Setting from '@/views/user/accountManagement/setting/Setting.vue'
 import Certification from '@/views/user/accountManagement/certification/Certification.vue'
+import Product from '@/views/web/product/Product.vue'
 // 帮助中心
 import LoginRegister from '@/views/user/helpCenter/loginRegister/LoginRegister.vue'
 import Test from '@/views/user/helpCenter/test/Test.vue'
@@ -126,6 +127,11 @@ const routes: Array<RouteRecordRaw> = [
                 meta: {
                     notLogin: true,
                 },
+            },
+            {
+                path: 'product',
+                name: 'product',
+                component: Product,
             },
         ],
         beforeEnter: (to, from) => {

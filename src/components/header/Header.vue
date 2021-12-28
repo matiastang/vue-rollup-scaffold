@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-23 10:31:18
+ * @LastEditTime: 2021-12-27 15:39:39
  * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
  * @Description: header
 -->
@@ -129,6 +129,11 @@ export default defineComponent({
                 title: '数据接口',
                 selected: false,
                 name: 'interface',
+            },
+            {
+                title: '产品方案',
+                selected: false,
+                name: 'product',
             },
             {
                 title: '解决方案',
