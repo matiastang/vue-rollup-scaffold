@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-27 14:56:11
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-28 16:03:49
+ * @LastEditTime: 2021-12-28 19:27:46
  * @FilePath: /datumwealth-openalpha-front/src/views/web/product/Product.vue
  * @Description: 产品方案
 -->
@@ -67,6 +67,12 @@
                             class="product-container-1-1-img filter-blur"
                             src="static/product/FOF-2.svg"
                         />
+                        <div class="product-container-gif-container flexColumnCenter">
+                            <img
+                                class="product-container-gif"
+                                src="https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/gif/fof-2.gif"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div class="product-container-1-1 flexRowCenter">
@@ -75,6 +81,12 @@
                             class="product-container-1-1-img filter-blur"
                             src="static/product/FOF-3.svg"
                         />
+                        <div class="product-container-gif-container flexColumnCenter">
+                            <img
+                                class="product-container-gif"
+                                src="https://datumwealth.oss-cn-chengdu.aliyuncs.com/dw/gif/fof-2.gif"
+                            />
+                        </div>
                     </div>
                     <div class="product-container-1-1-right flexColumnCenter">
                         <div class="title">组合诊断</div>
@@ -348,7 +360,7 @@ const tabInterfaceData = [
             {
                 id: 148,
                 iconUrl: 'icon-A0135',
-                name: '资产配置',
+                name: '组合诊断',
             },
         ],
     ],
@@ -478,6 +490,7 @@ const interfaceAction = (id: number) => {
                     max-width: 50%;
                     box-sizing: border-box;
                     padding: 0px 1%;
+                    position: relative;
                     .product-container-1-1-img {
                         width: 100%;
                         flex-grow: 0;
@@ -488,6 +501,19 @@ const interfaceAction = (id: number) => {
                         -moz-filter: blur(2px);
                         -ms-filter: blur(2px);
                         filter: blur(2px);
+                    }
+                    .product-container-gif-container {
+                        position: absolute;
+                        top: 0px;
+                        bottom: 0px;
+                        left: 1%;
+                        right: 1%;
+                        padding: 10% 0px;
+                        box-sizing: border-box;
+                        .product-container-gif {
+                            height: 100%;
+                            border-radius: 6px;
+                        }
                     }
                 }
                 .product-container-1-1-right {

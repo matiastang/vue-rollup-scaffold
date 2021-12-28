@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-12-08 10:43:34
+ * @LastEditTime: 2021-12-28 17:06:35
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
@@ -57,6 +57,21 @@
                 <div class="footer-bottom-text">
                     <a href="http://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">
                         蜀ICP备2021002963号-3</a
+                    >
+                </div>
+                <div class="footer-bottom-beian">
+                    <a
+                        class="footer-bottom-beian-a"
+                        target="_blank"
+                        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51019002004363"
+                        style="
+                            display: inline-block;
+                            text-decoration: none;
+                            height: 20px;
+                            line-height: 20px;
+                        "
+                        ><img src="static/footer/beian.png" style="float: left" />
+                        <p class="footer-bottom-beian-text">川公网安备 51019002004363号</p></a
                     >
                 </div>
             </div>
@@ -282,6 +297,19 @@ export default defineComponent({
                 a {
                     color: inherit;
                     text-decoration: none;
+                }
+            }
+            .footer-bottom-beian {
+                margin-top: 8px;
+                .footer-bottom-beian-a {
+                    .footer-bottom-beian-text {
+                        float: left;
+                        font-size: fontSize(12px);
+                        color: $themeBgColor;
+                        height: 20px;
+                        line-height: 20px;
+                        margin: 0px 0px 0px 5px;
+                    }
                 }
             }
         }
