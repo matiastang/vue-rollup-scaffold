@@ -2,16 +2,15 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-24 11:07:07
- * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userModule.ts
+ * @LastEditTime: 2021-12-29 11:19:50
+ * @FilePath: /datumwealth-front-scaffold/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
 import { Module } from 'vuex'
 import { RootStateTypes } from 'store/indexInterface'
-import { MbMemberAuthLogs } from '@/user'
+import { MbMemberAuthLogs } from '@/@types/user'
 import { UserModuleTypes, PersonalInfoTypes, EnterpriseInfoTypes } from './userInterface'
-import { UserInfo } from '@/user'
-// import { UserLoginInfo } from '@/user'
+import { UserInfo } from '@/@types/user'
 import { LoginParameters } from '@/common/request/modules/user/userInterface'
 import { login } from '@/common/request/modules/user/user'
 import { localStorageKey, localStorageWrite, localStorageRemove } from 'utils/storage/localStorage'

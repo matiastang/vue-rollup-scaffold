@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-11-12 17:14:46
- * @FilePath: /datumwealth-openalpha-front/src/store/index.ts
+ * @LastEditTime: 2021-12-29 11:09:56
+ * @FilePath: /datumwealth-front-scaffold/src/store/index.ts
  * @Description: 全局状态管理
  */
 import { InjectionKey } from 'vue'
@@ -12,7 +12,6 @@ import createPersistedState from 'vuex-persistedstate'
 import { RootStateTypes, AllStateTypes } from './indexInterface'
 // 用户信息
 import userModule from './modules/userModule/userModule'
-import invModule from '@/views/user/dealManagement/_store'
 
 // key
 export const key: InjectionKey<Store<RootStateTypes>> = Symbol()
@@ -22,7 +21,6 @@ export const store = createStore<RootStateTypes>({
     actions: {},
     modules: {
         userModule,
-        invModule,
     },
     plugins: [createPersistedState()],
 })

@@ -2,13 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-11-11 18:24:38
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-22 17:02:47
- * @FilePath: /datumwealth-openalpha-front/src/common/request/modules/user/user.ts
+ * @LastEditTime: 2021-12-29 11:19:53
+ * @FilePath: /datumwealth-front-scaffold/src/common/request/modules/user/user.ts
  * @Description: 用户相关接口
  */
 import http from '@/common/request/request'
 import { Md5 } from 'ts-md5/dist/md5'
-import { MbMemberAuthLogs, UserLoginInfo } from '@/user'
+import { MbMemberAuthLogs, UserLoginInfo } from '@/@types/user'
 import { memberPrefix, loginPrefix } from '@/common/request/prefix'
 import {
     LoginParameters,

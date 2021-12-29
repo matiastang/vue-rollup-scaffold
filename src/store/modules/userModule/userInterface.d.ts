@@ -2,11 +2,11 @@
  * @Author: matiastang
  * @Date: 2021-11-12 14:21:45
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-22 15:44:37
- * @FilePath: /datumwealth-openalpha-front/src/store/modules/userModule/userInterface.d.ts
+ * @LastEditTime: 2021-12-29 11:19:55
+ * @FilePath: /datumwealth-front-scaffold/src/store/modules/userModule/userInterface.d.ts
  * @Description: UserModule 类型申明
  */
-import { UserLoginInfo } from '@/user'
+import { UserLoginInfo } from '@/@types/user'
 /**
  * UserModule 类型
  */

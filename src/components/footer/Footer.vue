@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-03 18:49:04
- * @LastEditTime: 2021-12-28 17:06:35
+ * @LastEditTime: 2021-12-29 11:33:38
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/components/footer/Footer.vue
+ * @FilePath: /datumwealth-front-scaffold/src/components/footer/Footer.vue
 -->
 <template>
     <div class="footer">
@@ -79,131 +79,100 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { FooterData } from './footer'
 
-interface FooterData {
-    /**
-     * 名称
-     */
-    title: string
-    /**
-     * 跳转地址
-     */
-    url?: string
-}
-
-export default defineComponent({
-    setup() {
-        const route = useRoute()
-        const router = useRouter()
-        const dataSource = [
-            {
-                title: '西筹金融科技',
-                url: 'https://www.datumwealth.com',
-            },
-            {
-                title: '况客科技',
-                url: 'https://www.qutke.com',
-            },
-            {
-                title: '汇迪投资',
-                url: 'http://www.hdinvesting.cn',
-            },
-        ]
-        const helpCenter = [
-            {
-                title: '登陆注册',
-                url: '/help/login',
-            },
-            {
-                title: '测试流程',
-                url: '/help/test',
-            },
-            {
-                title: '支付方式',
-                url: '/help/pay',
-            },
-            {
-                title: '常见问题',
-                url: '/help/issue',
-            },
-        ]
-        const aboutUs = [
-            {
-                title: '关于我们',
-                url: '/about/aboutUs',
-            },
-            {
-                title: '用户协议',
-                url: '/about/agreement',
-            },
-            {
-                title: '隐私政策',
-                url: '/about/copyright',
-            },
-            {
-                title: '认证服务协议',
-                url: '/about/authProtocol',
-            },
-            // {
-            //     title: '免责声明',
-            //     url: '/about/statement',
-            // },
-            // {
-            //     title: '权利通知',
-            //     url: '/about/rightNotify',
-            // },
-            {
-                title: '意见反馈',
-                url: '/about/feedback',
-            },
-        ]
-        const contact = [
-            {
-                title: '联系电话：010-85794515',
-            },
-            {
-                title: '服务时间：周一至周五 9:00-18:00',
-            },
-            {
-                title: '电子邮箱：service@datumwealth.com',
-                // title: '电子邮箱：info@qutke.com',
-            },
-            {
-                title: '工作地址：',
-            },
-            {
-                title: '北京：北京市朝阳区关东店北街1号国安大厦19层',
-            },
-            {
-                title: '成都：成都市高新区天府大道北段1677号交子金融科技中心B座306 ',
-            },
-        ]
-        const openAction = (data: FooterData) => {
-            window.open(data.url)
-        }
-        /**
-         * 点击跳转
-         */
-        const footerAction = (data: FooterData) => {
-            if (data.url && !route.path.startsWith(data.url)) {
-                router.push({
-                    path: data.url,
-                })
-            }
-        }
-        return {
-            dataSource,
-            helpCenter,
-            aboutUs,
-            contact,
-            footerAction,
-            openAction,
-        }
+const route = useRoute()
+const router = useRouter()
+const dataSource = reactive([
+    {
+        title: '西筹金融科技',
+        url: 'https://www.datumwealth.com',
     },
-})
+    {
+        title: '况客科技',
+        url: 'https://www.qutke.com',
+    },
+    {
+        title: '汇迪投资',
+        url: 'http://www.hdinvesting.cn',
+    },
+])
+const helpCenter = reactive([
+    {
+        title: '登陆注册',
+        url: '/help/login',
+    },
+    {
+        title: '测试流程',
+        url: '/help/test',
+    },
+    {
+        title: '支付方式',
+        url: '/help/pay',
+    },
+    {
+        title: '常见问题',
+        url: '/help/issue',
+    },
+])
+const aboutUs = reactive([
+    {
+        title: '关于我们',
+        url: '/about/aboutUs',
+    },
+    {
+        title: '用户协议',
+        url: '/about/agreement',
+    },
+    {
+        title: '隐私政策',
+        url: '/about/copyright',
+    },
+    {
+        title: '认证服务协议',
+        url: '/about/authProtocol',
+    },
+    {
+        title: '意见反馈',
+        url: '/about/feedback',
+    },
+])
+const contact = reactive([
+    {
+        title: '联系电话：010-85794515',
+    },
+    {
+        title: '服务时间：周一至周五 9:00-18:00',
+    },
+    {
+        title: '电子邮箱：service@datumwealth.com',
+    },
+    {
+        title: '工作地址：',
+    },
+    {
+        title: '北京：北京市朝阳区关东店北街1号国安大厦19层',
+    },
+    {
+        title: '成都：成都市高新区天府大道北段1677号交子金融科技中心B座306 ',
+    },
+])
+const openAction = (data: FooterData) => {
+    window.open(data.url)
+}
+/**
+ * 点击跳转
+ */
+const footerAction = (data: FooterData) => {
+    if (data.url && !route.path.startsWith(data.url)) {
+        router.push({
+            path: data.url,
+        })
+    }
+}
 </script>
 
 <style lang="scss" scoped>

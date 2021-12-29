@@ -1,26 +1,24 @@
 <!--
  * @Author: matiastang
- * @Date: 2021-12-13 10:12:56
+ * @Date: 2021-12-29 10:52:57
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-29 10:55:49
- * @FilePath: /datumwealth-front-scaffold/src/views/NotFound.vue
- * @Description: 404页面
+ * @LastEditTime: 2021-12-29 10:57:16
+ * @FilePath: /datumwealth-front-scaffold/src/views/home.vue
+ * @Description: 
 -->
 <template>
-    <div class="not-found">
+    <div class="home">
         <div class="text">{{ text }}</div>
     </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const text = ref('404')
+const text = ref('home')
 </script>
 
 <style lang="scss" scoped>
-.not-found {
-    width: 100vw;
-    height: 100vh;
+.home {
     display: flex;
     justify-content: center;
     align-items: center;

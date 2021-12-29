@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-27 15:39:39
- * @FilePath: /datumwealth-openalpha-front/src/components/header/Header.vue
+ * @LastEditTime: 2021-12-29 11:21:07
+ * @FilePath: /datumwealth-front-scaffold/src/components/header/Header.vue
  * @Description: header
 -->
 <template>
@@ -78,7 +78,6 @@ import { defineComponent, reactive, ref, watchEffect, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from '../search/Search.vue'
 import { useStore } from 'store/index'
-import { checkLoginPath } from '@/router/loginInterceptor'
 import { logout } from '@/common/request/index'
 import { routerToUserCenter } from 'utils/router/index'
 import ElMessage from '@/common/utils/message'
@@ -261,15 +260,6 @@ export default defineComponent({
                         path: '/login',
                     })
                 }
-                // const findItem = checkLoginPath.find(({ path }) => {
-                //     return path === route.path
-                // })
-                // if (findItem && findItem.mustLogin) {
-                //     // 在需要登录的页面退出登录，这时更新页面为登录页面
-                //     router.replace({
-                //         path: findItem.redirectPath,
-                //     })
-                // }
             }
         }
 
