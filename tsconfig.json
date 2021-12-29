@@ -2,7 +2,7 @@
     "compilerOptions": {
         // 与 Vue 的浏览器支持保持一致
         "target": "esnext",
-        "module": "esnext",
+        "module": "CommonJS",
         // 这可以对 `this` 上的数据 property 进行更严格的推断
         "strict": true,
         "jsx": "preserve",
@@ -34,7 +34,7 @@
         "src/**/*.vue",
         "tests/**/*.ts",
         "tests/**/*.tsx",
-        "env.d.ts"
+        "env.d.ts",
     ],
     "exclude": ["node_modules"]
 }
