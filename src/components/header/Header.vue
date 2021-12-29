@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-01 17:46:01
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-29 11:21:07
+ * @LastEditTime: 2021-12-29 13:57:40
  * @FilePath: /datumwealth-front-scaffold/src/components/header/Header.vue
  * @Description: header
 -->
@@ -12,7 +12,6 @@
             <router-link to="/">
                 <img class="header-left-logo" src="static/header/datum-wealth-logo.svg" />
             </router-link>
-            <Search v-if="!justLogo" class="header-left-input" />
         </div>
         <div v-if="!justLogo" class="header-right flexRowCenter">
             <div v-for="item in titleArr" :key="item.title" class="header-right-button cursorP">
@@ -76,17 +75,12 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, watchEffect, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import Search from '../search/Search.vue'
 import { useStore } from 'store/index'
-import { logout } from '@/common/request/index'
-import { routerToUserCenter } from 'utils/router/index'
+import { logout } from '@/api/request/index'
 import ElMessage from '@/common/utils/message'
 
 export default defineComponent({
     name: 'Header',
-    components: {
-        Search,
-    },
     setup() {
         /**
          * 全局路由
@@ -241,7 +235,7 @@ export default defineComponent({
                 dropdownData[i].selected = i === index
             }
             if (index === 0) {
-                routerToUserCenter(store, router)
+                // routerToUserCenter(store, router)
             }
             if (index === 1) {
                 // 跳转帮助中心

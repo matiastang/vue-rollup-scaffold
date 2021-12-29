@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-11-12 13:49:53
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-29 11:19:50
+ * @LastEditTime: 2021-12-29 13:51:34
  * @FilePath: /datumwealth-front-scaffold/src/store/modules/userModule/userModule.ts
  * @Description: 用户状态管理
  */
@@ -11,8 +11,8 @@ import { RootStateTypes } from 'store/indexInterface'
 import { MbMemberAuthLogs } from '@/@types/user'
 import { UserModuleTypes, PersonalInfoTypes, EnterpriseInfoTypes } from './userInterface'
 import { UserInfo } from '@/@types/user'
-import { LoginParameters } from '@/common/request/modules/user/userInterface'
-import { login } from '@/common/request/modules/user/user'
+import { LoginParameters } from '@/api/request/modules/user/userInterface'
+import { login } from '@/api/request/modules/user/user'
 import { localStorageKey, localStorageWrite, localStorageRemove } from 'utils/storage/localStorage'
 
 /**

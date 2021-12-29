@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-28 19:31:46
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-29 11:05:11
+ * @LastEditTime: 2021-12-29 13:42:09
  * @FilePath: /datumwealth-front-scaffold/src/router/index.ts
  * @Description: 路由
  */
@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
         component: Layout,
         children: [
             {
-                path: '',
+                path: 'home',
                 name: 'home',
                 component: Home,
             },
