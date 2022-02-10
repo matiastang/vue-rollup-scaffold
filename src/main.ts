@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2022-02-10 11:21:43
+ * @LastEditTime: 2022-02-10 14:14:01
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/src/main.ts
@@ -25,6 +25,7 @@ import {
     createPersistedState,
     PERSISTED_STATE_KEY,
 } from '@/pinia/piniaPersistedState'
+import { useAuthUserStore } from '@/pinia/useAuthUserStore'
 
 const app = createApp(App)
 
@@ -40,6 +41,10 @@ pinia.use(
 )
 console.log(PERSISTED_STATE_KEY)
 pinia.use(myPiniaPlugin)
+
+// 直接使用
+const main = useAuthUserStore(pinia)
+console.log(main)
 
 app.use(pinia)
 
