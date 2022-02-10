@@ -2,19 +2,49 @@
  * @Author: matiastang
  * @Date: 2021-12-29 10:52:57
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-29 10:57:16
- * @FilePath: /datumwealth-front-scaffold/src/views/home.vue
+ * @LastEditTime: 2022-02-10 11:20:32
+ * @FilePath: /datumwealth-front-scaffold/src/views/home/Home.vue
  * @Description: 
 -->
 <template>
     <div class="home">
         <div class="text">{{ text }}</div>
+        <input v-model="inputText" @change="inputChange" />
     </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useAuthUserStore } from '@/pinia/useAuthUserStore'
+
+const store = useAuthUserStore()
+console.log(store.userId)
+console.log(store.$state.hello)
+console.log(store.$state.name)
+console.log(store.$state.age)
+
+store.$state.hello = 'hello dw'
+console.log(store.$state.hello)
 
 const text = ref('home')
+
+const inputText = ref(store.$state.name)
+watch(
+    () => inputText.value,
+    (newValue, oldValue) => {
+        store.$state.name = newValue
+        store.$state.user.name = newValue
+    }
+)
+watch(
+    () => store.$state.name,
+    (newValue, oldValue) => {
+        console.log(`name newValue=${newValue}`)
+        console.log(`name oldValue=${oldValue}`)
+    }
+)
+const inputChange = (payload: Event) => {
+    console.log(payload)
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2021-12-08 19:08:48
+ * @LastEditTime: 2022-02-10 11:21:43
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/src/main.ts
+ * @FilePath: /datumwealth-front-scaffold/src/main.ts
  */
 import { createApp } from 'vue'
 import App from '@/App.vue'
@@ -16,8 +16,32 @@ import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/el-message-box.css'
+import { createPinia } from 'pinia'
+import '@/pinia/customProperties'
+import '@/pinia/stateProperties'
+import { myPiniaPlugin } from '@/pinia/plugin'
+import {
+    piniaPersistedState,
+    createPersistedState,
+    PERSISTED_STATE_KEY,
+} from '@/pinia/piniaPersistedState'
 
 const app = createApp(App)
+
+// pinia
+
+const pinia = createPinia()
+console.log(PERSISTED_STATE_KEY)
+// pinia.use(piniaPersistedState)
+pinia.use(
+    createPersistedState({
+        key: 'pinia-state',
+    })
+)
+console.log(PERSISTED_STATE_KEY)
+pinia.use(myPiniaPlugin)
+
+app.use(pinia)
 
 // Element-plus组件
 app.use(ElementPlus, {
