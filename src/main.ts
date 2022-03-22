@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2022-02-10 14:14:01
+ * @LastEditTime: 2022-03-21 15:07:36
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/src/main.ts
@@ -43,8 +43,8 @@ console.log(PERSISTED_STATE_KEY)
 pinia.use(myPiniaPlugin)
 
 // 直接使用
-const main = useAuthUserStore(pinia)
-console.log(main)
+// const main = useAuthUserStore(pinia)
+// console.log(main)
 
 app.use(pinia)
 

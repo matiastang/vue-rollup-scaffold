@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2022-02-09 17:17:20
  * @LastEditors: matiastang
- * @LastEditTime: 2022-02-10 11:19:20
+ * @LastEditTime: 2022-03-21 14:58:36
  * @FilePath: /datumwealth-front-scaffold/src/pinia/piniaPersistedState.ts
  * @Description: pinia状态本地存储插件
  */
@@ -32,26 +32,38 @@ let PERSISTED_STATE_KEY = key
  * @returns Void
  */
 const localStateDiff = (state: StateTree & PiniaCustomStateProperties<StateTree>) => {
+    const stateName = state.stateName
+    console.log(`localStateDiff=${stateName}`)
     const localState = localStorageRead<StateTree>(PERSISTED_STATE_KEY)
     if (localState === null) {
         // 初始化保存
-        localStorageWrite(PERSISTED_STATE_KEY, state)
+        localStorageWrite(PERSISTED_STATE_KEY, {
+            [stateName]: state,
+        })
+        return
+    }
+    const localNameState = localState[stateName]
+    if (localNameState === undefined) {
+        localState[stateName] = state
+        // 差异保存
+        localStorageWrite(PERSISTED_STATE_KEY, localState)
         return
     }
     // 差异查找更新
     for (const key in state) {
         if (Object.prototype.hasOwnProperty.call(state, key)) {
             const element = state[key]
-            if (Object.prototype.hasOwnProperty.call(localState, key)) {
-                const localElement = localState[key]
+            if (Object.prototype.hasOwnProperty.call(localNameState, key)) {
+                const localElement = localNameState[key]
                 if (element !== localElement) {
                     state[key] = localElement
                 }
             }
         }
     }
+    localState[stateName] = state
     // 差异保存
-    localStorageWrite(PERSISTED_STATE_KEY, state)
+    localStorageWrite(PERSISTED_STATE_KEY, localState)
 }
 
 /**
@@ -75,10 +87,28 @@ export function piniaPersistedState(context: PiniaPluginContext) {
     // 初始化检测更新
     localStateDiff(state)
     context.store.$subscribe(() => {
+        console.log(`userID=${context.store.userId}`)
+        console.log(
+            Object.keys(context.store).filter(
+                (key) => !key.startsWith('$') && !key.startsWith('_') && !key.startsWith('set')
+            )
+        )
+        console.log(Object.keys(state))
+        const stateName = state.stateName
+        console.log(`subscribe=${stateName}`)
+        const localState = localStorageRead<StateTree>(PERSISTED_STATE_KEY)
+        if (localState === null) {
+            // 初始化保存
+            localStorageWrite(PERSISTED_STATE_KEY, {
+                [stateName]: state,
+            })
+            return
+        }
+        localState[stateName] = state
         // 直接更新存储状态
         // FIXME: - 非状态更新也会调用，可能会有性能问题
         // TODO: - 挂载到context.store的熟悉并未实现持久化
-        localStorageWrite(PERSISTED_STATE_KEY, state)
+        localStorageWrite(PERSISTED_STATE_KEY, localState)
     })
 }
 

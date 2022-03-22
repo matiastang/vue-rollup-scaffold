@@ -1,12 +1,12 @@
 /*
  * @Author: matiastang
- * @Date: 2022-02-09 15:30:53
+ * @Date: 2022-03-18 17:27:11
  * @LastEditors: matiastang
- * @LastEditTime: 2022-03-18 17:25:55
- * @FilePath: /datumwealth-front-scaffold/src/pinia/useAuthUserStore.ts
- * @Description: 用户权限store
+ * @LastEditTime: 2022-03-18 17:49:37
+ * @FilePath: /datumwealth-front-scaffold/src/pinia/useTest.ts
+ * @Description:
  */
-import { defineStore } from 'pinia'
+import { defineStore, store } from 'pinia'
 
 interface State {
     stateName: string
@@ -19,13 +19,13 @@ interface State {
     }
 }
 
-export const useAuthUserStore = defineStore('auth/user', {
+export const useTestStore = defineStore('auth/test', {
     state: (): State => ({
-        stateName: 'user',
-        name: 'name',
-        age: 'age',
+        stateName: 'test',
+        name: 'a',
+        age: 'b',
         user: {
-            name: 'tdy',
+            name: 'c',
             age: 29,
             phone: '18380449615',
         },

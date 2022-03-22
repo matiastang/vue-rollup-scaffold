@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-29 10:52:57
  * @LastEditors: matiastang
- * @LastEditTime: 2022-02-10 11:20:32
+ * @LastEditTime: 2022-03-21 15:07:42
  * @FilePath: /datumwealth-front-scaffold/src/views/home/Home.vue
  * @Description: 
 -->
@@ -14,16 +14,27 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useAuthUserStore } from '@/pinia/useAuthUserStore'
+import { useAuthUserStore, useTestStore } from '@/pinia/init'
+
+const testStore = useTestStore()
+console.log(testStore)
 
 const store = useAuthUserStore()
-console.log(store.userId)
-console.log(store.$state.hello)
-console.log(store.$state.name)
-console.log(store.$state.age)
+console.log(store)
+store.userId = 'auth userId'
+// console.log(store.userId)
+// console.log(store.$state.hello)
+// console.log(store.$state.name)
+// console.log(store.$state.age)
 
 store.$state.hello = 'hello dw'
-console.log(store.$state.hello)
+// console.log(store.$state.hello)
+
+testStore.userId = 'test userId'
+// console.log(testStore.userId)
+// console.log(testStore.$state.hello)
+// console.log(testStore.$state.name)
+// console.log(testStore.$state.age)
 
 const text = ref('home')
 
