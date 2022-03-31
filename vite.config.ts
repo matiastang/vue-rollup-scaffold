@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2021-12-22 15:02:59
+ * @LastEditTime: 2022-03-31 14:09:12
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/vite.config.ts
+ * @FilePath: /datumwealth-front-scaffold/vite.config.ts
  */
 // vite配置文件vite.config.js
 
@@ -97,7 +97,7 @@ export default defineConfig({
     },
     // 开发服务配置
     server: {
-        host: '127.0.0.1',
+        host: '0.0.0.0',
         port: 3000,
         strictPort: true,
         fs: {

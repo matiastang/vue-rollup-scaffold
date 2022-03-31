@@ -1,7 +1,7 @@
 {
-    "name": "datumwealth-openalpha-front",
-    "version": "1.0.1",
-    "description": "西筹金融科技开放平台项目",
+    "name": "datumwealth-front-scaffold",
+    "version": "1.1.0",
+    "description": "西筹金融科技前端脚手架",
     "main": "index.js",
     "directories": {
         "test": "tests"
@@ -82,6 +82,7 @@
         "typescript": "^4.5.4",
         "unplugin-element-plus": "^0.1.3",
         "unplugin-vue-components": "^0.17.2",
+        "vconsole": "^3.14.3",
         "vite": "^2.6.7",
         "vue-axios": "^3.4.0",
         "vue-clipboard3": "^1.0.1",
