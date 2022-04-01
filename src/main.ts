@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2022-03-31 10:52:10
+ * @LastEditTime: 2022-04-01 10:31:31
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/src/main.ts
@@ -20,34 +20,40 @@ import { createPinia } from 'pinia'
 import '@/pinia/customProperties'
 import '@/pinia/stateProperties'
 import { myPiniaPlugin } from '@/pinia/plugin'
+// import {
+//     piniaPersistedState,
+//     createPersistedState,
+//     PERSISTED_STATE_KEY,
+// } from '@/pinia/piniaPersistedState'
 import {
     piniaPersistedState,
     createPersistedState,
     PERSISTED_STATE_KEY,
-} from '@/pinia/piniaPersistedState'
-import { useAuthUserStore } from '@/pinia/useAuthUserStore'
+} from 'matias-pinia-persisted-state'
 import _package from '../package.json'
 import VConsole from 'vconsole'
 
 const app = createApp(App)
 
 // pinia
-
+// 初始化
 const pinia = createPinia()
-console.log(PERSISTED_STATE_KEY)
+console.log(`matias-pinia-persisted-state默认的key:${PERSISTED_STATE_KEY}`)
+// 不配置使用
 // pinia.use(piniaPersistedState)
+// 配置key使用
 pinia.use(
     createPersistedState({
-        key: 'pinia-state',
+        key: 'pinia-key',
     })
 )
-console.log(PERSISTED_STATE_KEY)
+console.log(`matias-pinia-persisted-state设置的key:${PERSISTED_STATE_KEY}`)
+// 本地插件
 pinia.use(myPiniaPlugin)
-
 // 直接使用
 // const main = useAuthUserStore(pinia)
 // console.log(main)
-
+// 加载pinia
 app.use(pinia)
 
 // Element-plus组件

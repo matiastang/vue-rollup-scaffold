@@ -28,6 +28,7 @@ specifiers:
   gulp-json-editor: ^2.5.6
   inquirer: 8.2.0
   less: ^4.1.2
+  matias-pinia-persisted-state: ^0.1.2
   minimist: ^1.2.5
   object-hash: ^2.2.0
   ora: 5.4.0
@@ -93,6 +94,7 @@ devDependencies:
   gulp-bump: registry.npmmirror.com/gulp-bump/3.2.0
   gulp-json-editor: registry.npmmirror.com/gulp-json-editor/2.5.6
   less: registry.npmmirror.com/less/4.1.2
+  matias-pinia-persisted-state: registry.npmmirror.com/matias-pinia-persisted-state/0.1.2
   minimist: registry.nlark.com/minimist/1.2.5
   object-hash: registry.nlark.com/object-hash/2.2.0
   pinia: registry.npmmirror.com/pinia/2.0.11_typescript@4.5.4+vue@3.2.20
@@ -13577,6 +13579,14 @@ packages:
     name: map-obj
     version: 1.0.1
     engines: {node: '>=0.10.0'}
+
+  registry.npmmirror.com/matias-pinia-persisted-state/0.1.2:
+    resolution: {integrity: sha512-Q5BH65/EWC8AqPwpJS9XCO0FoGtwFYzV2h18CWcbJGWjKkLDQSA1ivtJ82+kYiZHsEoiQRvY2jukTwdd/Lgg/g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/matias-pinia-persisted-state/-/matias-pinia-persisted-state-0.1.2.tgz}
+    name: matias-pinia-persisted-state
+    version: 0.1.2
+    dependencies:
+      vue: registry.npmmirror.com/vue/3.2.20
+    dev: true
 
   registry.npmmirror.com/memoize-one/6.0.0:
     resolution: {integrity: sha1-slkbhx7YKUiu5HJ9xqvO7qyMEEU=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/memoize-one/download/memoize-one-6.0.0.tgz}
