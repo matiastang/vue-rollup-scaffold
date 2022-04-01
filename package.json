@@ -1,6 +1,6 @@
 {
     "name": "datumwealth-front-scaffold",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "西筹金融科技前端脚手架",
     "main": "index.js",
     "directories": {
@@ -66,6 +66,7 @@
         "gulp-bump": "^3.2.0",
         "gulp-json-editor": "^2.5.6",
         "less": "^4.1.2",
+        "less-loader": "^10.2.0",
         "matias-pinia-persisted-state": "^0.1.2",
         "minimist": "^1.2.5",
         "object-hash": "^2.2.0",
@@ -76,6 +77,7 @@
         "sass-loader": "^12.2.0",
         "shelljs": "^0.8.4",
         "stylus": "^0.55.0",
+        "stylus-loader": "^6.2.0",
         "swiper": "^7.2.0",
         "ts-md5": "^1.2.9",
         "ts-node": "^10.4.0",

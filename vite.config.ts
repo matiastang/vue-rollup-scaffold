@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2022-03-31 14:09:12
+ * @LastEditTime: 2022-04-01 15:33:46
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/vite.config.ts
@@ -85,14 +85,19 @@ export default defineConfig({
         },
         // CSS 预处理器的选项
         preprocessorOptions: {
-            less: {},
+            less: {
+                additionalData: '@import "@/common/less/index.less";',
+            },
             scss: {
                 additionalData: `
-                    @use "@/common/css/element-variables.scss" as * ;
-                    @use "@/common/css/index.scss" as * ;
+                    @use "@/common/scss/element-variables.scss" as * ;
+                    @use "@/common/scss/index.scss" as * ;
                 `,
             },
             sass: {},
+            stylus: {
+                additionalData: '@import "../src/common/stylus/index.styl";',
+            },
         },
     },
     // 开发服务配置

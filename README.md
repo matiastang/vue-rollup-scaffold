@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 14:16:17
- * @LastEditTime: 2021-12-09 15:58:50
+ * @LastEditTime: 2022-04-01 15:55:20
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-openalpha-front/README.md
+ * @FilePath: /datumwealth-front-scaffold/README.md
 -->
 # vue-scaffold
 
@@ -44,6 +44,120 @@
 
 ### devDependencies
 
+#### css modules
+
+`.module.css` 为后缀名的 `CSS` 文件都被认为是一个 `CSS modules` 文件。导入这样的文件会返回一个相应的模块对象。
+```css
+/* index.module.css */
+.red {
+  color: red;
+}
+```
+```ts
+const dom = document.getElementById('title-red')
+if (dom) {
+    dom.className = classes.red
+}
+```
+
+#### less
+
+1. 安装
+> `pnpm add -D less less-loader`
+```json
+"less": "^4.1.2",
+"less-loader": "^10.2.0",
+```
+2. 配置
+```ts
+css: {
+     // CSS 预处理器的选项
+     preprocessorOptions: {
+         less: {
+             additionalData: '@import "@/common/less/index.less";',
+         },
+     },
+},
+```
+
+### .scss and .sass
+
+1. 安装
+> `pnpm add -D sass sass-loader`
+```json
+"sass": "^1.43.2",
+"sass-loader": "^12.2.0",
+```
+2. 配置
+```ts
+css: {
+   // CSS 预处理器的选项
+   preprocessorOptions: {
+      scss: {
+         additionalData: `
+            @use "@/common/css/element-variables.scss" as * ;
+            @use "@/common/css/index.scss" as * ;
+         `,
+      },
+   },
+},
+```
+
+### .styl and .stylus
+
+1. 安装
+> `pnpm add -D stylus stylus-loader`
+```json
+"stylus": "^0.55.0",
+"stylus-loader": "^6.2.0",
+```
+2. 配置
+**注意**只能使用相对路径。
+```ts
+css: {
+   // CSS 预处理器的选项
+   preprocessorOptions: {
+      scss: {
+         stylus: {
+                additionalData: '@import "../src/common/stylus/index.styl";',
+            },
+      },
+   },
+},
+```
+*注意*由于`Stylus API` 限制，`@import` 别名和 `URL` 变基不支持 `Stylus`。所以不能全局导入
+3. 使用
+```vue
+<style lang="stylus" scoped>
+/*
+* 全局变量：`$size`
+*/
+//使用别名@路径引入报错
+// @import "@/common/stylus/test.styl"
+/*
+如果是`webpack`打包则可以使用`@import "~@/common/stylus/test.styl"`。
+原因：CSS loader 会把把非根路径的url解释为相对路径， 加~前缀才会解释成模块路径。
+*/
+// 使用相对路径导入成功，如变量`$testColor`
+// @import "../../common/stylus/test.styl"
+.home
+    display: flex
+    justify-content: center
+    align-items: center
+    & .text
+        font-size: $size
+        color: #bfbfbf
+        line-height: 20px
+        text-align: center
+    & .body
+        color: $testColor
+</style>
+```
+**注意**
+`vite`打包只能使用相对路径：`Vite 为 Sass 和 Less 改进了 @import 解析，以保证 Vite 别名也能被使用。另外，url() 中的相对路径引用的，与根文件不同目录中的 Sass/Less 文件会自动变基以保证正确性。由于 Stylus API 限制，@import 别名和 URL 变基不支持 Stylus。`
+
+> "stylus": "^0.55.0",
+
 * typescript
 
 > "typescript": "^4.4.4"
@@ -51,19 +165,6 @@
 * vite
 
 > "vite": "^2.6.7"
-
-* .scss and .sass
-
-> "sass": "^1.43.2"
-> "sass-loader": "^12.2.0"
-
-* less支持
-
-> "less": "^4.1.2"
-
-* .styl and .stylus
-
-> "stylus": "^0.55.0",
 
 * path路径
 
