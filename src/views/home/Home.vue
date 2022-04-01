@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-29 10:52:57
  * @LastEditors: matiastang
- * @LastEditTime: 2022-04-01 15:53:49
+ * @LastEditTime: 2022-04-01 16:10:25
  * @FilePath: /datumwealth-front-scaffold/src/views/home/Home.vue
  * @Description: 
 -->
@@ -70,7 +70,7 @@ const inputChange = (payload: Event) => {
 原因：CSS loader 会把把非根路径的url解释为相对路径， 加~前缀才会解释成模块路径。
 */
 // 使用相对路径导入成功，如变量`$testColor`
-// @import "../../common/stylus/test.styl"
+@import "../../common/stylus/test.styl"
 .home
     display: flex
     justify-content: center
