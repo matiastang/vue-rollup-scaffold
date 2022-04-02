@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 14:16:17
- * @LastEditTime: 2022-04-01 15:55:20
+ * @LastEditTime: 2022-04-01 19:03:06
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/README.md
@@ -155,6 +155,10 @@ css: {
 ```
 **注意**
 `vite`打包只能使用相对路径：`Vite 为 Sass 和 Less 改进了 @import 解析，以保证 Vite 别名也能被使用。另外，url() 中的相对路径引用的，与根文件不同目录中的 Sass/Less 文件会自动变基以保证正确性。由于 Stylus API 限制，@import 别名和 URL 变基不支持 Stylus。`
+
+#### vite-plugin-inspect
+
+引入 `vite-plugin-inspect`。 它可以帮助你检查 `Vite` 插件的中间状态。安装后，你可以访问 `localhost:3000/__inspect/` 来检查你项目的模块和栈信息。
 
 > "stylus": "^0.55.0",
 

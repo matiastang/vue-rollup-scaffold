@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2022-04-01 10:31:31
+ * @LastEditTime: 2022-04-02 14:00:40
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/src/main.ts
@@ -20,11 +20,6 @@ import { createPinia } from 'pinia'
 import '@/pinia/customProperties'
 import '@/pinia/stateProperties'
 import { myPiniaPlugin } from '@/pinia/plugin'
-// import {
-//     piniaPersistedState,
-//     createPersistedState,
-//     PERSISTED_STATE_KEY,
-// } from '@/pinia/piniaPersistedState'
 import {
     piniaPersistedState,
     createPersistedState,

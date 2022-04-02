@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2022-04-01 15:33:46
+ * @LastEditTime: 2022-04-01 19:11:29
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/vite.config.ts
@@ -26,6 +26,9 @@ import compressPlugin from 'vite-plugin-compression'
 // 图片压缩
 import viteImagemin from 'vite-plugin-imagemin'
 import config from './loadenv'
+
+import Inspect from 'vite-plugin-inspect'
+
 export default defineConfig({
     // 共享配置
     plugins: [
@@ -68,6 +71,7 @@ export default defineConfig({
                 speed: 4,
             },
         }),
+        Inspect(),
     ],
     resolve: {
         // 别名
