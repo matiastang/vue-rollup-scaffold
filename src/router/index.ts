@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-28 19:31:46
  * @LastEditors: matiastang
- * @LastEditTime: 2021-12-29 13:42:09
+ * @LastEditTime: 2022-05-10 19:35:58
  * @FilePath: /datumwealth-front-scaffold/src/router/index.ts
  * @Description: 路由
  */
@@ -34,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/:pathMatch(.*)*', // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
         name: 'NotFound',
-        redirect: '/',
+        // redirect: '/',
         component: NotFound,
     },
 ]

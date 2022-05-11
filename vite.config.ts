@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2022-04-20 15:01:32
+ * @LastEditTime: 2022-05-10 19:39:21
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/vite.config.ts
@@ -87,12 +87,19 @@ export default defineConfig(({ mode, command }) => {
         },
         css: {
             modules: {
+                /**
+                 * generateScopedName和hashPrefix申明了，使用cssModules时样式的名称转换
+                 */
+                generateScopedName: '[name]-[local]-[hash:base64:6]',
+                hashPrefix: 'prefix',
                 localsConvention: 'camelCaseOnly',
             },
             // CSS 预处理器的选项
             preprocessorOptions: {
                 less: {
                     additionalData: '@import "@/common/less/index.less";',
+                    // 支持内联 JavaScript
+                    javascriptEnabled: true,
                 },
                 scss: {
                     additionalData: `

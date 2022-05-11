@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:10:16
- * @LastEditTime: 2022-04-02 14:00:40
+ * @LastEditTime: 2022-05-11 10:45:56
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/src/main.ts
@@ -27,6 +27,8 @@ import {
 } from 'matias-pinia-persisted-state'
 import _package from '../package.json'
 import VConsole from 'vconsole'
+// 默认主题（如果是其他预编译样式可以配置vite默认导入）
+import '@/common/themes/default.css'
 
 const app = createApp(App)
 

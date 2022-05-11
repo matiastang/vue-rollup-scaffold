@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2021-12-29 10:52:57
  * @LastEditors: matiastang
- * @LastEditTime: 2022-04-01 16:10:25
+ * @LastEditTime: 2022-05-11 09:30:23
  * @FilePath: /datumwealth-front-scaffold/src/views/home/Home.vue
  * @Description: 
 -->
@@ -81,5 +81,6 @@ const inputChange = (payload: Event) => {
         line-height: 20px
         text-align: center
     & .body
-        color: $testColor
+        // color: $testColor
+        color: var(--themeColor);
 </style>
