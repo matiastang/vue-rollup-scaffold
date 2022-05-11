@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 14:16:17
- * @LastEditTime: 2022-04-01 19:03:06
+ * @LastEditTime: 2022-05-11 10:51:15
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
  * @FilePath: /datumwealth-front-scaffold/README.md
@@ -209,3 +209,17 @@ css: {
 * 请求
 
 > "axios": "^0.24.0",
+
+## 版本
+
+### 1.2.0
+
+* 接入样式主题的支持
+
+### 1.1.0
+
+* 接入各种预编译样式的支持
+
+### 1.0.0
+
+* 实现基本功能

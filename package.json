@@ -1,6 +1,6 @@
 {
     "name": "datumwealth-front-scaffold",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "西筹金融科技前端脚手架",
     "main": "index.js",
     "directories": {
