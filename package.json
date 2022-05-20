@@ -18,7 +18,8 @@
         "lint": "eslint './src/**/*.{ts,tsx,js,jsx}' './tsconfig.json'",
         "lint:fix": "eslint --fix './src/**/*.{ts,tsx,js,jsx}' './tsconfig.json'",
         "lint:setting:fix": "cd .vscode && eslint --fix './settings.json' && cd -",
-        "prettier": "prettier --write --config .prettierrc './src/**/*.{ts,tsx,js,jsx,vue}'"
+        "prettier": "prettier --write --config .prettierrc './src/**/*.{ts,tsx,js,jsx,vue}'",
+        "build:esm-bundle": "rollup --config ./rollupBuild/rollup.config.js"
     },
     "repository": {
         "type": "git",
@@ -42,6 +43,8 @@
     },
     "devDependencies": {
         "@element-plus/icons": "^0.0.11",
+        "@rollup/plugin-json": "^4.1.0",
+        "@rollup/plugin-node-resolve": "^13.3.0",
         "@types/gulp": "^4.0.9",
         "@types/gulp-bump": "^2.8.2",
         "@types/gulp-json-editor": "^2.2.33",
@@ -74,6 +77,9 @@
         "pinia": "^2.0.11",
         "prettier": "^2.4.1",
         "qrcode.vue": "^3.3.3",
+        "rollup-plugin-scss": "^3.0.0",
+        "rollup-plugin-typescript2": "^0.31.2",
+        "rollup-plugin-vue": "^6.0.0",
         "sass": "^1.43.2",
         "sass-loader": "^12.2.0",
         "shelljs": "^0.8.4",
