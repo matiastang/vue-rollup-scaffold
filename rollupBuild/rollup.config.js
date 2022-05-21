@@ -2,7 +2,7 @@
  * @Author: matiastang
  * @Date: 2022-01-05 17:28:59
  * @LastEditors: matiastang
- * @LastEditTime: 2022-05-19 20:03:12
+ * @LastEditTime: 2022-05-21 17:05:37
  * @FilePath: /vue-front-scaffold/rollupBuild/rollup.config.js
  * @Description:
  */
@@ -66,7 +66,7 @@ import typescript from 'rollup-plugin-typescript2'
 /**
  * "rollup-plugin-vue": "^6.0.0",
  */
-import vuePlugin from 'rollup-plugin-vue'
+import vue from 'rollup-plugin-vue'
 /**
  * "rollup-plugin-scss": "^3.0.0",
  */
@@ -74,9 +74,9 @@ import vuePlugin from 'rollup-plugin-vue'
 /**
  * @rollup/plugin-json
  */
-import json from '@rollup/plugin-json'
+// import json from '@rollup/plugin-json'
 export default {
-    input: 'components/index.ts',
+    input: 'src/test/index.ts',
     // input: 'src/main.ts',
     output: {
         file: 'bundle.js',
@@ -86,18 +86,19 @@ export default {
     },
     plugins: [
         nodeResolve(),
-        vuePlugin(),
-        typescript({
-            tsconfigOverride: {
-                compilerOptions: {
-                    declaration: true,
-                },
-                include: ['components/**/*', 'shims-vue.d.ts'],
-                exclude: ['node_modules', 'packages/**/__tests__/*'],
-            },
-            abortOnError: false,
-        }),
-        json(),
+        typescript(),
+        // typescript({
+        //     tsconfigOverride: {
+        //         compilerOptions: {
+        //             declaration: true,
+        //         },
+        //         include: ['components/**/*', 'shims-vue.d.ts'],
+        //         exclude: ['node_modules', 'packages/**/__tests__/*'],
+        //     },
+        //     abortOnError: false,
+        // }),
+        vue(),
+        // json(),
     ],
     external: ['vue'],
     globals: {

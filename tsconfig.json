@@ -26,7 +26,7 @@
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
         "typeRoots": ["src/global.d.ts", "node_modules/@types"]
     },
-    "files": ["global.d.ts", "stringExtension.d.ts"],
+    "files": ["global.d.ts"],
     "include": [
         "src/**/*.d.ts",
         "src/**/*.ts",
