@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2022-01-05 10:33:42
  * @LastEditors: matiastang
- * @LastEditTime: 2022-02-17 14:42:40
- * @FilePath: /dw-vue-components/components/dwDragVerify/src/DwDragVerify.vue
+ * @LastEditTime: 2022-05-23 17:47:51
+ * @FilePath: /vue-front-scaffold/src/components/dwDragVerify/src/DwDragVerify.vue
  * @Description: 拖拽验证
 -->
 <template>
@@ -13,8 +13,8 @@
         <div
             ref="dragMoveRef"
             @mousedown="dragMousedown"
-            :class="{ handler_ok_bg: confirmSuccess }"
             class="handler handler_bg"
+            :class="{ handler_ok_bg: confirmSuccess }"
             :style="dragStyle"
         ></div>
     </div>
@@ -192,7 +192,6 @@ export default defineComponent({
         -o-user-select: none;
         -ms-user-select: none;
         font-size: fontSize(16px);
-        // @include defaultFont;
         font-family: 'PingFangSC-Regular', 'PingFang SC', 'Helvetica Neue', Helvetica,
             'Nimbus Sans L', Arial, 'Liberation Sans', 'Hiragino Sans GB',
             'Source Han Sans CN Normal', 'Microsoft YaHei', 'Wenquanyi Micro Hei',

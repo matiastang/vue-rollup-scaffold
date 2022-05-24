@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2022-02-14 16:02:04
  * @LastEditors: matiastang
- * @LastEditTime: 2022-02-15 10:25:46
- * @FilePath: /dw-vue-components/components/dwFilterRuler/src/DwFilterRuler.vue
+ * @LastEditTime: 2022-05-24 09:52:37
+ * @FilePath: /vue-front-scaffold/src/components/dwFilterRuler/src/DwFilterRuler.vue
  * @Description: 
 -->
 <template>
@@ -16,17 +16,17 @@
                 :style="{ width: `${100 / range.length}%` }"
             >
                 <div class="ruler-texts">
-                    <div class="ruler-text" :style="{ color: `${rulerColor}` }">{{ item }}</div>
-                    <div
-                        class="scale-line"
-                        :style="{ height: '0.6rem', background: `${rulerColor}` }"
-                    ></div>
+                    <!-- :style="{ color: `${rulerColor}` }" -->
+                    <div class="ruler-text">{{ item }}</div>
+                    <div class="scale-line" :style="{ height: '0.6rem' }"></div>
+                    <!-- , background: `${rulerColor}` -->
                 </div>
                 <div
                     v-if="index !== range.length - 1"
                     class="scale-line"
-                    :style="{ height: '0.3rem', background: `${rulerColor}` }"
+                    :style="{ height: '0.3rem' }"
                 ></div>
+                <!-- , background: `${rulerColor}` -->
             </div>
         </div>
     </div>
@@ -58,11 +58,11 @@ export default defineComponent({
             ],
         },
         /**
-         * 颜色
+         * 颜色#7c7c7c
          */
         rulerColor: {
             type: String,
-            default: '#7c7c7c',
+            default: 'var(--themeColor)', //'#7c7c7c',
         },
     },
 })
@@ -86,18 +86,18 @@ export default defineComponent({
                 justify-content: space-around;
                 align-items: center;
                 .ruler-text {
-                    color: #7c7c7c;
+                    color: var(--themeColor);
                     font-size: 0.8rem;
                     text-align: center;
                 }
                 .scale-line {
                     width: 0.1rem;
-                    background: #7c7c7c;
+                    background: var(--themeColor);
                 }
             }
             .scale-line {
                 width: 0.1rem;
-                background: #7c7c7c;
+                background: var(--themeColor);
             }
         }
     }

@@ -2,11 +2,11 @@
  * @Author: matiastang
  * @Date: 2022-03-18 17:27:11
  * @LastEditors: matiastang
- * @LastEditTime: 2022-03-18 17:49:37
- * @FilePath: /datumwealth-front-scaffold/src/pinia/useTest.ts
+ * @LastEditTime: 2022-05-21 17:47:57
+ * @FilePath: /vue-front-scaffold/src/pinia/useTest.ts
  * @Description:
  */
-import { defineStore, store } from 'pinia'
+import { defineStore } from 'pinia'
 
 interface State {
     stateName: string

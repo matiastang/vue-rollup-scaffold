@@ -1,0 +1,33 @@
+.dw-ruler[data-v-3a7dfcc8] {
+  width: 100%;
+}
+.dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] .scale-line-container[data-v-3a7dfcc8] {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+.dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] .scale-line-container[data-v-3a7dfcc8] .ruler-texts[data-v-3a7dfcc8] {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] .scale-line-container[data-v-3a7dfcc8] .ruler-texts[data-v-3a7dfcc8] .ruler-text[data-v-3a7dfcc8] {
+  color: var(--themeColor);
+  font-size: 0.8rem;
+  text-align: center;
+}
+.dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] .scale-line-container[data-v-3a7dfcc8] .ruler-texts[data-v-3a7dfcc8] .scale-line[data-v-3a7dfcc8] {
+  width: 0.1rem;
+  background: var(--themeColor);
+}
+.dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] .scale-line-container[data-v-3a7dfcc8] .scale-line[data-v-3a7dfcc8] {
+  width: 0.1rem;
+  background: var(--themeColor);
+}

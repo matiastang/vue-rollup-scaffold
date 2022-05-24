@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2021-12-30 15:31:25
  * @LastEditors: matiastang
- * @LastEditTime: 2022-05-21 17:04:40
- * @FilePath: /vue-front-scaffold/components/index.ts
+ * @LastEditTime: 2022-05-23 17:17:06
+ * @FilePath: /vue-front-scaffold/src/components/index.ts
  * @Description: 导出所有组件
  */
 import { App } from 'vue'
@@ -36,7 +36,7 @@ import DwDragVerify from './dwDragVerify/index'
 // import DwDefectFactorLine from './dwDefectFactorLine/index'
 // import DwDefectFactorPositionTraceLine from './dwDefectFactorPositionTraceLine/index'
 
-import _package from '../package.json'
+import _package from '../../package.json'
 
 // 所有组件列表
 const components = [
@@ -44,7 +44,7 @@ const components = [
     // DwEcharts,
     // DwLineChart,
     DwWechatLogin,
-    DwDragVerify,
+    // DwDragVerify,
     // DwPortfolioBg,
     // DwPortfolioIcon,
     // DwPortfolioLine,
