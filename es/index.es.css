@@ -1,3 +1,21 @@
+.dw-wechat-login-container[data-v-7fb5c734] {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dw-wechat-login-container[data-v-7fb5c734] .dw-wechat-login-qrcode[data-v-7fb5c734] {
+  border: none;
+}
+:root {
+  --themeColor: #d65928;
+}
+
+.dw-ruler[data-v-3a7dfcc8] {
+  --dw-ruler-line: var(--themeColor);
+}
+
 .dw-ruler[data-v-3a7dfcc8] {
   width: 100%;
 }
@@ -25,9 +43,9 @@
 }
 .dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] .scale-line-container[data-v-3a7dfcc8] .ruler-texts[data-v-3a7dfcc8] .scale-line[data-v-3a7dfcc8] {
   width: 0.1rem;
-  background: var(--themeColor);
+  background: var(--dw-ruler-line);
 }
 .dw-ruler[data-v-3a7dfcc8] .scale-lines[data-v-3a7dfcc8] .scale-line-container[data-v-3a7dfcc8] .scale-line[data-v-3a7dfcc8] {
   width: 0.1rem;
-  background: var(--themeColor);
+  background: var(--dw-ruler-line);
 }

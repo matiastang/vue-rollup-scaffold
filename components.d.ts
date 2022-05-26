@@ -12,7 +12,7 @@ declare module 'vue' {
     DwEcharts: typeof import('./src/components/dwEcharts/src/DwEcharts.vue')['default']
     DwFilterArea: typeof import('./src/components/dwFilterArea/src/DwFilterArea.vue')['default']
     DwFilterAreaSlider: typeof import('./src/components/dwFilterAreaSlider/src/DwFilterAreaSlider.vue')['default']
-    DwFilterRuler: typeof import('./src/components/dwFilterRuler/src/DwFilterRuler.vue')['default']
+    DwFilterRuler: typeof import('./src/components/dwFilterRuler/DwFilterRuler.vue')['default']
     DwFilterRulerSlider: typeof import('./src/components/dwFilterRulerSlider/src/DwFilterRulerSlider.vue')['default']
     DwFilterSlider: typeof import('./src/components/dwFilterSlider/src/DwFilterSlider.vue')['default']
     DwLineChart: typeof import('./src/components/dwLineChart/src/DwLineChart.vue')['default']

@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2022-01-05 17:28:59
  * @LastEditors: matiastang
- * @LastEditTime: 2022-05-23 17:33:10
- * @FilePath: /vue-front-scaffold/rollupBuild/rollup.config.js
+ * @LastEditTime: 2022-05-26 10:56:23
+ * @FilePath: /vue-rollup-scaffold/rollupBuild/rollup.config.js
  * @Description: rollup配置
  */
 /**
@@ -54,6 +54,7 @@ console.log(__dirname)
 import componentModuleMap from './componentsName'
 import componentModuleConfig from './rollupModuleConfig'
 import componentStyleConfig from './rollupStyleConfig'
+import componentIndexConfig from './initConfig'
 import pkg from '../package.json'
 
 const external = Object.keys(pkg.dependencies)
@@ -63,11 +64,23 @@ const isDev = false //process.env.NODE_ENV === 'development';
     dev 情况下不做样式抽离
     其他环境下，除了基本的 js 打包外，遍历要拆分的模块，分别生成一个配置项，在这个配置项中处理各自的样式分离
 */
-const rollupConfig = isDev
-    ? componentModuleConfig(componentModuleMap, external, isDev)
-    : Object.keys(componentModuleMap).map((moduleName) =>
-          componentStyleConfig(moduleName, external)
-      )
+const rollupConfig =
+    // isDev
+    //     ? componentModuleConfig(componentModuleMap, external, isDev)
+    //     : Object.keys(componentModuleMap).map((moduleName) =>
+    //           componentStyleConfig(moduleName, external)
+    //       )
+    isDev
+        ? componentModuleConfig(componentModuleMap, external, isDev)
+        : [componentStyleConfig('dwFilterRuler', external)] //[componentIndexConfig([], isDev)]
+
+// isDev
+//     ? componentModuleConfig(componentModuleMap, external, isDev)
+//     : [componentIndexConfig(['./dwFilterRuler/index'], isDev)].concat(
+//           Object.keys(componentModuleMap).map((moduleName) =>
+//               componentStyleConfig(moduleName, external)
+//           )
+//       )
 
 // isDev
 //     ? componentModuleConfig(componentModuleMap, external, isDev)

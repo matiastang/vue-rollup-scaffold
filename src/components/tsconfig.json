@@ -18,6 +18,8 @@
     "include": [
         "shims-vue.d.ts",
         "glpbal.d.ts",
+        // "./dwFilterRuler/**/*.ts",
+        // "./dwFilterRuler/**/*.vue",
         "./dwPortfolioTypes/index.d.ts",
     ],
 }

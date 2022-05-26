@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2022-05-23 16:00:27
  * @LastEditors: matiastang
- * @LastEditTime: 2022-05-23 17:29:13
- * @FilePath: /vue-front-scaffold/rollupBuild/rollupModuleConfig.js
+ * @LastEditTime: 2022-05-25 17:21:28
+ * @FilePath: /vue-rollup-scaffold/rollupBuild/rollupModuleConfig.js
  * @Description: rollup 配置文件
  */
 import postcss from 'rollup-plugin-postcss'
@@ -24,7 +24,8 @@ const overrides = {
 
 const createModuleConfig = (cModuleMap, external, isDev) => ({
     input: {
-        index: 'src/test/main.ts',
+        // index: 'src/test/main.ts',
+        index: 'src/components/index.ts',
         ...cModuleMap,
     },
     output: {
@@ -57,8 +58,8 @@ const createModuleConfig = (cModuleMap, external, isDev) => ({
             //         },
             //     ],
             // ],
-            inject: isDev, // dev 环境下的 样式是入住到 js 中的，其他环境不会注入
-            extract: false, // 无论是 dev 还是其他环境这个配置项都不做 样式的抽离
+            inject: false, //isDev, // dev 环境下的 样式是入住到 js 中的，其他环境不会注入
+            extract: true, // 无论是 dev 还是其他环境这个配置项都不做 样式的抽离
         }),
         // eslint({
         //     include: ['src/**/*.js'],

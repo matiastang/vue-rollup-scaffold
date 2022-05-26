@@ -1,0 +1,83 @@
+<!-- <?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <circle cx="100" cy="50" r="40" stroke="black"
+  stroke-width="2" fill="red" />
+</svg> -->
+<!-- 第一行包含了 XML 声明。请注意 standalone 属性！该属性规定此 SVG 文件是否是"独立的"，或含有对外部文件的引用。
+standalone="no" 意味着 SVG 文档会引用一个外部文件 - 在这里，是 DTD 文件。
+第二和第三行引用了这个外部的 SVG DTD。该 DTD 位于 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"。该 DTD 位于 W3C，含有所有允许的 SVG 元素。
+SVG 代码以 <svg> 元素开始，包括开启标签 <svg> 和关闭标签 </svg> 。这是根元素。width 和 height 属性可设置此 SVG 文档的宽度和高度。version 属性可定义所使用的 SVG 版本，xmlns 属性可定义 SVG 命名空间。
+SVG 的 <circle> 用来创建一个圆。cx 和 cy 属性定义圆中心的 x 和 y 坐标。如果忽略这两个属性，那么圆点会被设置为 (0, 0)。r 属性定义圆的半径。
+stroke 和 stroke-width 属性控制如何显示形状的轮廓。我们把圆的轮廓设置为 2px 宽，黑边框。
+fill 属性设置形状内的颜色。我们把填充颜色设置为红色。
+关闭标签的作用是关闭 SVG 元素和文档本身。 -->
+
+<!-- <svg width="100" height="100" viewBox="50 50 50 50">
+  <style>
+    .red {
+      fill: red;
+    }
+  </style>
+  <circle id="mycircle" cx="50" cy="50" r="50" class="red" />
+</svg>
+<svg> -->
+<!-- width属性和height属性，指定了 SVG 图像在 HTML 元素中所占据的宽度和高度。除了相对单位，也可以采用绝对单位（单位：像素）。如果不指定这两个属性，SVG 图像默认大小是300像素（宽） x 150像素（高）。
+如果只想展示 SVG 图像的一部分，就要指定viewBox属性。
+属性的值有四个数字，分别是左上角的横坐标和纵坐标、视口的宽度和高度。上面代码中，SVG 图像是100像素宽 x 100像素高，viewBox属性指定视口从(50, 50)这个点开始。所以，实际看到的是右下角的四分之一圆。
+注意，视口必须适配所在的空间。上面代码中，视口的大小是 50 x 50，由于 SVG 图像的大小是 100 x 100，所以视口会放大去适配 SVG 图像的大小，即放大了四倍。
+如果不指定width属性和height属性，只指定viewBox属性，则相当于只给定 SVG 图像的长宽比。这时，SVG 图像的默认大小将等于所在的 HTML 元素的大小。 -->
+
+<!-- <svg width="300" height="180">
+
+  <style type="text/css" >
+    .red {
+      fill: red;
+    }
+
+    .fancy {
+      fill: none;
+      stroke: black;
+      stroke-width: 3pt;
+    }
+  </style>
+
+  <circle cx="30"  cy="50" r="25" />
+  <circle cx="90"  cy="50" r="25" class="red" />
+  <circle cx="150" cy="50" r="25" class="fancy" />
+</svg> -->
+<!-- fill：填充色
+stroke：描边色
+stroke-width：边框宽度 -->
+
+<!-- <svg width="300" height="180">
+<path d="
+  M 18,3
+  L 46,3
+  L 46,40
+  L 61,40
+  L 32,68
+  L 3,40
+  L 18,40
+  Z
+"></path>
+</svg> -->
+<!-- <path>的d属性表示绘制顺序，它的值是一个长字符串，每个字母表示一个绘制动作，后面跟着坐标。
+M：移动到（moveto）
+L：画直线到（lineto）
+Z：闭合路径 -->
+
+<svg width="300" height="100">
+  <defs>
+    <g id="myCircle">
+      <text x="25" y="20">圆形</text>
+      <circle cx="50" cy="50" r="20"/>
+    </g>
+  </defs>
+
+  <use href="#myCircle" x="0" y="0" />
+  <use href="#myCircle" x="100" y="0" fill="blue" />
+  <use href="#myCircle" x="200" y="0" fill="white" stroke="blue" />
+</svg>

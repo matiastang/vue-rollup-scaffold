@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "declaration": true, // 是否创建 typescript 声明文件
+        "diagnostics": true, // 打印诊断信息
+        "target": "esnext", // 目标语言的版本, 与 Vue 的浏览器支持保持一致
+        "module": "esnext", // 生成代码的模板标准
+        "strict": true,
+        "jsx": "preserve",
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "outDir": "./dist_1.2.0", // 指定输出目录
+        "rootDir": "./src/components", // 指定输出文件目录(用于输出)，用于控制输出目录结构
+    },
+    "include": ["*.ts+(|x)", "**/*.ts+(|x)"],
+    "exclude": [
+        // 排除项
+        "node_modules"
+    ],
+}

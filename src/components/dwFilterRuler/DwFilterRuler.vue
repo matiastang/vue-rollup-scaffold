@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2022-02-14 16:02:04
  * @LastEditors: matiastang
- * @LastEditTime: 2022-05-24 09:52:37
- * @FilePath: /vue-front-scaffold/src/components/dwFilterRuler/src/DwFilterRuler.vue
+ * @LastEditTime: 2022-05-26 10:10:45
+ * @FilePath: /vue-rollup-scaffold/src/components/dwFilterRuler/DwFilterRuler.vue
  * @Description: 
 -->
 <template>
@@ -67,8 +67,12 @@ export default defineComponent({
     },
 })
 </script>
-
 <style lang="scss" scoped>
+@import '../style/index.scss';
+.dw-ruler {
+    --dw-ruler-line: var(--themeColor);
+}
+$--dw-ruler-line: var(--dw-ruler-line);
 .dw-ruler {
     width: 100%;
     .scale-lines {
@@ -92,12 +96,12 @@ export default defineComponent({
                 }
                 .scale-line {
                     width: 0.1rem;
-                    background: var(--themeColor);
+                    background: $--dw-ruler-line;
                 }
             }
             .scale-line {
                 width: 0.1rem;
-                background: var(--themeColor);
+                background: $--dw-ruler-line;
             }
         }
     }

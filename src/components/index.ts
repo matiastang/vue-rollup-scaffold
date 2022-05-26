@@ -2,13 +2,13 @@
  * @Author: matiastang
  * @Date: 2021-12-30 15:31:25
  * @LastEditors: matiastang
- * @LastEditTime: 2022-05-23 17:17:06
- * @FilePath: /vue-front-scaffold/src/components/index.ts
+ * @LastEditTime: 2022-05-26 10:19:12
+ * @FilePath: /vue-rollup-scaffold/src/components/index.ts
  * @Description: 导出所有组件
  */
 import { App } from 'vue'
-import DwWechatLogin from './dwWechatLogin/index'
-import DwDragVerify from './dwDragVerify/index'
+// import DwWechatLogin from './dwWechatLogin/index'
+// import DwDragVerify from './dwDragVerify/index'
 // 类型
 // export * from './@types/index'
 // 基础
@@ -27,7 +27,7 @@ import DwDragVerify from './dwDragVerify/index'
 // import DwFilterSlider from './dwFilterSlider/index'
 // import DwFilterArea from './dwFilterArea/index'
 // // import { ChartItem, CanvasItem } from './dwFilterArea/src/interface'
-// import DwFilterRuler from './dwFilterRuler/index'
+import DwFilterRuler from './dwFilterRuler/index'
 // import DwFilterAreaSlider from './dwFilterAreaSlider/index'
 // import DwFilterRulerSlider from './dwFilterRulerSlider/index'
 // 寻暇记
@@ -36,14 +36,14 @@ import DwDragVerify from './dwDragVerify/index'
 // import DwDefectFactorLine from './dwDefectFactorLine/index'
 // import DwDefectFactorPositionTraceLine from './dwDefectFactorPositionTraceLine/index'
 
-import _package from '../../package.json'
+// import _package from '../../package.json'
 
 // 所有组件列表
 const components = [
     // 基础
     // DwEcharts,
     // DwLineChart,
-    DwWechatLogin,
+    // DwWechatLogin,
     // DwDragVerify,
     // DwPortfolioBg,
     // DwPortfolioIcon,
@@ -54,7 +54,7 @@ const components = [
     // DwStocksAnalysisLine,
     // DwFilterSlider,
     // DwFilterArea,
-    // DwFilterRuler,
+    DwFilterRuler,
     // DwFilterAreaSlider,
     // DwFilterRulerSlider,
     // 寻暇记
@@ -82,7 +82,7 @@ export {
     // DwFilterArea,
     // // ChartItem,
     // // CanvasItem,
-    // DwFilterRuler,
+    DwFilterRuler,
     // DwFilterAreaSlider,
     // DwFilterRulerSlider,
     // // 西筹“个股分析”小程序
@@ -97,8 +97,8 @@ export {
     // DwPortfolioIndustry,
     // DwPortfolioNetWorth,
     // 西筹通用组件
-    DwWechatLogin,
-    DwDragVerify,
+    // DwWechatLogin,
+    // DwDragVerify,
     // 寻暇记
     // DwDefectDashboard,
     // DwDefectPositionLine,
@@ -107,6 +107,6 @@ export {
 }
 
 export default {
-    version: _package.version,
+    // version: _package.version,
     install,
 }

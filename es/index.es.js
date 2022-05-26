@@ -1,4 +1,6 @@
 import { defineComponent, computed, openBlock, createElementBlock, createCommentVNode } from 'vue';
+import script$1 from './dwFilterRuler.es.js';
+export { default as DwFilterRuler } from './dwFilterRuler.es.js';
 
 var script = defineComponent({
     name: 'DwWechatLogin',
@@ -188,4 +190,49 @@ script.install = (app) => {
     app.component(script.name, script);
 };
 
-export { script as default };
+// import DwFilterAreaSlider from './dwFilterAreaSlider/index'
+// import DwFilterRulerSlider from './dwFilterRulerSlider/index'
+// 寻暇记
+// import DwDefectDashboard from './dwDefectDashboard/index'
+// import DwDefectPositionLine from './dwDefectPositionLine/index'
+// import DwDefectFactorLine from './dwDefectFactorLine/index'
+// import DwDefectFactorPositionTraceLine from './dwDefectFactorPositionTraceLine/index'
+// import _package from '../../package.json'
+// 所有组件列表
+const components = [
+    // 基础
+    // DwEcharts,
+    // DwLineChart,
+    script,
+    // DwDragVerify,
+    // DwPortfolioBg,
+    // DwPortfolioIcon,
+    // DwPortfolioLine,
+    // DwPortfolioPie,
+    // DwPortfolioIndustry,
+    // DwPortfolioNetWorth,
+    // DwStocksAnalysisLine,
+    // DwFilterSlider,
+    // DwFilterArea,
+    script$1,
+    // DwFilterAreaSlider,
+    // DwFilterRulerSlider,
+    // 寻暇记
+    // DwDefectDashboard,
+    // DwDefectPositionLine,
+    // DwDefectFactorLine,
+    // DwDefectFactorPositionTraceLine,
+];
+// 定义 install 方法， App 作为参数, options
+const install = (app) => {
+    // 遍历注册所有组件
+    components.map((component) => {
+        app.component(component.name, component);
+    });
+};
+var index = {
+    // version: _package.version,
+    install,
+};
+
+export { script as DwWechatLogin, index as default };

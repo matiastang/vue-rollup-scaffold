@@ -2,8 +2,8 @@
  * @Author: matiastang
  * @Date: 2022-05-23 15:32:00
  * @LastEditors: matiastang
- * @LastEditTime: 2022-05-23 17:48:31
- * @FilePath: /vue-front-scaffold/rollupBuild/componentsName.js
+ * @LastEditTime: 2022-05-25 15:37:15
+ * @FilePath: /vue-rollup-scaffold/rollupBuild/componentsName.js
  * @Description: 获取组件名称
  */
 // 通过 mode 接口拿到 src/components 下的所有文件夹名作为打包后的模块
@@ -18,9 +18,9 @@
 // }, {})
 
 const cModuleMap = {
-    dwDragVerify: 'src/components/dwDragVerify/index.ts',
+    // dwDragVerify: 'src/components/dwDragVerify/index.ts',
     dwFilterRuler: 'src/components/dwFilterRuler/index.ts',
-    dwWechatLogin: 'src/components/dwWechatLogin/index.ts',
+    // dwWechatLogin: 'src/components/dwWechatLogin/index.ts',
 }
 
 export default cModuleMap

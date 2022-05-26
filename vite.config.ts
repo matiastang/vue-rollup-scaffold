@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 16:57:39
- * @LastEditTime: 2022-05-10 19:39:21
+ * @LastEditTime: 2022-05-24 14:59:28
  * @LastEditors: matiastang
  * @Description: In User Settings Edit
- * @FilePath: /datumwealth-front-scaffold/vite.config.ts
+ * @FilePath: /vue-rollup-scaffold/vite.config.ts
  */
 // vite配置文件vite.config.js
 
@@ -26,6 +26,8 @@ import compressPlugin from 'vite-plugin-compression'
 // 图片压缩
 import viteImagemin from 'vite-plugin-imagemin'
 import config from './loadenv'
+// 加载.svg
+import svgLoader from 'vite-svg-loader'
 
 import Inspect from 'vite-plugin-inspect'
 import _package from './package.json'
@@ -35,6 +37,7 @@ export default defineConfig(({ mode, command }) => {
         // 共享配置
         plugins: [
             vue(),
+            svgLoader(),
             vueJsx(),
             Components({
                 resolvers: [
